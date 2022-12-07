@@ -1,0 +1,143 @@
+"                    ___           ___           ___
+"     _____         /  /\         /  /\         /  /\
+"    /  /::\       /  /::\       /  /:/_       /  /:/_
+"   /  /:/\:\     /  /:/\:\     /  /:/ /\     /  /:/ /\
+"  /  /:/~/::\   /  /:/~/::\   /  /:/ /::\   /  /:/ /:/_
+" /__/:/ /:/\:| /__/:/ /:/\:\ /__/:/ /:/\:\ /__/:/ /:/ /\
+" \  \:\/:/~/:/ \  \:\/:/__\/ \  \:\/:/~/:/ \  \:\/:/ /:/
+"  \  \::/ /:/   \  \::/       \  \::/ /:/   \  \::/ /:/
+"   \  \:\/:/     \  \:\        \__\/ /:/     \  \:\/:/
+"    \  \::/       \  \:\         /__/:/       \  \::/
+"     \__\/         \__\/         \__\/         \__\/
+" _______________________________________________________
+"
+" Turn on syntax highlighting
+syntax on
+
+" Pick a leader key
+let mapleader = "\\"
+
+" Security
+set modelines=0
+
+" Show line numbers
+set number
+
+" Show file stats
+set ruler
+
+" Blink cursor on error instead of beeping (grr)
+set visualbell
+
+" Allow wildmenu
+set path+=**
+set wildignore+=**/node_modules/**
+set wildmenu
+set hidden
+
+" Encoding
+set encoding=utf-8
+
+" Whitespace
+set wrap
+" set textwidth=79
+" set formatoptions=tcqrn1
+set tabstop=2
+set softtabstop=2  " number of spaces in tab when editing
+set shiftwidth=2
+set expandtab
+set noshiftround
+
+" status line
+set laststatus=2
+set statusline+=%f "tail of the filename
+
+" swapfile
+set noswapfile
+
+" Cursor motion
+set scrolloff=3
+set backspace=indent,eol,start
+set matchpairs+=<:> " use % to jump between pairs
+runtime! macros/matchit.vim
+
+" Rendering
+set ttyfast
+
+" mouse
+set mouse=a
+set ttymouse=sgr
+
+" Status bar
+set laststatus=2
+
+" Last line
+set showmode
+set showcmd
+
+" splitting
+set splitright
+set splitbelow
+
+" Searching
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set showmatch
+map <leader><space> :let @/=''<CR> " clear search
+
+" Formatting
+map <leader>q gwip
+
+" Visualize tabs and newlines
+set listchars=tab:▸\ ,eol:¬
+" Uncomment this to enable by default: set list
+" To enable by default or use your leader key + l to toggle on/off
+" Toggle tabs and EOL
+map <leader>l :set list!<CR>
+set cursorline
+set cursorlineopt=number
+autocmd ColorScheme * highlight CursorLineNr cterm=bold term=bold gui=bold
+
+" Color scheme (terminal)
+set t_Co=256
+
+" -------------------------------------
+" REMAPS
+" -------------------------------------
+
+" disable arrow keys
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
+" Move up/down editor lines
+nnoremap j gj
+nnoremap k gk
+
+" Move up/down editor lines but faster
+noremap <C-j> 10j
+noremap <C-k> 10k
+
+vnoremap <C-h> 10h
+vnoremap <C-j> 10j
+vnoremap <C-k> 10k
+vnoremap <C-l> 10l
+
+" change SHIFT HML to CTRL HML
+noremap <C-H> H
+noremap <C-M> M
+noremap <C-L> L
+
+" No highlighting shortcut
+nnoremap <C-n> :noh<CR><esc>¬
+
+" Command remaps
+command Wqa wqa
+command WQa wqa
+command W w
+command Q q
+command Wa wa
+command Qa qa

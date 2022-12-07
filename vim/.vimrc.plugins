@@ -1,0 +1,122 @@
+"      ___                       ___           ___                       ___           ___     
+"     /  /\                     /__/\         /  /\        ___          /__/\         /  /\    
+"    /  /::\                    \  \:\       /  /:/_      /  /\         \  \:\       /  /:/_   
+"   /  /:/\:\  ___     ___       \  \:\     /  /:/ /\    /  /:/          \  \:\     /  /:/ /\  
+"  /  /:/~/:/ /__/\   /  /\  ___  \  \:\   /  /:/_/::\  /__/::\      _____\__\:\   /  /:/ /::\ 
+" /__/:/ /:/  \  \:\ /  /:/ /__/\  \__\:\ /__/:/__\/\:\ \__\/\:\__  /__/::::::::\ /__/:/ /:/\:\
+" \  \:\/:/    \  \:\  /:/  \  \:\ /  /:/ \  \:\ /~~/:/    \  \:\/\ \  \:\~~\~~\/ \  \:\/:/~/:/
+"  \  \::/      \  \:\/:/    \  \:\  /:/   \  \:\  /:/      \__\::/  \  \:\  ~~~   \  \::/ /:/ 
+"   \  \:\       \  \::/      \  \:\/:/     \  \:\/:/       /__/:/    \  \:\        \__\/ /:/  
+"    \  \:\       \__\/        \  \::/       \  \::/        \__\/      \  \:\         /__/:/   
+"     \__\/                     \__\/         \__\/                     \__\/         \__\/
+" _____________________________________________________________________________________________
+set number
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" config to allow ALE and Coc to work together
+let g:ale_disable_lsp = 1
+
+" set the runtime path to include Plug and initialize
+set rtp+=~/.vim/autoloud/plug.vim
+call plug#begin()
+
+" -------------------------------------
+" {{ GIT }}
+Plug 'airblade/vim-gitgutter'
+
+" {{ APPEARANCE }}
+Plug 'tpope/vim-commentary'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'yggdroot/indentline'
+Plug 'morhetz/gruvbox'
+Plug 'luochen1990/rainbow'
+
+" {{ BASICS }}
+Plug 'scrooloose/nerdtree'
+Plug '~/.fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf-install() } }
+
+" {{ LINT/QUALITY }}
+Plug 'dense-analysis/ale'
+Plug 'pangloss/vim-javascript'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" -------------------------------------
+
+call plug#end()            " required
+filetype plugin indent on    " required
+" Put your non-Plugin stuff after this line
+
+" -----------------------------------------------------------------------------
+" PLUGIN SETTINGS
+" -----------------------------------------------------------------------------
+
+" -------------------------------------
+" GITGUTTER
+" -------------------------------------
+let g:gitgutter_async=0
+let g:gitgutter_realtime=1
+let g:gitgutter_eager=1
+
+" -------------------------------------
+" FZF
+" -------------------------------------
+nnoremap <C-P> :FZF<CR>
+let g:fzf_layout = { 'window': { 'width': 0.75, 'height': 0.75 } }
+let g:fzf_colors =
+      \ { 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Comment'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Statement'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'border':  ['fg', 'Ignore'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment'] }
+
+" -------------------------------------
+" COLOR SCHEME / GRUVBOX
+" -------------------------------------
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_italicize_comments = 1
+set background=dark
+autocmd VimEnter * hi Normal ctermbg=none
+colorscheme gruvbox
+
+" -------------------------------------
+" AIRLINE
+" -------------------------------------
+let g:airline_theme='gruvbox'
+
+" -------------------------------------
+" INDENT LINE
+" -------------------------------------
+let g:indentLine_char_list = ['1','2','3','4','5','6','7','8','9']
+let g:indentLine_color_term = 239
+" let g:indentLine_bgcolor_term = 234
+
+" -------------------------------------
+" RAINBOW
+" -------------------------------------
+let g:rainbow_active = 1
+
+" -------------------------------------
+" NERDTREE
+" -------------------------------------
+nnoremap <leader>n :NERDTreeToggle<CR>
+
+" -------------------------------------
+" VIM-COMMENTARY
+" -------------------------------------
+nnoremap <C-\> :Commentary<CR>
+vnoremap <C-\> :Commentary<CR>
+
+" -------------------------------------
+" ALE
+" -------------------------------------
+let g:ale_python_flake8_options = '--max-line-length=100'
