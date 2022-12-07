@@ -1,0 +1,35 @@
+[user]
+    email = kaleb.bordner@gmail.com
+    name = Kaleb Bordner
+[credential]
+    helper = store
+[core]
+    editor = vim
+[color "status"]
+    added = green
+    changed = yellow
+    untracked = red
+[alias]
+    co = checkout
+    br = branch
+    ci = commit
+    cm = commit -m
+    st = status
+    unstage = reset HEAD --
+    tree = log --graph --decorate --oneline --abbrev-commit --all
+
+    fpush = push --force-with-lease
+    fp = push --force-with-lease
+    pf = push --force-with-lease
+
+    save = !git add -A && git commit -m 'SAVEPOINT'
+    undo = reset HEAD~1 --mixed
+    wipe = !git add -A && git commit -m 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
+[mergetool]
+    keepBackup = true
+[pull]
+    rebase = true
+[color]
+    ui = auto
+[advice]
+    pushNonFastForward = false
