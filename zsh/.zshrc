@@ -1,3 +1,16 @@
+# # start ssh-agent if necessary
+ssh_agent_config="${HOME}/.ssh/agent.config"
+function sssh {
+  touch "$ssh_agent_config"
+  chmod 600 "$ssh_agent_config"
+  /usr/bin/ssh-agent | sed 's/^echo/#echo/g' > "$ssh_agent_config"
+  . "$ssh_agent_config"
+  for key in $(find ~/.ssh/ -maxdepth 1 -name '*id_ed25519' -o -name '*id_rsa' -o -name '*_private'); do  
+    echo "$key"
+    /usr/bin/ssh-add "$key"
+  done
+}
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -6,7 +19,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Set up the prompt
-
 autoload -Uz promptinit
 promptinit
 prompt adam1
@@ -16,11 +28,11 @@ setopt histignorealldups sharehistory
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
 
+# source
+source $HOME/.profile
+
 # set indent on right prompt to nothing
 ZLE_RPROMPT_INDENT=0
-
-# source 
-. "$HOME/.profile"
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
