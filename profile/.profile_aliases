@@ -61,8 +61,6 @@ alias ggf='gg -F'
 alias ggb='gg --break'
   # BRANCH SPECIFIC
 alias main='git co main'
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-alias dot='dotfiles'
 
 # CLEANUP
 alias swpfind='find . -name "*.swp" -o -name "*.swo" -o -name "*.swq" -o -name "*.swl" -o -name "*.swm" -o -name "*.swn"'
