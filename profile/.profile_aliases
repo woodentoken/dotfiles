@@ -17,23 +17,45 @@ alias h='history'
 alias j='jobs -l'
 alias clc='clear'
 alias c='clc'
+
   # BASE IMPROVEMENTS
-alias mv='mv -i'
-alias cp='cp -i'
-alias ln='ln -i'
-alias ..='cd ..'
+  alias mv='mv -i'
+  alias cp='cp -i'
+  alias ln='ln -i'
+  alias ..='cd ..'
+
   # LS
-alias ls='ls -1 --group-directories-first --classify --color=auto'
-alias la='ls -A'
-alias l.='ls -d .*'
-alias ll='ls -la'
-alias l='ls -C'
+  alias ls='ls -1 --group-directories-first --classify --color=always'
+
+    # long (capital includes symlinks)
+    alias ll="ls -l | awk '/^d/'; ls -l | awk '/^-/'"
+    alias lL="ls -l | awk '/^d/'; ls -l | awk '/^l/'; ls -l | awk '/^-/'"
+
+
+    # only dotfiles (capital includes symlinks)
+    alias ld="ls -ld .* | awk '/^d/'; ls -ld .* | awk '/^-/'"
+    alias lD="ls -ld .* | awk '/^d/'; ls -ld .* | awk '/^l/'; ls -ld .* | awk '/^-/'"
+
+    # all (capital includes symlinks)
+    alias la="ls -lA | awk '/^d/'; ls -lA | awk '/^-/'"
+    alias lA="ls -lA | awk '/^d/'; ls -lA | awk '/^l/'; ls -lA | awk '/^-/'"
+
+
+  # TREE
+  alias tr='tr2'
+  alias tr1='tree -L 1'
+  alias tr2='tree -L 2'
+  alias tr3='tree -L 3'
+  alias tr4='tree -L 4'
+
   # TYPOS
-alias xs='cd'
-alias vf='cd'
-alias kk='ll'
+  alias xs='cd'
+  alias vf='cd'
+  alias kk='ll'
+
 
 # FZF
+
 
 # VIM
 alias gvim='mvim'
@@ -42,6 +64,7 @@ alias cim=vim
 alias bim=vim
 alias svi='sudo vim'
 alias svim='sudo vim'
+
 
 # GIT
 test -f ~/.git-completion.bash && . $_
@@ -59,8 +82,9 @@ alias gg='git grep -n'
 alias ggw='gg -W'
 alias ggf='gg -F'
 alias ggb='gg --break'
+
   # BRANCH SPECIFIC
-alias main='git co main'
+  alias main='git co main'
 
 # CLEANUP
 alias swpfind='find . -name "*.swp" -o -name "*.swo" -o -name "*.swq" -o -name "*.swl" -o -name "*.swm" -o -name "*.swn"'
