@@ -42,6 +42,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf-install() } }
 Plug 'dense-analysis/ale'
 Plug 'pangloss/vim-javascript'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 " -------------------------------------
 
 call plug#end()            " required
@@ -51,6 +52,11 @@ filetype plugin indent on    " required
 " -----------------------------------------------------------------------------
 " PLUGIN SETTINGS
 " -----------------------------------------------------------------------------
+
+" -------------------------------------
+" COC
+" -------------------------------------
+source ~/.vimrc.coc
 
 " -------------------------------------
 " GITGUTTER

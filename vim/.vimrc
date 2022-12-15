@@ -26,4 +26,3 @@
 
 source ~/.vimrc.base
 source ~/.vimrc.plugins
-source ~/.vimrc.coc
