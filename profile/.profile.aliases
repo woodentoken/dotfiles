@@ -42,6 +42,8 @@ alias c='clc'
   alias sp='cd ~/support && la'
 
   # TREE
+  alias tr='tree -L 2'
+  alias tr1='tree -L 1'
   alias tr1='tree -L 1'
   alias tr2='tree -L 2'
   alias tr3='tree -L 3'
@@ -55,6 +57,7 @@ alias c='clc'
 
 # FZF
 
+# TMUX
 
 # VIM
 alias gvim='mvim'
