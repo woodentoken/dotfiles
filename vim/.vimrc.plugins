@@ -38,8 +38,9 @@ Plug 'luochen1990/rainbow'
 
 " {{ BASICS }}
 Plug 'scrooloose/nerdtree'
-Plug '~/.fzf'
 Plug 'junegunn/fzf', { 'do': { -> fzf-install() } }
+Plug 'junegunn/fzf.vim'
+" Plug '~/.fzf'
 
 " {{ LINT/QUALITY }}
 Plug 'dense-analysis/ale'
