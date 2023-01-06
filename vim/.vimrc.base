@@ -38,6 +38,9 @@ set signcolumn="yes:1"
 " Blink cursor on error instead of beeping (grr)
 set visualbell
 
+" background
+set background=dark
+
 " Allow wildmenu
 set path+=**
 set wildignore+=**/node_modules/**
@@ -56,10 +59,6 @@ set softtabstop=2  " number of spaces in tab when editing
 set shiftwidth=2
 set expandtab
 set noshiftround
-
-" status line
-set laststatus=2
-set statusline+=%f "tail of the filename
 
 " swapfile
 set noswapfile
