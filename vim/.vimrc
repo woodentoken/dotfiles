@@ -24,6 +24,5 @@
 "    
 " This main file is merely a 'sourcerer' for the constituent parts below.
 
-source ~/.vimrc.base
 source ~/.vimrc.plugins
-source ~/.vimrc.coc
+source ~/.vimrc.base

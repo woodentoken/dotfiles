@@ -1,4 +1,22 @@
 {
   "suggest.noselect": true,
-  "diagnostic.displayByAle": true
+  "suggest.enablePreselect": true,
+
+  "coc.preferences.formatOnType":true,
+  "diagnostic.errorSign": "✘",
+  "diagnostic.infoSign": "ℹ",
+  "diagnostic.hintSign": "➤",
+  "diagnostic.enableHighlightLineNumber": true,
+  "codeLens.enable": true,
+  "signature.enable": true,
+
+  "python.autoUpdateLanguageServer": true,
+  "python.linting.enabled": true,
+  "python.jediEnabled": false,
+
+  "html.enable":true,
+  "html.validate.scripts": true,
+  "html.format.enable":true,
+
+  "highlight.colors.enable": true
 }

@@ -11,7 +11,7 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# BASH SPECIFIC
+# SH SPECIFIC
 alias tree='tree -Csu'
 alias h='history'
 alias j='jobs -l'
@@ -26,23 +26,24 @@ alias c='clc'
 
   # LS
   alias ls='ls -1 --group-directories-first --classify --color=always'
-
     # long (capital includes symlinks)
     alias ll="ls -l | awk '/^d/'; ls -l | awk '/^-/'"
     alias lL="ls -l | awk '/^d/'; ls -l | awk '/^l/'; ls -l | awk '/^-/'"
-
-
     # only dotfiles (capital includes symlinks)
     alias ld="ls -ld .* | awk '/^d/'; ls -ld .* | awk '/^-/'"
     alias lD="ls -ld .* | awk '/^d/'; ls -ld .* | awk '/^l/'; ls -ld .* | awk '/^-/'"
-
     # all (capital includes symlinks)
     alias la="ls -lA | awk '/^d/'; ls -lA | awk '/^-/'"
     alias lA="ls -lA | awk '/^d/'; ls -lA | awk '/^l/'; ls -lA | awk '/^-/'"
 
+  # MY STUFF
+  alias dt='cd ~/dotfiles && la'
+  alias pr='cd ~/projects && la'
+  alias sp='cd ~/support && la'
 
   # TREE
-  alias tr='tr2'
+  alias tr='tree -L 2'
+  alias tr1='tree -L 1'
   alias tr1='tree -L 1'
   alias tr2='tree -L 2'
   alias tr3='tree -L 3'
@@ -56,6 +57,7 @@ alias c='clc'
 
 # FZF
 
+# TMUX
 
 # VIM
 alias gvim='mvim'

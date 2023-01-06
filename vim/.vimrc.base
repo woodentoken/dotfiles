@@ -13,9 +13,14 @@
 "
 " Turn on syntax highlighting
 syntax on
+filetype plugin indent on
 
 " Pick a leader key
 let mapleader = "\\"
+
+" Indentation
+set autoindent
+set smartindent
 
 " Security
 set modelines=0
@@ -26,8 +31,15 @@ set number
 " Show file stats
 set ruler
 
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn="yes:1"
+
 " Blink cursor on error instead of beeping (grr)
 set visualbell
+
+" background
+set background=dark
 
 " Allow wildmenu
 set path+=**
@@ -47,10 +59,6 @@ set softtabstop=2  " number of spaces in tab when editing
 set shiftwidth=2
 set expandtab
 set noshiftround
-
-" status line
-set laststatus=2
-set statusline+=%f "tail of the filename
 
 " swapfile
 set noswapfile
@@ -116,6 +124,10 @@ noremap <Right> <NOP>
 " Move up/down editor lines
 nnoremap j gj
 nnoremap k gk
+
+" Quickly insert an empty new line without entering insert mode
+nnoremap <Leader>o o<Esc>
+nnoremap <Leader>O O<Esc>
 
 " Move up/down editor lines but faster
 noremap <C-j> 10j

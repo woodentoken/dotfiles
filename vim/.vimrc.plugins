@@ -18,7 +18,7 @@ filetype off                  " required
 let g:ale_disable_lsp = 1
 
 " set the runtime path to include Plug and initialize
-set rtp+=~/.vim/autoloud/plug.vim
+set rtp+=./.vim/autoloud/plug.vim
 call plug#begin()
 
 " -------------------------------------
@@ -31,6 +31,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'yggdroot/indentline'
 Plug 'morhetz/gruvbox'
+Plug 'sainnhe/gruvbox-material'
+Plug 'sjl/badwolf'
+Plug 'rakr/vim-two-firewatch'
 Plug 'luochen1990/rainbow'
 
 " {{ BASICS }}
@@ -46,26 +49,35 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()            " required
 filetype plugin indent on    " required
-" Put your non-Plugin stuff after this line
 
 " -----------------------------------------------------------------------------
 " PLUGIN SETTINGS
 " -----------------------------------------------------------------------------
 
 " -------------------------------------
-" GITGUTTER
+"   COC
+" -------------------------------------
+source ~/.vimrc.coc
+
+" -------------------------------------
+"   GITGUTTER
 " -------------------------------------
 let g:gitgutter_async=0
 let g:gitgutter_realtime=1
 let g:gitgutter_eager=1
-
+let g:gitgutter_max_signs = 500
+" No mapping
+let g:gitgutter_map_keys = 0
+" Colors
+let g:gitgutter_override_sign_column_highlight = 0
+"
 " -------------------------------------
-" FZF
+"   FZF
 " -------------------------------------
 nnoremap <C-P> :FZF<CR>
 let g:fzf_layout = { 'window': { 'width': 0.75, 'height': 0.75 } }
 let g:fzf_colors =
-      \ { 'fg':      ['fg', 'Normal'],
+      \ { 'fg':    ['fg', 'Normal'],
       \ 'bg':      ['bg', 'Normal'],
       \ 'hl':      ['fg', 'Comment'],
       \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
@@ -80,43 +92,41 @@ let g:fzf_colors =
       \ 'header':  ['fg', 'Comment'] }
 
 " -------------------------------------
-" COLOR SCHEME / GRUVBOX
+"   COLORSCHEMES
 " -------------------------------------
-let g:gruvbox_contrast_dark = 'hard'
-let g:gruvbox_italicize_comments = 1
-set background=dark
-autocmd VimEnter * hi Normal ctermbg=none
-colorscheme gruvbox
+source ~/.vimrc.colorschemes
 
 " -------------------------------------
-" AIRLINE
+"   AIRLINE
 " -------------------------------------
-let g:airline_theme='gruvbox'
+let g:airline_theme='distinguished'
 
 " -------------------------------------
-" INDENT LINE
+"   INDENT LINE
 " -------------------------------------
-let g:indentLine_char_list = ['1','2','3','4','5','6','7','8','9']
+let g:indentLine_char_list = ['0','1','2','3','4','5','6','7','8','9']
 let g:indentLine_color_term = 239
-" let g:indentLine_bgcolor_term = 234
 
 " -------------------------------------
-" RAINBOW
+"   RAINBOW
 " -------------------------------------
 let g:rainbow_active = 1
+let g:rainbow_conf = {
+      \ 'guifgs':   ['aquamarine1', 'steelblue1', 'slateblue1', 'purple', 'deeppink3', 'deeppink2'],
+      \ 'ctermfgs': [40,            75,           99,           129,      162,         197]
+      \}
 
 " -------------------------------------
-" NERDTREE
+"   NERDTREE
 " -------------------------------------
 nnoremap <leader>n :NERDTreeToggle<CR>
 
 " -------------------------------------
-" VIM-COMMENTARY
+"   VIM-COMMENTARY
 " -------------------------------------
 nnoremap <C-\> :Commentary<CR>
 vnoremap <C-\> :Commentary<CR>
 
 " -------------------------------------
-" ALE
+"   ALE
 " -------------------------------------
-let g:ale_python_flake8_options = '--max-line-length=100'
