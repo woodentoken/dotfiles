@@ -9,8 +9,8 @@
 #umask 022
 
 # include generic profile aliases
-if [ -f "$HOME/.profile_aliases" ]; then
-  . "$HOME/.profile_aliases"
+if [ -f "$HOME/.profile.aliases" ]; then
+  . "$HOME/.profile.aliases"
 fi
 
 # set PATH so it includes user's private bin if it exists
