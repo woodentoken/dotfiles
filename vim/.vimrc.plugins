@@ -18,7 +18,7 @@ filetype off                  " required
 let g:ale_disable_lsp = 1
 
 " set the runtime path to include Plug and initialize
-set rtp+=~/.vim/autoloud/plug.vim
+set rtp+=./.vim/autoloud/plug.vim
 call plug#begin()
 
 " -------------------------------------
@@ -31,6 +31,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'yggdroot/indentline'
 Plug 'morhetz/gruvbox'
+Plug 'sainnhe/gruvbox-material'
+Plug 'sjl/badwolf'
+Plug 'rakr/vim-two-firewatch'
 Plug 'luochen1990/rainbow'
 
 " {{ BASICS }}

@@ -1,16 +1,3 @@
-# # start ssh-agent if necessary
-ssh_agent_config="${HOME}/.ssh/agent.config"
-function sssh {
-  touch "$ssh_agent_config"
-  chmod 600 "$ssh_agent_config"
-  /usr/bin/ssh-agent | sed 's/^echo/#echo/g' > "$ssh_agent_config"
-  . "$ssh_agent_config"
-  for key in $(find ~/.ssh/ -maxdepth 1 -name '*id_ed25519' -o -name '*id_rsa' -o -name '*_private'); do  
-    echo "$key"
-    /usr/bin/ssh-add "$key"
-  done
-}
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -63,7 +50,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f ./.p10k.zsh ]] || source ./.p10k.zsh
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -94,3 +81,12 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+export COLORTERM=truecolor
+
+# Plugins
+# use ./update_or_install_zsh_plugins.sh to keep these up to date
+source ./.zsh/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=14'
+ZSH_AUTOSUGGEST_STRATEGY=(completion history)
+
+source ./.zsh/fast-syntax-highlighting/F-Sy-H.plugin.zsh
