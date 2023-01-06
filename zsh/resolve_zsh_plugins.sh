@@ -1,10 +1,11 @@
 #!/usr/bin/bash 
 # script to install or update zsh plugins
+DOTFILES_HOME=${HOME}/dotfiles
 
 function update_or_install {
   local repo_name="${1}"
   local plugin_name="$(echo "${repo_name}" | cut -d"/" -f2)"
-  local plugin_path="./.zsh/${plugin_name}"
+  local plugin_path="${DOTFILES_HOME}/zsh/.zsh/${plugin_name}"
 
   if cd "${plugin_path}" > /dev/null 2>&1; then
     echo "updating ${plugin_name}"
