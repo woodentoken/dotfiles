@@ -1,2 +1,6 @@
 install.log
+fzf/.fzf
+vim/.vim
+zsh/.zsh
+tmux/.tmux
 ssh/
