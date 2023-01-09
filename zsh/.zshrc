@@ -27,8 +27,8 @@ SAVEHIST=1000
 HISTFILE=~/.zsh_history
 
 # Use modern completion system
-autoload -Uz compinit
-compinit
+# autoload -Uz compinit
+# compinit
 
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
@@ -47,6 +47,8 @@ zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+# powerlevel10k
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -83,10 +85,4 @@ unset __conda_setup
 
 export COLORTERM=truecolor
 
-# Plugins
-# use ./update_or_install_zsh_plugins.sh to keep these up to date
-source ./.zsh/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=14'
-ZSH_AUTOSUGGEST_STRATEGY=(completion history)
-
-source ./.zsh/fast-syntax-highlighting/F-Sy-H.plugin.zsh
+source ~/.zshrc.plugins

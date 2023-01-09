@@ -1,0 +1,24 @@
+# Plugins
+# use ./update_or_install_zsh_plugins.sh to keep these up to date
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=14'
+ZSH_AUTOSUGGEST_STRATEGY=(completion history)
+source ./.zsh/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+
+
+source ./.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+
+
+source ./.zsh/fast-syntax-highlighting/F-Sy-H.plugin.zsh
+
+# not really a plugin, but comes from oh-my-zsh
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line -w
+  else
+    zle push-input -w
+    zle clear-screen -w
+  fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
