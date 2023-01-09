@@ -18,5 +18,12 @@
   "html.validate.scripts": true,
   "html.format.enable":true,
 
-  "highlight.colors.enable": true
+  "highlight.colors.enable": true,
+
+  "pairs.enableCharacters": [
+    "(",
+    "[",
+    "{",
+    "<",
+  ]
 }

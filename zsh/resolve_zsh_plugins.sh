@@ -20,4 +20,4 @@ function update_or_install {
 }
 
 update_or_install "zdharma/fast-syntax-highlighting"
-update_or_install "zsh-users/zsh-autosuggestions"
+update_or_install "marlonrichert/zsh-autocomplete"

@@ -54,6 +54,9 @@ alias c='clc'
   alias vf='cd'
   alias kk='ll'
 
+# CONDA
+alias ca='conda activate'
+alias ce='conda info --envs'
 
 # FZF
 

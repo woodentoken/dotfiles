@@ -24,7 +24,7 @@ let g:coc_global_extensions = [
 
 " settings related to coc specifically. various externsions are present under
 " the vim/
-"
+
 set nobackup
 set nowritebackup
 
@@ -51,25 +51,6 @@ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 " <C-g>u breaks current undo, please make your own choice.
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
       \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" confirms selection if any or just break line if none
-function! EnterSelect()
-  " if the popup is visible and an option is not selected
-  if pumvisible() && complete_info()["selected"] == -1
-    return "\<C-y>\<CR>"
-
-    " if the pum is visible and an option is selected
-  elseif pumvisible()
-    return coc#_select_confirm()
-
-    " if the pum is not visible
-  else
-    return "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-  endif
-endfunction
-
-" makes <CR> confirm selection if any or just break line if none
-inoremap <silent><expr><cr> EnterSelect()
 
 function! CheckBackspace() abort
   let col = col('.') - 1
@@ -110,7 +91,7 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>r <Plug>(coc-rename)
 
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
