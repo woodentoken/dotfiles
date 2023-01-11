@@ -4,11 +4,11 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=14'
 ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 source ./.zsh/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 
-
 source ./.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
-
 source ./.zsh/fast-syntax-highlighting/F-Sy-H.plugin.zsh
+
+source ./.zsh/zsh-colored-man-pages/colored-man-pages.plugin.zsh && man less
 
 # not really a plugin, but comes from oh-my-zsh
 fancy-ctrl-z () {
