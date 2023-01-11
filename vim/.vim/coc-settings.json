@@ -3,13 +3,17 @@
   "suggest.enablePreselect": true,
 
   "coc.preferences.formatOnType":true,
-  "diagnostic.errorSign": "✘",
+
+  "diagnostic.errorSign": "x",
   "diagnostic.infoSign": "ℹ",
   "diagnostic.hintSign": "➤",
   "diagnostic.enableHighlightLineNumber": true,
+  "diagnostic.displayByAle": true,
+
   "codeLens.enable": true,
   "signature.enable": true,
 
+  "pyright.enable": true,
   "python.autoUpdateLanguageServer": true,
   "python.linting.enabled": true,
   "python.jediEnabled": false,
