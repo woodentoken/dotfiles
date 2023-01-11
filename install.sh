@@ -19,7 +19,7 @@ function log {
 #################################################
 ### Housekeeping
 log "Installing dotfile packages..."
-dotfile_packages="curl stow git tmux vim zsh python"
+dotfile_packages="curl perl yodl stow git tmux vim zsh python fd-find"
 function dotfile_package_install { sudo apt-get update && sudo apt-get install -y ${dotfile_packages}; }
 run dotfile_package_install
 log "...Done"
@@ -51,6 +51,15 @@ log "Installing zsh plugins..."
 run ./zsh/resolve_zsh_plugins.sh
 log "...Done"
 #################################################
+
+
+#################################################
+### {FD} link fd-find
+log "Linking fd..."
+ln -s $(which fdfind) ~/.local/bin/fd
+log "...Done"
+#################################################
+
 
 #################################################
 ### {TMUX} install tpm
