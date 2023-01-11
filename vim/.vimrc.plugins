@@ -14,7 +14,7 @@ set number
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" config to allow ALE and Coc to work together
+" let coc and ale work together
 let g:ale_disable_lsp = 1
 
 " set the runtime path to include Plug and initialize
@@ -26,26 +26,24 @@ call plug#begin()
 Plug 'airblade/vim-gitgutter'
 
 " {{ APPEARANCE }}
-Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'yggdroot/indentline'
 Plug 'morhetz/gruvbox'
 Plug 'sainnhe/gruvbox-material'
-Plug 'sjl/badwolf'
-Plug 'rakr/vim-two-firewatch'
 Plug 'luochen1990/rainbow'
 
-" {{ BASICS }}
+" {{ FUNCTIONALITY }}
+Plug 'tpope/vim-commentary'
 Plug 'scrooloose/nerdtree'
+Plug 'yegappan/mru'
 Plug 'junegunn/fzf', { 'do': { -> fzf-install() } }
 Plug 'junegunn/fzf.vim'
-" Plug '~/.fzf'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " {{ LINT/QUALITY }}
 Plug 'dense-analysis/ale'
 Plug 'pangloss/vim-javascript'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " -------------------------------------
 
 call plug#end()            " required
@@ -54,6 +52,16 @@ filetype plugin indent on    " required
 " -----------------------------------------------------------------------------
 " PLUGIN SETTINGS
 " -----------------------------------------------------------------------------
+
+" -------------------------------------
+"   COLORSCHEMES
+" -------------------------------------
+source ~/.vimrc.colorschemes
+
+" -------------------------------------
+"   AIRLINE
+" -------------------------------------
+let g:airline_theme='gruvbox_material'
 
 " -------------------------------------
 "   COC
@@ -93,16 +101,6 @@ let g:fzf_colors =
       \ 'header':  ['fg', 'Comment'] }
 
 " -------------------------------------
-"   COLORSCHEMES
-" -------------------------------------
-source ~/.vimrc.colorschemes
-
-" -------------------------------------
-"   AIRLINE
-" -------------------------------------
-let g:airline_theme='distinguished'
-
-" -------------------------------------
 "   INDENT LINE
 " -------------------------------------
 let g:indentLine_char_list = ['0','1','2','3','4','5','6','7','8','9']
@@ -131,3 +129,11 @@ vnoremap <C-\> :Commentary<CR>
 " -------------------------------------
 "   ALE
 " -------------------------------------
+nnoremap <leader>af :ALEFix<CR>
+nnoremap <leader>at :ALEToggle<CR>
+let g:ale_virtualtext_cursor = 'current'
+"
+" -------------------------------------
+"   MRU
+" -------------------------------------
+nnoremap <leader>h :MRU<CR>
