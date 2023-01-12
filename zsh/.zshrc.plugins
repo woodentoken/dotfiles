@@ -41,13 +41,13 @@ zstyle ':autocomplete:*' list-lines 8
 
 # Show this many history lines when pressing ↑.
 zstyle ':autocomplete:history-search:*' list-lines 8
-source ./.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source ~/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 
-source ./.zsh/fast-syntax-highlighting/F-Sy-H.plugin.zsh
+source ~/.zsh/fast-syntax-highlighting/F-Sy-H.plugin.zsh
 
 
-source ./.zsh/zsh-colored-man-pages/colored-man-pages.plugin.zsh && man less 2>&1 > /dev/null
+source ~/.zsh/zsh-colored-man-pages/colored-man-pages.plugin.zsh && man less 2>&1 > /dev/null
 
 # not really a plugin, but comes from oh-my-zsh
 fancy-ctrl-z () {
