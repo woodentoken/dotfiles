@@ -72,7 +72,8 @@ these dotfiles use [vim-plug](https://github.com/junegunn/vim-plug) to manage pl
 
 ### tmux
 
-- WIP
+- [tmux-plugins/tpm](https://github.com/tmux-plugins/tpm)
+- [tmux-plugins/tmux-cpu](https://github.com/tmux-plugins/tmux-cpu)
 
 ---
 

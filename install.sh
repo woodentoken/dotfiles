@@ -19,7 +19,7 @@ function log {
 #################################################
 ### Housekeeping
 log "Installing dotfile packages..."
-dotfile_packages="curl perl yodl stow git tmux vim zsh python fd-find"
+dotfile_packages="curl perl yodl fd-find xdg-utils stow git tmux vim zsh python"
 function dotfile_package_install { sudo apt-get update && sudo apt-get install -y ${dotfile_packages}; }
 run dotfile_package_install
 log "...Done"
