@@ -1,7 +1,10 @@
 git/.git-credentials
 install.log
+
 fzf/.fzf
-vim/.vim
+
+vim/.vim/plugged
+vim/.vim/autoload
+
 zsh/.zsh
 tmux/.tmux
-ssh/
