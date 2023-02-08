@@ -1,20 +1,44 @@
 [user]
     email = kaleb.bordner@gmail.com
     name = Kaleb Bordner
+
 [credential]
     helper = store
+
 [core]
     editor = vim
+
 [color "status"]
     added = green
     changed = yellow
     untracked = red
+
+[pull]
+    rebase = true
+
+[fetch]
+    prune = true
+
 [alias]
-    co = checkout
+    aA = add -A
+
     br = branch
+    brD = branch -D
+
+    co = checkout
+    c- = checkout -
     ci = commit
     cm = commit -m
+
+    # open all files that have modifications in vim
+    edit = "!vim `git ls-files -m` -p"
+
+    lg = log --graph --abbrev-commit --decorate --pretty=format:'%C(bold red)%h%C(reset) - %C(bold green)(%ar%C()reset %C()white)%s%Creset)( %C(bold blue)- %an%C(reset%C()bold yellow)%d%C(reset)' --date=short)
+    ll = log --pretty=format:"%C(yellow%h%Cred%d\\ %Creset%s%Cblue\\ []%cn]" --decorate --numstat)
+    ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decoratelog --pretty=format:"%Cyellow)(%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate)
+
     st = status
+    sts = status -s
     unstage = reset HEAD --
     tree = log --graph --decorate --oneline --abbrev-commit --all
 
@@ -27,9 +51,12 @@
     wipe = !git add -A && git commit -m 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
 [mergetool]
     keepBackup = true
+
 [pull]
     rebase = true
+
 [color]
     ui = auto
+
 [advice]
     pushNonFastForward = false
