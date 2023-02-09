@@ -19,9 +19,14 @@ function log {
 #################################################
 ### Housekeeping
 log "Installing dotfile packages..."
-dotfile_packages="curl perl yodl fd-find xdg-utils stow git tmux vim zsh python python3 python3-pip"
-function dotfile_package_install { sudo apt-get update && sudo apt-get install -y ${dotfile_packages}; }
-run dotfile_package_install
+dotfile_packages="curl perl git yodl fd-find tree xdg-utils stow tmux vim zsh python3 python3-pip"
+sudo apt-get update
+
+for package in ${dotfile_packages}; do
+  log ''
+  sudo apt-get install $package
+done
+
 log "...Done"
 #################################################
 
@@ -40,7 +45,8 @@ log "...Done"
 ### {ZSH} install fzf
 log "Installing fzf..."
 run git clone --depth 1 https://github.com/junegunn/fzf.git ./fzf/.fzf
-run ./fzf/.fzf/install
+# auto answer prompts with autocompletion y, key-bindings y, update-config n
+echo 'y y n' | run ./fzf/.fzf/install --no-bash
 log "...Done"
 #################################################
 
@@ -86,10 +92,16 @@ log "...Done"
 
 
 #################################################
+### {POWERLEVEL10K} Install Powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ./powerlevel10k/powerlevel10k
+#################################################
+
+
+#################################################
 ### {STOW}
 echo "Stowing dotfile directories..."
 for directory in */; do
-  stow $directory
+  stow -R $directory
   echo "  ${directory} stowed in ${HOME}"
 done
 #################################################
@@ -98,6 +110,10 @@ done
 #################################################
 ### {NVM and NodeJS}
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 nvm install node
 #################################################
 
@@ -111,8 +127,9 @@ pip install virtualenvwrapper
 #################################################
 ### {ZSH} make zsh default shell
 log "Making zsh default shell..."
-chsh -s $(which zsh)
+sudo chsh -s $(which zsh)
 log "...Done"
 #################################################
 
+log "All Done!"
 exit 0

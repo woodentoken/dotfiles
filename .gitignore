@@ -6,5 +6,7 @@ fzf/.fzf
 vim/.vim/plugged
 vim/.vim/autoload
 
+powerlevel10k/powerlevel10k
+
 zsh/.zsh
 tmux/.tmux
