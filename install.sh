@@ -19,9 +19,13 @@ function log {
 #################################################
 ### Housekeeping
 log "Installing dotfile packages..."
-dotfile_packages="curl perl yodl fd-find xdg-utils stow git tmux vim zsh python python3 python3-pip"
-function dotfile_package_install { sudo apt-get update && sudo apt-get install -y ${dotfile_packages}; }
-run dotfile_package_install
+dotfile_packages="curl perl git yodl fd-find tree xdg-utils stow tmux vim zsh python python3 python3-pip"
+sudo apt-get update
+
+for package in ${dotfile_packages}; do
+  sudo apt-get install $package
+done
+
 log "...Done"
 #################################################
 
@@ -86,10 +90,16 @@ log "...Done"
 
 
 #################################################
+### {POWERLEVEL10K} Install Powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ./powerlevel10k/powerlevel10k
+#################################################
+
+
+#################################################
 ### {STOW}
 echo "Stowing dotfile directories..."
 for directory in */; do
-  stow $directory
+  stow -R $directory
   echo "  ${directory} stowed in ${HOME}"
 done
 #################################################
@@ -97,8 +107,7 @@ done
 
 #################################################
 ### {NVM and NodeJS}
-wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
-nvm install node
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash & nvm install node
 #################################################
 
 
