@@ -32,7 +32,7 @@ export FZF_DEFAULT_OPTS="--layout=reverse --color 16 --height 50% --border --inf
 # use ./update_or_install_zsh_plugins.sh to keep these up to date
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=15'
 ZSH_AUTOSUGGEST_STRATEGY=(completion history)
-source ./.zsh/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 
 
 # If there are fewer than this many lines below the prompt, move the prompt up
