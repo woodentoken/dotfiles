@@ -18,6 +18,11 @@ source ~/.zshrc.basics
 
 source $HOME/.profile
 
+# tmux
+# if [ -z "$TMUX" ]; then
+  # exec tmux new-session -A -s workspace
+# fi
+
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS="--layout=reverse --color 16 --height 50% --border --info=inline --preview='less {}'"
