@@ -69,6 +69,9 @@ alias dr='docker'
 
 # TMUX
 
+# ZSH
+alias zsrc='source ~/dotfiles/zsh/.zshrc'
+
 # VIM
 alias gvim='mvim'
 alias vi=vim
@@ -76,7 +79,6 @@ alias cim=vim
 alias bim=vim
 alias svi='sudo vim'
 alias svim='sudo vim'
-
 
 # GIT
 test -f ~/.git-completion.bash && . $_
@@ -97,6 +99,7 @@ alias ggb='gg --break'
 
   # BRANCH SPECIFIC
   alias main='git co main'
+  alias mast='git co master'
 
 # CLEANUP
 alias swpfind='find . -name "*.swp" -o -name "*.swo" -o -name "*.swq" -o -name "*.swl" -o -name "*.swm" -o -name "*.swn"'
