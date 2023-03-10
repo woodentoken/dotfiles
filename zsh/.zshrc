@@ -18,6 +18,11 @@ source ~/.zshrc.basics
 
 source $HOME/.profile
 
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+  # tmux attach -t default || exec tmux new -s && exit;
+  exec tmux
+fi
+
 # tmux
 # if [ -z "$TMUX" ]; then
   # exec tmux new-session -A -s workspace
