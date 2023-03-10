@@ -45,6 +45,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " {{ LINT/QUALITY }}
 Plug 'dense-analysis/ale'
 Plug 'pangloss/vim-javascript'
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 " -------------------------------------
 
 call plug#end()            " required
