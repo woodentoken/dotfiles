@@ -92,12 +92,6 @@ log "...Done"
 
 
 #################################################
-### {POWERLEVEL10K} Install Powerlevel10k
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ./powerlevel10k/powerlevel10k
-#################################################
-
-
-#################################################
 ### {STOW}
 echo "Stowing dotfile directories..."
 for directory in */; do
