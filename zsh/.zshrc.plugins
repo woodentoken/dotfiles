@@ -55,7 +55,7 @@ ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[yellow]%}%{%G~%}"
 ZSH_THEME_GIT_PROMPT_BEHIND="%{↓%G%}"
 ZSH_THEME_GIT_PROMPT_AHEAD="%{↑%G%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{%G?%}"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%}%{✔%G%}"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{%F{#44A6FF}%}%{_%G%}"
 
 export PS1='%B[%F{#A9A9A9}%n@$(my_ip)%f%k][/$(depth_pwd)]%b$(git_super_status) %# '
 
@@ -67,7 +67,7 @@ depth_pwd() {
   do
     Kcolor=$(num_to_hex $((- 25 + 10 * $i)) $((- 25 + 16 * $i)) $((- 25 + 25 * $i)))
     Fcolor=$(num_to_hex $((255 - 6 * $i)) $((100 - 10 * $i)) $((80 - 15 * $i)))
-    colored_pwd_array[i]="%F{$Fcolor}%K{$Kcolor}${pwd_array[i]}%f$i%k"
+    colored_pwd_array[i]="%F{$Fcolor}%K{$Kcolor}${pwd_array[i]}%f/%k"
   done
 
   echo ${colored_pwd_array[@]} | sed 's/ //g'
