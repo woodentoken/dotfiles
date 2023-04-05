@@ -39,7 +39,7 @@ Implemented a color based directory depth scheme, visible here:
 
 certainly, it gets a little hard to parse at the mid depths, still, felt like a nice little thing to do.
 
-working allowing directory depth jumping, like typing cd5 to go back 5 directories. That would be integrated with a labeling scheme in the current directory, WIP
+I am working allowing directory depth jumping, like typing cd5 to go back 5 directories. That would be integrated with a labeling scheme in the current directory, WIP
 
 ### zsh
 
