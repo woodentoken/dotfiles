@@ -33,6 +33,12 @@ not exhaustive and hopefully up to date
 - [stow](https://www.gnu.org/software/stow/)
 - [zsh-users/zsh](https://github.com/zsh-users/zsh) (see below)
 
+I implemented a color based depth scheme, visible here:
+![image](https://user-images.githubusercontent.com/43391485/230224167-7e7c1e2d-8a09-45d0-a1ee-fe0aee09f086.png)
+certainly, it gets a little hard to parse at the mid depths, still, felt like a nice little thing to do.
+
+I am working allowing directory depth jumping, like typing cd5 to go back 5 directories. That would be integrated with a labeling scheme in the current directory, WIP
+
 ### zsh
 
 - [zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
