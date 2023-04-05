@@ -12,11 +12,11 @@ prefer it to using large, single, "."files.
 
 ## Installation
 
-to install:
+to install (*do not use sudo*):
 
 ```
-git clone https://github.com/kraleb/dotfiles/ ~/dotfiles
-sudo ~/dotfiles/install.sh
+git clone https://github.com/woodentoken/dotfiles/ ~/dotfiles
+~/dotfiles/install.sh
 ```
 
 the install script uses `stow` to automatically symlink each folder into the
