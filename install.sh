@@ -137,6 +137,7 @@ log "...Done"
 ### {ZSH} make zsh default shell
 log "Making zsh default shell..."
 sudo chsh -s $(which zsh)
+chsh -s $(`which zsh`) $USER
 log "...Done"
 #################################################
 
