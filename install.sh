@@ -149,10 +149,22 @@ echo "host_list=(kbordner $USER)" >> /usr/local/etc/wemux.conf
 
 
 #################################################
+### {VIM} Install Plug
+log "Installing Vim Plug plugin manager..."
+curl -fLo ./vim/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> $LOG
+log "...Done"
+
+log "Installing Vim Plugins..."
+run vim -E +PlugInstall +qall || true
+log "...Done"
+#################################################
+
+
+#################################################
 ### {STOW}
 echo "Stowing dotfile directories..."
 for directory in */; do
-  stow --adopt -R $directory
+  stow -R $directory
   echo "  ${directory} stowed in ${HOME}"
 done
 #################################################
@@ -176,22 +188,9 @@ pip install virtualenvwrapper
 
 
 #################################################
-### {VIM} Install Plug
-log "Installing Vim Plug plugin manager..."
-curl -fLo ./vim/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> $LOG
-log "...Done"
-
-log "Installing Vim Plugins..."
-run vim -E +PlugInstall +qall || true
-log "...Done"
-#################################################
-
-
-#################################################
 ### {ZSH} make zsh default shell
 log "Making zsh default shell..."
 sudo chsh -s $(which zsh)
-chsh -s $(`which zsh`) $USER
 log "...Done"
 #################################################
 
