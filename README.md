@@ -1,4 +1,4 @@
-# kraleb/dotfiles
+# woodentoken/dotfiles
 These are dotfiles designed for Linux.
 
 They are based around using zsh for the terminal and vim for the editor.
