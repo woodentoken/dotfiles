@@ -38,6 +38,10 @@ set signcolumn="yes:1"
 " Blink cursor on error instead of beeping (grr)
 set visualbell
 
+" scroll to next line
+set whichwrap=b,s,<,>,h,l,[,]
+set backspace=indent,eol,start
+
 " background
 set background=dark
 
@@ -51,7 +55,7 @@ set hidden
 set encoding=utf-8
 
 " Whitespace
-set wrap
+" set wrap
 " set textwidth=79
 " set formatoptions=tcqrn1
 set tabstop=2
@@ -100,9 +104,8 @@ map <leader>q gwip
 
 " Visualize tabs and newlines
 set listchars=tab:▸\ ,eol:¬
-" Uncomment this to enable by default: set list
-" To enable by default or use your leader key + l to toggle on/off
-" Toggle tabs and EOL
+" Uncomment this to enable by default: set list To enable by default or use
+" your leader key + l to toggle on/off Toggle tabs and EOL
 map <leader>l :set list!<CR>
 set cursorline
 set cursorlineopt=number
@@ -121,6 +124,12 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
+" use tab and shift tab for indent shifting
+nnoremap <TAB> >>
+nnoremap <S-TAB> <<
+vnoremap <TAB> >gv
+vnoremap <S-TAB> <gv
+
 " Move up/down editor lines
 nnoremap j gj
 nnoremap k gk
@@ -133,15 +142,14 @@ nnoremap <Leader>O O<Esc>
 noremap <C-j> 10j
 noremap <C-k> 10k
 
+" move to beginning and end of line with ctrl h/l
+noremap <C-h> ^
+noremap <C-l> $
+
 vnoremap <C-h> 10h
 vnoremap <C-j> 10j
 vnoremap <C-k> 10k
 vnoremap <C-l> 10l
-
-" change SHIFT HML to CTRL HML
-noremap <C-H> H
-noremap <C-M> M
-noremap <C-L> L
 
 " No highlighting shortcut
 nnoremap <C-n> :noh<CR><esc>¬
