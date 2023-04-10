@@ -57,7 +57,8 @@ ZSH_THEME_GIT_PROMPT_AHEAD="%{↑%G%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{%G?%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{%F{#44A6FF}%}%{_%G%}"
 
-export PS1='%B[%F{#A9A9A9}%n@$(my_ip)%f%k][/$(depth_pwd)]%b$(git_super_status) %# '
+echo $(git_super_status)
+export PS1='%B[%F{#A9A9A9}%n%f%k][/$(depth_pwd)]%b$(git_super_status) %# '
 
 # helper functions used above
 depth_pwd() {
