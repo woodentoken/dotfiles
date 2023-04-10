@@ -144,3 +144,14 @@ let g:ale_virtualtext_cursor = 'current'
 "   MRU
 " -------------------------------------
 nnoremap <leader>h :MRU<CR>
+
+" -------------------------------------
+"   PYMODE
+" -------------------------------------
+let g:pymode_lint_cwindow = 0
+let g:pymode_lint_message = 1
+let g:pymode_lint_on_fly = 1
+let g:pymode_lint_unmodified = 1
+" avoid line too long warnings (E501)
+let g:pymode_lint_ignore = ["E501"]
+let g:pymode_python = 'python3'
