@@ -41,6 +41,7 @@ Plug 'yegappan/mru'
 Plug 'junegunn/fzf', { 'do': { -> fzf-install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'justinmk/vim-sneak'
 
 " {{ LINT/QUALITY }}
 Plug 'dense-analysis/ale'
@@ -150,3 +151,8 @@ let g:pymode_lint_unmodified = 1
 " avoid line too long warnings (E501)
 let g:pymode_lint_ignore = ["E501"]
 let g:pymode_python = 'python3'
+
+" -------------------------------------
+"   SNEAK
+" -------------------------------------
+" let g:sneak#label = 1
