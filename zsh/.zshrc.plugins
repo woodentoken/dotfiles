@@ -13,10 +13,13 @@
 #
 
 # use ./update_or_install_zsh_plugins.sh to keep these up to date
+
+# -----------------------------------------------------------------------------
+# ZSH AUTOSUGGEST
+# -----------------------------------------------------------------------------
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=15'
 ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
-
 
 # If there are fewer than this many lines below the prompt, move the prompt up
 # to make room for showing this many lines of completions (approximately).
@@ -26,21 +29,41 @@ zstyle ':autocomplete:*' list-lines 8
 zstyle ':autocomplete:history-search:*' list-lines 8
 source ~/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
-# Fast syntax highlighting
+# -----------------------------------------------------------------------------
+# FAST SYNTAX HIGHLIGHTING
+# -----------------------------------------------------------------------------
 source ~/.zsh/fast-syntax-highlighting/F-Sy-H.plugin.zsh
 
-# colored man pages
+# -----------------------------------------------------------------------------
+# COLORED MAN PAGES
+# -----------------------------------------------------------------------------
 source ~/.zsh/zsh-colored-man-pages/colored-man-pages.plugin.zsh && man less 2>&1 > /dev/null
 
-# alias tips
+# -----------------------------------------------------------------------------
+# ALIAS TIPS
+# -----------------------------------------------------------------------------
 source ~/.zsh/alias-tips/alias-tips.plugin.zsh
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="alias  "
 
 # ctrl-z that is ambidextrous (foregrounds and backgrounds)
+# -----------------------------------------------------------------------------
+# not really a plugin, but comes from oh-my-zsh
+# -----------------------------------------------------------------------------
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line -w
+  else
+    zle push-input -w
+    zle clear-screen -w
+  fi
+}
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-# git prompt & prompt customization
+# -----------------------------------------------------------------------------
+# GIT PROMPT & PROMPT CUSTOMIZATION
+# -----------------------------------------------------------------------------
 setopt prompt_subst
 source ~/.zsh/zsh-git-prompt/zshrc.sh
 
@@ -103,13 +126,4 @@ my_ip(){
   ip -o route get to 8.8.8.8 | sed -n 's/.*src \([0-9.]\+\).*/\1/p'
 }
 
-# not really a plugin, but comes from oh-my-zsh
-fancy-ctrl-z () {
-  if [[ $#BUFFER -eq 0 ]]; then
-    BUFFER="fg"
-    zle accept-line -w
-  else
-    zle push-input -w
-    zle clear-screen -w
-  fi
-}
+
