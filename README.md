@@ -69,19 +69,26 @@ these dotfiles use [vim-plug](https://github.com/junegunn/vim-plug) to manage pl
 #### functionality
 
 - [tpope/vim/commentary](https://github.com/tpope/vim-commentary)
+- [scrooloose/nerdtree](https://github.com/preservim/nerdtree)
 - [yegappan/mru](https://github.com/yegappan/mru)
 - [junegunn/fzf.vim](https://github.com/junegunn/fzf.vim)
 - [neoclide/coc](https://github.com/neoclide/coc.nvim)
+- [justinmk/vim-sneak](https://github.com/justinmk/vim-sneak)
 
 #### linting
 
 - [dense-analysis/ale](https://github.com/dense-analysis/ale)
 - [pangloss/vim-javascript](https://github.com/pangloss/vim-javascript)
+- [python-mode/python-mode](https://github.com/python-mode/python-mode)
 
 ### tmux
 
 - [tmux-plugins/tpm](https://github.com/tmux-plugins/tpm)
 - [tmux-plugins/tmux-cpu](https://github.com/tmux-plugins/tmux-cpu)
+- [tmux-plugins/tmux-open](https://github.com/tmux-plugins/tmux-open)
+- [kolach/tmux-temp](https://github.com/kolach/tmux-temp)
+- [tmux-plugins/tmux-copycat](https://github.com/tmux-plugins/tmux-copycat)
+- [tmux-plugins/tmux-yank](https://github.com/tmux-plugins/tmux-yank)
 
 ---
 
