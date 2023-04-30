@@ -96,7 +96,7 @@ echo "host_list=(kbordner $USER)" >> /usr/local/etc/wemux.conf
 ### {STOW}
 echo "Stowing dotfile directories..."
 for directory in */; do
-  stow -R $directory
+  stow --adopt -R $directory
   echo "  ${directory} stowed in ${HOME}"
 done
 #################################################

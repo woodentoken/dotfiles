@@ -27,7 +27,8 @@ export EDITOR="$VISUAL"
 
 # # start ssh-agent if necessary
 ssh_agent_config="${HOME}/.ssh/agent.config"
-function sssh {
+
+sssh(){
   touch "$ssh_agent_config"
   chmod 600 "$ssh_agent_config"
   /usr/bin/ssh-agent | sed 's/^echo/#echo/g' > "$ssh_agent_config"
