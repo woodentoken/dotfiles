@@ -38,6 +38,12 @@ alias c='clc'
 
   # MY STUFF
   alias dt='cd ~/dotfiles && la'
+  alias dtz='cd ~/dotfiles/zsh && la'
+  alias dtt='cd ~/dotfiles/tmux && la'
+  alias dtv='cd ~/dotfiles/vim && la'
+  alias dtp='cd ~/dotfiles/profile && la'
+  alias dtf='cd ~/dotfiles/fzf && la'
+  alias dtg='cd ~/dotfiles/git && la'
   alias pr='cd ~/projects && la'
   alias sp='cd ~/support && la'
 
