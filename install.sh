@@ -2,11 +2,6 @@
 
 # set -e
 
-rm ./install.log
-rm ~/.zshrc
-rm ~/.bashrc
-rm ~/.vimrc
-rm ~/.profile
 LOG=./install.log
 
 # append to file
@@ -23,13 +18,21 @@ function log {
 #################################################
 ### Housekeeping
 log "Installing dotfile packages..."
-dotfile_packages="curl perl git yodl fd-find tree xdg-utils stow tmux vim zsh python3 python3-pip"
+dotfile_packages="
+  curl perl
+  wslu git yodl fd-find tree xdg-utils stow
+  tmux vim zsh
+  python3 python3-pip
+"
 sudo apt-get update
 
 for package in ${dotfile_packages}; do
   log ''
   sudo apt-get install $package
 done
+
+# remove superfluous packages
+sudo apt-get autoremove
 
 log "...Done"
 #################################################
@@ -119,7 +122,6 @@ pip install virtualenvwrapper
 #################################################
 
 
-
 #################################################
 ### {VIM} Install Plug
 log "Installing Vim Plug plugin manager..."
@@ -130,7 +132,6 @@ log "Installing Vim Plugins..."
 run vim -E +PlugInstall +qall || true
 log "...Done"
 #################################################
-
 
 
 #################################################
