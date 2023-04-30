@@ -164,7 +164,7 @@ log "...Done"
 ### {STOW}
 echo "Stowing dotfile directories..."
 for directory in */; do
-  stow -R $directory
+  stow --adopt -R $directory
   echo "  ${directory} stowed in ${HOME}"
 done
 #################################################
