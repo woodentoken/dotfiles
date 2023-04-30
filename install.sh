@@ -2,8 +2,6 @@
 
 # set -e
 
-
-
 LOG=./install.log
 
 # append to file
@@ -149,18 +147,6 @@ echo "host_list=(kbordner $USER)" >> /usr/local/etc/wemux.conf
 
 
 #################################################
-### {VIM} Install Plug
-log "Installing Vim Plug plugin manager..."
-curl -fLo ./vim/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> $LOG
-log "...Done"
-
-log "Installing Vim Plugins..."
-run vim -E +PlugInstall +qall || true
-log "...Done"
-#################################################
-
-
-#################################################
 ### {STOW}
 echo "Stowing dotfile directories..."
 for directory in */; do
@@ -185,6 +171,20 @@ nvm install node
 ### {Python}
 pip install virtualenvwrapper
 #################################################
+
+
+
+#################################################
+### {VIM} Install Plug
+log "Installing Vim Plug plugin manager..."
+curl -fLo ./vim/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> $LOG
+log "...Done"
+
+log "Installing Vim Plugins..."
+run vim -E +PlugInstall +qall || true
+log "...Done"
+#################################################
+
 
 
 #################################################
