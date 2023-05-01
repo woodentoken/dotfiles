@@ -20,26 +20,39 @@ setopt histignorealldups sharehistory
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
 
-# set indent on right prompt to nothing
-# ZLE_RPROMPT_INDENT=0
+# bind history keys based on the presence of fzf
+if command -v fzf &> /dev/null
+then
+  echo 'fzf!'
+  bindkey "^[OA" fzf-history-widget
+  bindkey "^[OB" fzf-cd-widget
+  bindkey "^P" fzf-file-widget
+else
+  echo 'no fzf'
+  bindkey "^[OA" up-line-or-history
+  bindkey "^[OB" down-line-or-history
+  bindkey "^P" history-incremental-search-backward
+fi
+
+# rebind U (to go *U*p) and L (to clear *L*ine)
+bindkey "^U" clear-screen
+bindkey "^L" kill-whole-line
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=5000
+SAVEHIST=5000
 HISTFILE=~/.zsh_history
 
 # manage cd history as a stack
 setopt AUTO_PUSHD                  # pushes the old directory onto the stack
 setopt PUSHD_MINUS                 # exchange the meanings of '+' and '-'
 setopt CDABLE_VARS                 # expand the expression (allows 'cd -2/tmp')
-autoload -U compinit && compinit   # load + start completion
-zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;5;12'
-
-# Use modern completion system
-# autoload -Uz compinit
-# compinit
+alias dirs = 'dirs -v'
 
 # completion settings
+autoload -U compinit && compinit   # load + start completion
+
+zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;5;12'
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
@@ -54,35 +67,26 @@ zstyle ':completion:*' menu select=short
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
-
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export VIRTUALENVWRAPPER_VIRTUALENV_ARGS=' -p /usr/bin/python3 '
-export PROJECT_HOME=$HOME/Devel
-
-# locate virtualenvwrapper script
-if [ -e /usr/.local/bin/virtualenvwrapper.sh ]; then
-  source /usr/.local/bin/virtualenvwrapper.sh
-elif [ -e $HOME/.local/bin/virtualenvwrapper.sh ]; then
-  source $HOME/.local/bin/virtualenvwrapper.sh
-elif [ -e /usr/local/bin/virtualenvwrapper.sh ]; then
-  source /usr/local/bin/virtualenvwrapper.sh
-fi
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/kbordner/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-  eval "$__conda_setup"
-else
-  if [ -f "/home/kbordner/anaconda3/etc/profile.d/conda.sh" ]; then
-    . "/home/kbordner/anaconda3/etc/profile.d/conda.sh"
+# venv automatic activation
+_virtualenv_auto_activate() {
+  if [[ -z "$VIRTUAL_ENV" ]] ; then
+    ## If env folder is found then activate the vitualenv
+    if [[ -d ./.venv ]] ; then
+      VIRTUAL_ENV=$PWD
+      source ./.venv/bin/activate
+    fi
   else
-    export PATH="/home/kbordner/anaconda3/bin:$PATH"
+    ## check the current folder belong to earlier VIRTUAL_ENV folder
+    # if yes then do nothing
+    # else deactivate
+    parentdir="$(dirname "$VIRTUAL_ENV")"
+    if [[ "$PWD"/ != "$parentdir"/* ]] ; then
+      deactivate
+      VIRTUAL_ENV=''
+    fi
   fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
+}
+precmd() { _virtualenv_auto_activate }

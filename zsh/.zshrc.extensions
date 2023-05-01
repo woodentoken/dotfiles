@@ -1,0 +1,4 @@
+# This file is for specific extensions and sourcing for specific programs
+#
+# this is a cude utility needed for pytorch
+export LD_LIBRARY_PATH=/usr/lib/wsl/lib:$LD_LIBRARY_PATH
