@@ -19,13 +19,19 @@
 # -----------------------------------------------------------------------------
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=15'
 ZSH_AUTOSUGGEST_STRATEGY=(completion history)
-ZSH_AUTOSUGGEST_COMPLETION_IGNORE="vim [.]\/$"
-ZSH_AUTOSUGGEST_HISTORY_IGNORE="vim [.]\/$"
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 
-# If there are fewer than this many lines below the prompt, move the prompt up
-# to make room for showing this many lines of completions (approximately).
-zstyle ':autocomplete:*' list-lines 8
+# -----------------------------------------------------------------------------
+# ZSH AUTOCOMPLETE
+# -----------------------------------------------------------------------------
+# Set the value for all.
+zstyle -e ':autocomplete:*' list-lines 'reply=( $(( LINES / 3 )) )'
+# Override autocompletion.
+zstyle -e ':autocomplete:list-choices:*' list-lines 'reply=( $(( LINES / 3 )) )'
+# Override history menu.
+zstyle -e ':autocomplete:history-search-backward:*' list-lines 'reply=( $(( LINES / 2 )) )'
+# Override history search.
+zstyle -e ':autocomplete:history-incremental-search-backward:*' list-lines 'reply=( $(( LINES / 2 )) )'
 source ~/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # -----------------------------------------------------------------------------

@@ -21,20 +21,21 @@ setopt histignorealldups sharehistory
 bindkey -e
 
 # bind history keys based on the presence of fzf
-if command -v fzf &> /dev/null
-then
-  bindkey "^[OA" fzf-history-widget
-  bindkey "^[OB" fzf-cd-widget
-  bindkey "^P" fzf-file-widget
-else
-  bindkey "^[OA" up-line-or-history
-  bindkey "^[OB" down-line-or-history
-  bindkey "^P" history-incremental-search-backward
-fi
+# if command -v fzf &> /dev/null
+# then
+#   bindkey "^[OA" fzf-history-widget
+#   bindkey "^[OB" fzf-cd-widget
+#   bindkey "^P" fzf-file-widget
+# else
+#   bindkey "^[OA" up-line-or-history
+#   bindkey "^[OB" down-line-or-history
+#   bindkey "^P" history-incremental-search-backward
+# fi
 
 # rebind U (to go *U*p) and L (to clear *L*ine)
 bindkey "^U" clear-screen
 bindkey "^L" kill-whole-line
+bindkey "^H" kill-whole-line
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=5000

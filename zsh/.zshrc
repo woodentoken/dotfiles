@@ -27,6 +27,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 source $HOME/.profile
-source ~/.zshrc.plugins
 source ~/.zshrc.basics
+source ~/.zshrc.plugins
 source ~/.zshrc.extensions
