@@ -2,6 +2,8 @@
 
 # set -e
 
+# TODO make a cleaner for existing environments
+
 LOG=./install.log
 
 # append to file
