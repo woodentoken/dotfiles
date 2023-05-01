@@ -25,6 +25,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_OPTS="--layout=reverse --color 16 --height 50% --border --info=inline --preview='less {}'"
 
 source $HOME/.profile
 source ~/.zshrc.basics
