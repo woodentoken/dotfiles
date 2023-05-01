@@ -20,19 +20,7 @@ setopt histignorealldups sharehistory
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
 
-# bind history keys based on the presence of fzf
-# if command -v fzf &> /dev/null
-# then
-#   bindkey "^[OA" fzf-history-widget
-#   bindkey "^[OB" fzf-cd-widget
-#   bindkey "^P" fzf-file-widget
-# else
-#   bindkey "^[OA" up-line-or-history
-#   bindkey "^[OB" down-line-or-history
-#   bindkey "^P" history-incremental-search-backward
-# fi
-
-# rebind U (to go *U*p) and L (to clear *L*ine)
+# rebind U (to go *U*p) and L (to clear *L*ine), and H/Backspace to clear line
 bindkey "^U" clear-screen
 bindkey "^L" kill-whole-line
 bindkey "^H" kill-whole-line
