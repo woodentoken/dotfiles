@@ -13,7 +13,9 @@
 "
 " Turn on syntax highlighting
 syntax on
-filetype plugin indent on
+filetype on
+filetype plugin on
+filetype indent on
 
 " Pick a leader key
 let mapleader = "\\"
