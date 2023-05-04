@@ -144,9 +144,10 @@ let g:ale_virtualtext_cursor = 'current'
 "   MRU
 " -------------------------------------
 nnoremap <leader>h :MRU<CR>
+nnoremap <leader>m :MRU<CR>
 
 " -------------------------------------
-"   PYMODE
+"   PYMODE (https://github.com/python-mode/python-mode)
 " -------------------------------------
 let g:pymode_lint_cwindow = 0
 let g:pymode_lint_message = 1
@@ -155,3 +156,57 @@ let g:pymode_lint_unmodified = 1
 " avoid line too long warnings (E501)
 let g:pymode_lint_ignore = ["E501"]
 let g:pymode_python = 'python3'
+
+" -------------------------------------
+"   VIMTEX (https://www.ejmastnak.com/tutorials/vim-latex/vimtex/)
+" -------------------------------------
+" This enables Vim's and neovim's syntax-related features. Without this, some
+" VimTeX features will not work (see ":help vimtex-requirements" for more
+" info).
+syntax enable
+
+let g:vimtex_quickfix_mode=0
+let g:vimtex_compiler_method = 'latexmk'
+
+let g:vimtex_indent_enabled=1
+let g:vimtex_complete_enabled=1
+
+let g:vimtex_view_method='general'
+let g:vimtex_view_general_viewer='/usr/bin/mupdf'
+
+" Disable conceals by default
+let g:vimtex_syntax_conceal_disable = 1
+"
+" Enable a few things that we want
+let g:vimtex_syntax_conceal = {
+      \ 'math_bounds': 1,
+      \ 'styles': 1,
+      \}
+
+let g:vimtex_indent_delims = {
+      \ 'open'  : ['{', '(', vimtex#re#not_bslash . '['],
+      \ 'close' : ['}', ')', vimtex#re#not_bslash . ']'],
+      \}
+
+" Example: adding `\big` to VimTeX's delimiter toggle list
+let g:vimtex_delim_toggle_mod_list = [
+  \ ['\left', '\right'],
+    \ ['\big', '\big'],
+      \]
+
+" Most VimTeX mappings rely on localleader and this can be changed with the
+" following line. The default is usually fine and is the symbol "\".
+let maplocalleader = ","
+
+" -------------------------------------
+"   ULTISNIPPETS
+" -------------------------------------
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsSnippetDirectories=["UltiSnips", ".vimrc.snippets"]
+
+" -------------------------------------
+"   SNEAK
+" -------------------------------------
+" let g:sneak#label = 1
