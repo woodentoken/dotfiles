@@ -2,7 +2,21 @@
 
 # set -e
 
-# TODO make a cleaner for existing environments
+echo "Do you want to remove potentially conflicting files in your home directory? (y/n)"
+select yn in "y" "n"; do
+  case $yn in
+    y ) 
+
+      # TODO make a cleaner for existing environments
+      # get a nested set of files/folders from the current directory
+      # pushd ~
+      # move anything matching that nested set into a backup directory (timestamped)
+      # popd
+      log 'moved any potentially conflicting files in ~ into ~/dotfiles_backup_{date}'
+      ;;
+    n ) log 'did not touch existing files, you *may* encounter issues with installation and symlinking as a result';;
+  esac
+done
 
 LOG=./install.log
 
@@ -45,6 +59,14 @@ select yn in "create backups" "do nothing"; do
     "do nothing")
       log 'did not touch existing files, you *may* encounter issues with installation and symlinking as a result'
       break
+  esac
+done
+
+echo "Do you wish to install latex packages? (y/n)"
+select yn in "y" "n"; do
+  case $yn in
+    y ) install_latex=1;;
+    n ) log 'did not installing latex packages';;
   esac
 done
 
