@@ -2,7 +2,21 @@
 
 # set -e
 
-# TODO make a cleaner for existing environments
+echo "Do you want to remove potentially conflicting files in your home directory? (y/n)"
+select yn in "y" "n"; do
+  case $yn in
+    y ) 
+
+      # TODO make a cleaner for existing environments
+      # get a nested set of files/folders from the current directory
+      # pushd ~
+      # move anything matching that nested set into a backup directory (timestamped)
+      # popd
+      log 'moved any potentially conflicting files in ~ into ~/dotfiles_backup_{date}'
+      ;;
+    n ) log 'did not touch existing files, you *may* encounter issues with installation and symlinking as a result';;
+  esac
+done
 
 LOG=./install.log
 
@@ -17,6 +31,14 @@ function log {
   fi
 }
 
+echo "Do you wish to install latex packages? (y/n)"
+select yn in "y" "n"; do
+  case $yn in
+    y ) install_latex=1;;
+    n ) log 'did not installing latex packages';;
+  esac
+done
+
 #################################################
 ### Housekeeping
 log "Installing dotfile packages..."
@@ -26,12 +48,24 @@ dotfile_packages="
   tmux vim zsh
   python3 python3-pip
 "
+latex_packages="
+  texlive-latex-base
+  latexmk
+  mupdf
+"
 sudo apt-get update
 
 for package in ${dotfile_packages}; do
   log ''
   sudo apt-get install $package
 done
+
+if [ "$install_latex" = "1" ]; then
+  for package in ${latex_packages}; do
+    log ''
+    sudo apt-get install $package
+  done
+fi
 
 # remove superfluous packages
 sudo apt-get autoremove
