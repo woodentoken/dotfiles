@@ -47,7 +47,6 @@ select yn in "create backups" "do nothing"; do
       break
   esac
 done
-exit 0
 
 echo "Do you wish to install latex packages? (y/n)"
 select yn in "y" "n"; do
