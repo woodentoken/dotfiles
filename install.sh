@@ -2,21 +2,7 @@
 
 # set -e
 
-echo "Do you want to remove potentially conflicting files in your home directory? (y/n)"
-select yn in "y" "n"; do
-  case $yn in
-    y ) 
 
-      # TODO make a cleaner for existing environments
-      # get a nested set of files/folders from the current directory
-      # pushd ~
-      # move anything matching that nested set into a backup directory (timestamped)
-      # popd
-      log 'moved any potentially conflicting files in ~ into ~/dotfiles_backup_{date}'
-      ;;
-    n ) log 'did not touch existing files, you *may* encounter issues with installation and symlinking as a result';;
-  esac
-done
 
 LOG=./install.log
 
@@ -30,6 +16,38 @@ function log {
     echo
   fi
 }
+echo "Do you want to remove potentially conflicting files in your home directory? (y/n)"
+select yn in "create backups" "do nothing"; do
+  case $yn in
+    "create backups")
+
+      # backup existing files
+      backup_folder=~/.dotfile_backup_$(date '+%Y_%m_%d_%H_%M_%S')
+      mkdir $backup_folder
+
+      # locate existing dotfiles that may conflict
+      IFS=$'\n'
+      paths=($(find */\.[^.]* -maxdepth 0 -type d,f))
+      unset IFS
+
+      pushd ~ > /dev/null
+      for dotfile in "${paths[@]} dotfiles/"; do
+        dotfile=$(basename $dotfile)
+        if [ -d $dotfile ] || [ -f $dotfile ] || [ -s $dotfile ]; then
+          # mv $dotfile $backup_folder/$dotfile
+          log "moved $dotfile into $backup_folder"
+        fi
+      done
+      popd >/dev/null
+
+      break
+      ;;
+    "do nothing")
+      log 'did not touch existing files, you *may* encounter issues with installation and symlinking as a result'
+      break
+  esac
+done
+exit 0
 
 echo "Do you wish to install latex packages? (y/n)"
 select yn in "y" "n"; do
