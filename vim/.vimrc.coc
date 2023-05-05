@@ -21,6 +21,8 @@ let g:coc_global_extensions = [
       \ 'coc-highlight'
       \ ]
 
+let g:tex_flavor = 'latex'
+
 " settings related to coc specifically. various externsions are present under
 " the vim/
 

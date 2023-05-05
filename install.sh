@@ -2,7 +2,7 @@
 
 # set -e
 
-# TODO make a cleaner for existing environments
+
 
 LOG=./install.log
 
@@ -16,6 +16,46 @@ function log {
     echo
   fi
 }
+echo "Do you want to remove potentially conflicting files in your home directory? (y/n)"
+select yn in "create backups" "do nothing"; do
+  case $yn in
+    "create backups")
+
+      # backup existing files
+      backup_folder=~/.dotfile_backup_$(date '+%Y_%m_%d_%H_%M_%S')
+      mkdir $backup_folder
+
+      # locate existing dotfiles that may conflict
+      IFS=$'\n'
+      paths=($(find */\.[^.]* -maxdepth 0 -type d,f))
+      unset IFS
+
+      pushd ~ > /dev/null
+      for dotfile in "${paths[@]} dotfiles/"; do
+        dotfile=$(basename $dotfile)
+        if [ -d $dotfile ] || [ -f $dotfile ] || [ -s $dotfile ]; then
+          # mv $dotfile $backup_folder/$dotfile
+          log "moved $dotfile into $backup_folder"
+        fi
+      done
+      popd >/dev/null
+
+      break
+      ;;
+    "do nothing")
+      log 'did not touch existing files, you *may* encounter issues with installation and symlinking as a result'
+      break
+  esac
+done
+exit 0
+
+echo "Do you wish to install latex packages? (y/n)"
+select yn in "y" "n"; do
+  case $yn in
+    y ) install_latex=1;;
+    n ) log 'did not installing latex packages';;
+  esac
+done
 
 #################################################
 ### Housekeeping
@@ -26,12 +66,24 @@ dotfile_packages="
   tmux vim zsh
   python3 python3-pip
 "
+latex_packages="
+  texlive-latex-base
+  latexmk
+  mupdf
+"
 sudo apt-get update
 
 for package in ${dotfile_packages}; do
   log ''
   sudo apt-get install $package
 done
+
+if [ "$install_latex" = "1" ]; then
+  for package in ${latex_packages}; do
+    log ''
+    sudo apt-get install $package
+  done
+fi
 
 # remove superfluous packages
 sudo apt-get autoremove
