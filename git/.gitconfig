@@ -1,67 +1,70 @@
 [user]
-    email = kaleb.bordner@gmail.com
-    name = Kaleb Bordner
+  email = kaleb.bordner@gmail.com
+  name = Kaleb Bordner
 
 [credential]
-    helper = store
+  helper = store
 
 [core]
-    editor = vim
+  editor = vim
 
 [color "status"]
-    added = green
-    changed = yellow
-    untracked = red
+  added = green
+  changed = yellow
+  untracked = red
 
 [pull]
-    rebase = true
+  rebase = true
 
 [fetch]
-    prune = true
+  prune = true
 
 [alias]
-    aA = add -A
+  aA = add -A
 
-    br = branch
-    brD = branch -D
+  br = branch
+  brD = branch -D
 
-    co = checkout
-    c- = checkout -
-    ci = commit
-    cm = commit -m
+  co = checkout
+  c- = checkout -
+  ci = commit
+  cm = commit -m
+
+  # remove all merged branches from remote
+  rclean = git branch -r --merged origin/master | grep -v master | grep "origin/" | cut -d "/" -f 2- | xargs -n 20 git push --delete origin
 
     # open all files that have modifications in vim
-    edit = "!vim `git ls-files -m` -p"
+  edit = "!vim `git ls-files -m` -p"
 
-    lg = log --graph --abbrev-commit --decorate --pretty=format:'%C(bold red)%h%C(reset) - %C(bold green)(%ar%C()reset %C()white)%s%Creset)( %C(bold blue)- %an%C(reset%C()bold yellow)%d%C(reset)' --date=short)
-    ll = log --pretty=format:"%C(yellow%h%Cred%d\\ %Creset%s%Cblue\\ []%cn]" --decorate --numstat)
-    ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decoratelog --pretty=format:"%Cyellow)(%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate)
+  lg = log --graph --abbrev-commit --decorate --pretty=format:'%C(bold red)%h%C(reset) - %C(bold green)(%ar%C()reset %C()white)%s%Creset)( %C(bold blue)- %an%C(reset%C()bold yellow)%d%C(reset)' --date=short)
+  ll = log --pretty=format:"%C(yellow%h%Cred%d\\ %Creset%s%Cblue\\ []%cn]" --decorate --numstat)
+  ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decoratelog --pretty=format:"%Cyellow)(%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate)
 
-    st = status
-    sts = status -s
-    unstage = reset HEAD --
-    tree = log --graph --decorate --oneline --abbrev-commit --all
+  st = status
+  sts = status -s
+  unstage = reset HEAD --
+  tree = log --graph --decorate --oneline --abbrev-commit --all
 
-    fpush = push --force-with-lease
-    fp = push --force-with-lease
-    pf = push --force-with-lease
+  fpush = push --force-with-lease
+  fp = push --force-with-lease
+  pf = push --force-with-lease
 
-    save = !git add -A && git commit -m 'SAVEPOINT'
-    undo = reset HEAD~1 --mixed
-    wipe = !git add -A && git commit -m 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
+  save = !git add -A && git commit -m 'SAVEPOINT'
+  undo = reset HEAD~1 --mixed
+  wipe = !git add -A && git commit -m 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
 
 [mergetool]
-    keepBackup = true
+  keepBackup = true
 [merge]
   tool = meld
 [mergetool "meld"]
-	path = /usr/bin/meld
+  path = /usr/bin/meld
 
 [pull]
-    rebase = true
+  rebase = true
 
 [color]
-    ui = auto
+  ui = auto
 
 [advice]
-    pushNonFastForward = false
+  pushNonFastForward = false
