@@ -98,6 +98,7 @@ alias gpl="git pull "
 alias gps="git push "
 alias gpf="git push --force-with-lease"
 alias gst="git status"
+alias gclean="git branch -r --merged origin/master | grep -v master | grep "origin/" | cut -d "/" -f 2- | xargs -n 20 git push --delete origin"
 
 alias gg='git grep -n'
 alias ggw='gg -W'
