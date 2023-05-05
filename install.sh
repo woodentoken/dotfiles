@@ -2,8 +2,6 @@
 
 # set -e
 
-
-
 LOG=./install.log
 
 # append to file
