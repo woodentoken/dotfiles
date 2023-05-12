@@ -136,6 +136,11 @@ vnoremap <S-TAB> <gv
 nnoremap j gj
 nnoremap k gk
 
+" update quickly (and utilize ctrl s)
+nnoremap W :update<CR>
+nnoremap WQ ZZ
+nnoremap WQA :wqa<CR>
+
 " Quickly insert an empty new line without entering insert mode
 nnoremap <Leader>o o<Esc>
 nnoremap <Leader>O O<Esc>
@@ -174,5 +179,5 @@ command Qa qa
 "   Ps = 4  -> steady underline.
 "   Ps = 5  -> blinking bar (xterm).
 "   Ps = 6  -> steady bar (xterm).
-let &t_SI = "\e[6 q"
+let &t_SI = "\e[5 q"
 let &t_EI = "\e[4 q"

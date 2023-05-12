@@ -45,6 +45,7 @@ alias c='clc'
   alias dtf='cd ~/dotfiles/fzf && la'
   alias dtg='cd ~/dotfiles/git && la'
   alias pr='cd ~/projects && la'
+  alias prl='cd ~/projects/personal/learning && la'
   alias sp='cd ~/support && la'
 
   # TREE
