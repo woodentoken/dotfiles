@@ -62,24 +62,3 @@ zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-
-# venv automatic activation
-_virtualenv_auto_activate() {
-  if [[ -z "$VIRTUAL_ENV" ]] ; then
-    ## If env folder is found then activate the vitualenv
-    if [[ -d ./.venv ]] ; then
-      VIRTUAL_ENV=$PWD
-      source ./.venv/bin/activate
-    fi
-  else
-    ## check the current folder belong to earlier VIRTUAL_ENV folder
-    # if yes then do nothing
-    # else deactivate
-    parentdir="$(dirname "$VIRTUAL_ENV")"
-    if [[ "$PWD"/ != "$parentdir"/* ]] ; then
-      deactivate
-      VIRTUAL_ENV=''
-    fi
-  fi
-}
-precmd() { _virtualenv_auto_activate }
