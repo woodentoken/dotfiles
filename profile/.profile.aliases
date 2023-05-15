@@ -49,6 +49,7 @@ alias c='clc'
   alias sp='cd ~/support && la'
 
   # TREE
+  alias tree='tree -F --dirsfirst'
   alias tr='tree -L 2'
   alias tr1='tree -L 1'
   alias tr1='tree -L 1'

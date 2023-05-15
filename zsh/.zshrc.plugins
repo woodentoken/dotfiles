@@ -45,6 +45,11 @@ source ~/.zsh/fast-syntax-highlighting/F-Sy-H.plugin.zsh
 source ~/.zsh/zsh-colored-man-pages/colored-man-pages.plugin.zsh && man less 2>&1 > /dev/null
 
 # -----------------------------------------------------------------------------
+# FZF DIR NAVIGATOR
+# -----------------------------------------------------------------------------
+source ~/.zsh/fzf-dir-navigator/fzf-dir-navigator.plugin.zsh
+
+# -----------------------------------------------------------------------------
 # ALIAS TIPS
 # -----------------------------------------------------------------------------
 source ~/.zsh/alias-tips/alias-tips.plugin.zsh
@@ -79,7 +84,7 @@ _virtualenv_auto_activate() {
     ## If env folder is found then activate the virtualenv
     if [[ -d ./.venv ]] ; then
       source ./.venv/bin/activate
-      export VENV_NAME="[$(echo $(basename $(dirname $VIRTUAL_ENV)))]"
+      export VENV_NAME="[$(printf $(basename $(dirname $VIRTUAL_ENV)))]"
     fi
   else
     ## check the current folder belong to earlier VIRTUAL_ENV folder
@@ -106,7 +111,7 @@ ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg[red]%}%{%G×%}"
 ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[yellow]%}%{%G~%}"
 ZSH_THEME_GIT_PROMPT_BEHIND="%{$fg[yellow]%}%{↓%G%}"
 ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg[green]%}%{↑%G%}"
-ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[magenta]%{%G?%}"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[magenta]%}%{%G?%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{%F{#44A6FF}%}%{_%G%}"
 
 export PS1='%b$(git_super_status)%B[%F{#A9A9A9}%n%f%k][/$(depth_pwd)] %# '
