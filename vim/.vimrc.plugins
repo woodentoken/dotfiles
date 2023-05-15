@@ -1,16 +1,15 @@
-"      ___                       ___           ___                       ___           ___
-"     /  /\                     /__/\         /  /\        ___          /__/\         /  /\
-"    /  /::\                    \  \:\       /  /:/_      /  /\         \  \:\       /  /:/_
-"   /  /:/\:\  ___     ___       \  \:\     /  /:/ /\    /  /:/          \  \:\     /  /:/ /\
-"  /  /:/~/:/ /__/\   /  /\  ___  \  \:\   /  /:/_/::\  /__/::\      _____\__\:\   /  /:/ /::\
-" /__/:/ /:/  \  \:\ /  /:/ /__/\  \__\:\ /__/:/__\/\:\ \__\/\:\__  /__/::::::::\ /__/:/ /:/\:\
-" \  \:\/:/    \  \:\  /:/  \  \:\ /  /:/ \  \:\ /~~/:/    \  \:\/\ \  \:\~~\~~\/ \  \:\/:/~/:/
-"  \  \::/      \  \:\/:/    \  \:\  /:/   \  \:\  /:/      \__\::/  \  \:\  ~~~   \  \::/ /:/
-"   \  \:\       \  \::/      \  \:\/:/     \  \:\/:/       /__/:/    \  \:\        \__\/ /:/
-"    \  \:\       \__\/        \  \::/       \  \::/        \__\/      \  \:\         /__/:/
-"     \__\/                     \__\/         \__\/                     \__\/         \__\/
-" _____________________________________________________________________________________________
-"
+"_________________________________________________________________________________________
+"_____/__/\_____________________/__/\_________/__/\_____________________/__/\_________/__/\
+"____/__/::\____________________\__\:\_______/__/:/_______/__/\_________\__\:\_______/__/:/_
+"___/__/:/\:\____________________\__\:\_____/__/:/_/\____/__/:/__________\__\:\_____/__/:/_/\
+"__/__/:/~/:/_/__/\___/__/\_______\__\:\___/__/:/_/::\__/__/::\___________\__\:\___/__/:/_/::\
+"_/__/:/_/:/__\__\:\_/__/:/_/__/\__\__\:\_/__/:/__\/\:\_\__\/\:\____/__/::::::::\_/__/:/_/:/\:\
+"_\__\:\/:/____\__\:\__/:/__\__\:\_/__/:/_\__\:\_/~~/:/____\__\:\/\_\__\:\~~\~~\/_\__\:\/:/~/:/
+"__\__\::/______\__\:\/:/____\__\:\__/:/___\__\:\__/:/______\__\::/__\__\:\__~~~___\__\::/_/:/
+"___\__\:\_______\__\::/______\__\:\/:/_____\__\:\/:/_______/__/:/____\__\:\________\__\/_/:/
+"____\__\:\_______\__\/________\__\::/_______\__\::/________\__\/______\__\:\_________/__/:/
+"_____\__\/_____________________\__\/_________\__\/_____________________\__\/_________\__\/
+
 set number
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -22,53 +21,94 @@ let g:ale_disable_lsp = 1
 set rtp+=./.vim/autoload/plug.vim
 call plug#begin()
 
-" -------------------------------------
+" //////////////////////////////////
+"             PLUGINS
+" //////////////////////////////////
 " {{ GIT }}
 Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 
 " {{ APPEARANCE }}
+Plug 'luochen1990/rainbow'
+Plug 'morhetz/gruvbox'
+Plug 'sainnhe/gruvbox-material'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'yggdroot/indentline'
-Plug 'morhetz/gruvbox'
-Plug 'sainnhe/gruvbox-material'
-Plug 'luochen1990/rainbow'
 
 " {{ FUNCTIONALITY }}
-Plug 'tpope/vim-commentary'
-Plug 'scrooloose/nerdtree'
-Plug 'yegappan/mru'
+"   {{ HIGH LEVEL }}
 Plug 'junegunn/fzf', { 'do': { -> fzf-install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'justinmk/vim-sneak'
-Plug 'lervag/vimtex'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-eunuch'
+Plug 'yegappan/mru'
+
+"   {{ LOW LEVEL }}
 Plug 'SirVer/ultisnips'
-Plug 'tpope/vim-dispatch'
-Plug 'honza/vim-snippets'
+Plug 'justinmk/vim-sneak'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'wellle/targets.vim'
+Plug 'woodentoken/vim-snippets'
+
+" {{ LANGUAGE SPECIFIC }}
+Plug 'lervag/vimtex'
+Plug 'pangloss/vim-javascript'
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 
 " {{ LINT/QUALITY }}
 Plug 'dense-analysis/ale'
-Plug 'pangloss/vim-javascript'
-Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-" -------------------------------------
+Plug 'tpope/vim-dispatch'
 
-call plug#end()            " required
+call plug#end()              " required
 filetype plugin indent on    " required
 
-" -----------------------------------------------------------------------------
-" PLUGIN SETTINGS
-" -----------------------------------------------------------------------------
+" \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+"         PLUGIN SETTINGS
+" \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-" -------------------------------------
-"   COLORSCHEMES
-" -------------------------------------
+" |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+" || GIT ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+" |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+" -------------------------------------------------------------
+" { airblade/vim-gitgutter }
+" -------------------------------------------------------------
+let g:gitgutter_async=0
+let g:gitgutter_realtime=1
+let g:gitgutter_eager=1
+let g:gitgutter_max_signs = 500
+" No mapping
+let g:gitgutter_map_keys = 0
+" Colors
+let g:gitgutter_override_sign_column_highlight = 0
+
+" -------------------------------------------------------------
+" { tpope/vim-fugitive }
+" -------------------------------------------------------------
+
+" |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+" || APPEARANCE |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+" |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 source ~/.vimrc.colorschemes
-
-" -------------------------------------
-"   AIRLINE
-" -------------------------------------
-let g:airline_theme='gruvbox_material'
+" -------------------------------------------------------------
+" { luochen1990/rainbow }
+" -------------------------------------------------------------
+let g:rainbow_active = 1
+let g:rainbow_conf = {
+      \ 'guifgs':   ['aquamarine1', 'steelblue1', 'slateblue1', 'purple', 'deeppink3', 'deeppink2'],
+      \ 'ctermfgs': [40,            75,           99,           129,      162,         197]
+      \}
+" -------------------------------------------------------------
+" { morhetz/gruvbox }
+" -------------------------------------------------------------
+" -------------------------------------------------------------
+" { sainnhe/gruvbox-material }
+" -------------------------------------------------------------
+" -------------------------------------------------------------
+" { vim-airline/vim-airline }
+" -------------------------------------------------------------
 let g:airline_section_b=''
 let g:airline_section_y=''
 " let g:airline_statusline_ontop=1
@@ -96,27 +136,25 @@ let g:airline_mode_map = {
       \ }
 " Note: 'multi' is for displaying the multiple cursor mode
 
+" -------------------------------------------------------------
+" { vim-airline/vim-airline-themes }
+" -------------------------------------------------------------
+let g:airline_theme='gruvbox_material'
+" -------------------------------------------------------------
+" { yggdroot/indentline }
+" -------------------------------------------------------------
+let g:indentLine_char_list = ['0','1','2','3','4','5','6','7','8','9']
+let g:indentLine_color_term = 239
 
-" -------------------------------------
-"   COC
-" -------------------------------------
-source ~/.vimrc.coc
-
-" -------------------------------------
-"   GITGUTTER
-" -------------------------------------
-let g:gitgutter_async=0
-let g:gitgutter_realtime=1
-let g:gitgutter_eager=1
-let g:gitgutter_max_signs = 500
-" No mapping
-let g:gitgutter_map_keys = 0
-" Colors
-let g:gitgutter_override_sign_column_highlight = 0
-"
-" -------------------------------------
-"   FZF
-" -------------------------------------
+" |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+" || FUNCTIONALITY ||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+" |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+" ////////////////////////////////////////////////////////////////////
+" ///// HIGH LEVEL //////////////////////////////////////////////////
+" //////////////////////////////////////////////////////////////////
+" -------------------------------------------------------------
+"     { junegunn/fzf }
+" -------------------------------------------------------------
 nnoremap <C-P> :FZF<CR>
 let g:fzf_layout = { 'window': { 'width': 0.75, 'height': 0.75 } }
 let g:fzf_colors =
@@ -133,63 +171,59 @@ let g:fzf_colors =
       \ 'marker':  ['fg', 'Keyword'],
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment'] }
-
-" -------------------------------------
-"   INDENT LINE
-" -------------------------------------
-let g:indentLine_char_list = ['0','1','2','3','4','5','6','7','8','9']
-let g:indentLine_color_term = 239
-
-" -------------------------------------
-"   RAINBOW
-" -------------------------------------
-let g:rainbow_active = 1
-let g:rainbow_conf = {
-      \ 'guifgs':   ['aquamarine1', 'steelblue1', 'slateblue1', 'purple', 'deeppink3', 'deeppink2'],
-      \ 'ctermfgs': [40,            75,           99,           129,      162,         197]
-      \}
-
-" -------------------------------------
-"   NERDTREE
-" -------------------------------------
+" -------------------------------------------------------------
+" { neoclide/coc.nvim }
+" -------------------------------------------------------------
+source ~/.vimrc.coc
+" -------------------------------------------------------------
+" { scrooloose/nerdtree }
+" -------------------------------------------------------------
 nnoremap <leader>n :NERDTreeToggle<CR>
+" -------------------------------------------------------------
+" { tpope/vim-eunuch }
+" -------------------------------------------------------------
+" -------------------------------------------------------------
+" { yegappan/mru }
+" -------------------------------------------------------------
+nnoremap <leader>h :MRU<CR>
+nnoremap <leader>m :MRU<CR>
+"
+" ////////////////////////////////////////////////////////////////////
+" ////// LOW LEVEL //////////////////////////////////////////////////
+" //////////////////////////////////////////////////////////////////
+" -------------------------------------------------------------
+"     { SirVer/ultisnips }
+" -------------------------------------------------------------
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsSnippetDirectories=["UltiSnips", ".vimrc.snippets"]
 
-" -------------------------------------
-"   VIM-COMMENTARY
-" -------------------------------------
+" -------------------------------------------------------------
+"     { justinmk/vim-sneak }
+" -------------------------------------------------------------
+" -------------------------------------------------------------
+"     { tpope/vim-surround }
+" -------------------------------------------------------------
+" -------------------------------------------------------------
+"     { tpope/vim-commentary }
+" -------------------------------------------------------------
 nnoremap <C-\> :Commentary<CR>
 vnoremap <C-\> :Commentary<CR>
 
-" -------------------------------------
-"   ALE
-" -------------------------------------
-nnoremap <leader>af :ALEFix<CR>
-nnoremap <leader>at :ALEToggle<CR>
-let g:ale_virtualtext_cursor = 'current'
-"
-" -------------------------------------
-"   MRU
-" -------------------------------------
-nnoremap <leader>h :MRU<CR>
-nnoremap <leader>m :MRU<CR>
+" -------------------------------------------------------------
+"     { wellle/targets.vim }
+" -------------------------------------------------------------
+" -------------------------------------------------------------
+"     { woodentoken/vim-snippets }
+" -------------------------------------------------------------
 
-" -------------------------------------
-"   PYMODE (https://github.com/python-mode/python-mode)
-" -------------------------------------
-let g:pymode_lint_cwindow = 0
-let g:pymode_lint_message = 1
-let g:pymode_lint_on_fly = 1
-let g:pymode_lint_unmodified = 1
-" avoid line too long warnings (E501)
-let g:pymode_lint_ignore = ["E501"]
-let g:pymode_python = 'python3'
-
-" -------------------------------------
-"   VIMTEX (https://www.ejmastnak.com/tutorials/vim-latex/vimtex/)
-" -------------------------------------
-" This enables Vim's and neovim's syntax-related features. Without this, some
-" VimTeX features will not work (see ":help vimtex-requirements" for more
-" info).
+" |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+" || LANGUAGE SPECIFIC ||||||||||||||||||||||||||||||||||||||||||||||||||||
+" |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+" -------------------------------------------------------------
+"   { lervag/vimtex } (https://www.ejmastnak.com/tutorials/vim-latex/vimtex/)
+" -------------------------------------------------------------
 syntax enable
 
 let g:vimtex_quickfix_mode=0
@@ -231,15 +265,40 @@ augroup MyVimtex
   autocmd User VimtexEventQuit call vimtex#latexmk#clean(0)
 augroup END
 
-" -------------------------------------
-"   ULTISNIPPETS
-" -------------------------------------
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
-let g:UltiSnipsSnippetDirectories=["UltiSnips", ".vimrc.snippets"]
+" -------------------------------------------------------------
+" { pangloss/vim-javascript }
+" -------------------------------------------------------------
+" -------------------------------------------------------------
+" { python-mode/python-mode }
+" -------------------------------------------------------------
+let g:pymode_lint_cwindow = 0
+let g:pymode_lint_message = 1
+let g:pymode_lint_on_fly = 1
+let g:pymode_lint_unmodified = 1
+" avoid line too long warnings (E501)
+let g:pymode_lint_ignore = ["E501", "E116", "C0116", "C0114", "C0115",]
+let g:pymode_lint_todo_symbol = 'WW'
+let g:pymode_lint_comment_symbol = 'CC'
+let g:pymode_lint_visual_symbol = 'RR'
+let g:pymode_lint_error_symbol = 'EE'
+let g:pymode_lint_info_symbol = 'II'
+let g:pymode_lint_pyflakes_symbol = 'FF'
+let g:pymode_python = 'python3'
 
-" -------------------------------------
-"   SNEAK
-" -------------------------------------
-" let g:sneak#label = 1
+
+" |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+" || LINT/QUALITY |||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+" |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+" -------------------------------------------------------------
+"   { dense-analysis/ale }
+" -------------------------------------------------------------
+nnoremap <leader>af :ALEFix<CR>
+nnoremap <leader>at :ALEToggle<CR>
+let g:ale_virtualtext_cursor = 'current'
+" disable ALE on python files
+let g:ale_pattern_options = {
+      \   '.*\.py$': {'ale_enabled': 0},
+      \}
+" -------------------------------------------------------------
+"   { tpope/vim-dispatch }
+" -------------------------------------------------------------
