@@ -9,6 +9,9 @@ folders are used to delineate configuration options, and generally, the actual
 found this to be useful for tracking where changes are implemented, and I much
 prefer it to using large, single, "."files.
 
+I am version controlling my WSL settings as well (settings.json).
+Manually copy and paste them into the WSL settings.json file to update.
+
 ---
 
 ## Installation
@@ -27,8 +30,6 @@ home directory
 
 ## Features (AKA plugins)
 
-not exhaustive and hopefully up to date
-
 ### linux
 
 - [sharkdp/fd](https://github.com/sharkdp/fd)
@@ -46,6 +47,8 @@ working allowing directory depth jumping, like typing cd5 to go back 5 directori
 That would be integrated with a labeling scheme in the current directory, WIP
 
 ### zsh
+
+running `resolve_zsh_plugins.sh` will update each of the plugins below.
 
 - [KulkarniKaustubh/fzf-dir-navigator](https://github.com/KulkarniKaustubh/fzf-dir-navigator)
 - [Tarrasch/zsh-bd](https://github.com/Tarrasch/zsh-bd)
@@ -88,7 +91,7 @@ these dotfiles use [vim-plug](https://github.com/junegunn/vim-plug) to manage pl
 - [honza/vim-snippets](https://github.com/honza/vim-snippets)
 - [justinmk/vim-sneak](https://github.com/justinmk/vim-sneak)
 - [tpope/vim-surround](https://github.com/tpope/vim-surround)
-- [tpope/vim/commentary](https://github.com/tpope/vim-commentary)
+- [tpope/vim-commentary](https://github.com/tpope/vim-commentary)
 - [wellle/targets.vim](https://github.com/wellle/targets.vim)
 
 #### language specific
