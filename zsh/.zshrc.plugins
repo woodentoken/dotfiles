@@ -79,7 +79,7 @@ _virtualenv_auto_activate() {
     ## If env folder is found then activate the virtualenv
     if [[ -d ./.venv ]] ; then
       source ./.venv/bin/activate
-      export VENV_NAME=$(echo $(basename $(dirname $VIRTUAL_ENV)))
+      export VENV_NAME="[$(echo $(basename $(dirname $VIRTUAL_ENV)))]"
     fi
   else
     ## check the current folder belong to earlier VIRTUAL_ENV folder

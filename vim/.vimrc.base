@@ -108,6 +108,7 @@ set listchars=tab:▸\ ,eol:¬
 " Uncomment this to enable by default: set list To enable by default or use
 " your leader key + l to toggle on/off Toggle tabs and EOL
 map <leader>l :set list!<CR>
+map <leader>r :source ~/.vimrc<CR>
 set cursorline
 set cursorlineopt=number
 autocmd ColorScheme * highlight CursorLineNr cterm=bold term=bold gui=bold
