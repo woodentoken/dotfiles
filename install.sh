@@ -151,16 +151,6 @@ echo "host_list=(kbordner $USER)" >> /usr/local/etc/wemux.conf
 
 
 #################################################
-### {STOW}
-echo "Stowing dotfile directories..."
-for directory in */; do
-  stow --adopt -R $directory
-  echo "  ${directory} stowed in ${HOME}"
-done
-#################################################
-
-
-#################################################
 ### {NVM and NodeJS}
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
@@ -173,7 +163,6 @@ nvm install node
 
 ##################################################
 ### {Python}
-pip install virtualenvwrapper
 #################################################
 
 
@@ -186,6 +175,16 @@ log "...Done"
 log "Installing Vim Plugins..."
 run vim -E +PlugInstall +qall || true
 log "...Done"
+#################################################
+
+
+#################################################
+### {STOW}
+echo "Stowing dotfile directories..."
+for directory in */; do
+  stow --adopt -R $directory
+  echo "  ${directory} stowed in ${HOME}"
+done
 #################################################
 
 
