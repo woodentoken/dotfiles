@@ -89,7 +89,7 @@ _virtualenv_auto_activate() {
     ## If env folder is found then activate the virtualenv
     if [[ -d ./.venv ]] ; then
       source ./.venv/bin/activate
-      export VENV_NAME="[$(printf $(basename $(dirname $VIRTUAL_ENV)))]"
+      export VENV_NAME="[venv:%F{#3571A3}$(printf $(basename $(dirname $VIRTUAL_ENV)))%f]"
     fi
   else
     ## check the current folder belong to earlier VIRTUAL_ENV folder
@@ -101,8 +101,6 @@ _virtualenv_auto_activate() {
       export VENV_NAME=''
     fi
   fi
-  # set right prompt to venv name
-  export RPROMPT="$VENV_NAME"
 }
 precmd() { _virtualenv_auto_activate }
 
@@ -119,7 +117,7 @@ ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg[green]%}%{↑%G%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[magenta]%}%{%G?%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{%F{#44A6FF}%}%{_%G%}"
 
-export PS1='%b$(git_super_status)%B[%F{#A9A9A9}%n%f%k][/$(depth_pwd)] %# '
+export PS1='[%F{#A9A9A9}%n%f%k][/$(depth_pwd)]%B$(git_super_status)%b$VENV_NAME %# '
 
 # helper functions used above
 depth_pwd() {
