@@ -31,6 +31,3 @@ source $HOME/.profile
 source ~/.zshrc.basics
 source ~/.zshrc.plugins
 source ~/.zshrc.extensions
-
-# zsh-bd
-. $HOME/.zsh/plugins/bd/bd.zsh
