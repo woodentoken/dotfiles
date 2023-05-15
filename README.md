@@ -1,4 +1,5 @@
 # woodentoken/dotfiles
+
 These are dotfiles designed for Linux.
 
 They are based around using zsh for the terminal and vim for the editor.
@@ -14,7 +15,7 @@ prefer it to using large, single, "."files.
 
 to install (*do not use sudo*):
 
-```
+```bash
 git clone https://github.com/woodentoken/dotfiles/ ~/dotfiles
 ~/dotfiles/install.sh
 ```
@@ -28,7 +29,8 @@ home directory
 
 not exhaustive and hopefully up to date
 
-### terminal
+### linux
+
 - [sharkdp/fd](https://github.com/sharkdp/fd)
 - [stow](https://www.gnu.org/software/stow/)
 - [zsh-users/zsh](https://github.com/zsh-users/zsh) (see below)
@@ -37,17 +39,21 @@ Implemented a color based directory depth scheme, visible here:
 
 ![image](https://user-images.githubusercontent.com/43391485/230224167-7e7c1e2d-8a09-45d0-a1ee-fe0aee09f086.png)
 
-certainly, it gets a little hard to parse at the mid depths, still, felt like a nice little thing to do.
+certainly, it gets a little hard to parse at the mid depths, still,
+felt like a nice little thing to do.
 
-working allowing directory depth jumping, like typing cd5 to go back 5 directories. That would be integrated with a labeling scheme in the current directory, WIP
+working allowing directory depth jumping, like typing cd5 to go back 5 directories.
+That would be integrated with a labeling scheme in the current directory, WIP
 
 ### zsh
 
-- [zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
-- [marlonrichert/zsh-autocomplete](https://github.com/marlonrichert/zsh-autocomplete)
-- [zdharma/fast-syntax-highlighting](https://github.com/zdharma/fast-syntax-highlighting)
+- [KulkarniKaustubh/fzf-dir-navigator](https://github.com/KulkarniKaustubh/fzf-dir-navigator)
+- [Tarrasch/zsh-bd](https://github.com/Tarrasch/zsh-bd)
 - [ael-code/zsh-colored-man-pages](https://github.com/ael-code/zsh-colored-man-pages)
 - [junegunn/fzf](https://github.com/junegunn/fzf) (set up for zsh)
+- [marlonrichert/zsh-autocomplete](https://github.com/marlonrichert/zsh-autocomplete)
+- [zdharma/fast-syntax-highlighting](https://github.com/zdharma/fast-syntax-highlighting)
+- [zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 
 ### vim
 
@@ -59,36 +65,51 @@ these dotfiles use [vim-plug](https://github.com/junegunn/vim-plug) to manage pl
 
 #### appearance
 
+- [luochen1990/rainbow](https://github.com/luochen1990/rainbow)
+- [morhetz/gruvbox](https://github.com/morhetz/gruvbox)
+- [sainnhe/gruvbox-material](https://github.com/sainnhe/gruvbox-material)
 - [vim-airline/vim-airline](https://github.com/vim-airline/vim-airline)
 - [vim/airline/vim-airline-themes](https://github.com/vim-airline/vim-airline-themes)
 - [yggdroot/indentline](https://github.com/Yggdroot/indentLine)
-- [morhetz/gruvbox](https://github.com/morhetz/gruvbox)
-- [sainnhe/gruvbox-material](https://github.com/sainnhe/gruvbox-material) (default theme)
-- [luochen1990/rainbow](https://github.com/luochen1990/rainbow)
 
 #### functionality
 
-- [tpope/vim/commentary](https://github.com/tpope/vim-commentary)
-- [scrooloose/nerdtree](https://github.com/preservim/nerdtree)
-- [yegappan/mru](https://github.com/yegappan/mru)
+##### high level
+
 - [junegunn/fzf.vim](https://github.com/junegunn/fzf.vim)
 - [neoclide/coc](https://github.com/neoclide/coc.nvim)
+- [scrooloose/nerdtree](https://github.com/preservim/nerdtree)
+- [tpope/vim-eunuch](https://github.com/tpope/vim-eunuch)
+- [yegappan/mru](https://github.com/yegappan/mru)
+
+##### low level
+
+- [SirVer/ultisnips](https://github.com/SirVer/ultisnips)
+- [honza/vim-snippets](https://github.com/honza/vim-snippets)
 - [justinmk/vim-sneak](https://github.com/justinmk/vim-sneak)
+- [tpope/vim-surround](https://github.com/tpope/vim-surround)
+- [tpope/vim/commentary](https://github.com/tpope/vim-commentary)
+- [wellle/targets.vim](https://github.com/wellle/targets.vim)
+
+#### language specific
+
+- [lervag/vimtex](https://github.com/lervag/vimtex)
+- [python-mode/python-mode](https://github.com/python-mode/python-mode)
+- [vim-javascript](https://github.com/pangloss/vim-javascript)
 
 #### linting
 
 - [dense-analysis/ale](https://github.com/dense-analysis/ale)
-- [pangloss/vim-javascript](https://github.com/pangloss/vim-javascript)
-- [python-mode/python-mode](https://github.com/python-mode/python-mode)
+- [tpope/vim-dispatch](https://github.com/tpope/vim-dispatch)
 
 ### tmux
 
-- [tmux-plugins/tpm](https://github.com/tmux-plugins/tpm)
-- [tmux-plugins/tmux-cpu](https://github.com/tmux-plugins/tmux-cpu)
-- [tmux-plugins/tmux-open](https://github.com/tmux-plugins/tmux-open)
 - [kolach/tmux-temp](https://github.com/kolach/tmux-temp)
 - [tmux-plugins/tmux-copycat](https://github.com/tmux-plugins/tmux-copycat)
+- [tmux-plugins/tmux-cpu](https://github.com/tmux-plugins/tmux-cpu)
+- [tmux-plugins/tmux-open](https://github.com/tmux-plugins/tmux-open)
 - [tmux-plugins/tmux-yank](https://github.com/tmux-plugins/tmux-yank)
+- [tmux-plugins/tpm](https://github.com/tmux-plugins/tpm)
 
 ---
 
