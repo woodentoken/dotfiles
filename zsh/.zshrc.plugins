@@ -15,14 +15,14 @@
 # use ./update_or_install_zsh_plugins.sh to keep these up to date
 
 # -----------------------------------------------------------------------------
-# ZSH AUTOSUGGEST
+# ZSH AUTOSUGGEST (https://github.com/zsh-users/zsh-autosuggestions)
 # -----------------------------------------------------------------------------
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=15'
 ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 
 # -----------------------------------------------------------------------------
-# ZSH AUTOCOMPLETE
+# ZSH AUTOCOMPLETE (https://github.com/marlonrichert/zsh-autocomplete)
 # -----------------------------------------------------------------------------
 # Set the value for all.
 zstyle -e ':autocomplete:*' list-lines 'reply=( $(( LINES / 3 )) )'
@@ -35,25 +35,30 @@ zstyle -e ':autocomplete:history-incremental-search-backward:*' list-lines 'repl
 source ~/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # -----------------------------------------------------------------------------
-# FAST SYNTAX HIGHLIGHTING
+# FAST SYNTAX HIGHLIGHTING (https://github.com/zdharma-continuum/fast-syntax-highlighting)
 # -----------------------------------------------------------------------------
 source ~/.zsh/fast-syntax-highlighting/F-Sy-H.plugin.zsh
 
 # -----------------------------------------------------------------------------
-# COLORED MAN PAGES
+# COLORED MAN PAGES (https://github.com/ael-code/zsh-colored-man-pages)
 # -----------------------------------------------------------------------------
 source ~/.zsh/zsh-colored-man-pages/colored-man-pages.plugin.zsh && man less 2>&1 > /dev/null
 
 # -----------------------------------------------------------------------------
-# FZF DIR NAVIGATOR
+# FZF DIR NAVIGATOR (https://github.com/KulkarniKaustubh/fzf-dir-navigator)
 # -----------------------------------------------------------------------------
 source ~/.zsh/fzf-dir-navigator/fzf-dir-navigator.plugin.zsh
 
 # -----------------------------------------------------------------------------
-# ALIAS TIPS
+# ALIAS TIPS (https://github.com/djui/alias-tips)
 # -----------------------------------------------------------------------------
 source ~/.zsh/alias-tips/alias-tips.plugin.zsh
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="alias  "
+
+# -----------------------------------------------------------------------------
+# BD (https://github.com/Tarrasch/zsh-bd)
+# -----------------------------------------------------------------------------
+source ~/.zsh/bd/bd.zsh
 
 # ctrl-z that is ambidextrous (foregrounds and backgrounds)
 # -----------------------------------------------------------------------------
