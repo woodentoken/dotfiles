@@ -58,13 +58,17 @@ running `resolve_zsh_plugins.sh` will update each of the plugins below.
 - [zdharma/fast-syntax-highlighting](https://github.com/zdharma/fast-syntax-highlighting)
 - [zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 
+---
+
 ### vim
 
-these dotfiles use [vim-plug](https://github.com/junegunn/vim-plug) to manage plugins
+these dotfiles use [vim-plug](https://github.com/junegunn/vim-plug) to manage plugins.
+use `:PlugUpdate` to update them.
 
 #### git
 
 - [airblade/gitgutter](https://github.com/airblade/vim-gitgutter)
+- [tpope/vim-fugitive](https://github.com/tpope/vim-fugitive)
 
 #### appearance
 
@@ -104,6 +108,8 @@ these dotfiles use [vim-plug](https://github.com/junegunn/vim-plug) to manage pl
 
 - [dense-analysis/ale](https://github.com/dense-analysis/ale)
 - [tpope/vim-dispatch](https://github.com/tpope/vim-dispatch)
+
+---
 
 ### tmux
 
