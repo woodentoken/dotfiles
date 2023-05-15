@@ -45,9 +45,11 @@ alias c='clc'
   alias dtf='cd ~/dotfiles/fzf && la'
   alias dtg='cd ~/dotfiles/git && la'
   alias pr='cd ~/projects && la'
+  alias prl='cd ~/projects/personal/learning && la'
   alias sp='cd ~/support && la'
 
   # TREE
+  alias tree='tree -F --dirsfirst'
   alias tr='tree -L 2'
   alias tr1='tree -L 1'
   alias tr1='tree -L 1'
@@ -98,6 +100,7 @@ alias gpl="git pull "
 alias gps="git push "
 alias gpf="git push --force-with-lease"
 alias gst="git status"
+alias gclean="git branch -r --merged origin/master | grep -v master | grep "origin/" | cut -d "/" -f 2- | xargs -n 20 git push --delete origin"
 
 alias gg='git grep -n'
 alias ggw='gg -W'

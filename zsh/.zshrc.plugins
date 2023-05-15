@@ -45,6 +45,11 @@ source ~/.zsh/fast-syntax-highlighting/F-Sy-H.plugin.zsh
 source ~/.zsh/zsh-colored-man-pages/colored-man-pages.plugin.zsh && man less 2>&1 > /dev/null
 
 # -----------------------------------------------------------------------------
+# FZF DIR NAVIGATOR
+# -----------------------------------------------------------------------------
+source ~/.zsh/fzf-dir-navigator/fzf-dir-navigator.plugin.zsh
+
+# -----------------------------------------------------------------------------
 # ALIAS TIPS
 # -----------------------------------------------------------------------------
 source ~/.zsh/alias-tips/alias-tips.plugin.zsh
@@ -55,13 +60,13 @@ export ZSH_PLUGINS_ALIAS_TIPS_TEXT="alias  "
 # not really a plugin, but comes from oh-my-zsh
 # -----------------------------------------------------------------------------
 fancy-ctrl-z () {
-  if [[ $#BUFFER -eq 0 ]]; then
-    BUFFER="fg"
-    zle accept-line -w
-  else
-    zle push-input -w
-    zle clear-screen -w
-  fi
+if [[ $#BUFFER -eq 0 ]]; then
+  BUFFER="fg"
+  zle accept-line -w
+else
+  zle push-input -w
+  zle clear-screen -w
+fi
 }
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
@@ -72,6 +77,30 @@ bindkey '^Z' fancy-ctrl-z
 setopt prompt_subst
 source ~/.zsh/zsh-git-prompt/zshrc.sh
 
+# venv automatic activation
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+_virtualenv_auto_activate() {
+  if [[ -z "$VIRTUAL_ENV" ]] ; then
+    ## If env folder is found then activate the virtualenv
+    if [[ -d ./.venv ]] ; then
+      source ./.venv/bin/activate
+      export VENV_NAME="[$(printf $(basename $(dirname $VIRTUAL_ENV)))]"
+    fi
+  else
+    ## check the current folder belong to earlier VIRTUAL_ENV folder
+    # if yes then do nothing
+    # else deactivate
+    parentdir="$(dirname "$VIRTUAL_ENV")"
+    if [[ "$PWD"/ != "$parentdir"/* ]] ; then
+      deactivate
+      export VENV_NAME=''
+    fi
+  fi
+  # set right prompt to venv name
+  export RPROMPT="$VENV_NAME"
+}
+precmd() { _virtualenv_auto_activate }
+
 # overrides for git-prompt
 ZSH_THEME_GIT_PROMPT_PREFIX="["
 ZSH_THEME_GIT_PROMPT_SUFFIX="]%f"
@@ -80,12 +109,12 @@ ZSH_THEME_GIT_PROMPT_BRANCH="%F{#44A6FF}"
 ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[green]%}%{%G+%}"
 ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg[red]%}%{%G×%}"
 ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[yellow]%}%{%G~%}"
-ZSH_THEME_GIT_PROMPT_BEHIND="%{↓%G%}"
-ZSH_THEME_GIT_PROMPT_AHEAD="%{↑%G%}"
-ZSH_THEME_GIT_PROMPT_UNTRACKED="%{%G?%}"
+ZSH_THEME_GIT_PROMPT_BEHIND="%{$fg[yellow]%}%{↓%G%}"
+ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg[green]%}%{↑%G%}"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[magenta]%}%{%G?%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{%F{#44A6FF}%}%{_%G%}"
 
-export PS1='%B[%F{#A9A9A9}%n%f%k][/$(depth_pwd)]%b$(git_super_status) %# '
+export PS1='%b$(git_super_status)%B[%F{#A9A9A9}%n%f%k][/$(depth_pwd)] %# '
 
 # helper functions used above
 depth_pwd() {

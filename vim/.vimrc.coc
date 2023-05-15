@@ -1,24 +1,40 @@
-"      ___           ___           ___
-"     /  /\         /  /\         /  /\
-"    /  /:/        /  /::\       /  /:/
-"   /  /:/        /  /:/\:\     /  /:/
-"  /  /:/  ___   /  /:/  \:\   /  /:/  ___
-" /__/:/  /  /\ /__/:/ \__\:\ /__/:/  /  /\
-" \  \:\ /  /:/ \  \:\ /  /:/ \  \:\ /  /:/
-"  \  \:\  /:/   \  \:\  /:/   \  \:\  /:/
-"   \  \:\/:/     \  \:\/:/     \  \:\/:/
-"    \  \::/       \  \::/       \  \::/
-"     \__\/         \__\/         \__\/
-" _________________________________________
+"_____________________________________
+"_____/__/\_________/__/\_________/__/\
+"____/__/:/________/__/::\_______/__/:/
+"___/__/:/________/__/:/\:\_____/__/:/
+"__/__/:/________/__/:/__\:\___/__/:/_____
+"_/__/:/__/__/\_/__/:/_\__\:\_/__/:/__/__/\
+"_\__\:\_/__/:/_\__\:\_/__/:/_\__\:\_/__/:/
+"__\__\:\__/:/___\__\:\__/:/___\__\:\__/:/
+"___\__\:\/:/_____\__\:\/:/_____\__\:\/:/
+"____\__\::/_______\__\::/_______\__\::/
+"_____\__\/_________\__\/_________\__\/
 "
 let g:coc_global_extensions = [
-      \ 'coc-snippets',
-      \ 'coc-tsserver',
-      \ 'coc-eslint',
+      \ 'coc-dictionary',
+      \ 'coc-highlight',
       \ 'coc-prettier',
-      \ 'coc-json',
+      \ 'coc-tsserver',
+      \ 'coc-typos',
+      \ 'coc-snippets',
+      \ 'coc-syntax',
+      \ 'coc-ultisnips',
       \ 'coc-word',
-      \ 'coc-highlight'
+      \ 'coc-yank',
+      \ 'coc-clangd',
+      \ 'coc-css',
+      \ 'coc-eslint',
+      \ 'coc-git',
+      \ 'coc-html',
+      \ 'coc-json',
+      \ 'coc-markdownlint',
+      \ 'coc-python',
+      \ 'coc-r-lsp',
+      \ 'coc-rust-analyzer',
+      \ 'coc-sh',
+      \ 'coc-solargraph',
+      \ 'coc-tslint',
+      \ 'coc-vimtex',
       \ ]
 
 let g:tex_flavor = 'latex'
@@ -153,6 +169,9 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
+
+" Add `:Prettier` command to current buffer
+command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
 
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that

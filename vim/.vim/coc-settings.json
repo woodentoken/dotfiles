@@ -1,0 +1,4 @@
+{
+  "python.linting.enabled": false,
+  "clangd.path": "/usr/bin/clangd-15"
+}

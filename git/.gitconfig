@@ -30,10 +30,7 @@
   ci = commit
   cm = commit -m
 
-  # remove all merged branches from remote
-  rclean = git branch -r --merged origin/master | grep -v master | grep "origin/" | cut -d "/" -f 2- | xargs -n 20 git push --delete origin
-
-    # open all files that have modifications in vim
+  # open all files that have modifications in vim
   edit = "!vim `git ls-files -m` -p"
 
   lg = log --graph --abbrev-commit --decorate --pretty=format:'%C(bold red)%h%C(reset) - %C(bold green)(%ar%C()reset %C()white)%s%Creset)( %C(bold blue)- %an%C(reset%C()bold yellow)%d%C(reset)' --date=short)

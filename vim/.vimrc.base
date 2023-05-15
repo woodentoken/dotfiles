@@ -1,15 +1,14 @@
-"                    ___           ___           ___
-"     _____         /  /\         /  /\         /  /\
-"    /  /::\       /  /::\       /  /:/_       /  /:/_
-"   /  /:/\:\     /  /:/\:\     /  /:/ /\     /  /:/ /\
-"  /  /:/~/::\   /  /:/~/::\   /  /:/ /::\   /  /:/ /:/_
-" /__/:/ /:/\:| /__/:/ /:/\:\ /__/:/ /:/\:\ /__/:/ /:/ /\
-" \  \:\/:/~/:/ \  \:\/:/__\/ \  \:\/:/~/:/ \  \:\/:/ /:/
-"  \  \::/ /:/   \  \::/       \  \::/ /:/   \  \::/ /:/
-"   \  \:\/:/     \  \:\        \__\/ /:/     \  \:\/:/
-"    \  \::/       \  \:\         /__/:/       \  \::/
-"     \__\/         \__\/         \__\/         \__\/
-" _______________________________________________________
+"___________________________________________________
+"___________________/__/\_________/__/\_________/__/\
+"____/__/::\_______/__/::\_______/__/:/________/__/:/_
+"___/__/:/\:\_____/__/:/\:\_____/__/:/_/\_____/__/:/_/\
+"__/__/:/~/::\___/__/:/~/::\___/__/:/_/::\___/__/:/_/:/_
+"_/__/:/_/:/\:-_/__/:/_/:/\:\_/__/:/_/:/\:\_/__/:/_/:/_/\
+"_\__\:\/:/~/:/_\__\:\/:/__\/_\__\:\/:/~/:/_\__\:\/:/_/:/
+"__\__\::/_/:/___\__\::/_______\__\::/_/:/___\__\::/_/:/
+"___\__\:\/:/_____\__\:\________\__\/_/:/_____\__\:\/:/
+"____\__\::/_______\__\:\_________/__/:/_______\__\::/
+"_____\__\/_________\__\/_________\__\/_________\__\/
 "
 " Turn on syntax highlighting
 syntax on
@@ -109,6 +108,7 @@ set listchars=tab:▸\ ,eol:¬
 " Uncomment this to enable by default: set list To enable by default or use
 " your leader key + l to toggle on/off Toggle tabs and EOL
 map <leader>l :set list!<CR>
+map <leader>r :source ~/.vimrc<CR>
 set cursorline
 set cursorlineopt=number
 autocmd ColorScheme * highlight CursorLineNr cterm=bold term=bold gui=bold
@@ -135,6 +135,11 @@ vnoremap <S-TAB> <gv
 " Move up/down editor lines
 nnoremap j gj
 nnoremap k gk
+
+" update quickly (and utilize ctrl s)
+nnoremap W :update<CR>
+nnoremap WQ ZZ
+nnoremap WQA :wqa<CR>
 
 " Quickly insert an empty new line without entering insert mode
 nnoremap <Leader>o o<Esc>
@@ -174,5 +179,5 @@ command Qa qa
 "   Ps = 4  -> steady underline.
 "   Ps = 5  -> blinking bar (xterm).
 "   Ps = 6  -> steady bar (xterm).
-let &t_SI = "\e[6 q"
+let &t_SI = "\e[5 q"
 let &t_EI = "\e[4 q"

@@ -60,6 +60,7 @@ log "Installing dotfile packages..."
 dotfile_packages="
   curl perl
   wslu git yodl fd-find tree xdg-utils stow
+  build-essential
   tmux vim zsh
   python3 python3-pip
 "
@@ -81,6 +82,9 @@ if [ "$install_latex" = "1" ]; then
     sudo apt-get install $package
   done
 fi
+
+# optionally install rust
+curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh
 
 # remove superfluous packages
 sudo apt-get autoremove
