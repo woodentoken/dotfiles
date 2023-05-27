@@ -9,7 +9,9 @@ function update_or_install {
 
   if cd "${plugin_path}" > /dev/null 2>&1; then
     echo "updating ${plugin_name}"
+    echo Status:
     git pull
+    echo Done
     echo
     cd - > /dev/null 2>&1
   else

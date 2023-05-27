@@ -186,7 +186,7 @@ curl -fLo ./vim/.vim/autoload/plug.vim --create-dirs https://raw.githubuserconte
 log "...Done"
 
 log "Installing Vim Plugins..."
-run vim -E +PlugInstall +qall || true
+run vim -E -s -u '~/.vimrc.plugins' +PlugInstall +qall || true
 log "...Done"
 #################################################
 
@@ -194,8 +194,9 @@ log "...Done"
 #################################################
 ### {ZSH} make zsh default shell
 log "Making zsh default shell..."
-sudo chsh -s $(which zsh)
+sudo chsh -s $(`which zsh`)
 chsh -s $(`which zsh`) $USER
+exit; zsh;
 log "...Done"
 #################################################
 
