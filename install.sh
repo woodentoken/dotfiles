@@ -47,10 +47,12 @@ select yn in "create backups" "do nothing"; do
 done
 
 echo "Do you wish to install latex packages? (y/n)"
-select yn in "y" "n"; do
+select yn in "install latex packages" "do not install latex packages"; do
   case $yn in
-    y ) install_latex=1;;
-    n ) log 'did not installing latex packages';;
+    "install latex packages")
+      install_latex=1; break;;
+    "do not install latex packages")
+      log 'did not installing latex packages'; break
   esac
 done
 
