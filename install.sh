@@ -58,7 +58,8 @@ done
 ### Housekeeping
 log "Installing dotfile packages..."
 dotfile_packages="
-  curl perl
+  curl perl net-tools
+  openssh-server
   wslu git yodl fd-find tree xdg-utils stow
   build-essential
   tmux vim zsh

@@ -39,6 +39,10 @@ set signcolumn="yes:1"
 " Blink cursor on error instead of beeping (grr)
 set visualbell
 
+" Persist undo history
+set undofile
+set undodir=~/.vimundo/
+
 " scroll to next line
 set whichwrap=b,s,<,>,h,l,[,]
 set backspace=indent,eol,start
@@ -121,10 +125,10 @@ set t_Co=256
 " -------------------------------------
 
 " disable arrow keys
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
+" noremap <Up> <NOP>
+" noremap <Down> <NOP>
+" noremap <Left> <NOP>
+" noremap <Right> <NOP>
 
 " use tab and shift tab for indent shifting
 nnoremap <TAB> >>
