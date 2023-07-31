@@ -50,7 +50,7 @@ echo "Do you wish to install latex packages? (y/n)"
 select yn in "y" "n"; do
   case $yn in
     y ) install_latex=1;;
-    n ) log 'did not installing latex packages';;
+    n ) log 'did not install latex packages';;
   esac
 done
 
