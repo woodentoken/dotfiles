@@ -77,9 +77,9 @@ dotfile_packages="
   zsh
 "
 latex_packages="
-  texlive-latex-base
   latexmk
   mupdf
+  texlive-latex-base
 "
 sudo apt-get update
 
