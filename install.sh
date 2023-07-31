@@ -58,12 +58,23 @@ done
 ### Housekeeping
 log "Installing dotfile packages..."
 dotfile_packages="
-  curl perl net-tools
-  openssh-server
-  wslu git yodl fd-find tree xdg-utils stow
   build-essential
-  tmux vim zsh
-  python3 python3-pip
+  curl
+  fd-find
+  git
+  net-tools
+  openssh-server
+  perl
+  python3
+  python3-pip
+  stow
+  tmux
+  tree
+  vim
+  wslu
+  xdg-utils
+  yodl
+  zsh
 "
 latex_packages="
   texlive-latex-base
