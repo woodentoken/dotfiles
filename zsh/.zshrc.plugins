@@ -58,7 +58,7 @@ export ZSH_PLUGINS_ALIAS_TIPS_TEXT="alias  "
 # -----------------------------------------------------------------------------
 # BD (https://github.com/Tarrasch/zsh-bd)
 # -----------------------------------------------------------------------------
-source ~/.zsh/bd/bd.zsh
+source ~/.zsh/zsh-bd/bd.zsh
 
 # ctrl-z that is ambidextrous (foregrounds and backgrounds)
 # -----------------------------------------------------------------------------
