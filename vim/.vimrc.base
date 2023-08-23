@@ -39,6 +39,10 @@ set signcolumn="yes:1"
 " Blink cursor on error instead of beeping (grr)
 set visualbell
 
+" Persist undo history
+set undofile
+set undodir=~/.vimundo/
+
 " scroll to next line
 set whichwrap=b,s,<,>,h,l,[,]
 set backspace=indent,eol,start
@@ -103,6 +107,9 @@ map <leader><space> :let @/=''<CR> " clear search
 " Formatting
 map <leader>q gwip
 
+" Locate current file in NERDTree
+map <leader>fn :NERDTreeFind<CR>
+
 " Visualize tabs and newlines
 set listchars=tab:▸\ ,eol:¬
 " Uncomment this to enable by default: set list To enable by default or use
@@ -121,10 +128,10 @@ set t_Co=256
 " -------------------------------------
 
 " disable arrow keys
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
+" noremap <Up> <NOP>
+" noremap <Down> <NOP>
+" noremap <Left> <NOP>
+" noremap <Right> <NOP>
 
 " use tab and shift tab for indent shifting
 nnoremap <TAB> >>

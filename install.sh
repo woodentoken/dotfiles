@@ -60,16 +60,28 @@ done
 ### Housekeeping
 log "Installing dotfile packages..."
 dotfile_packages="
-  curl perl
-  wslu git yodl fd-find tree xdg-utils stow
   build-essential
-  tmux vim zsh
-  python3 python3-pip
+  curl
+  fd-find
+  git
+  net-tools
+  openssh-server
+  perl
+  python3
+  python3-pip
+  stow
+  tmux
+  tree
+  vim
+  wslu
+  xdg-utils
+  yodl
+  zsh
 "
 latex_packages="
-  texlive-latex-base
   latexmk
   mupdf
+  texlive-latex-base
 "
 sudo apt-get update
 
@@ -153,16 +165,6 @@ echo "host_list=(kbordner $USER)" >> /usr/local/etc/wemux.conf
 
 
 #################################################
-### {STOW}
-echo "Stowing dotfile directories..."
-for directory in */; do
-  stow --adopt -R $directory
-  echo "  ${directory} stowed in ${HOME}"
-done
-#################################################
-
-
-#################################################
 ### {NVM and NodeJS}
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
@@ -175,7 +177,6 @@ nvm install node
 
 ##################################################
 ### {Python}
-pip install virtualenvwrapper
 #################################################
 
 
@@ -188,6 +189,16 @@ log "...Done"
 log "Installing Vim Plugins..."
 run vim -E -s -u '~/.vimrc.plugins' +PlugInstall +qall || true
 log "...Done"
+#################################################
+
+
+#################################################
+### {STOW}
+echo "Stowing dotfile directories..."
+for directory in */; do
+  stow --adopt -R $directory
+  echo "  ${directory} stowed in ${HOME}"
+done
 #################################################
 
 

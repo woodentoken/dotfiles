@@ -15,41 +15,40 @@ fi
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+  PATH="$HOME/bin:$PATH"
 fi
 
 if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
+  PATH="$HOME/.local/bin:$PATH"
 fi
 
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
-# # start ssh-agent if necessary
-ssh_agent_config="${HOME}/.ssh/agent.config"
+# SSH Specifics
+SSH_ENV="$HOME/.ssh/agent-environment"
 
-sssh(){
-  touch "$ssh_agent_config"
-  chmod 600 "$ssh_agent_config"
-  /usr/bin/ssh-agent | sed 's/^echo/#echo/g' > "$ssh_agent_config"
-  . "$ssh_agent_config"
-  for key in $(find ~/.ssh/ -maxdepth 1 -name '*id_ed25519' -o -name '*id_rsa' -o -name '*_private'); do  
-    echo "$key"
-    /usr/bin/ssh-add "$key"
-  done
+start_agent() {
+  echo "Initialising new SSH agent..."
+  /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+  echo succeeded
+  chmod 600 "${SSH_ENV}"
+  . "${SSH_ENV}" > /dev/null
+  /usr/bin/ssh-add;
 }
 
-# this forces the ssh start on login:
-# if [ -f "$ssh_agent_config" ]; then
-#   . "$ssh_agent_config"
-#   agent_proc=$(ps -p $SSH_AGENT_PID | grep ssh-agent)
-#   if [ -z "$agent_proc" ]; then
-#     sssh
-#   fi
-# else
-#   sssh
-# fi
+# Source SSH settings, if applicable
+if [ -f "${SSH_ENV}" ]; then
+  . "${SSH_ENV}" > /dev/null
+  #ps ${SSH_AGENT_PID} doesn't work under cywgin
+  ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+    start_agent;
+  }
+else
+  start_agent;
+fi
 
+# NVM Specifics
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 . "$HOME/.cargo/env"

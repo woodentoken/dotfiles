@@ -31,19 +31,42 @@ SAVEHIST=5000
 HISTFILE=~/.zsh_history
 
 # manage cd history as a stack
-setopt AUTO_PUSHD                  # pushes the old directory onto the stack
-setopt PUSHD_MINUS                 # exchange the meanings of '+' and '-'
 setopt CDABLE_VARS                 # expand the expression (allows 'cd -2/tmp')
-alias dirs='dirs -v'
+setopt AUTO_CD
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHDMINUS
+
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
+
+alias -- -='cd -'
+alias -1='cd -1'
+alias -2='cd -2'
+alias -3='cd -3'
+alias -4='cd -4'
+alias -5='cd -5'
+alias -6='cd -6'
+alias -7='cd -7'
+alias -8='cd -8'
+alias -9='cd -9'
+alias -10='cd -10'
+
+alias md='mkdir -p'
+alias rd=rmdir
+
+# allow cd <NUMBER> to move in the stack
+alias d='dirs -v'
+for index ({1..9}) alias "$index"="cd +${index}"; unset index
+zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;5;12'
+
+# kill all background jobs
+alias kbg='kill ${${(v)jobstates##*:*:}%=*}'
 
 # completion settings
 autoload -U compinit && compinit   # load + start completion
-
-zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;5;12'
-
-# Use modern completion system
-# autoload -Uz compinit
-# compinit
 
 # completion settings
 zstyle ':completion:*' auto-description 'specify: %d'
