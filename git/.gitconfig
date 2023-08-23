@@ -33,9 +33,10 @@
   # open all files that have modifications in vim
   edit = "!vim `git ls-files -m` -p"
 
-  lg = log --graph --abbrev-commit --decorate --pretty=format:'%C(bold red)%h%C(reset) - %C(bold green)(%ar%C()reset %C()white)%s%Creset)( %C(bold blue)- %an%C(reset%C()bold yellow)%d%C(reset)' --date=short)
-  ll = log --pretty=format:"%C(yellow%h%Cred%d\\ %Creset%s%Cblue\\ []%cn]" --decorate --numstat)
-  ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decoratelog --pretty=format:"%Cyellow)(%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate)
+  ll = log --pretty=format:'%C(magenta)%hn%C(reset) committed by %C(blue)%ce%C(reset) on %C(yellow)%ch%C(reset) %C(magenta)%d %n * %C(magenta)%s%C(reset) *' --stat
+  ls = log --pretty=format:'%C(magenta)%hn%C(reset) [%C(blue)%ce%C(reset) @ %C(yellow)%ci%C(reset)%C(reset)]: %C(magenta)%s%C(reset)'
+  lg = ls --graph
+  sl = shortlog --pretty=format:'%h%x09(%ar)%x09%s'
 
   st = status
   sts = status -s
