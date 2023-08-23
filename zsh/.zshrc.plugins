@@ -18,7 +18,7 @@
 # ZSH AUTOSUGGEST (https://github.com/zsh-users/zsh-autosuggestions)
 # -----------------------------------------------------------------------------
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=15'
-ZSH_AUTOSUGGEST_STRATEGY=(completion history)
+ZSH_AUTOSUGGEST_STRATEGY=(completion)
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 
 # -----------------------------------------------------------------------------
