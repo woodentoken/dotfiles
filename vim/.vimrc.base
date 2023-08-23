@@ -107,6 +107,9 @@ map <leader><space> :let @/=''<CR> " clear search
 " Formatting
 map <leader>q gwip
 
+" Locate current file in NERDTree
+map <leader>fn :NERDTreeFind<CR>
+
 " Visualize tabs and newlines
 set listchars=tab:▸\ ,eol:¬
 " Uncomment this to enable by default: set list To enable by default or use
