@@ -26,6 +26,8 @@
   br = branch
   brD = branch -D
 
+  rb = rebase -i
+
   co = checkout
   c- = checkout -
   ci = commit
