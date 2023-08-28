@@ -36,9 +36,12 @@
   # open all files that have modifications in vim
   edit = "!vim `git ls-files -m` -p"
 
-  ll = log --pretty=format:'%C(magenta)%hn%C(reset) committed by %C(blue)%ce%C(reset) on %C(yellow)%ch%C(reset) %C(magenta)%d %n * %C(magenta)%s%C(reset) *' --stat
-  ls = log --pretty=format:'%C(magenta)%hn%C(reset) [%C(blue)%ce%C(reset) @ %C(yellow)%ci%C(reset)%C(reset)]: %C(magenta)%s%C(reset)'
-  lg = ls --graph
+  ll = log --pretty=format:'-> on %C(green)%cD %C(reset)(%C(green)%cr%C(reset)), %C(blue)%ce%C(reset) committed %C(cyan)%hn%C(reset): %C(auto)%d %n - %C(white)%s%C(reset)' --stat
+  ls = log --pretty=format:'- %C(green)%ch%C(reset) %C(cyan)%hn%C(reset) - %C(white)%s%C(reset) %C(blue)%an%C(reset) %C(auto)%d '
+  lg = log --graph --pretty=format:'%C(green)%ch%C(reset) %C(cyan)%hn%C(reset) - %C(white)%s%C(reset) %C(blue)%an%C(reset) %C(auto)%d '
+  lh = log --pretty=format:'- %C(green)%cr%C(reset) %C(cyan)%hn%C(reset) - %C(white)%s%C(reset) %C(auto)%d'
+  hist = lh
+  lm = "!logo(){ git log --pretty='format:<<%p>>%hn %s @ %ch (%cr)' $@ | sed -e 's/<<[^ ]* [^ ]*\\( [^ ]*\\)*>>/\\x1B[36m/' -e 's/<<[^ ]*>>//' -e 's/$/\\x1B[0m/' | less -FRSX;  }; logo"
   sl = shortlog --pretty=format:'%h%x09(%ar)%x09%s'
 
   st = status
