@@ -14,6 +14,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 # SH SPECIFIC
 alias tree='tree -Csu'
 alias h='history'
+alias pe='ps -ef'
 alias j='jobs -l'
 alias clc='clear'
 alias c='clc'
@@ -93,13 +94,21 @@ alias svim='sudo vim'
 # GIT
 test -f ~/.git-completion.bash && . $_
 alias g='git'
+
+alias gc-='git checkout -'
+alias gco='git checkout '
+alias gci='git commit '
+alias gcim='git commit -m'
+
 alias ga='git add'
 alias gap='git add -p'
 alias gaa='git add -A'
 alias gan='git add -N'
+
 alias gpl="git pull "
 alias gps="git push "
-alias gpf="git push --force-with-lease"
+alias gpsf="git push --force-with-lease"
+
 alias gst="git status"
 alias gclean="git branch -r --merged origin/master | grep -v master | grep "origin/" | cut -d "/" -f 2- | xargs -n 20 git push --delete origin"
 

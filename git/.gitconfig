@@ -20,7 +20,8 @@
   prune = true
 
 [alias]
-  aA = add -A
+  a = add
+  aa = add -A
 
   br = branch
   brD = branch -D
@@ -44,8 +45,11 @@
   tree = log --graph --decorate --oneline --abbrev-commit --all
 
   fpush = push --force-with-lease
-  fp = push --force-with-lease
-  pf = push --force-with-lease
+  fps = push --force-with-lease
+  psf = push --force-with-lease
+
+  ps = push
+  pl = pull
 
   save = !git add -A && git commit -m 'SAVEPOINT'
   undo = reset HEAD~1 --mixed
