@@ -160,6 +160,11 @@ noremap <C-k> 10k
 noremap <C-h> ^
 noremap <C-l> $
 
+" execute current line in zsh, show the output in a window
+noremap <Leader>z :.w !zsh<CR>
+" execute current line in zsh, replace input with output
+noremap <Leader>Z :. !zsh<CR>
+
 vnoremap <C-h> 10h
 vnoremap <C-j> 10j
 vnoremap <C-k> 10k
@@ -175,6 +180,52 @@ command W w
 command Q q
 command Wa wa
 command Qa qa
+
+" set the filetype environment variable on enter
+autocmd BufEnter * let $ft_exec=&filetype
+autocmd BufEnter *.py let $ft_exec='python3'
+
+" noremap <Leader>z :.w !$ft_exec<CR>
+" noremap <Leader>Z :. !$ft_exec<CR>
+
+noremap <Leader>X :call Lexecute($ft_exec)<CR>
+
+function! GetVisual() range
+  let reg_save = getreg('"')
+  let regtype_save = getregtype('"')
+  let cb_save = &clipboard
+  set clipboard&
+  normal! ""gvy
+  let selection = getreg('"')
+  call setreg('"', reg_save, regtype_save)
+  let &clipboard = cb_save
+  return selection
+endfunction 
+
+" evaluate lines of code within vim, based on the filetype
+function! Lexecute(executor)
+  let sel=GetVisual()
+  " echo sel
+  " execute '!' sel '>> new.txt'
+  " let old_a=@a
+  " normal "ay
+
+  " let v=@a
+  " echo v
+  "
+  let line=getline('.')
+  let temp=tempname()
+  echo temp
+
+  call writefile([sel], temp)
+  " TODO NL symbols are changed to NULs (^@) inserting CR needs to be done before passing file to writefile
+  " call writefile([line], temp)
+
+  " execute 'echo' shellescape(a:executor) shellescape(temp)
+  execute 'w !' . shellescape(a:executor) shellescape(temp)
+  " call delete(temp)
+endfunction
+  
 
 " Use a line cursor within insert mode and a block cursor everywhere else.
 "

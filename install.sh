@@ -175,6 +175,16 @@ nvm install node
 
 ##################################################
 ### {Python}
+# install with some default answers
+./miniconda_install.sh <<< $'yes\nyes\n./conda/miniconda3\nno'
+# remove installer
+rm -rf ./miniconda_install.sh
+conda list
+
+echo 'here'
+echo 'here'
+
+print('h')
 #################################################
 
 

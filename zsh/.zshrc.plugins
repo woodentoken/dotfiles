@@ -104,6 +104,23 @@ _virtualenv_auto_activate() {
 }
 precmd() { _virtualenv_auto_activate }
 
+# conda automatic activation
+export CONDACONFIGDIR=""
+_condaenv_auto_activate() {
+# cd() { builtin cd "$@" && 
+  if [ -f $PWD/.conda_config ]; then
+    export CONDACONFIGDIR=$PWD
+    conda activate $(cat .conda_config)
+  elif [ "$CONDACONFIGDIR" ]; then
+    # if we leave a folder, and it does not match our environment, leave the conda environment
+    if [[ $PWD != *"$CONDACONFIGDIR"* ]]; then
+      export CONDACONFIGDIR=""
+      conda deactivate
+    fi
+  fi
+}
+precmd() { _condaenv_auto_activate }
+
 # overrides for git-prompt
 ZSH_THEME_GIT_PROMPT_PREFIX="["
 ZSH_THEME_GIT_PROMPT_SUFFIX="]%f"
