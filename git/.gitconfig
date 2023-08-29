@@ -75,3 +75,5 @@
 
 [advice]
   pushNonFastForward = false
+[init]
+	defaultBranch = main

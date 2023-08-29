@@ -91,6 +91,13 @@ alias bim=vim
 alias svi='sudo vim'
 alias svim='sudo vim'
 
+# MATLAB
+alias matlab_pre='cd ~/MATLAB && ./matlab_pre'
+alias matp='matlab_pre'
+
+alias matlab='cd ~/MATLAB && ./matlab'
+alias mat='matlab'
+
 # GIT
 test -f ~/.git-completion.bash && . $_
 alias g='git'
