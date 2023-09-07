@@ -78,28 +78,30 @@ done
 ### Housekeeping
 log "Installing dotfile packages..."
 dotfile_packages="
-build-essential
-curl
-fd-find
-git
-net-tools
-openssh-server
-perl
-python3
-python3-pip
-stow
-tmux
-tree
-vim
-wslu
-xdg-utils
-yodl
-zsh
+  build-essential
+  curl
+  fd-find
+  git
+  net-tools
+  openssh-server
+  openssh-client
+  perl
+  python3
+  python3-pip
+  stow
+  tmux
+  tree
+  vim
+  wslu
+  xdg-utils
+  yodl
+  zsh
 "
 latex_packages="
-latexmk
-mupdf
-texlive-latex-base
+  latexmk
+  mupdf
+  texlive-latex-base
+  texlive-latex-extra
 "
 
 # add latest vim version to repositories
