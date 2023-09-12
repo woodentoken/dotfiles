@@ -12,9 +12,10 @@
 # _____________________________________________________________________
 
 export COLORTERM=truecolor
+export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6
 
 if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  exec tmux
+  tmux new-session -A -s main
 fi
 
 # nvm
@@ -31,3 +32,18 @@ source $HOME/.profile
 source ~/.zshrc.basics
 source ~/.zshrc.plugins
 source ~/.zshrc.extensions
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/kaleb/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/kaleb/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/kaleb/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/kaleb/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
