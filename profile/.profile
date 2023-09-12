@@ -27,6 +27,7 @@ export EDITOR="$VISUAL"
 
 # SSH Specifics
 SSH_ENV="$HOME/.ssh/agent-environment"
+SSH_HOME="$HOME/.ssh/"
 
 start_agent() {
   echo "Initialising new SSH agent..."
@@ -34,7 +35,7 @@ start_agent() {
   echo succeeded
   chmod 600 "${SSH_ENV}"
   . "${SSH_ENV}" > /dev/null
-  /usr/bin/ssh-add;
+  /usr/bin/ssh-add $SSH_HOME/*_id_rsa;
 }
 
 # Source SSH settings, if applicable
