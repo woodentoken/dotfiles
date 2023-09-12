@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 # set -e
 
@@ -9,92 +9,110 @@ function run { eval "$@" >> $LOG; }
 
 # print to STDOUT and append to file
 function log { 
-  echo "$@" | tee -a $LOG
-  if [ "$@" == "...Done" ]; then
-    echo
-  fi
+	echo "$@" | tee -a $LOG
+	if [ "$@" == "...Done" ]; then
+		echo
+	fi
 }
 echo "Do you want to remove potentially conflicting files in your home directory? (y/n)"
 select yn in "create backups" "do nothing"; do
-  case $yn in
-    "create backups")
+	case $yn in
+		"create backups")
+			incoming_files=()
+			while IFS= read -r -d $'\0'; do
+				incoming_files+=("$REPLY")
+			done < <(find . -maxdepth 2 -type f,d -print0)
 
-      # backup existing files
-      backup_folder=~/.dotfile_backup_$(date '+%Y_%m_%d_%H_%M_%S')
-      mkdir $backup_folder
+			existing_files=()
+			while IFS= read -r -d $'\0'; do
+				existing_files+=("$REPLY")
+			done < <(find ../.* -maxdepth 0 -type f,d -print0)
 
-      # locate existing dotfiles that may conflict
-      IFS=$'\n'
-      paths=($(find */\.[^.]* -maxdepth 0 -type d,f))
-      unset IFS
+			# TODO make "basenameify" a utility function
+			# basenameify existing_filessting dotfiles
+			for i in "${!existing_files[@]}"; do
+				existing_files[$i]=$(basename ${existing_files[$i]})
+			done
 
-      pushd ~ > /dev/null
-      for dotfile in "${paths[@]} dotfiles/"; do
-        dotfile=$(basename $dotfile)
-        if [ -d $dotfile ] || [ -f $dotfile ] || [ -s $dotfile ]; then
-          # mv $dotfile $backup_folder/$dotfile
-          log "moved $dotfile into $backup_folder"
-        fi
-      done
-      popd >/dev/null
+			# basenameify incoming_filesoming dotfiles
+			for i in "${!incoming_files[@]}"; do
+				incoming_files[$i]=$(basename ${incoming_files[$i]})
+			done
 
-      break
-      ;;
-    "do nothing")
-      log 'did not touch existing files, you *may* encounter issues with installation and symlinking as a result'
-      break
-  esac
+			# compute the intersection of the basenamed files
+			common_dotfiles=($(comm -12 <(printf '%s\n' "${incoming_files[@]}" | sort) <(printf '%s\n' "${existing_files[@]}" | sort)))
+
+			# backup existing_filessting files
+			backup_folder=~/.dotfile_backup_$(date '+%Y_%m_%d_%H_%M_%S')
+			mkdir $backup_folder
+
+			# move conflicting files into a backup folder
+			pushd ..
+			mv ${common_dotfiles[@]} $backup_folder
+			popd
+
+			unset IFS
+
+			# locate existing_filessting dotfiles that may conflict
+			log "moved ${common_dotfiles[@]} into $backup_folder"
+
+			break
+			;;
+		"do nothing")
+			log 'did not touch existing_filessting files, you *may* encounter issues with installation and symlinking as a result'
+			break
+	esac
 done
 
 echo "Do you wish to install latex packages? (y/n)"
 select yn in "install latex packages" "do not install latex packages"; do
-  case $yn in
-    "install latex packages")
-      install_latex=1; break;;
-    "do not install latex packages")
-      log 'did not installing latex packages'; break
-  esac
+	case $yn in
+		"install latex packages")
+			install_latex=1; break;;
+		"do not install latex packages")
+			log 'did not installing latex packages'; break
+	esac
 done
 
 #################################################
 ### Housekeeping
 log "Installing dotfile packages..."
 dotfile_packages="
-  build-essential
-  curl
-  fd-find
-  git
-  net-tools
-  openssh-server
-  perl
-  python3
-  python3-pip
-  stow
-  tmux
-  tree
-  vim
-  wslu
-  xdg-utils
-  yodl
-  zsh
+build-essential
+curl
+fd-find
+git
+net-tools
+openssh-server
+perl
+python3
+python3-pip
+stow
+tmux
+tree
+vim
+wslu
+xdg-utils
+yodl
+zsh
 "
 latex_packages="
-  latexmk
-  mupdf
-  texlive-latex-base
+latexmk
+mupdf
+texlive-latex-base
 "
 sudo apt-get update
 
 for package in ${dotfile_packages}; do
-  log ''
-  sudo apt-get install $package
+	log ''
+	sudo apt-get install $package
 done
 
 if [ "$install_latex" = "1" ]; then
-  for package in ${latex_packages}; do
-    log ''
-    sudo apt-get install $package
-  done
+	for package in ${latex_packages}; do
+		log ''
+		sudo apt-get install $package
+	done
 fi
 
 # optionally install rust
@@ -178,15 +196,11 @@ nvm install node
 ##################################################
 ### {Python}
 # install with some default answers
-./miniconda_install.sh <<< $'yes\nyes\n./conda/miniconda3\nno'
+# ./miniconda_install.sh <<< $'yes\nyes\n./conda/miniconda3\nno'
 # remove installer
-rm -rf ./miniconda_install.sh
-conda list
+#rm -rf ./miniconda_install.sh
+#conda list
 
-echo 'here'
-echo 'here'
-
-print('h')
 #################################################
 
 
@@ -206,8 +220,8 @@ log "...Done"
 ### {STOW}
 echo "Stowing dotfile directories..."
 for directory in */; do
-  stow --adopt -R $directory
-  echo "  ${directory} stowed in ${HOME}"
+	stow --adopt -R $directory
+	echo "  ${directory} stowed in ${HOME}"
 done
 #################################################
 
