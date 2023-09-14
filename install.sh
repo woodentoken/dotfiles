@@ -101,6 +101,11 @@ latexmk
 mupdf
 texlive-latex-base
 "
+
+# add latest vim version to repositories
+sudo add-apt-repository ppa:jonathonf/vim
+
+# get everything up to date
 sudo apt-get update
 
 for package in ${dotfile_packages}; do
@@ -223,6 +228,9 @@ for directory in */; do
 	stow --adopt -R $directory
 	echo "  ${directory} stowed in ${HOME}"
 done
+
+# install some zsh plugins
+~/resolve_zsh_plugins.sh
 #################################################
 
 
@@ -234,5 +242,7 @@ chsh -s $(`which zsh`) $USER
 log "...Done"
 #################################################
 
+# final cleanup
+sudo apt-get autoremove
 log "All Done!"
 exit 0

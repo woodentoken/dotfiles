@@ -1,4 +1,4 @@
-#!/usr/bin/bash 
+#!/bin/bash 
 # script to install or update zsh plugins
 DOTFILES_HOME=${HOME}/dotfiles
 

@@ -107,7 +107,6 @@ precmd() { _virtualenv_auto_activate }
 # conda automatic activation
 export CONDACONFIGDIR=""
 _condaenv_auto_activate() {
-# cd() { builtin cd "$@" && 
   if [ -f $PWD/.conda_config ]; then
     export CONDACONFIGDIR=$PWD
     conda activate $(cat .conda_config)
