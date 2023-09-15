@@ -14,55 +14,71 @@ function log {
 		echo
 	fi
 }
-echo "Do you want to remove potentially conflicting files in your home directory? (y/n)"
-select yn in "create backups" "do nothing"; do
-	case $yn in
-		"create backups")
-			incoming_files=()
-			while IFS= read -r -d $'\0'; do
-				incoming_files+=("$REPLY")
-			done < <(find . -maxdepth 2 -type f,d -print0)
 
-			existing_files=()
-			while IFS= read -r -d $'\0'; do
-				existing_files+=("$REPLY")
-			done < <(find ../.* -maxdepth 0 -type f,d -print0)
+function find_conflicting_dotfiles {
+  incoming_files=()
+  while IFS= read -r -d $'\0'; do
+    incoming_files+=("$REPLY")
+  done < <(find . -maxdepth 2 -type f,d -print0)
 
-			# TODO make "basenameify" a utility function
-			# basenameify existing_filessting dotfiles
-			for i in "${!existing_files[@]}"; do
-				existing_files[$i]=$(basename ${existing_files[$i]})
-			done
+  existing_files=()
+  while IFS= read -r -d $'\0'; do
+    existing_files+=("$REPLY")
+  done < <(find ../.* -maxdepth 0 -type f,d -print0)
 
-			# basenameify incoming_filesoming dotfiles
-			for i in "${!incoming_files[@]}"; do
-				incoming_files[$i]=$(basename ${incoming_files[$i]})
-			done
+  # basenameify existing_file dotfiles
+  for i in {1..$#existing_files}; do
+    existing_files[$i]=$(basename ${existing_files[$i]})
+  done
 
-			# compute the intersection of the basenamed files
-			common_dotfiles=($(comm -12 <(printf '%s\n' "${incoming_files[@]}" | sort) <(printf '%s\n' "${existing_files[@]}" | sort)))
+  # basenameify incoming_filesoming dotfiles
+  for i in {1..$#incoming_files}; do
+    incoming_files[$i]=$(basename ${incoming_files[$i]})
+  done
 
-			# backup existing_filessting files
-			backup_folder=~/.dotfile_backup_$(date '+%Y_%m_%d_%H_%M_%S')
-			mkdir $backup_folder
+  # compute the intersection of the basenamed files
+  common_dotfiles=($(comm -12 <(printf '%s\n' "${incoming_files[@]}" | sort) <(printf '%s\n' "${existing_files[@]}" | sort)))
+}
 
-			# move conflicting files into a backup folder
-			pushd ..
-			mv ${common_dotfiles[@]} $backup_folder
-			popd
+common_dotfiles=$(find_conflicting_dotfiles)
 
-			unset IFS
+# if conflicting dotfiles exist, ask how we should handle them
+if [ ! -z $common_dotfiles ]; then
+  echo "conflicts found in home directory: $common_dotfiles."
+  echo "How do you want to handle conflicting files/folders that are currently in your home directory? (b/d/n)"
+  select bdn in "create backups" "delete them" "do nothing"; do
+    case $bdn in
+      "create backups")
+        # backup existing files
+        backup_folder=~/.dotfile_backup_$(date '+%Y_%m_%d_%H_%M_%S')
+        mkdir $backup_folder
 
-			# locate existing_filessting dotfiles that may conflict
-			log "moved ${common_dotfiles[@]} into $backup_folder"
+      # move conflicting files into a backup folder
+      pushd ~
+      mv ${common_dotfiles[@]} $backup_folder
+      popd
 
-			break
-			;;
-		"do nothing")
-			log 'did not touch existing_filessting files, you *may* encounter issues with installation and symlinking as a result'
-			break
-	esac
-done
+      unset IFS
+
+      # locate existing_files dotfiles that may conflict
+      log "moved ${common_dotfiles[@]} into $backup_folder"
+
+      break
+      ;;
+    "delete them")
+      log "deleting ${common_dotfiles[@]}"
+
+      pushd ~
+      rm -rf ${common_dotfiles[@]}
+      popd
+      break
+      ;;
+    "do nothing")
+      log 'did not touch existing files, you *may* encounter issues with installation and symlinking as a result'
+      break
+    esac
+  done
+fi
 
 echo "Do you wish to install latex packages? (y/n)"
 select yn in "install latex packages" "do not install latex packages"; do
@@ -124,9 +140,6 @@ fi
 
 # optionally install rust
 curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh
-
-# remove superfluous packages
-sudo apt-get autoremove
 
 log "...Done"
 #################################################
@@ -200,17 +213,6 @@ nvm install node
 #################################################
 
 
-##################################################
-### {Python}
-# install with some default answers
-# ./miniconda_install.sh <<< $'yes\nyes\n./conda/miniconda3\nno'
-# remove installer
-#rm -rf ./miniconda_install.sh
-#conda list
-
-#################################################
-
-
 #################################################
 ### {VIM} Install Plug
 log "Installing Vim Plug plugin manager..."
@@ -246,5 +248,6 @@ log "...Done"
 
 # final cleanup
 sudo apt-get autoremove
+
 log "All Done!"
 exit 0
