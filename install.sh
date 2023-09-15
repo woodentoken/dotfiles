@@ -139,7 +139,15 @@ if [ "$install_latex" = "1" ]; then
 fi
 
 # optionally install rust
-curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh
+echo "Do you wish to install rust? (y/n)"
+select yn in "install rust" "do not install rust"; do
+  case $yn in
+    "install latex packages")
+      curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh; break;;
+    "do not install latex packages")
+      log 'did not install rust'; break
+  esac
+done
 
 log "...Done"
 #################################################
