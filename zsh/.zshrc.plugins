@@ -89,7 +89,7 @@ _virtualenv_auto_activate() {
     ## If env folder is found then activate the virtualenv
     if [[ -d ./.venv ]] ; then
       source ./.venv/bin/activate
-      export VENV_NAME="[venv: %F{#FF44C9}$(printf $(basename $(dirname $VIRTUAL_ENV)))%f]"
+      export VENV_NAME="[venv:%F{#FF44C9}$(printf $(basename $(dirname $VIRTUAL_ENV)))%f]"
     fi
   else
     ## check the current folder belong to earlier VIRTUAL_ENV folder
@@ -111,7 +111,7 @@ _condaenv_auto_activate() {
     if [ -f $PWD/.conda_config ]; then
       export CONDACONFIGDIR=$PWD
       conda activate $(cat .conda_config)
-      export VENV_NAME="[conda_env: %F{#FF44C9}$(printf $(basename $CONDA_PREFIX))%f]"
+      export VENV_NAME="[conda_env:%F{#FF44C9}$(printf $(basename $CONDA_PREFIX))%f]"
     fi
   else
     if [[ "$PWD"/ != "$CONDACONFIGDIR"/* ]]; then
