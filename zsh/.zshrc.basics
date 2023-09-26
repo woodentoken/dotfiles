@@ -30,6 +30,9 @@ HISTSIZE=5000
 SAVEHIST=5000
 HISTFILE=~/.zsh_history
 
+alias rd=rmdir
+alias md='mkdir -p'
+
 # manage cd history as a stack
 setopt CDABLE_VARS                 # expand the expression (allows 'cd -2/tmp')
 setopt AUTO_CD

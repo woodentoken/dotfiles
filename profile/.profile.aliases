@@ -45,9 +45,13 @@ alias c='clc'
   alias dtp='cd ~/dotfiles/profile && la'
   alias dtf='cd ~/dotfiles/fzf && la'
   alias dtg='cd ~/dotfiles/git && la'
+
+  # PROJECT SPECIFIC ALIASES
   alias pr='cd ~/projects && la'
+  alias prr='cd ~/projects/research/ && la'
+  alias prrp='cd ~/projects/research/perch101 && la'
   alias prp='cd ~/projects/personal & la'
-  alias prl='cd ~/projects/personal/learning && la'
+  alias prpl='cd ~/projects/personal/learning && la'
   alias sp='cd ~/support && la'
 
   # TREE
