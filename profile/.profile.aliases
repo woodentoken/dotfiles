@@ -19,6 +19,14 @@ alias j='jobs -l'
 alias clc='clear'
 alias c='clc'
 
+# SHORTCUTS
+alias v='vim'
+alias t='touch'
+alias e='echo'
+alias please='sudo zsh -c "$(fc -ln -1)"'
+alias untar='tar -xvkf'
+alias upgrade='sudo apt update; sudo apt upgrade; sudo apt full-upgrade; sudo apt autoremove'
+
   # BASE IMPROVEMENTS
   alias mv='mv -i'
   alias cp='cp -i'
@@ -36,15 +44,16 @@ alias c='clc'
     # all (capital includes symlinks)
     alias la="ls -lA | awk '/^d/'; ls -lA | awk '/^-/'"
     alias lA="ls -lA | awk '/^d/'; ls -lA | awk '/^l/'; ls -lA | awk '/^-/'"
+  alias lc="ls -C"
 
   # MY STUFF
-  alias dt='cd ~/dotfiles && la'
-  alias dtz='cd ~/dotfiles/zsh && la'
-  alias dtt='cd ~/dotfiles/tmux && la'
-  alias dtv='cd ~/dotfiles/vim && la'
-  alias dtp='cd ~/dotfiles/profile && la'
-  alias dtf='cd ~/dotfiles/fzf && la'
-  alias dtg='cd ~/dotfiles/git && la'
+  alias dt='cd ~/dotfiles && tr -a'
+  alias dtz='cd ~/dotfiles/zsh && tr -a'
+  alias dtt='cd ~/dotfiles/tmux && tr -a'
+  alias dtv='cd ~/dotfiles/vim && tr -a'
+  alias dtp='cd ~/dotfiles/profile && tr -a'
+  alias dtf='cd ~/dotfiles/fzf && tr -a'
+  alias dtg='cd ~/dotfiles/git && tr -a'
 
   # PROJECT SPECIFIC ALIASES
   alias pr='cd ~/projects && la'
