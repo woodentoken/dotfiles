@@ -28,6 +28,8 @@
 
   rb = rebase -i
 
+  cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 -r git branch -d"
+
   co = checkout
   c- = checkout -
   ci = commit
