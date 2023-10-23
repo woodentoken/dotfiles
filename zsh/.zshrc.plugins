@@ -48,6 +48,7 @@ source ~/.zsh/zsh-colored-man-pages/colored-man-pages.plugin.zsh && man less 2>&
 # FZF DIR NAVIGATOR (https://github.com/KulkarniKaustubh/fzf-dir-navigator)
 # -----------------------------------------------------------------------------
 source ~/.zsh/fzf-dir-navigator/fzf-dir-navigator.plugin.zsh
+bindkey "^f" fzf-dir-navigator
 
 # -----------------------------------------------------------------------------
 # ALIAS TIPS (https://github.com/djui/alias-tips)
