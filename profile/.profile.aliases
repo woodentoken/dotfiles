@@ -62,6 +62,9 @@ alias upgrade='sudo apt update; sudo apt upgrade; sudo apt full-upgrade; sudo ap
   alias prp='cd ~/projects/personal & la'
   alias prpl='cd ~/projects/personal/learning && la'
   alias sp='cd ~/support && la'
+  alias dl='cd ~/Documents/Downloads'
+  alias dc='cd ~/Documents'
+
 
   # TREE
   alias tree='tree -F --dirsfirst'
