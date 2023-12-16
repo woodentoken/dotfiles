@@ -103,7 +103,7 @@ _virtualenv_auto_activate() {
     fi
   fi
 }
-precmd() { _virtualenv_auto_activate }
+precmd_functions+=(_virtualenv_auto_activate)
 
 # conda automatic activation
 export CONDACONFIGDIR=""
@@ -122,7 +122,7 @@ _condaenv_auto_activate() {
     fi
   fi
 }
-precmd() { _condaenv_auto_activate }
+precmd_functions+=(_condaenv_auto_activate)
 
 # overrides for git-prompt
 ZSH_THEME_GIT_PROMPT_PREFIX="["
