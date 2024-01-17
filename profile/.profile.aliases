@@ -54,6 +54,7 @@ alias upgrade='sudo apt update; sudo apt upgrade; sudo apt full-upgrade; sudo ap
   alias dtp='cd ~/dotfiles/profile && tr -a'
   alias dtf='cd ~/dotfiles/fzf && tr -a'
   alias dtg='cd ~/dotfiles/git && tr -a'
+  alias asb='cd /home/kaleb/anaconda3/envs/Stab_base/lib/python3.8/site-packages/aerosandbox/geometry/airfoil/airfoil_database/'
 
   # PROJECT SPECIFIC ALIASES
   alias pr='cd ~/projects && la'
