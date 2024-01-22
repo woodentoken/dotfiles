@@ -42,7 +42,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf-install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-eunuch'
+" Plug 'tpope/vim-eunuch'
 Plug 'yegappan/mru'
 
 "   {{ LOW LEVEL }}
@@ -194,9 +194,9 @@ nnoremap <leader>m :MRU<CR>
 " -------------------------------------------------------------
 "     { SirVer/ultisnips }
 " -------------------------------------------------------------
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsExpandTrigger = '<c-y>'
+let g:UltiSnipsJumpForwardTrigger = '<c-n>'
+let g:UltiSnipsJumpBackwardTrigger = '<c-p>'
 let g:UltiSnipsSnippetDirectories=["UltiSnips", ".vimrc.snippets"]
 
 " -------------------------------------------------------------
@@ -289,7 +289,7 @@ let g:pymode_lint_error_symbol = 'EE'
 let g:pymode_lint_info_symbol = 'II'
 let g:pymode_lint_pyflakes_symbol = 'FF'
 let g:pymode_python = 'python3'
-
+nnoremap <leader>pf :PymodeLintAuto<CR>
 
 " |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 " || LINT/QUALITY |||||||||||||||||||||||||||||||||||||||||||||||||||||||||

@@ -1,4 +1,19 @@
 {
   "python.linting.enabled": false,
-  "clangd.path": "/usr/bin/clangd-15"
+  "clangd.path": "/usr/bin/clangd-15",
+  "coc.preferences.formatOnSave": false,
+  "coc.source.syntax.enable": true,
+
+  "colors.enable": true,
+
+  "suggest.enableFloat": true,
+  "suggest.localityBonus": true,
+  "suggest.filterGraceful": true,
+  "suggest.maxCompleteItemCount": 16,
+  "suggest.removeDuplicateItems": true,
+  "suggest.virtualText": true,
+
+  "diagnostic.virtualText": true,
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.virtualTextCurrentLineOnly": true
 }
