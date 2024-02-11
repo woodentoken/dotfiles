@@ -98,6 +98,7 @@ dotfile_packages="
   curl
   fd-find
   git
+  git-absorb
   net-tools
   openssh-server
   openssh-client
