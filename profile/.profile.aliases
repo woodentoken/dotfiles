@@ -20,12 +20,14 @@ alias clc='clear'
 alias c='clc'
 
 # SHORTCUTS
+alias vim='vim'
 alias v='vim'
 alias t='touch'
 alias e='echo'
 alias please='sudo zsh -c "$(fc -ln -1)"'
 alias untar='tar -xvkf'
 alias upgrade='sudo apt update; sudo apt upgrade; sudo apt full-upgrade; sudo apt autoremove'
+alias fd='fdfind'
 
   # BASE IMPROVEMENTS
   alias mv='mv -i'

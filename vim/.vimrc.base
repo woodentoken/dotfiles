@@ -128,16 +128,16 @@ set t_Co=256
 " -------------------------------------
 
 " disable arrow keys
-" noremap <Up> <NOP>
-" noremap <Down> <NOP>
-" noremap <Left> <NOP>
-" noremap <Right> <NOP>
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
 
 " use tab and shift tab for indent shifting
 nnoremap <TAB> >>
 nnoremap <S-TAB> <<
-vnoremap <TAB> >gv
-vnoremap <S-TAB> <gv
+vnoremap > >gv
+vnoremap < <gv
 
 " Move up/down editor lines
 nnoremap j gj
@@ -159,6 +159,8 @@ noremap <C-k> 10k
 " move to beginning and end of line with ctrl h/l
 noremap <C-h> ^
 noremap <C-l> $
+
+noremap <Leader>c :Copilot<CR>
 
 " execute current line in zsh, show the output in a window
 noremap <Leader>z :.w !zsh<CR>

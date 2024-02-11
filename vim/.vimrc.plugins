@@ -52,6 +52,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'wellle/targets.vim'
 Plug 'woodentoken/vim-snippets'
+Plug 'github/copilot.vim'
 
 " {{ LANGUAGE SPECIFIC }}
 Plug 'lervag/vimtex'
@@ -282,6 +283,7 @@ let g:pymode_lint_on_fly = 1
 let g:pymode_lint_unmodified = 1
 " avoid line too long warnings (E501)
 let g:pymode_lint_ignore = ["E501", "E116", "C0116", "C0114", "C0115",]
+" let g:pymode_lint_ignore = ["E501", "E116", "E0602", "F405", "F403", "C0116", "C0114", "C0115",]
 let g:pymode_lint_todo_symbol = 'WW'
 let g:pymode_lint_comment_symbol = 'CC'
 let g:pymode_lint_visual_symbol = 'RR'

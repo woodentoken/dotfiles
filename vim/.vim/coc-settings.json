@@ -15,5 +15,6 @@
 
   "diagnostic.virtualText": true,
   "diagnostic.checkCurrentLine": true,
-  "diagnostic.virtualTextCurrentLineOnly": true
+  "diagnostic.virtualTextCurrentLineOnly": true,
+  "snippets.ultisnips.pythonPrompt": false
 }

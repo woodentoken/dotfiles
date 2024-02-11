@@ -107,7 +107,6 @@ dotfile_packages="
   stow
   tmux
   tree
-  vim
   wslu
   xdg-utils
   yodl
@@ -119,9 +118,6 @@ latex_packages="
   texlive-latex-base
   texlive-latex-extra
 "
-
-# add latest vim version to repositories
-sudo add-apt-repository ppa:jonathonf/vim
 
 # get everything up to date
 sudo apt-get update
@@ -149,6 +145,11 @@ select yn in "install rust" "do not install rust"; do
   esac
 done
 
+# get everything up to date after installing packages
+# probably redundant, but just in case
+sudo apt-get update
+sudo apt-get upgrade
+
 log "...Done"
 #################################################
 
@@ -159,6 +160,28 @@ dotfiles=https://github.com/kraleb/dotfiles
 log "Cloning Dotfiles from ${dotfiles}..."
 dotfile_path="${HOME}/dotfiles"
 run git clone $dotfiles "${dotfile_path}"
+log "...Done"
+#################################################
+
+
+#################################################
+### Install the lastest version of vim
+log "Installing the latest version of vim..."
+git clone https://github.com/vim/vim.git ~
+cd ~/vim
+./configure --with-features=huge \
+            --enable-multibyte \
+            --enable-rubyinterp=yes \
+            --enable-python3interp=yes \
+            --enable-pythoninterp=yes \
+            --with-python3-config-dir=$(python3-config --configdir) \
+            --enable-perlinterp=yes \
+            --enable-luainterp=yes \
+            --enable-gui=gtk2 \
+            --enable-cscope \
+            --prefix=/usr/local
+make
+sudo make install
 log "...Done"
 #################################################
 
@@ -229,6 +252,7 @@ log "...Done"
 
 log "Installing Vim Plugins..."
 run vim -E -s -u '~/.vimrc.plugins' +PlugInstall +qall || true
+run vim -E -s -u '~/.vimrc.plugins' +Copilot setup
 log "...Done"
 #################################################
 
