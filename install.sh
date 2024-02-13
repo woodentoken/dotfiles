@@ -135,17 +135,6 @@ if [ "$install_latex" = "1" ]; then
 	done
 fi
 
-# optionally install rust
-echo "Do you wish to install rust? (y/n)"
-select yn in "install rust" "do not install rust"; do
-  case $yn in
-    "install latex packages")
-      curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh; break;;
-    "do not install latex packages")
-      log 'did not install rust'; break
-  esac
-done
-
 # get everything up to date after installing packages
 # probably redundant, but just in case
 sudo apt-get update
@@ -168,7 +157,7 @@ log "...Done"
 #################################################
 ### Install the lastest version of vim
 log "Installing the latest version of vim..."
-git clone https://github.com/vim/vim.git ~
+git clone https://github.com/vim/vim.git ~/vim
 cd ~/vim
 ./configure --with-features=huge \
             --enable-multibyte \
