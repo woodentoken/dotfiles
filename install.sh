@@ -15,6 +15,7 @@ function log {
 	fi
 }
 
+# find all dotfiles in the home directory and remove them
 function find_conflicting_dotfiles {
   incoming_files=()
   while IFS= read -r -d $'\0'; do
@@ -80,21 +81,12 @@ if [ ! -z $common_dotfiles ]; then
   done
 fi
 
-echo "Do you wish to install latex packages? (y/n)"
-select yn in "install latex packages" "do not install latex packages"; do
-	case $yn in
-		"install latex packages")
-			install_latex=1; break;;
-		"do not install latex packages")
-			log 'did not installing latex packages'; break
-	esac
-done
-
 #################################################
 ### Housekeeping
 log "Installing dotfile packages..."
 dotfile_packages="
   build-essential
+  libncurses5-dev
   curl
   fd-find
   git
@@ -105,6 +97,7 @@ dotfile_packages="
   perl
   python3
   python3-pip
+  r-base
   stow
   tmux
   tree
@@ -113,33 +106,36 @@ dotfile_packages="
   yodl
   zsh
 "
-latex_packages="
-  latexmk
-  mupdf
-  texlive-latex-base
-  texlive-latex-extra
-"
 
 # get everything up to date
 sudo apt-get update
 
 for package in ${dotfile_packages}; do
 	log ''
-	sudo apt-get install $package
+	sudo apt-get -y install $package
 done
 
 if [ "$install_latex" = "1" ]; then
 	for package in ${latex_packages}; do
 		log ''
-		sudo apt-get install $package
+		sudo apt-get -y install $package
 	done
 fi
 
 # get everything up to date after installing packages
 # probably redundant, but just in case
 sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get -y upgrade
 
+log "...Done"
+#################################################
+
+
+#################################################
+### Install rstudio
+log "Installing RStudio..."
+wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1.2_amd64.deb
+sudo apt-get install ./libssl1.1_1.1.1l-1ubuntu1.2_amd64.deb
 log "...Done"
 #################################################
 
