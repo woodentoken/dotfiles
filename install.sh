@@ -107,20 +107,10 @@ dotfile_packages="
   zsh
 "
 
-# get everything up to date
-sudo apt-get update
-
 for package in ${dotfile_packages}; do
 	log ''
 	sudo apt-get -y install $package
 done
-
-if [ "$install_latex" = "1" ]; then
-	for package in ${latex_packages}; do
-		log ''
-		sudo apt-get -y install $package
-	done
-fi
 
 # get everything up to date after installing packages
 # probably redundant, but just in case
