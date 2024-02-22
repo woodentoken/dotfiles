@@ -46,6 +46,7 @@ alias fd='fdfind'
     # all (capital includes symlinks)
     alias la="ls -lA | awk '/^d/'; ls -lA | awk '/^-/'"
     alias lA="ls -lA | awk '/^d/'; ls -lA | awk '/^l/'; ls -lA | awk '/^-/'"
+    alias lt="ls --human-readable --size -1 -S"
   alias lc="ls -C"
 
   # MY STUFF
@@ -67,6 +68,9 @@ alias fd='fdfind'
   alias dl='cd ~/Downloads'
   alias dc='cd ~/Documents'
 
+  # CLIPPING
+  alias clip='xclip -selection c'
+  alias sclip='xclip -selection c -o'
 
   # TREE
   alias tree='tree -F --dirsfirst'
@@ -83,13 +87,18 @@ alias fd='fdfind'
   alias kk='ll'
 
 # CONDA
+alias ci='conda info --envs'
+alias ce=
 alias ca='conda activate'
-alias ce='conda info --envs'
+alias cdd='conda deactivate'
 
 # PYTHON
 alias py='python3'
 alias py3='python3'
 alias python='python3'
+alias ve='py -m venv ./.venv'
+alias va='source ./.venv/bin/activate'
+alias vdd='deactivate'
 
 # DOCKER
 alias dr='docker'

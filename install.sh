@@ -86,22 +86,24 @@ fi
 log "Installing dotfile packages..."
 dotfile_packages="
   build-essential
-  libncurses5-dev
   curl
   fd-find
   git
   git-absorb
+  libncurses5-dev
   net-tools
-  openssh-server
   openssh-client
+  openssh-server
   perl
-  python3
+  python3-dev
   python3-pip
+  python3-setuptools
   r-base
   stow
   tmux
   tree
   wslu
+  xclip
   xdg-utils
   yodl
   zsh
@@ -149,6 +151,25 @@ cd ~/vim
             --prefix=/usr/local
 make
 sudo make install
+log "...Done"
+#################################################
+
+
+#################################################
+### {Conda} Install Anaconda
+log "Installing Anaconda..."
+wget https://repo.anaconda.com/archive/Anaconda3-2023.09-Linux-x86_64.sh -P /tmp/
+bash Anaconda3-2023.09-Linux-x86_64.sh
+rm /tmp/Anaconda3-2023.09-Linux-x86_64.sh
+log "...Done"
+#################################################
+
+
+#################################################
+### {thefuck} Install thefuck
+log "Installing thefuck"
+pip3 install thefuck --user
+pip3 install thefuck --upgrade
 log "...Done"
 #################################################
 

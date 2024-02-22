@@ -157,6 +157,11 @@ let g:indentLine_color_term = 239
 "     { junegunn/fzf }
 " -------------------------------------------------------------
 nnoremap <C-P> :FZF<CR>
+if has('unix')
+    let $FZF_DEFAULT_COMMAND='find . \! \( -type d -path ./.git -prune \) \! -type d -printf ''%P\n'''
+else
+    let $FZF_DEFAULT_COMMAND='Get-ChildItem -Recurse -Exclude .git -File -Name' "untested
+endif
 let g:fzf_layout = { 'window': { 'width': 0.75, 'height': 0.75 } }
 let g:fzf_colors =
       \ { 'fg':    ['fg', 'Normal'],
