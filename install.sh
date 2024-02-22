@@ -82,7 +82,7 @@ if [ ! -z $common_dotfiles ]; then
 fi
 
 #################################################
-### Housekeeping
+### Basics
 log "Installing dotfile packages..."
 dotfile_packages="
   build-essential
@@ -122,15 +122,6 @@ log "...Done"
 
 
 #################################################
-### Install rstudio
-log "Installing RStudio..."
-wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1.2_amd64.deb
-sudo apt-get install ./libssl1.1_1.1.1l-1ubuntu1.2_amd64.deb
-log "...Done"
-#################################################
-
-
-#################################################
 ### Clone Dotfiles from Git
 dotfiles=https://github.com/kraleb/dotfiles
 log "Cloning Dotfiles from ${dotfiles}..."
@@ -141,8 +132,8 @@ log "...Done"
 
 
 #################################################
-### Install the lastest version of vim
-log "Installing the latest version of vim..."
+### {VIM} Install the lastest version of vim
+log "Installing the latest version of vim and configuring python support etc"
 git clone https://github.com/vim/vim.git ~/vim
 cd ~/vim
 ./configure --with-features=huge \
@@ -158,6 +149,23 @@ cd ~/vim
             --prefix=/usr/local
 make
 sudo make install
+log "...Done"
+#################################################
+
+
+#################################################
+### {R} Install r packages
+log "Installing R packages..."
+Rscript -e 'install.packages("languageserver")'
+log "...Done"
+#################################################
+
+
+#################################################
+### {R} Install rstudio
+log "Installing RStudio..."
+wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1.2_amd64.deb
+sudo apt-get install ./libssl1.1_1.1.1l-1ubuntu1.2_amd64.deb
 log "...Done"
 #################################################
 
