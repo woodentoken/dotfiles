@@ -15,71 +15,72 @@ function log {
 	fi
 }
 
-# find all dotfiles in the home directory and remove them
-function find_conflicting_dotfiles {
-  incoming_files=()
-  while IFS= read -r -d $'\0'; do
-    incoming_files+=("$REPLY")
-  done < <(find . -maxdepth 2 -type f,d -print0)
+# WIP
+# # find all dotfiles in the home directory and remove them
+# function find_conflicting_dotfiles {
+#   incoming_files=()
+#   while IFS= read -r -d $'\0'; do
+#     incoming_files+=("$REPLY")
+#   done < <(find . -maxdepth 2 -type f,d -print0)
 
-  existing_files=()
-  while IFS= read -r -d $'\0'; do
-    existing_files+=("$REPLY")
-  done < <(find ../.* -maxdepth 0 -type f,d -print0)
+#   existing_files=()
+#   while IFS= read -r -d $'\0'; do
+#     existing_files+=("$REPLY")
+#   done < <(find ../.* -maxdepth 0 -type f,d -print0)
 
-  # basenameify existing_file dotfiles
-  for i in {1..$#existing_files}; do
-    existing_files[$i]=$(basename ${existing_files[$i]})
-  done
+#   # basenameify existing_file dotfiles
+#   for i in {1..$#existing_files}; do
+#     existing_files[$i]=$(basename ${existing_files[$i]})
+#   done
 
-  # basenameify incoming_filesoming dotfiles
-  for i in {1..$#incoming_files}; do
-    incoming_files[$i]=$(basename ${incoming_files[$i]})
-  done
+#   # basenameify incoming_filesoming dotfiles
+#   for i in {1..$#incoming_files}; do
+#     incoming_files[$i]=$(basename ${incoming_files[$i]})
+#   done
 
-  # compute the intersection of the basenamed files
-  common_dotfiles=($(comm -12 <(printf '%s\n' "${incoming_files[@]}" | sort) <(printf '%s\n' "${existing_files[@]}" | sort)))
-}
+#   # compute the intersection of the basenamed files
+#   common_dotfiles=($(comm -12 <(printf '%s\n' "${incoming_files[@]}" | sort) <(printf '%s\n' "${existing_files[@]}" | sort)))
+# }
 
-common_dotfiles=$(find_conflicting_dotfiles)
+# common_dotfiles=$(find_conflicting_dotfiles)
 
-# if conflicting dotfiles exist, ask how we should handle them
-if [ ! -z $common_dotfiles ]; then
-  echo "conflicts found in home directory: $common_dotfiles."
-  echo "How do you want to handle conflicting files/folders that are currently in your home directory? (b/d/n)"
-  select bdn in "create backups" "delete them" "do nothing"; do
-    case $bdn in
-      "create backups")
-        # backup existing files
-        backup_folder=~/.dotfile_backup_$(date '+%Y_%m_%d_%H_%M_%S')
-        mkdir $backup_folder
+# # if conflicting dotfiles exist, ask how we should handle them
+# if [ ! -z $common_dotfiles ]; then
+#   echo "conflicts found in home directory: $common_dotfiles."
+#   echo "How do you want to handle conflicting files/folders that are currently in your home directory? (b/d/n)"
+#   select bdn in "create backups" "delete them" "do nothing"; do
+#     case $bdn in
+#       "create backups")
+#         # backup existing files
+#         backup_folder=~/.dotfile_backup_$(date '+%Y_%m_%d_%H_%M_%S')
+#         mkdir $backup_folder
 
-      # move conflicting files into a backup folder
-      pushd ~
-      mv ${common_dotfiles[@]} $backup_folder
-      popd
+#       # move conflicting files into a backup folder
+#       pushd ~
+#       mv ${common_dotfiles[@]} $backup_folder
+#       popd
 
-      unset IFS
+#       unset IFS
 
-      # locate existing_files dotfiles that may conflict
-      log "moved ${common_dotfiles[@]} into $backup_folder"
+#       # locate existing_files dotfiles that may conflict
+#       log "moved ${common_dotfiles[@]} into $backup_folder"
 
-      break
-      ;;
-    "delete them")
-      log "deleting ${common_dotfiles[@]}"
+#       break
+#       ;;
+#     "delete them")
+#       log "deleting ${common_dotfiles[@]}"
 
-      pushd ~
-      rm -rf ${common_dotfiles[@]}
-      popd
-      break
-      ;;
-    "do nothing")
-      log 'did not touch existing files, you *may* encounter issues with installation and symlinking as a result'
-      break
-    esac
-  done
-fi
+#       pushd ~
+#       rm -rf ${common_dotfiles[@]}
+#       popd
+#       break
+#       ;;
+#     "do nothing")
+#       log 'did not touch existing files, you *may* encounter issues with installation and symlinking as a result'
+#       break
+#     esac
+#   done
+# fi
 
 #################################################
 ### Basics
@@ -158,9 +159,12 @@ log "...Done"
 #################################################
 ### {Conda} Install Anaconda
 log "Installing Anaconda..."
-wget https://repo.anaconda.com/archive/Anaconda3-2023.09-Linux-x86_64.sh -P /tmp/
-bash Anaconda3-2023.09-Linux-x86_64.sh
-rm /tmp/Anaconda3-2023.09-Linux-x86_64.sh
+wget -c https://repo.anaconda.com/archive/Anaconda3-2023.09-0-Linux-x86_64.sh -P /tmp
+pushd /tmp
+zsh Anaconda3-2023.09-0-Linux-x86_64.sh
+rm Anaconda3-2023.09-0-Linux-x86_64.sh
+popd
+conda init
 log "...Done"
 #################################################
 
@@ -230,15 +234,6 @@ log "...Done"
 
 
 #################################################
-### {WEMUX}
-git clone https://github.com/zolrath/wemux.git /usr/local/share/wemux
-ln -s /usr/local/share/wemux/wemux /usr/local/bin/wemux
-cp /usr/local/share/wemux/wemux.conf.example /usr/local/etc/wemux.conf
-echo "host_list=(kbordner $USER)" >> /usr/local/etc/wemux.conf
-#################################################
-
-
-#################################################
 ### {NVM and NodeJS}
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
@@ -256,8 +251,8 @@ curl -fLo ./vim/.vim/autoload/plug.vim --create-dirs https://raw.githubuserconte
 log "...Done"
 
 log "Installing Vim Plugins..."
-run vim -E -s -u '~/.vimrc.plugins' +PlugInstall +qall || true
-run vim -E -s -u '~/.vimrc.plugins' +Copilot setup
+# run vim -E -s -u '~/.vimrc.plugins' +PlugInstall +qall || true
+# run vim -E -s -u '~/.vimrc.plugins' +Copilot setup
 log "...Done"
 #################################################
 
@@ -285,6 +280,7 @@ log "...Done"
 
 # final cleanup
 sudo apt-get autoremove
+zsrc
 
 log "All Done!"
 exit 0

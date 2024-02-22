@@ -86,20 +86,6 @@ alias fd='fdfind'
   alias vf='cd'
   alias kk='ll'
 
-# CONDA
-alias ci='conda info --envs'
-alias ce=
-alias ca='conda activate'
-alias cdd='conda deactivate'
-
-# PYTHON
-alias py='python3'
-alias py3='python3'
-alias python='python3'
-alias ve='py -m venv ./.venv'
-alias va='source ./.venv/bin/activate'
-alias vdd='deactivate'
-
 # DOCKER
 alias dr='docker'
 

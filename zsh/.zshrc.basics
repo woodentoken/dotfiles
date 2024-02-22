@@ -45,6 +45,26 @@ if [[ -f $(which thefuck) ]]; then
 fi
 eval $(thefuck --alias)
 
+# CONDA
+alias ci='conda info --envs'
+
+#create environment
+condae () {
+  cur_dir=$(basename "$PWD")
+  conda create -n $cur_dir
+  echo "$cur_dir" >> .conda_config
+}
+alias ca='conda activate'
+alias cdd='conda deactivate'
+
+# PYTHON
+alias py='python3'
+alias py3='python3'
+alias python='python3'
+alias ve='py -m venv ./.venv'
+alias va='source ./.venv/bin/activate'
+alias vdd='deactivate'
+
 ## MANAGE DIRECTORIES
 # create a directory `$1` and cd into it
 take () {

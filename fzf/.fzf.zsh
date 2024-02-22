@@ -1,13 +1,13 @@
 # Setup fzf
 # ---------
-if [[ ! "$PATH" == */home/kaleb/dotfiles/fzf/.fzf/bin* ]]; then
-  PATH="${PATH:+${PATH}:}/home/kaleb/dotfiles/fzf/.fzf/bin"
+if [[ ! "$PATH" == */home/kaleb/vim/fzf/.fzf/bin* ]]; then
+  PATH="${PATH:+${PATH}:}/home/kaleb/vim/fzf/.fzf/bin"
 fi
 
 # Auto-completion
 # ---------------
-[[ $- == *i* ]] && source "/home/kaleb/dotfiles/fzf/.fzf/shell/completion.zsh" 2> /dev/null
+source "/home/kaleb/vim/fzf/.fzf/shell/completion.zsh"
 
 # Key bindings
 # ------------
-source "/home/kaleb/dotfiles/fzf/.fzf/shell/key-bindings.zsh"
+source "/home/kaleb/vim/fzf/.fzf/shell/key-bindings.zsh"
