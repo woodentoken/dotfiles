@@ -181,7 +181,7 @@ log "...Done"
 #################################################
 ### {R} Install r packages
 log "Installing R packages..."
-Rscript -e 'install.packages("languageserver")'
+sudo Rscript -e 'install.packages("languageserver", depeendencies=TRUE)'
 log "...Done"
 #################################################
 

@@ -47,7 +47,6 @@ eval $(thefuck --alias)
 
 # CONDA
 alias ci='conda info --envs'
-
 #create environment
 condae () {
   cur_dir=$(basename "$PWD")
@@ -74,6 +73,7 @@ take () {
 alias rd=rmdir # this only removes empty directories!
 alias md='mkdir -p'
 alias td='take'
+
 # manage cd history as a stack
 setopt CDABLE_VARS                 # expand the expression (allows 'cd -2/tmp')
 setopt AUTO_CD
