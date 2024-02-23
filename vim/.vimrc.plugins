@@ -19,7 +19,7 @@ let g:ale_disable_lsp = 1
 
 " set the runtime path to include Plug and initialize
 set rtp+=~/.vim/autoload/plug.vim
-call plug#begin()
+call plug#begin('~/.vim/autoload')
 
 " //////////////////////////////////
 "             PLUGINS
