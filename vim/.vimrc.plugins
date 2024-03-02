@@ -55,7 +55,6 @@ Plug 'woodentoken/vim-snippets'
 Plug 'github/copilot.vim'
 
 " {{ LANGUAGE SPECIFIC }}
-Plug 'lervag/vimtex'
 Plug 'pangloss/vim-javascript'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 
@@ -227,55 +226,6 @@ vnoremap <C-\> :Commentary<CR>
 " |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 " || LANGUAGE SPECIFIC ||||||||||||||||||||||||||||||||||||||||||||||||||||
 " |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-" -------------------------------------------------------------
-"   { lervag/vimtex } (https://www.ejmastnak.com/tutorials/vim-latex/vimtex/)
-" -------------------------------------------------------------
-syntax enable
-
-let g:vimtex_quickfix_mode=2
-let g:vimtex_quickfix_autoclose_after_keystrokes=2
-let g:tex_conceal='abdmg'
-let g:tex_flavor='latex'
-let g:vimtex_compiler_method = 'latexmk'
-
-let g:vimtex_imaps_enabled=0
-let g:vimtex_indent_enabled=1
-let g:vimtex_complete_enabled=1
-let g:vimtex_syntax_enabled=1
-
-let g:vimtex_view_method='general'
-let g:vimtex_view_general_viewer='/usr/bin/mupdf'
-
-" Disable conceals by default
-let g:vimtex_syntax_conceal_disable = 1
-"
-" Enable a few things that we want
-let g:vimtex_syntax_conceal = {
-      \ 'math_bounds': 1,
-      \ 'styles': 1,
-      \}
-
-let g:vimtex_indent_delims = {
-      \ 'open'  : ['{', '(', vimtex#re#not_bslash . '['],
-      \ 'close' : ['}', ')', vimtex#re#not_bslash . ']'],
-      \}
-
-" Example: adding `\big` to VimTeX's delimiter toggle list
-let g:vimtex_delim_toggle_mod_list = [
-      \ ['\left', '\right'],
-      \ ['\big', '\big'],
-      \]
-
-" Most VimTeX mappings rely on localleader and this can be changed with the
-" following line. The default is usually fine and is the symbol "\".
-let maplocalleader = ","
-
-" auto clean files on exit of vimtex
-augroup MyVimtex
-  autocmd!
-  autocmd User VimtexEventQuit call vimtex#latexmk#clean(0)
-augroup END
-
 " -------------------------------------------------------------
 " { pangloss/vim-javascript }
 " -------------------------------------------------------------
