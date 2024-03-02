@@ -1,5 +1,7 @@
 {
   "python.linting.enabled": false,
+  "r.lsp.diagnostics": false,
+
   "clangd.path": "/usr/bin/clangd-15",
   "coc.preferences.formatOnSave": false,
   "coc.source.syntax.enable": true,
