@@ -40,9 +40,10 @@ Plug 'yggdroot/indentline'
 "   {{ HIGH LEVEL }}
 Plug 'junegunn/fzf', { 'do': { -> fzf-install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'mbbill/undotree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'
-" Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-eunuch'
 Plug 'yegappan/mru'
 
 "   {{ LOW LEVEL }}
@@ -50,13 +51,14 @@ Plug 'SirVer/ultisnips'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'terryma/vim-expand-region'
 Plug 'wellle/targets.vim'
 Plug 'woodentoken/vim-snippets'
 Plug 'github/copilot.vim'
 
 " {{ LANGUAGE SPECIFIC }}
 Plug 'pangloss/vim-javascript'
-Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+" Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 
 " {{ LINT/QUALITY }}
 Plug 'dense-analysis/ale'
@@ -87,6 +89,7 @@ let g:gitgutter_override_sign_column_highlight = 0
 " -------------------------------------------------------------
 " { tpope/vim-fugitive }
 " -------------------------------------------------------------
+set statusline+=%FugitiveStatusline()
 
 " |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 " || APPEARANCE |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -176,6 +179,25 @@ let g:fzf_colors =
       \ 'marker':  ['fg', 'Keyword'],
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment'] }
+" -------------------------------------------------------------
+" { mbbill/undotree }
+" -------------------------------------------------------------
+nnoremap <leader>u :UndotreeToggle<CR>
+nnoremap <leader>y :UndotreeFocus<CR>
+let g:undotree_SetFocusWhenToggle = 1
+let g:undotree_WindowLayout = 3
+if has("persistent_undo")
+   let target_path = expand('~/.undodir')
+
+    " create the directory and any parent directories
+    " if the location does not exist.
+    if !isdirectory(target_path)
+        call mkdir(target_path, "p", 0700)
+    endif
+
+    let &undodir=target_path
+    set undofile
+endif
 " -------------------------------------------------------------
 " { neoclide/coc.nvim }
 " -------------------------------------------------------------
