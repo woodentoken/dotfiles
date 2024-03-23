@@ -144,6 +144,8 @@ nnoremap <S-TAB> <<
 vnoremap > >gv
 vnoremap < <gv
 
+noremap <Leader>s :sort<CR>
+
 " Move up/down editor lines
 nnoremap j gj
 nnoremap k gk

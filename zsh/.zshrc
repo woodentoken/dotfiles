@@ -49,5 +49,6 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 # virtualenvwrapper
-source /home/kaleb/.local/bin/virtualenvwrapper.sh
+# source /home/kaleb/.local/bin/virtualenvwrapper.sh
+# VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 # virtualenvwrapper
