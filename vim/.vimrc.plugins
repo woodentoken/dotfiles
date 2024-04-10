@@ -38,7 +38,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'luochen1990/rainbow'
 Plug 'morhetz/gruvbox'
 Plug 'sainnhe/gruvbox-material'
-Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'yggdroot/indentline'
 
@@ -144,7 +143,7 @@ let g:airline_mode_map = {
 " -------------------------------------------------------------
 " { vim-airline/vim-airline-themes }
 " -------------------------------------------------------------
-let g:airline_theme='gruvbox_material'
+" let g:airline_theme='gruvbox_material'
 " -------------------------------------------------------------
 " { yggdroot/indentline }
 " -------------------------------------------------------------

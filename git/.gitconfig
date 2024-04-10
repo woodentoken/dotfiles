@@ -62,7 +62,7 @@
   undo = reset HEAD~1 --mixed
   wipe = !git add -A && git commit -m 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
 
-  refresh = !git rm -r --cached . && git add . && git commit -m "refresh .gitignore"
+  refresh = !git rm -r --cached . && git add .
 
 [mergetool]
   keepBackup = true
