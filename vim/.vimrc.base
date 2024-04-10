@@ -31,6 +31,20 @@ set modelines=0
 " Show line numbers
 set number
 
+" hide status line in vim
+set laststatus=0
+hi! link StatusLine Normal
+hi! link StatusLineNC Normal
+set statusline=%{repeat('─',winwidth('.'))}
+if &laststatus > 0
+  highlight StatusLine    gui=bold guibg=#c8c8d8 guifg=#151505
+  highlight StatusLineNC  gui=reverse guibg=#c8c8d8 guifg=#151505
+else
+  " Disable StatusLine highlights
+  highlight StatusLine    gui=NONE guibg=#1c1c1c guifg=#aaaaaa
+  highlight StatusLineNC  gui=NONE guibg=#1c1c1c guifg=#1c1c1c
+endif
+
 " Show file stats
 set ruler
 
@@ -123,7 +137,7 @@ map <leader>l :set list!<CR>
 map <leader>r :source ~/.vimrc<CR>
 set cursorline
 set cursorlineopt=number
-autocmd ColorScheme * highlight CursorLineNr cterm=bold term=bold gui=bold
+autocmd ColorScheme * highlight CursorLineNr cterm=bold term=bold gui=bold guibg=NONE ctermbg=NONE
 
 " Color scheme (terminal)
 set t_Co=256

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<channel name="thunar" version="1.0">
+  <property name="last-location-bar" type="string" value="ThunarLocationEntry"/>
+  <property name="misc-change-window-icon" type="bool" value="false"/>
+  <property name="misc-full-path-in-title" type="empty"/>
+  <property name="misc-middle-click-in-tab" type="empty"/>
+  <property name="misc-volume-management" type="empty"/>
+  <property name="shortcuts-icon-size" type="empty"/>
+  <property name="last-view" type="string" value="ThunarCompactView"/>
+  <property name="last-icon-view-zoom-level" type="string" value="THUNAR_ZOOM_LEVEL_100_PERCENT"/>
+  <property name="misc-single-click" type="bool" value="false"/>
+  <property name="default-view" type="string" value="ThunarCompactView"/>
+  <property name="misc-directory-specific-settings" type="bool" value="false"/>
+  <property name="last-compact-view-zoom-level" type="string" value="THUNAR_ZOOM_LEVEL_100_PERCENT"/>
+  <property name="last-separator-position" type="int" value="170"/>
+  <property name="shortcuts-icon-emblems" type="bool" value="false"/>
+  <property name="tree-icon-emblems" type="bool" value="false"/>
+  <property name="last-details-view-zoom-level" type="string" value="THUNAR_ZOOM_LEVEL_38_PERCENT"/>
+  <property name="last-details-view-column-widths" type="string" value="50,112,107,50,148,50,98,54,414,58,97,55,50,88"/>
+  <property name="last-statusbar-visible" type="bool" value="true"/>
+  <property name="last-menubar-visible" type="bool" value="true"/>
+  <property name="misc-text-beside-icons" type="bool" value="false"/>
+  <property name="last-side-pane" type="string" value="ThunarTreePane"/>
+  <property name="last-details-view-visible-columns" type="string" value="THUNAR_COLUMN_DATE_MODIFIED,THUNAR_COLUMN_NAME,THUNAR_COLUMN_PERMISSIONS,THUNAR_COLUMN_SIZE,THUNAR_COLUMN_TYPE"/>
+  <property name="misc-open-new-window-as-tab" type="bool" value="true"/>
+  <property name="last-window-maximized" type="bool" value="true"/>
+  <property name="last-splitview-separator-position" type="int" value="380"/>
+</channel>

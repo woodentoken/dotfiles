@@ -55,12 +55,14 @@ alias tl='tldr'
   # MY STUFF
   alias asb='cd /home/kaleb/anaconda3/envs/Stab_base/lib/python3.8/site-packages/aerosandbox/geometry/airfoil/airfoil_database/'
   alias dt='cd ~/dotfiles && tr -a'
+  alias dtc='cd ~/dotfiles/config/.config && tr -a'
   alias dtf='cd ~/dotfiles/fzf && tr -a'
   alias dtg='cd ~/dotfiles/git && tr -a'
   alias dtp='cd ~/dotfiles/profile && tr -a'
   alias dtt='cd ~/dotfiles/tmux && tr -a'
   alias dtv='cd ~/dotfiles/vim && tr -a'
   alias dtz='cd ~/dotfiles/zsh && tr -a'
+  alias asb='cd /home/kaleb/anaconda3/envs/Stab_base/lib/python3.8/site-packages/aerosandbox/geometry/airfoil/airfoil_database/'
 
   # PROJECT SPECIFIC ALIASES
   alias dc='cd ~/Documents'
@@ -70,6 +72,8 @@ alias tl='tldr'
   alias prpl='cd ~/projects/personal/learning && la'
   alias prr='cd ~/projects/research/ && la'
   alias prrp='cd ~/projects/research/perch101 && la'
+  alias dl='cd ~/Downloads'
+  alias dc='cd ~/Documents'
 
   # CLIPPING
   alias clip='xclip -selection c'
