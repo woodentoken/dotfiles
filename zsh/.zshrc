@@ -48,5 +48,7 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-
-eval $(thefuck --alias)
+# virtualenvwrapper
+# source /home/kaleb/.local/bin/virtualenvwrapper.sh
+# VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+# virtualenvwrapper

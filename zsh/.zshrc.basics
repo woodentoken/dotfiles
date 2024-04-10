@@ -39,12 +39,6 @@ HISTSIZE=5000
 SAVEHIST=5000
 HISTFILE=~/.zsh_history
 
-# allow thefuck to operate on alias `fuck`
-if [[ -f $(which thefuck) ]]; then
-  eval $(thefuck --alias)
-fi
-eval $(thefuck --alias)
-
 # CONDA
 alias ci='conda info --envs'
 #create environment
@@ -53,16 +47,31 @@ condae () {
   conda create -n $cur_dir
   echo "$cur_dir" >> .conda_config
 }
-alias ca='conda activate'
-alias cdd='conda deactivate'
+alias coa='conda activate'
+alias cod='conda deactivate'
+alias con='$(basename $PWD) > .conda_config'
 
 # PYTHON
 alias py='python3'
 alias py3='python3'
 alias python='python3'
-alias ve='py -m venv ./.venv'
-alias va='source ./.venv/bin/activate'
-alias vdd='deactivate'
+
+# PIP
+alias pi='pip install'
+alias par='pip-autoremove'
+alias pu='pip uninstall'
+alias pl='pip list'
+
+# VIRTUALENV
+alias ven='virtualenv .venv'
+alias vem='mkvirtualenv'
+alias veh='ls -l $WORKON_HOME'
+alias ve='virtualenv'
+alias vea='source ./.venv/bin/activate'
+alias ved='deactivate'
+alias vel='lsvirtualenv'
+alias vei='lssitepackages'
+
 
 ## MANAGE DIRECTORIES
 # create a directory `$1` and cd into it

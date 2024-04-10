@@ -23,11 +23,14 @@ alias c='clc'
 alias vim='vim'
 alias v='vim'
 alias t='touch'
-alias e='echo'
+alias e=$EDITOR
+alias se="sudo $EDITOR"
 alias please='sudo zsh -c "$(fc -ln -1)"'
 alias untar='tar -xvkf'
 alias upgrade='sudo apt update; sudo apt upgrade; sudo apt full-upgrade; sudo apt autoremove'
+alias upup='sudo apt update; sudo apt upgrade -y; sudo apt full-upgrade -y; sudo apt autoremove -y'
 alias fd='fdfind'
+alias tl='tldr'
 
   # BASE IMPROVEMENTS
   alias mv='mv -i'
@@ -50,6 +53,7 @@ alias fd='fdfind'
   alias lc="ls -C"
 
   # MY STUFF
+  alias asb='cd /home/kaleb/anaconda3/envs/Stab_base/lib/python3.8/site-packages/aerosandbox/geometry/airfoil/airfoil_database/'
   alias dt='cd ~/dotfiles && tr -a'
   alias dtc='cd ~/dotfiles/config/.config && tr -a'
   alias dtf='cd ~/dotfiles/fzf && tr -a'
@@ -61,6 +65,8 @@ alias fd='fdfind'
   alias asb='cd /home/kaleb/anaconda3/envs/Stab_base/lib/python3.8/site-packages/aerosandbox/geometry/airfoil/airfoil_database/'
 
   # PROJECT SPECIFIC ALIASES
+  alias dc='cd ~/Documents'
+  alias dl='cd ~/Downloads'
   alias pr='cd ~/projects && la'
   alias prp='cd ~/projects/personal & la'
   alias prpl='cd ~/projects/personal/learning && la'

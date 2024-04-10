@@ -19,6 +19,8 @@ filetype indent on
 " Pick a leader key
 let mapleader = "\\"
 
+set magic
+
 " Indentation
 set autoindent
 set smartindent
@@ -52,12 +54,6 @@ set signcolumn="yes:1"
 
 " Blink cursor on error instead of beeping (grr)
 set visualbell
-
-" Persist undo history
-" set undofile
-" set undodir=~/.vim/.vimundo/
-" set undolevels=1000
-" set undoreload=10000
 
 " Use persistent history.
 if !isdirectory("/tmp/.vim-undo-dir")
@@ -162,6 +158,8 @@ nnoremap <S-TAB> <<
 vnoremap > >gv
 vnoremap < <gv
 
+noremap <Leader>s :sort<CR>
+
 " Move up/down editor lines
 nnoremap j gj
 nnoremap k gk
@@ -183,12 +181,19 @@ noremap <C-k> 10k
 noremap <C-h> ^
 noremap <C-l> $
 
+" Interact with Copilot
 noremap <Leader>c :Copilot<CR>
+
+" Quickly save
+noremap <Leader>w :w!<CR>
 
 " execute current line in zsh, show the output in a window
 noremap <Leader>z :.w !zsh<CR>
 " execute current line in zsh, replace input with output
 noremap <Leader>Z :. !zsh<CR>
+
+" remap 0 to first non blank character
+map 0 ^
 
 vnoremap <C-h> 10h
 vnoremap <C-j> 10j
@@ -292,3 +297,33 @@ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
 let &t_SI .= "\<Esc>[?2004h"
 let &t_EI .= "\<Esc>[?2004l"
+
+" compile and run
+map <F5> :call CompileRun()<CR>
+imap <F5> <Esc>:call CompileRun()<CR>
+vmap <F5> <Esc>:call CompileRun()<CR>
+
+func! CompileRun()
+exec "w"
+if &filetype == 'c'
+    exec "!gcc % -o %<"
+    exec "!time ./%<"
+elseif &filetype == 'cpp'
+    exec "!g++ % -o %<"
+    exec "!time ./%<"
+elseif &filetype == 'java'
+    exec "!javac %"
+    exec "!time java %"
+elseif &filetype == 'sh'
+    exec "!time bash %"
+elseif &filetype == 'python'
+    exec "!time python3 %"
+elseif &filetype == 'html'
+    exec "!google-chrome % &"
+elseif &filetype == 'go'
+    exec "!go build %<"
+    exec "!time go run %"
+elseif &filetype == 'matlab'
+    exec "!time octave %"
+endif
+endfunc
