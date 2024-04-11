@@ -14,7 +14,6 @@ tmux/.tmux
 config/.config/*
 
 !config/.config/bspwm
-!config/.config/dconf
 !config/.config/dunst
 !config/.config/neofetch
 !config/.config/picom
