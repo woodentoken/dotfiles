@@ -3,7 +3,6 @@
 #AUTOSTART
 sxhkd -c ~/.config/sxhkdrc &
 xfce4-power-manager &
-rofi &
 ./.config/launch.sh
 
 pgrep -x sxhkd > /dev/null || sxhkd &
