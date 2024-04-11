@@ -20,7 +20,6 @@ alias clc='clear'
 alias c='clc'
 
 # SHORTCUTS
-alias vim='vim'
 alias v='vim'
 alias t='touch'
 alias e=$EDITOR

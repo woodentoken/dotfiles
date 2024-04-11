@@ -27,7 +27,7 @@ super + alt + {q,r}
 	bspc {quit,wm -r}
 
 # close and kill
-super + {_,shift + }w
+super + {_ , shift + } q
 	bspc node -{c,k}
 
 # alternate between the tiled and monocle layout
@@ -83,10 +83,17 @@ super + {o,i}
 	bspc node {older,newer} -f; \
 	bspc wm -h on
 
-# focus or send to the given desktop
-super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
+# focus or send to the given desktop, and follow
+super + {_,shift + }{1-5}
+	bspc {desktop -f,node -d} '^{1-5}' --follow
 
+# send to the given desktop but don't follow
+super + alt + {1-5}
+	bspc {desktop -f,node -d} '^{1-5}'
+
+# focus or send to the given desktop
+super + shift + {Left, Right}
+	bspc node -d {prev,next}.local --follow
 #
 # preselect
 #
