@@ -81,26 +81,43 @@ function log {
 #     esac
 #   done
 # fi
+#
+
+# move possibly conflicting dotfiles into a backup directory
+cd ~
+mkdir dotfiles_old
+mv .bashrc dotfiles_old
+mv .profile dotfiles_old
+mv .vimrc dotfiles_old
+mv .bash_logout dotfiles_old
 
 #################################################
 ### Basics
 log "Installing dotfile packages..."
 dotfile_packages="
   build-essential
+  bspwm
+  cmake
   curl
   fd-find
   git
   git-absorb
   libncurses5-dev
+  libfontconfig1-dev
+  libxt-dev
+  neofetch
   net-tools
   openssh-client
   openssh-server
   perl
+  picom
   python3-dev
   python3-pip
   python3-setuptools
   r-base
+  redshift
   stow
+  sxhkd
   tmux
   tree
   wslu
@@ -138,7 +155,7 @@ log "...Done"
 ### {VIM} Install the lastest version of vim
 log "Installing the latest version of vim and configuring python support etc"
 git clone https://github.com/vim/vim.git ~/vim
-cd ~/vim
+pushd ~/vim/src
 ./configure --with-features=huge \
             --enable-multibyte \
             --enable-rubyinterp=yes \
@@ -150,8 +167,10 @@ cd ~/vim
             --enable-gui=gtk2 \
             --enable-cscope \
             --prefix=/usr/local
-make
+make test
 sudo make install
+sudo apt install libxt-dev
+popd
 log "...Done"
 #################################################
 
@@ -170,15 +189,6 @@ log "...Done"
 
 
 #################################################
-### {thefuck} Install thefuck
-log "Installing thefuck"
-pip3 install thefuck --user
-pip3 install thefuck --upgrade
-log "...Done"
-#################################################
-
-
-#################################################
 ### {R} Install r packages
 log "Installing R packages..."
 sudo Rscript -e 'install.packages("languageserver", depeendencies=TRUE)'
@@ -192,6 +202,18 @@ log "Installing RStudio..."
 wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1.2_amd64.deb
 sudo apt-get install ./libssl1.1_1.1.1l-1ubuntu1.2_amd64.deb
 log "...Done"
+#################################################
+
+
+#################################################
+### {Rust} Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+#################################################
+
+
+#################################################
+### {Alacritty} Install Alacritty
+cargo install alacritty
 #################################################
 
 
@@ -251,8 +273,8 @@ curl -fLo ./vim/.vim/autoload/plug.vim --create-dirs https://raw.githubuserconte
 log "...Done"
 
 log "Installing Vim Plugins..."
-# run vim -E -s -u '~/.vimrc.plugins' +PlugInstall +qall || true
-# run vim -E -s -u '~/.vimrc.plugins' +Copilot setup
+run vim -E -s -u '~/.vimrc.plugins' +PlugInstall +qall || true
+run vim -E -s -u '~/.vimrc.plugins' +Copilot setup
 log "...Done"
 #################################################
 
