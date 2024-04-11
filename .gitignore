@@ -16,8 +16,7 @@ config/.config/*
 !config/.config/dunst
 !config/.config/sxhkd
 !config/.config/dconf
-!config/.config/github-copilot
-!config/.config/gtk-3.0
+!config/.config/picom
 !config/.config/Thunar
 !config/.config/redshift.conf
 !config/.config/xfce4
