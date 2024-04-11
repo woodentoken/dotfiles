@@ -3,7 +3,6 @@
 #AUTOSTART
 sxhkd -c ~/.config/sxhkdrc &
 xfce4-power-manager &
-picom --experimental-backend &
 rofi &
 ./.config/launch.sh
 
@@ -15,7 +14,7 @@ bspc config border_width        0
 bspc config window_gap          5
 
 bspc config top_padding         0
-bspc config left_padding        40
+bspc config left_padding        32
 
 bspc config split_ratio          0.50
 bspc config borderless_monocle   false
