@@ -12,12 +12,12 @@ zsh/.zsh
 tmux/.tmux
 
 config/.config/*
+
 !config/.config/bspwm
-!config/.config/dunst
-!config/.config/sxhkd
 !config/.config/dconf
-!config/.config/picom
-!config/.config/Thunar
-!config/.config/redshift.conf
-!config/.config/xfce4
+!config/.config/dunst
 !config/.config/neofetch
+!config/.config/picom
+!config/.config/redshift.conf
+!config/.config/rofi
+!config/.config/sxhkd
