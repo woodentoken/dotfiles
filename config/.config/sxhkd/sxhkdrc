@@ -10,6 +10,10 @@ super + Return
 super + @space
 	rofi -show drun
 
+# program launcher (general)
+super + alt + @space
+	rofi -show run
+
 # program launcher
 alt + Tab
 	rofi -show window
