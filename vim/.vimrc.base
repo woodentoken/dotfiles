@@ -88,8 +88,12 @@ set shiftwidth=2
 set expandtab
 set noshiftround
 
+" fast update time
+set updatetime=50
+
 " swapfile
 set noswapfile
+set nobackup
 
 " Cursor motion
 set scrolloff=3
@@ -181,6 +185,9 @@ noremap <C-k> 10k
 noremap <C-h> ^
 noremap <C-l> $
 
+" don't ever press Q
+nnoremap Q <NOP>
+
 " Interact with Copilot
 noremap <Leader>c :Copilot<CR>
 
@@ -199,6 +206,9 @@ vnoremap <C-h> 10h
 vnoremap <C-j> 10j
 vnoremap <C-k> 10k
 vnoremap <C-l> 10l
+
+" Search and replace for current word under cursor
+nnoremap <Leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
 
 " No highlighting shortcut
 nnoremap <C-n> :noh<CR><esc>¬

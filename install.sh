@@ -101,6 +101,7 @@ dotfile_packages="
   python3-setuptools
   r-base
   stow
+  tldr
   tmux
   tree
   wslu
