@@ -47,6 +47,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf-install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'mbbill/undotree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'puremourning/vimspector'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-eunuch'
 Plug 'yegappan/mru'
@@ -94,6 +95,7 @@ let g:gitgutter_override_sign_column_highlight = 0
 " { tpope/vim-fugitive }
 " -------------------------------------------------------------
 set statusline+=%FugitiveStatusline()
+nnoremap <leader>gs :Gstatus<CR>
 
 " |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 " || APPEARANCE |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -187,7 +189,7 @@ let g:fzf_colors =
 " { mbbill/undotree }
 " -------------------------------------------------------------
 nnoremap <leader>u :UndotreeToggle<CR>
-nnoremap <leader>y :UndotreeFocus<CR>
+nnoremap <leader>i :UndotreeFocus<CR>
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_WindowLayout = 3
 if has("persistent_undo")

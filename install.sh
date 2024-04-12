@@ -52,6 +52,7 @@ dotfile_packages="
   redshift
   stow
   sxhkd
+  tldr
   tmux
   tree
   wslu
