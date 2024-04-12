@@ -22,6 +22,9 @@ alt + Tab
 super + Escape
 	pkill -USR1 -x sxhkd
 
+# open ranger
+super + {e,h}
+	{ranger, ranger ~}
 #
 # bspwm hotkeys
 #
