@@ -6,12 +6,24 @@
 super + Return
 	x-terminal-emulator
 
+# ranger
+super + r
+  x-terminal-emulator -e ranger
+
+# terminal emulator
+super + e
+	thunar
+
+# screenshot key
+super + c
+  flameshot gui
+
+# screenshot key
+Print
+  flameshot gui
+
 # program launcher
 super + @space
-	rofi -show drun
-
-# program launcher (general)
-super + alt + @space
 	rofi -show run
 
 # program launcher
@@ -22,9 +34,6 @@ alt + Tab
 super + Escape
 	pkill -USR1 -x sxhkd
 
-# open ranger
-super + {e,h}
-	{ranger, ranger ~}
 #
 # bspwm hotkeys
 #
@@ -90,17 +99,10 @@ super + {o,i}
 	bspc node {older,newer} -f; \
 	bspc wm -h on
 
-# focus or send to the given desktop, and follow
-super + {_,shift + }{1-5}
-	bspc {desktop -f,node -d} '^{1-5}' --follow
-
-# send to the given desktop but don't follow
-super + alt + {1-5}
-	bspc {desktop -f,node -d} '^{1-5}'
-
 # focus or send to the given desktop
-super + shift + {Left, Right}
-	bspc node -d {prev,next}.local --follow
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
 #
 # preselect
 #
