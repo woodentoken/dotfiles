@@ -6,6 +6,22 @@
 super + Return
 	x-terminal-emulator
 
+# ranger
+super + r
+  x-terminal-emulator -e ranger
+
+# terminal emulator
+super + e
+	thunar
+
+# screenshot key
+super + c
+  flameshot gui
+
+# screenshot key
+Print
+  flameshot gui
+
 # program launcher
 super + @space
 	rofi -show run
@@ -38,7 +54,8 @@ super + m
 super + y
 	bspc node newest.marked.local -n newest.!automatic.local
 
-# swap the current node and the biggest window super + g
+# swap the current node and the biggest window
+super + g
 	bspc node -s biggest.window
 
 #
@@ -58,7 +75,7 @@ super + ctrl + {m,x,y,z}
 #
 
 # focus the node in the given direction
-super + {_,shift + }{h,j,k,l}
+super + {_,alt + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
 
 # focus the node for the given path jump
@@ -70,7 +87,7 @@ super + {_,shift + }.
 	bspc node -f {next,prev}.local.!hidden.window
 
 # focus the next/previous desktop in the current monitor
-super + bracket{left,right}
+super + {Up,Down}
 	bspc desktop -f {prev,next}.local
 
 # focus the last node/desktop
@@ -78,15 +95,20 @@ super + {grave,Tab}
 	bspc {node,desktop} -f last
 
 # focus the older or newer node in the focus history
-super + {o,i}
+super + {Left,Right}
 	bspc wm -h off; \
 	bspc node {older,newer} -f; \
 	bspc wm -h on
 
 # focus or send to the given desktop
+<<<<<<< Updated upstream
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
 
+=======
+super + shift + {Up, Down}
+	bspc node -d {prev,next}.local --follow
+>>>>>>> Stashed changes
 #
 # preselect
 #
@@ -112,7 +134,7 @@ super + ctrl + shift + space
 #
 
 # expand a window by moving one of its side outward
-super + alt + {h,j,k,l}
+super + shift + {h,j,k,l}
     {bspc node @parent/second -z left -50 0; \
     bspc node @parent/first -z right -50 0, \
     bspc node @parent/second -z top 0 +50; \
