@@ -15,15 +15,15 @@ super + e
 	thunar
 
 # screenshot key
-super + c
-  flameshot gui
-
-# screenshot key
 Print
   flameshot gui
 
 # program launcher
 super + @space
+	rofi -show drun
+
+# program launcher
+alt + @space
 	rofi -show run
 
 # program launcher
@@ -74,7 +74,7 @@ super + ctrl + {m,x,y,z}
 #
 
 # focus the node in the given direction
-super + {_,shift + }{h,j,k,l}
+super + {_,alt + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
 
 # focus the node for the given path jump
@@ -86,7 +86,7 @@ super + {_,shift + }.
 	bspc node -f {next,prev}.local.!hidden.window
 
 # focus the next/previous desktop in the current monitor
-super + bracket{left,right}
+super + {Up,Down}
 	bspc desktop -f {prev,next}.local
 
 # focus the last node/desktop
@@ -128,7 +128,7 @@ super + ctrl + shift + space
 #
 
 # expand a window by moving one of its side outward
-super + alt + {h,j,k,l}
+super + shift + {h,j,k,l}
     {bspc node @parent/second -z left -50 0; \
     bspc node @parent/first -z right -50 0, \
     bspc node @parent/second -z top 0 +50; \
