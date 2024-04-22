@@ -89,6 +89,10 @@ super + {_,shift + }.
 super + {Up,Down}
 	bspc desktop -f {prev,next}.local
 
+# move current window to next/previous desktop and follow it
+super + shift + {Up,Down}
+    bspc node -d {prev,next}.local --follow;
+
 # focus the last node/desktop
 super + {grave,Tab}
 	bspc {node,desktop} -f last
