@@ -33,6 +33,7 @@ dotfile_packages="
   cmake
   curl
   fd-find
+  flatpak
   git
   git-absorb
   libncurses5-dev
