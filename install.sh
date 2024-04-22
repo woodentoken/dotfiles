@@ -39,6 +39,7 @@ dotfile_packages="
   libncurses5-dev
   libfontconfig1-dev
   libxt-dev
+  meld
   neofetch
   net-tools
   openssh-client

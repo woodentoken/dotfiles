@@ -68,6 +68,7 @@
   keepBackup = true
 [merge]
   tool = meld
+  ff = false
 [mergetool "meld"]
   path = /usr/bin/meld
 
