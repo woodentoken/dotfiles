@@ -4,11 +4,11 @@
 
 # terminal emulator
 super + Return
-	x-terminal-emulator
+	alacritty
 
 # ranger
 super + r
-  x-terminal-emulator -e ranger
+  alacritty -e '. ranger'
 
 # terminal emulator
 super + e
