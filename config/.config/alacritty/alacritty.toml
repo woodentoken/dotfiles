@@ -336,9 +336,6 @@ y = 0
 # key = "F"
 # mods = "Command"
 
-# [mouse]
-# hide_when_typing = true
-
 # [[mouse.bindings]]
 # action = "PasteSelection"
 # mouse = "Middle"
@@ -355,11 +352,11 @@ y = 0
 # args = ["--command=tmux"]
 # program = "/usr/bin/zsh"
 
-# [window]
-# decorations = "buttonless"
-# dynamic_padding = false
-# opacity = 1.0
-# startup_mode = "Windowed"
+[window]
+decorations = "buttonless"
+dynamic_padding = false
+opacity = 0.8
+startup_mode = "Windowed"
 
 # [window.dimensions]
 # columns = 100

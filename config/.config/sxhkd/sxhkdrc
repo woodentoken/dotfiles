@@ -8,7 +8,7 @@ super + Return
 
 # ranger
 super + r
-  alacritty -e '. ranger'
+  alacritty -e 'ranger'
 
 # terminal emulator
 super + e
