@@ -13,10 +13,12 @@ tmux/.tmux
 
 config/.config/*
 
+!config/.config/alacritty
 !config/.config/bspwm
 !config/.config/dunst
 !config/.config/neofetch
 !config/.config/picom
+!config/.config/ranger
 !config/.config/redshift.conf
 !config/.config/rofi
 !config/.config/sxhkd

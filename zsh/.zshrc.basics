@@ -113,6 +113,17 @@ if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
    exec startx
 fi
 
+function ranger_wrapper {
+    /usr/bin/env ranger $*
+    local quit_cd_wd_file="$HOME/.cache/ranger/quit_cd_wd"
+    if [ -s "$quit_cd_wd_file" ]; then
+        cd "$(cat $quit_cd_wd_file)"
+        true > "$quit_cd_wd_file"
+    fi
+}
+
+alias rng='ranger_wrapper'
+
 ## COMPLETION SETTINGS
 # NOTE: some of the completion settings are in the .zshrc.plugins file due to the autocomplete plugin there
 bindkey "^I" complete-word

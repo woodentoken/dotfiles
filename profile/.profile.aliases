@@ -53,6 +53,7 @@ alias tl='tldr'
   alias lc="ls -C"
 
   # MY STUFF
+  alias c='cd ~/.config'
   alias asb='cd /home/kaleb/anaconda3/envs/Stab_base/lib/python3.8/site-packages/aerosandbox/geometry/airfoil/airfoil_database/'
   alias dt='cd ~/dotfiles && tr -a'
   alias dtc='cd ~/dotfiles/config/.config && tr -a'
