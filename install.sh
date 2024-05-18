@@ -2,7 +2,8 @@
 
 # set -e
 
-LOG=./install.log
+LOG=./dotfiles_install.log
+OLD=~/dotfiles_old/
 
 # append to file
 function run { eval "$@" >> $LOG; }
@@ -17,11 +18,12 @@ function log {
 
 # move possibly conflicting dotfiles into a backup directory
 pushd ~
-mkdir dotfiles_old
-mv .bashrc dotfiles_old
-mv .profile dotfiles_old
-mv .vimrc dotfiles_old
-mv .bash_logout dotfiles_old
+mkdir $OLD
+mv .bash* $OLD
+mv .profile* $OLD
+mv .tmux* $OLD
+mv .vimrc* $OLD
+mv .zsh* $OLD
 popd
 
 #################################################
@@ -40,6 +42,7 @@ dotfile_packages="
   libfontconfig1-dev
   libxt-dev
   meld
+  nala
   neofetch
   net-tools
   openssh-client
@@ -89,7 +92,20 @@ log "...Done"
 
 
 #################################################
+### {STOW}
+pushd dotfiles
+echo "Stowing dotfile directories..."
+for directory in */; do
+	stow --adopt -R $directory
+	echo "  ${directory} stowed in ${HOME}"
+done
+popd
+#################################################
+
+
+#################################################
 ### {VIM} Install the lastest version of vim
+cd ~
 log "Installing the latest version of vim and configuring python support etc"
 git clone https://github.com/vim/vim.git ~/vim
 pushd ~/vim/src
@@ -106,21 +122,7 @@ pushd ~/vim/src
             --prefix=/usr/local
 make test
 sudo make install
-sudo apt install libxt-dev
 popd
-log "...Done"
-#################################################
-
-
-#################################################
-### {Conda} Install Anaconda
-log "Installing Anaconda..."
-wget -c https://repo.anaconda.com/archive/Anaconda3-2023.09-0-Linux-x86_64.sh -P /tmp
-pushd /tmp
-zsh Anaconda3-2023.09-0-Linux-x86_64.sh
-rm Anaconda3-2023.09-0-Linux-x86_64.sh
-popd
-conda init
 log "...Done"
 #################################################
 
@@ -204,21 +206,6 @@ nvm install node
 log "Installing Vim Plug plugin manager..."
 curl -fLo ./vim/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> $LOG
 log "...Done"
-
-log "Installing Vim Plugins..."
-run vim -E -s -u '~/.vimrc.plugins' +PlugInstall +qall || true
-run vim -E -s -u '~/.vimrc.plugins' +Copilot setup
-log "...Done"
-#################################################
-
-
-#################################################
-### {STOW}
-echo "Stowing dotfile directories..."
-for directory in */; do
-	stow --adopt -R $directory
-	echo "  ${directory} stowed in ${HOME}"
-done
 #################################################
 
 
@@ -241,7 +228,7 @@ log "...Done"
 
 # final cleanup
 sudo apt-get autoremove
-zsrc
+sudo nala 
 
 log "All Done! Rebooting your computer is recommended!"
 log "Exiting..."
