@@ -170,15 +170,6 @@ log "...Done"
 
 
 #################################################
-### {thefuck} Install thefuck
-log "Installing thefuck"
-pip3 install thefuck --user
-pip3 install thefuck --upgrade
-log "...Done"
-#################################################
-
-
-#################################################
 ### {R} Install r packages
 log "Installing R packages..."
 sudo Rscript -e 'install.packages("languageserver", depeendencies=TRUE)'
