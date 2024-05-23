@@ -52,3 +52,18 @@ unset __conda_setup
 # source /home/kaleb/.local/bin/virtualenvwrapper.sh
 # VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 # virtualenvwrapper
+
+# only run neofetch if there is only one terminal open
+LIVE_COUNTER=$(ps a | awk '{print $2}' | grep -vi "tty*" | uniq | wc -l);
+if [ $LIVE_COUNTER -eq 1 ]; then
+     neofetch
+fi
+
+alias omni_py=~/.local/share/ov/pkg/isaac_sim-2023.1.1/python.sh
+
+source /opt/ros/galactic/setup.zsh
+source /usr/share/colcon_cd/function/colcon_cd.sh
+export ROS_DOMAIN_ID=13
+
+export ISAACSIM_PATH="${HOME}/.local/share/ov/pkg/isaac_sim-2023.1.1"
+export ISAACSIM_PYTHON_EXE="${ISAACSIM_PATH}/python.sh"
