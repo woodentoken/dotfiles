@@ -2,7 +2,7 @@
 
 # set -e
 
-LOG=./install.log
+LOG=./log_install.log
 
 # append to file
 function run { eval "$@" >> $LOG; }
@@ -18,10 +18,13 @@ function log {
 # move possibly conflicting dotfiles into a backup directory
 pushd ~
 mkdir dotfiles_old
+mv .bash_logout dotfiles_old
 mv .bashrc dotfiles_old
+mv .gitconfig
 mv .profile dotfiles_old
 mv .vimrc dotfiles_old
-mv .bash_logout dotfiles_old
+mv .zlogout dotfiles_old
+mv .zshrc dotfiles_old
 popd
 
 #################################################
@@ -33,6 +36,7 @@ dotfile_packages="
   cmake
   curl
   fd-find
+  flameshot
   git
   git-absorb
   libncurses5-dev
@@ -40,6 +44,7 @@ dotfile_packages="
   libxt-dev
   neofetch
   net-tools
+  nnn
   openssh-client
   openssh-server
   perl
@@ -48,8 +53,8 @@ dotfile_packages="
   python3-pip
   python3-setuptools
   r-base
-  ranger
   redshift
+  rofi
   stow
   sxhkd
   tldr
@@ -72,12 +77,15 @@ done
 sudo apt-get update
 sudo apt-get -y upgrade
 
+# populate tldr database
+tldr -u
+
 log "...Done"
 #################################################
 
 
 #################################################
-### Clone Dotfiles from Git
+### Clone Dotfiles from Git (you probably already did this...)
 dotfiles=https://github.com/kraleb/dotfiles
 log "Cloning Dotfiles from ${dotfiles}..."
 dotfile_path="${HOME}/dotfiles"
@@ -202,11 +210,6 @@ nvm install node
 log "Installing Vim Plug plugin manager..."
 curl -fLo ./vim/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim >> $LOG
 log "...Done"
-
-log "Installing Vim Plugins..."
-run vim -E -s -u '~/.vimrc.plugins' +PlugInstall +qall || true
-run vim -E -s -u '~/.vimrc.plugins' +Copilot setup
-log "...Done"
 #################################################
 
 
@@ -234,6 +237,7 @@ log "...Done"
 log "Making zsh default shell for ROOT and current USER..."
 sudo chsh -s $(`which zsh`)
 chsh -s $(`which zsh`) $USER
+chsh -s $(which zsh)
 log "...Done"
 #################################################
 
@@ -243,5 +247,7 @@ zsrc
 
 log "All Done! Rebooting your computer is recommended!"
 log "Exiting..."
+
+log "you may want to open the .vimrc.plugins file and run :PlugInstall"
 
 exit 0
