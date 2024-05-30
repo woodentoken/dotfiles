@@ -21,6 +21,13 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=15'
 ZSH_AUTOSUGGEST_STRATEGY=(completion)
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 
+
+# -----------------------------------------------------------------------------
+# FAST SYNTAX HIGHLIGHTING (https://github.com/zdharma-continuum/fast-syntax-highlighting)
+# -----------------------------------------------------------------------------
+source ~/.zsh/fast-syntax-highlighting/F-Sy-H.plugin.zsh
+
+
 # -----------------------------------------------------------------------------
 # ZSH AUTOCOMPLETE (https://github.com/marlonrichert/zsh-autocomplete)
 # -----------------------------------------------------------------------------
@@ -34,10 +41,6 @@ zstyle -e ':autocomplete:history-search-backward:*' list-lines 'reply=( $(( LINE
 zstyle -e ':autocomplete:history-incremental-search-backward:*' list-lines 'reply=( $(( LINES / 2 )) )'
 source ~/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
-# -----------------------------------------------------------------------------
-# FAST SYNTAX HIGHLIGHTING (https://github.com/zdharma-continuum/fast-syntax-highlighting)
-# -----------------------------------------------------------------------------
-source ~/.zsh/fast-syntax-highlighting/F-Sy-H.plugin.zsh
 
 # -----------------------------------------------------------------------------
 # COLORED MAN PAGES (https://github.com/ael-code/zsh-colored-man-pages)
