@@ -1,4 +1,4 @@
-#      ___           ___           ___           ___           ___
+
 #     /  /\         /  /\         /__/\         /  /\         /  /\
 #    /  /::|       /  /:/_        \  \:\       /  /::\       /  /:/
 #   /  /:/:|      /  /:/ /\        \__\:\     /  /:/\:\     /  /:/
@@ -29,9 +29,9 @@ export NVM_DIR="$HOME/.nvm"
 export FZF_DEFAULT_OPTS="--layout=reverse --color 16 --height 50% --border --info=inline --preview='less {}'"
 
 source $HOME/.profile
-source ~/.zshrc.basics
 source ~/.zshrc.plugins
 source ~/.zshrc.extensions
+source ~/.zshrc.basics
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -61,9 +61,9 @@ fi
 
 alias omni_py=~/.local/share/ov/pkg/isaac_sim-2023.1.1/python.sh
 
-source /opt/ros/galactic/setup.zsh
-source /usr/share/colcon_cd/function/colcon_cd.sh
-export ROS_DOMAIN_ID=13
+# source /opt/ros/galactic/setup.zsh
+# source /usr/share/colcon_cd/function/colcon_cd.sh
+# export ROS_DOMAIN_ID=13
 
 export ISAACSIM_PATH="${HOME}/.local/share/ov/pkg/isaac_sim-2023.1.1"
 export ISAACSIM_PYTHON_EXE="${ISAACSIM_PATH}/python.sh"
