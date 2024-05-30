@@ -95,6 +95,14 @@ log "...Done"
 
 
 #################################################
+### install appimagelauncher
+sudo add-apt-repository ppa:appimagelauncher-team/stable
+sudo apt-get update
+sudo apt-get install appimagelauncher
+#################################################
+
+
+#################################################
 ### {VIM} Install the lastest version of vim
 log "Installing the latest version of vim and configuring python support etc"
 git clone https://github.com/vim/vim.git ~/vim
