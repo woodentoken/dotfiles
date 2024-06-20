@@ -63,10 +63,8 @@ alias pu='pip uninstall'
 alias pl='pip list'
 
 # VIRTUALENV
-alias ven='virtualenv .venv'
-alias vem='mkvirtualenv'
+alias ven='python3.11 -m venv .venv'
 alias veh='ls -l $WORKON_HOME'
-alias ve='virtualenv'
 alias vea='source ./.venv/bin/activate'
 alias ved='deactivate'
 alias vel='lsvirtualenv'
