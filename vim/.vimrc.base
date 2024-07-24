@@ -277,8 +277,8 @@ endfunction
 "   Ps = 4  -> steady underline.
 "   Ps = 5  -> blinking bar (xterm).
 "   Ps = 6  -> steady bar (xterm).
-let &t_SI = "\e[5 q"
-let &t_EI = "\e[4 q"
+" let &t_SI = "\e[1 q"
+" let &t_EI = "\e[4 q"
 
 " these functions automatically detect pastes in insert mode, and toggle
 " paste/nopaste to facilitate
