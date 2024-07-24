@@ -4,15 +4,15 @@
 
 # terminal emulator
 super + Return
-	x-terminal-emulator
+	alacritty
 
 # ranger
 super + r
-  x-terminal-emulator -e ranger
+  alacritty -e ranger
 
 # nnn
 super + n
-  x-terminal-emulator -e nnn
+  alacritty -e nnn
 
 # terminal emulator
 super + e
