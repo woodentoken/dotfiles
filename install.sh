@@ -31,6 +31,7 @@ popd
 ### Basics
 log "Installing dotfile packages..."
 dotfile_packages="
+  alacritty
   build-essential
   bspwm
   cmake
