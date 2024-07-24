@@ -12,6 +12,8 @@
 # _____________________________________________________________________
 
 export COLORTERM=truecolor
+export TERM=alacritty
+export TERM=xterm-256color
 export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6
 
 if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then

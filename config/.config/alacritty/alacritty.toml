@@ -32,6 +32,9 @@ yellow = "eab700"
 # background = "0xffffff"
 # foreground = "0x4d4d4c"
 
+[env]
+TERM = "xterm-256color"
+
 [cursor]
 unfocused_hollow = true
 blink_interval = 250
