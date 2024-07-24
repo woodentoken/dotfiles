@@ -12,7 +12,6 @@
 # _____________________________________________________________________
 
 export COLORTERM=truecolor
-export TERM=alacritty
 export TERM=xterm-256color
 export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6
 
