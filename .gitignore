@@ -20,3 +20,4 @@ config/.config/*
 !config/.config/redshift.conf
 !config/.config/rofi
 !config/.config/sxhkd
+!config/.config/alacritty
