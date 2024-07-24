@@ -2,43 +2,47 @@ live_config_reload = true
 
 [bell]
 animation = "EaseOutExpo"
-color = "0xffffff"
-duration = 0
+color = "ffffff"
+duration = 0.1
 
 [colors]
 draw_bold_text_with_bright_colors = false
 
 [colors.bright]
-black = "0x8e908c"
-blue = "0x969896"
-cyan = "0xa3685a"
-green = "0xe0e0e0"
-magenta = "0x282a2e"
-red = "0xf5871f"
-white = "0x1d1f21"
-yellow = "0xd6d6d6"
-
-[colors.cursor]
-cursor = "0x4d4d4c"
-text = "0xffffff"
+black = "8e908c"
+blue = "969896"
+cyan = "a3685a"
+green = "e0e0e0"
+magenta = "282a2e"
+red = "f5871f"
+white = "1d1f21"
+yellow = "d6d6d6"
 
 [colors.normal]
-black = "0xffffff"
-blue = "0x4271ae"
-cyan = "0x3e999f"
-green = "0x718c00"
-magenta = "0x8959a8"
-red = "0xc82829"
-white = "0x4d4d4c"
-yellow = "0xeab700"
+black = "000000"
+blue = "4271ae"
+cyan = "3e999f"
+green = "718c00"
+magenta = "8959a8"
+red = "c82829"
+white = "4d4d4c"
+yellow = "eab700"
 
 # [colors.primary]
 # background = "0xffffff"
 # foreground = "0x4d4d4c"
 
 [cursor]
-style = "Block"
 unfocused_hollow = true
+blink_interval = 250
+
+[colors.cursor]
+cursor = "ffffff"
+text = "0xffffff"
+
+[cursor.style]
+shape = "Block"
+blinking = "Always"
 
 [debug]
 log_level = "OFF"
@@ -66,8 +70,8 @@ family = "Liberation Mono"
 style = "Medium"
 
 [font.offset]
-x = 0
-y = 0
+x = -1
+y = -1
 
 [[keyboard.bindings]]
 action = "Paste"
@@ -374,11 +378,11 @@ history = 0
 multiplier = 3
 
 [selection]
-save_to_clipboard = false
+save_to_clipboard = true
 semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 
 [window]
-decorations = "buttonless"
+decorations = "None"
 dynamic_padding = true
 opacity = 0.9
 startup_mode = "Windowed"
@@ -388,5 +392,5 @@ columns = 100
 lines = 85
 
 [window.padding]
-x = 2
-y = 2
+x = 0
+y = 0
