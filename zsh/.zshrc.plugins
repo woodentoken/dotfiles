@@ -51,7 +51,14 @@ source ~/.zsh/zsh-colored-man-pages/colored-man-pages.plugin.zsh && man less 2>&
 # FZF DIR NAVIGATOR (https://github.com/KulkarniKaustubh/fzf-dir-navigator)
 # -----------------------------------------------------------------------------
 source ~/.zsh/fzf-dir-navigator/fzf-dir-navigator.plugin.zsh
-bindkey "^f" fzf-dir-navigator
+bindkey "^r" fzf-history-widget
+bindkey "^p" fzf-dir-navigator
+bindkey "^f" fzf-file-widget
+
+TRAPWINCH() {
+  zle && { zle reset-prompt; zle -R }
+}
+
 
 # -----------------------------------------------------------------------------
 # ALIAS TIPS (https://github.com/djui/alias-tips)

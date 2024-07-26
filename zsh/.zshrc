@@ -51,8 +51,12 @@ unset __conda_setup
 
 # virtualenvwrapper
 # source /home/kaleb/.local/bin/virtualenvwrapper.sh
-# VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 # virtualenvwrapper
+
+# export WORKON_HOME=$HOME/.virtualenvs
+# export PROJECT_HOME=$HOME/Devel
+# export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3.12
+# source ~/.local/bin/virtualenvwrapper.sh
 
 # only run neofetch if there is only one terminal open
 LIVE_COUNTER=$(ps a | awk '{print $2}' | grep -vi "tty*" | uniq | wc -l);
