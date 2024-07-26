@@ -21,6 +21,7 @@ alias c='clc'
 
 # SHORTCUTS
 alias v='vim'
+alias vn='viewnior'
 alias t='touch'
 alias e=$EDITOR
 alias se="sudo $EDITOR"
