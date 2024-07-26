@@ -30,8 +30,12 @@ popd
 #################################################
 ### Basics
 log "Installing dotfile packages..."
+
+# add wezterm repository
+curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
+echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
+
 dotfile_packages="
-  alacritty
   build-essential
   bspwm
   cmake
@@ -65,6 +69,7 @@ dotfile_packages="
   xclip
   xdg-utils
   yodl
+  wezterm
   zsh
 "
 
@@ -114,7 +119,7 @@ pushd ~/vim/src
             --enable-python3interp=yes \
             --enable-pythoninterp=yes \
             --with-python3-config-dir=$(python3-config --configdir) \
-            --enable-perlinterp=yes \
+            --enable-perlin#      ___                       ___           ___                       ___           ___terp=yes \
             --enable-luainterp=yes \
             --enable-gui=gtk2 \
             --enable-cscope \
