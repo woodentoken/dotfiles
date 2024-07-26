@@ -2,8 +2,7 @@ live_config_reload = true
 
 [bell]
 animation = "EaseOutExpo"
-color = "ffffff"
-duration = 0.1
+color = "#ffffff"
 
 [colors]
 draw_bold_text_with_bright_colors = false
@@ -36,10 +35,6 @@ yellow = "#eab700"
 unfocused_hollow = true
 blink_interval = 300
 
-[colors.cursor]
-cursor = "ffffff"
-text = "0xffffff"
-
 [cursor.style]
 shape = "Block"
 blinking = "Off"
@@ -59,7 +54,7 @@ size = 5.5
 
 [font.bold]
 family = "Liberation Mono"
-style = "Medium"
+style = "Bold"
 
 [font.glyph_offset]
 x = 0
@@ -67,7 +62,7 @@ y = 0
 
 [font.italic]
 family = "Liberation Mono"
-style = "Light Italic"
+style = "Italic"
 
 [font.normal]
 family = "Liberation Mono"
