@@ -20,7 +20,7 @@ pushd ~
 mkdir dotfiles_old
 mv .bash_logout dotfiles_old
 mv .bashrc dotfiles_old
-mv .gitconfig dotfiles_old
+mv .gitconfig
 mv .profile dotfiles_old
 mv .vimrc dotfiles_old
 mv .zlogout dotfiles_old
@@ -32,38 +32,41 @@ popd
 log "Installing dotfile packages..."
 
 dotfile_packages="
-bat
-build-essential
-cmake
-curl
-fd-find
-fzf
-git
-git-absorb
-libncurses5-dev
-libfontconfig1-dev
-libxt-dev
-neofetch
-net-tools
-nnn
-openssh-client
-openssh-server
-perl
-pipx
-python3-dev
-python3-pip
-python3-setuptools
-r-base
-stow
-sxhkd
-tldr
-tmux
-tree
-wslu
-xclip
-xdg-utils
-yodl
-zsh
+  build-essential
+  bspwm
+  cmake
+  curl
+  fd-find
+  flameshot
+  git
+  git-absorb
+  libncurses5-dev
+  libfontconfig1-dev
+  libxt-dev
+  neofetch
+  net-tools
+  nnn
+  openssh-client
+  openssh-server
+  perl
+  picom
+  python3-dev
+  python3-pip
+  python3-setuptools
+  r-base
+  redshift
+  rofi
+  stow
+  sxhkd
+  tldr
+  tmux
+  tree
+  wslu
+  xclip
+  xdg-utils
+  yodl
+  wezterm
+  zsh
 "
 
 # prompt user whether to use desktop_package
@@ -140,22 +143,22 @@ log "Installing the latest version of vim and configuring python support etc"
 git clone https://github.com/vim/vim.git ~/vim
 pushd ~/vim/src
 ./configure --with-features=huge \
-  --enable-multibyte \
-  --enable-rubyinterp=yes \
-  --enable-python3interp=yes \
-  --enable-pythoninterp=yes \
-  --with-python3-config-dir=$(python3-config --configdir) \
-  --enable-perlin#      ___                       ___           ___                       ___           ___terp=yes \
-  --enable-luainterp=yes \
-  --enable-gui=gtk2 \
-  --enable-cscope \
-  --prefix=/usr/local
-  make test
-  sudo make install
-  sudo apt install libxt-dev
-  popd
-  log "...Done"
-  #################################################
+            --enable-multibyte \
+            --enable-rubyinterp=yes \
+            --enable-python3interp=yes \
+            --enable-pythoninterp=yes \
+            --with-python3-config-dir=$(python3-config --configdir) \
+            --enable-perlin#      ___                       ___           ___                       ___           ___terp=yes \
+            --enable-luainterp=yes \
+            --enable-gui=gtk2 \
+            --enable-cscope \
+            --prefix=/usr/local
+make test
+sudo make install
+sudo apt install libxt-dev
+popd
+log "...Done"
+#################################################
 
 
 #################################################
@@ -174,7 +177,7 @@ log "...Done"
 #################################################
 ### {R} Install r packages
 log "Installing R packages..."
-sudo Rscript -e 'install.packages("languageserver", dependencies=TRUE)'
+sudo Rscript -e 'install.packages("languageserver", depeendencies=TRUE)'
 log "...Done"
 #################################################
 
@@ -190,7 +193,7 @@ log "...Done"
 
 #################################################
 ### {Rust} Install Rust
-log "Installing rust..."
+log "Installing Rust"
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 log "...Done"
 #################################################
