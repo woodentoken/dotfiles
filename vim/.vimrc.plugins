@@ -27,6 +27,7 @@ endif
 set rtp+=~/.vim/autoload/plug.vim
 call plug#begin()
 
+
 " //////////////////////////////////
 "             PLUGINS
 " //////////////////////////////////
@@ -53,7 +54,6 @@ Plug 'tpope/vim-eunuch'
 Plug 'yegappan/mru'
 
 "   {{ LOW LEVEL }}
-Plug 'SirVer/ultisnips'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
