@@ -35,9 +35,9 @@ alias tl='tldr'
 alias ISAACSIM_PYTHON_EXE="$ISAACSIM_PYTHON_EXE"
 alias PYTHON_PATH="$ISAACSIM_PYTHON_EXE"
 
-alias sim_dir='cd /home/kaleb/.local/share/ov/pkg/isaac_sim-2023.1.1'
+alias sim_dir='cd /home/${USER}/.local/share/ov/pkg/isaac_sim-2023.1.1'
 alias isaac_dir='sim_dir'
-alias gym_dir='cd /home/kaleb/projects/OmniIsaacGymEnvs/omniisaacgymenvs'
+alias gym_dir='cd /home/${USER}/projects/OmniIsaacGymEnvs/omniisaacgymenvs'
 
   # BASE IMPROVEMENTS
   alias mv='mv -i'
@@ -60,7 +60,7 @@ alias gym_dir='cd /home/kaleb/projects/OmniIsaacGymEnvs/omniisaacgymenvs'
   alias lc="ls -C"
 
   # MY STUFF
-  alias asb='cd /home/kaleb/anaconda3/envs/Stab_base/lib/python3.8/site-packages/aerosandbox/geometry/airfoil/airfoil_database/'
+  alias asb='cd /home/${USER}/anaconda3/envs/Stab_base/lib/python3.8/site-packages/aerosandbox/geometry/airfoil/airfoil_database/'
   alias dt='cd ~/dotfiles && tr -a'
   alias dtc='cd ~/dotfiles/config/.config && tr -a'
   alias dtf='cd ~/dotfiles/fzf && tr -a'
@@ -69,7 +69,7 @@ alias gym_dir='cd /home/kaleb/projects/OmniIsaacGymEnvs/omniisaacgymenvs'
   alias dtt='cd ~/dotfiles/tmux && tr -a'
   alias dtv='cd ~/dotfiles/vim && tr -a'
   alias dtz='cd ~/dotfiles/zsh && tr -a'
-  alias asb='cd /home/kaleb/anaconda3/envs/Stab_base/lib/python3.8/site-packages/aerosandbox/geometry/airfoil/airfoil_database/'
+  alias asb='cd /home/${USER}/anaconda3/envs/Stab_base/lib/python3.8/site-packages/aerosandbox/geometry/airfoil/airfoil_database/'
 
   # PROJECT SPECIFIC ALIASES
   alias dc='cd ~/Documents'

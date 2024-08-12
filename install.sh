@@ -104,7 +104,7 @@ log "...Done"
 ### install appimagelauncher
 sudo add-apt-repository ppa:appimagelauncher-team/stable
 sudo apt-get update
-sudo apt-get install appimagelauncher
+sudo apt-get install appimagelauncher -y
 #################################################
 
 
@@ -126,7 +126,7 @@ pushd ~/vim/src
             --prefix=/usr/local
 make test
 sudo make install
-sudo apt install libxt-dev
+sudo apt install libxt-dev -y
 popd
 log "...Done"
 #################################################
@@ -148,7 +148,7 @@ log "...Done"
 #################################################
 ### {R} Install r packages
 log "Installing R packages..."
-sudo Rscript -e 'install.packages("languageserver", depeendencies=TRUE)'
+sudo Rscript -e 'install.packages("languageserver", dependencies=TRUE)'
 log "...Done"
 #################################################
 
@@ -157,7 +157,7 @@ log "...Done"
 ### {R} Install rstudio
 log "Installing RStudio..."
 wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1.2_amd64.deb
-sudo apt-get install ./libssl1.1_1.1.1l-1ubuntu1.2_amd64.deb
+sudo apt-get install ./libssl1.1_1.1.1l-1ubuntu1.2_amd64.deb -y
 log "...Done"
 #################################################
 

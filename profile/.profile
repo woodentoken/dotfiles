@@ -8,6 +8,8 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
+export SHELL=/usr/bin/zsh
+
 # include generic profile aliases
 if [ -f "$HOME/.profile.aliases" ]; then
   . "$HOME/.profile.aliases"
