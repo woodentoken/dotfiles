@@ -293,3 +293,12 @@ let g:ale_pattern_options = {
 " -------------------------------------------------------------
 "   { tpope/vim-dispatch }
 " -------------------------------------------------------------
+
+" -------------------------------------------------------------
+"   { copilot }
+" -------------------------------------------------------------
+" use Shift Tab to accept copilot suggestions
+inoremap <silent><script><expr> <S-Tab> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
+" Interact with Copilot
+noremap <Leader>c :Copilot<CR>

@@ -55,7 +55,7 @@ set encoding=utf-8
 "
 " Make <S-TAB> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice.
-inoremap <silent><expr> <S-TAB> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<S-TAB>"
+inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<TAB>"
 
 function! CheckBackspace() abort
   let col = col('.') - 1
@@ -70,7 +70,8 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-" Use `[g` and `]g` to navigate diagnostics
+
+
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location
 " list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
