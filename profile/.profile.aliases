@@ -43,6 +43,7 @@ alias gym_dir='cd /home/${USER}/projects/OmniIsaacGymEnvs/omniisaacgymenvs'
   alias mv='mv -i'
   alias cp='cp -i'
   alias ln='ln -i'
+  alias bat='batcat'
   alias ..='cd ..'
 
   # LS

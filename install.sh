@@ -9,10 +9,10 @@ function run { eval "$@" >> $LOG; }
 
 # print to STDOUT and append to file
 function log { 
-	echo "$@" | tee -a $LOG
-	if [ "$@" == "...Done" ]; then
-		echo
-	fi
+  echo "$@" | tee -a $LOG
+  if [ "$@" == "...Done" ]; then
+    echo
+  fi
 }
 
 # move possibly conflicting dotfiles into a backup directory
@@ -20,7 +20,7 @@ pushd ~
 mkdir dotfiles_old
 mv .bash_logout dotfiles_old
 mv .bashrc dotfiles_old
-mv .gitconfig
+mv .gitconfig dotfiles_old
 mv .profile dotfiles_old
 mv .vimrc dotfiles_old
 mv .zlogout dotfiles_old
@@ -31,52 +31,78 @@ popd
 ### Basics
 log "Installing dotfile packages..."
 
-# add wezterm repository
-curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
-echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
-
 dotfile_packages="
-  build-essential
-  bspwm
-  cmake
-  curl
-  fd-find
-  flameshot
-  git
-  git-absorb
-  libncurses5-dev
-  libfontconfig1-dev
-  libxt-dev
-  neofetch
-  net-tools
-  nnn
-  openssh-client
-  openssh-server
-  perl
-  picom
-  python3-dev
-  python3-pip
-  python3-setuptools
-  r-base
-  redshift
-  rofi
-  stow
-  sxhkd
-  tldr
-  tmux
-  tree
-  wslu
-  xclip
-  xdg-utils
-  yodl
-  wezterm
-  zsh
+bat
+build-essential
+cmake
+curl
+fd-find
+fzf
+git
+git-absorb
+libncurses5-dev
+libfontconfig1-dev
+libxt-dev
+neofetch
+net-tools
+nnn
+openssh-client
+openssh-server
+perl
+pipx
+python3-dev
+python3-pip
+python3-setuptools
+r-base
+stow
+sxhkd
+tldr
+tmux
+tree
+wslu
+xclip
+xdg-utils
+yodl
+zsh
 "
 
+# prompt user whether to use desktop_package
+desktop_packages="
+bspwm
+flameshot
+gnome-disk-utility
+picom
+rofi
+redshift
+wezterm
+"
+
+
 for package in ${dotfile_packages}; do
-	log ''
-	sudo apt-get -y install $package
+  log "${package}"
+  sudo apt-get -y install $package
 done
+
+echo "Do you wish to install the desktop specific packages (this is most useful for GUI installations)?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) 
+          # add wezterm repository
+          curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
+          echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
+
+          for desktop_package in ${desktop_packages}; do
+            log "${desktop_package}"
+            sudo apt-get -y install $desktop_package
+          done
+          ;;
+        No ) 
+          echo "Skipping desktop packages..."
+          ;;
+    esac
+done
+
+
 
 # get everything up to date after installing packages
 # probably redundant, but just in case
@@ -114,6 +140,7 @@ log "Installing the latest version of vim and configuring python support etc"
 git clone https://github.com/vim/vim.git ~/vim
 pushd ~/vim/src
 ./configure --with-features=huge \
+<<<<<<< HEAD
             --enable-multibyte \
             --enable-rubyinterp=yes \
             --enable-python3interp=yes \
@@ -164,16 +191,8 @@ log "...Done"
 
 #################################################
 ### {Rust} Install Rust
-log "Installing Rust"
+log "Installing rust..."
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-log "...Done"
-#################################################
-
-
-#################################################
-### {Alacritty} Install Alacritty
-log "Installing Alacritty"
-cargo install alacritty
 log "...Done"
 #################################################
 
@@ -231,8 +250,8 @@ log "...Done"
 ### {STOW}
 echo "Stowing dotfile directories..."
 for directory in */; do
-	stow --adopt -R $directory
-	echo "  ${directory} stowed in ${HOME}"
+  stow --adopt -R $directory
+  echo "  ${directory} stowed in ${HOME}"
 done
 #################################################
 
@@ -257,6 +276,7 @@ log "...Done"
 
 # final cleanup
 sudo apt-get autoremove
+sudo apt-get autoclean
 zsrc
 
 log "All Done! Rebooting your computer is recommended!"
