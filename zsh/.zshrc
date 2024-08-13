@@ -19,6 +19,29 @@ if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] &&
   tmux new-session -A -s main
 fi
 
+# session="main"
+# tmux has-session -t $session &> /dev/null
+
+# if [ $? != 0 ] 
+#  then
+#     tmux new-session -d -s $session
+
+#     window=1
+#     tmux rename-window -t 0 'code'
+#     tmux send-keys -t 'code' cowsay 'Hello, welcome to tmux!'
+
+#     window=2
+#     tmux new-window -t $session:$window
+#     tmux rename-window -t $session:1 'nnn'
+#     tmux send-keys -t 'nnn' 'nnn' C-m
+
+#     window=3
+#     tmux new-window -t $session:$window -n 'top'
+#     tmux rename-window -t $session:2 'top'
+#     tmux send-keys -t 'top' 'top' C-m
+# fi
+# tmux attach -t $session:1
+
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
