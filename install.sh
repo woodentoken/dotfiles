@@ -20,7 +20,7 @@ pushd ~
 mkdir dotfiles_old
 mv .bash_logout dotfiles_old
 mv .bashrc dotfiles_old
-mv .gitconfig
+mv .gitconfig dotfiles_old
 mv .profile dotfiles_old
 mv .vimrc dotfiles_old
 mv .zlogout dotfiles_old
@@ -32,41 +32,38 @@ popd
 log "Installing dotfile packages..."
 
 dotfile_packages="
-  build-essential
-  bspwm
-  cmake
-  curl
-  fd-find
-  flameshot
-  git
-  git-absorb
-  libncurses5-dev
-  libfontconfig1-dev
-  libxt-dev
-  neofetch
-  net-tools
-  nnn
-  openssh-client
-  openssh-server
-  perl
-  picom
-  python3-dev
-  python3-pip
-  python3-setuptools
-  r-base
-  redshift
-  rofi
-  stow
-  sxhkd
-  tldr
-  tmux
-  tree
-  wslu
-  xclip
-  xdg-utils
-  yodl
-  wezterm
-  zsh
+bat
+build-essential
+cmake
+curl
+fd-find
+fzf
+git
+git-absorb
+libncurses5-dev
+libfontconfig1-dev
+libxt-dev
+neofetch
+net-tools
+nnn
+openssh-client
+openssh-server
+perl
+pipx
+python3-dev
+python3-pip
+python3-setuptools
+r-base
+stow
+sxhkd
+tldr
+tmux
+tree
+wslu
+xclip
+xdg-utils
+yodl
+zsh
 "
 
 # prompt user whether to use desktop_package
@@ -143,6 +140,7 @@ log "Installing the latest version of vim and configuring python support etc"
 git clone https://github.com/vim/vim.git ~/vim
 pushd ~/vim/src
 ./configure --with-features=huge \
+<<<<<<< HEAD
             --enable-multibyte \
             --enable-rubyinterp=yes \
             --enable-python3interp=yes \
@@ -193,7 +191,7 @@ log "...Done"
 
 #################################################
 ### {Rust} Install Rust
-log "Installing Rust"
+log "Installing rust..."
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 log "...Done"
 #################################################
