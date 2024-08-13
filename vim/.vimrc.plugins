@@ -43,8 +43,8 @@ Plug 'yggdroot/indentline'
 
 " {{ FUNCTIONALITY }}
 "   {{ HIGH LEVEL }}
-" Plug 'junegunn/fzf', { 'do': { -> fzf-install() } }
-" Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf-install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'mbbill/undotree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'puremourning/vimspector'

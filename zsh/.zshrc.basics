@@ -120,7 +120,8 @@ fi
 # -----------------------------------------------------------------------------
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
-export FZF_DEFAULT_OPTS="--layout=reverse --color 16 --height 50% --info=inline"
+
+export FZF_DEFAULT_OPTS="--layout=reverse --info=inline"
 
 # Preview file content using bat (https://github.com/sharkdp/bat)
 export FZF_CTRL_T_OPTS="

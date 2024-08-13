@@ -93,3 +93,4 @@ export ISAACSIM_PATH="${HOME}/.local/share/ov/pkg/isaac_sim-2023.1.1"
 export ISAACSIM_PYTHON_EXE="${ISAACSIM_PATH}/python.sh"
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/vsdb/.mujoco/mjpro150/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/nvidia
+
