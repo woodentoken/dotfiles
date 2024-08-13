@@ -118,7 +118,9 @@ fi
 # -----------------------------------------------------------------------------
 # FZF
 # -----------------------------------------------------------------------------
-export FZF_DEFAULT_OPTS="--layout=reverse --header-first --color 16 --height 50% --info=inline"
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
+export FZF_DEFAULT_OPTS="--layout=reverse --color 16 --height 50% --info=inline"
 
 # Preview file content using bat (https://github.com/sharkdp/bat)
 export FZF_CTRL_T_OPTS="
@@ -140,8 +142,6 @@ export FZF_ALT_C_OPTS="
 
 export FZF_COMPLETION_TRIGGER='~'
 
-source /usr/share/doc/fzf/examples/key-bindings.zsh
-source /usr/share/doc/fzf/examples/completion.zsh
 
 bindkey "$key[Up]" fzf-history-widget
 bindkey "$key[Down]" fzf-history-widget
