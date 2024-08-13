@@ -34,6 +34,7 @@ bindkey -e
 bindkey "^U" clear-screen
 bindkey "^L" kill-whole-line
 
+
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=5000
 SAVEHIST=5000
@@ -112,6 +113,39 @@ alias kbg='kill ${${(v)jobstates##*:*:}%=*}'
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
    exec startx
 fi
+
+# -----------------------------------------------------------------------------
+# FZF
+# -----------------------------------------------------------------------------
+export FZF_DEFAULT_OPTS="--layout=reverse --header-first --color 16 --height 50% --info=inline"
+
+# Preview file content using bat (https://github.com/sharkdp/bat)
+export FZF_CTRL_T_OPTS="
+  --preview 'batcat -n --color=always {}'
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'
+  --header 'FILE BROWSER"
+
+# CTRL-Y to copy the command into clipboard using pbcopy
+export FZF_CTRL_R_OPTS="--nth 2..
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+  --color header:italic
+  --history-size=1024
+  --header 'REVERSE HISTORY"
+
+# Print tree structure in the preview window
+export FZF_ALT_C_OPTS="
+  --preview 'tree -C {}'
+  --header 'DIR NAVIGATOR"
+
+export FZF_COMPLETION_TRIGGER='~'
+
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
+
+bindkey "$key[Up]" fzf-history-widget
+bindkey "$key[Down]" fzf-history-widget
+bindkey '^P' fzf-dir-navigator
+bindkey '^F' fzf-file-widget
 
 ## COMPLETION SETTINGS
 # NOTE: some of the completion settings are in the .zshrc.plugins file due to the autocomplete plugin there

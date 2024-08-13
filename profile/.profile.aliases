@@ -43,6 +43,7 @@ alias gym_dir='cd /home/kaleb/projects/OmniIsaacGymEnvs/omniisaacgymenvs'
   alias mv='mv -i'
   alias cp='cp -i'
   alias ln='ln -i'
+  alias bat='batcat'
   alias ..='cd ..'
 
   # LS
@@ -70,6 +71,8 @@ alias gym_dir='cd /home/kaleb/projects/OmniIsaacGymEnvs/omniisaacgymenvs'
   alias dtv='cd ~/dotfiles/vim && tr -a'
   alias dtz='cd ~/dotfiles/zsh && tr -a'
   alias asb='cd /home/kaleb/anaconda3/envs/Stab_base/lib/python3.8/site-packages/aerosandbox/geometry/airfoil/airfoil_database/'
+
+  alias work='cd ~/projects/arl_morphing_tail_summer_2024/data_processing/python'
 
   # PROJECT SPECIFIC ALIASES
   alias dc='cd ~/Documents'

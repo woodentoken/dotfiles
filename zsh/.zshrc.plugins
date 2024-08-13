@@ -47,20 +47,13 @@ source ~/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 # -----------------------------------------------------------------------------
 source ~/.zsh/zsh-colored-man-pages/colored-man-pages.plugin.zsh && man less 2>&1 > /dev/null
 
+
 # -----------------------------------------------------------------------------
 # FZF DIR NAVIGATOR (https://github.com/KulkarniKaustubh/fzf-dir-navigator)
 # -----------------------------------------------------------------------------
 source ~/.zsh/fzf-dir-navigator/fzf-dir-navigator.plugin.zsh
-bindkey "^r" fzf-history-widget
-bindkey "^p" fzf-dir-navigator
-bindkey "^f" fzf-file-widget
-
-TRAPWINCH() {
-  zle && { zle reset-prompt; zle -R }
-}
 
 
-# -----------------------------------------------------------------------------
 # ALIAS TIPS (https://github.com/djui/alias-tips)
 # -----------------------------------------------------------------------------
 source ~/.zsh/alias-tips/alias-tips.plugin.zsh

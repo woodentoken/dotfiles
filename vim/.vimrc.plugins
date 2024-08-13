@@ -43,8 +43,8 @@ Plug 'yggdroot/indentline'
 
 " {{ FUNCTIONALITY }}
 "   {{ HIGH LEVEL }}
-Plug 'junegunn/fzf', { 'do': { -> fzf-install() } }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf', { 'do': { -> fzf-install() } }
+" Plug 'junegunn/fzf.vim'
 Plug 'mbbill/undotree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'puremourning/vimspector'
@@ -164,6 +164,7 @@ let g:indentLine_color_term = 239
 " -------------------------------------------------------------
 "     { junegunn/fzf }
 " -------------------------------------------------------------
+
 nnoremap <C-P> :FZF<CR>
 if has('unix')
     let $FZF_DEFAULT_COMMAND='find . \! \( -type d -path ./.git -prune \) \! -type d -printf ''%P\n'''
