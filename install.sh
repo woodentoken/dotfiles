@@ -140,7 +140,6 @@ log "Installing the latest version of vim and configuring python support etc"
 git clone https://github.com/vim/vim.git ~/vim
 pushd ~/vim/src
 ./configure --with-features=huge \
-<<<<<<< HEAD
             --enable-multibyte \
             --enable-rubyinterp=yes \
             --enable-python3interp=yes \

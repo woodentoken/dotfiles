@@ -58,6 +58,7 @@ alias py3='python3.11'
 alias python='python3.11'
 
 # PIP
+alias pip='pip3'
 alias pi='pip install'
 alias par='pip-autoremove'
 alias pu='pip uninstall'

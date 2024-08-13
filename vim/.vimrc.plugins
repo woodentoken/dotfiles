@@ -39,7 +39,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'luochen1990/rainbow'
 Plug 'morhetz/gruvbox'
 Plug 'sainnhe/gruvbox-material'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'yggdroot/indentline'
 
 " {{ FUNCTIONALITY }}
@@ -115,40 +114,6 @@ let g:rainbow_conf = {
 " -------------------------------------------------------------
 " { sainnhe/gruvbox-material }
 " -------------------------------------------------------------
-" -------------------------------------------------------------
-" { vim-airline/vim-airline }
-" -------------------------------------------------------------
-let g:airline_section_b=''
-let g:airline_section_y=''
-" let g:airline_statusline_ontop=1
-" let g:airline#extensions#tabline#enabled = 1
-" or copy paste the following into your vimrc for shortform text
-let g:airline_mode_map = {
-      \ '__'     : '-',
-      \ 'c'      : 'C',
-      \ 'i'      : 'I',
-      \ 'ic'     : 'I',
-      \ 'ix'     : 'I',
-      \ 'n'      : 'N',
-      \ 'multi'  : 'M',
-      \ 'ni'     : 'N',
-      \ 'no'     : 'N',
-      \ 'R'      : 'R',
-      \ 'Rv'     : 'R',
-      \ 's'      : 'S',
-      \ 'S'      : 'S',
-      \ ''     : 'S',
-      \ 't'      : 'T',
-      \ 'v'      : 'V',
-      \ 'V'      : 'V',
-      \ ''     : 'V',
-      \ }
-" Note: 'multi' is for displaying the multiple cursor mode
-
-" -------------------------------------------------------------
-" { vim-airline/vim-airline-themes }
-" -------------------------------------------------------------
-" let g:airline_theme='gruvbox_material'
 " -------------------------------------------------------------
 " { yggdroot/indentline }
 " -------------------------------------------------------------

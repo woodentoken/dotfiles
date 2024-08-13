@@ -1,6 +1,6 @@
 [user]
-  email = kaleb.bordner@gmail.com
-  name = Kaleb Bordner
+  email = kaleb.bordner@gmail.com # change this as needed
+  name = Kaleb Bordner # change this as needed
 
 [credential]
   helper = store
