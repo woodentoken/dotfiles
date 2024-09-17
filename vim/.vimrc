@@ -15,5 +15,18 @@
 
 source ~/.vimrc.base
 source ~/.vimrc.plugins
+" use tab and shift tab for indent shifting
+" nnoremap <TAB> >>
+" nnoremap <S-TAB> <<
+" vnoremap > >gv
+" vnoremap < <gv
+
+" " Command remaps
+" command Wqa wqa
+" command WQa wqa
+" command W w
+" command Q q
+" command Wa wa
+" command Qa qa
 
 
