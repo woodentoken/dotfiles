@@ -9,10 +9,10 @@ function run { eval "$@" >> $LOG; }
 
 # print to STDOUT and append to file
 function log { 
-  echo "$@" | tee -a $LOG
-  if [ "$@" == "...Done" ]; then
-    echo
-  fi
+	echo "$@" | tee -a $LOG
+	if [ "$@" == "...Done" ]; then
+		echo
+	fi
 }
 
 # move possibly conflicting dotfiles into a backup directory
@@ -79,14 +79,14 @@ appimagelauncher
 
 
 for package in ${dotfile_packages}; do
-  log "${package}"
-  sudo apt-get -y install $package
+	log "${package}"
+	sudo apt-get -y install $package
 done
 
-echo "Do you wish to install the desktop specific packages (this is most useful for GUI installations)?"
-select yn in "Yes" "No"; do
-    case $yn in
-        Yes ) 
+while true; do
+	read -p "Do you wish to install the desktop specific packages (this is most useful for GUI installations)? [yn]  " yn
+	case $yn in
+		[yY] ) 
           # add wezterm repository
           curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
           echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
@@ -103,9 +103,7 @@ select yn in "Yes" "No"; do
           echo "Skipping desktop packages..."
           ;;
     esac
-done
-
-
+  done
 
 # get everything up to date after installing packages
 # probably redundant, but just in case
