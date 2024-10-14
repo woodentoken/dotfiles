@@ -1,13 +1,14 @@
 # Setup fzf
-# ---------
-if [[ ! "$PATH" == "*/home/${USER}/vim/fzf/.fzf/bin*" ]]; then
-  PATH="${PATH:+${PATH}:}/home/${USER}/vim/fzf/.fzf/bin"
+if [[ ! "$PATH" == "*/home/${USER}/vim/fzf/.fzf/bin*"  ]]; then
+  PATH="${PATH:+${PATH}:}/home/${USER}/fzf/bin"
 fi
 
-# Auto-completion
-# ---------------
-# source "/home/${USER}/vim/fzf/.fzf/shell/completion.zsh"
+source <(fzf --zsh)
 
-# Key bindings
-# ------------
-# source "/home/${USER}/vim/fzf/.fzf/shell/key-bindings.zsh"
+# export FZF_DEFAULT_OPTS="--layout=reverse --info=inline"
+
+# Preview file content using bat (https://github.com/sharkdp/bat)
+# export FZF_CTRL_T_OPTS="
+#   --preview 'batcat -n --color=always {}'
+#   --bind 'ctrl-/:change-preview-window(down|hidden|)'
+#   --header 'FILE BROWSER"

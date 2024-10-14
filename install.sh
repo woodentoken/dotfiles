@@ -40,8 +40,8 @@ fd-find
 fzf
 git
 git-absorb
-libncurses5-dev
 libfontconfig1-dev
+libncurses5-dev
 libxt-dev
 neofetch
 net-tools
@@ -49,7 +49,6 @@ nnn
 openssh-client
 openssh-server
 perl
-pipx
 python3-dev
 python3-pip
 python3-setuptools
@@ -72,9 +71,10 @@ bspwm
 flameshot
 gnome-disk-utility
 picom
-rofi
 redshift
+rofi
 wezterm
+appimagelauncher
 "
 
 
@@ -90,6 +90,9 @@ select yn in "Yes" "No"; do
           # add wezterm repository
           curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/wezterm-fury.gpg
           echo 'deb [signed-by=/usr/share/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
+
+          # add appimagelauncher
+          sudo add-apt-repository ppa:appimagelauncher-team/stable
 
           for desktop_package in ${desktop_packages}; do
             log "${desktop_package}"
@@ -127,11 +130,18 @@ log "...Done"
 
 
 #################################################
-### install appimagelauncher
-sudo add-apt-repository ppa:appimagelauncher-team/stable
-sudo apt-get update
-sudo apt-get install appimagelauncher -y
+### {STOW}
+echo "Stowing dotfile directories..."
+for directory in ~/dotfiles/*; do
+  stow --adopt -R $directory
+  echo "  ${directory} stowed in ${HOME}"
+done
 #################################################
+
+
+###################################################################################################
+# INDIVIDUAL INSTALLS
+###################################################################################################
 
 
 #################################################
@@ -145,7 +155,7 @@ pushd ~/vim/src
             --enable-python3interp=yes \
             --enable-pythoninterp=yes \
             --with-python3-config-dir=$(python3-config --configdir) \
-            --enable-perlin#      ___                       ___           ___                       ___           ___terp=yes \
+            --enable-perlinterp=yes \
             --enable-luainterp=yes \
             --enable-gui=gtk2 \
             --enable-cscope \
@@ -159,40 +169,31 @@ log "...Done"
 
 
 #################################################
-### {Conda} Install Anaconda
-log "Installing Anaconda..."
-wget -c https://repo.anaconda.com/archive/Anaconda3-2023.09-0-Linux-x86_64.sh -P /tmp
-pushd /tmp
-zsh Anaconda3-2023.09-0-Linux-x86_64.sh
-rm Anaconda3-2023.09-0-Linux-x86_64.sh
-popd
-conda init
-log "...Done"
-#################################################
-
-
-#################################################
-### {R} Install r packages
-log "Installing R packages..."
-sudo Rscript -e 'install.packages("languageserver", dependencies=TRUE)'
-log "...Done"
-#################################################
-
-
-#################################################
-### {R} Install rstudio
-log "Installing RStudio..."
-wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1l-1ubuntu1.2_amd64.deb
-sudo apt-get install ./libssl1.1_1.1.1l-1ubuntu1.2_amd64.deb -y
-log "...Done"
-#################################################
-
-
-#################################################
 ### {Rust} Install Rust
 log "Installing rust..."
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 log "...Done"
+#################################################
+
+
+#################################################
+### {uv} Install uv for python management
+log "Installing uv..."
+curl -LsSf https://astral.sh/uv/install.sh | sh
+uv self update
+echo 'eval "$(uv generate-shell-completion zsh)"' >> ~/.zshrc
+log "...Done"
+#################################################
+
+
+#################################################
+### {pdm} Install pdm for python package management
+curl -sSLO https://pdm-project.org/install-pdm.py
+curl -sSL https://pdm-project.org/install-pdm.py.sha256 | shasum -a 256 -c -
+# Run the installer
+python3 install-pdm.py [options]
+# Make sure ~/.zfunc is added to fpath, before compinit.
+pdm completion zsh > ~/.zfunc/_pdm
 #################################################
 
 
@@ -210,18 +211,6 @@ log "...Done"
 ### {FD} link fd-find
 log "Linking fd..."
 ln -s $(which fdfind) ~/.local/bin/fd
-log "...Done"
-#################################################
-
-
-#################################################
-### {TMUX} install tpm
-log "Installing tmux plugin manager..."
-run git clone --depth 1 https://github.com/tmux-plugins/tpm ./tmux/.tmux/plugins/tpm
-log "...Done"
-
-log "Installing tmux plugins..."
-run ./tmux/.tmux/plugins/tpm/bin/install_plugins
 log "...Done"
 #################################################
 
@@ -246,12 +235,14 @@ log "...Done"
 
 
 #################################################
-### {STOW}
-echo "Stowing dotfile directories..."
-for directory in */; do
-  stow --adopt -R $directory
-  echo "  ${directory} stowed in ${HOME}"
-done
+### {TMUX} install tpm
+log "Installing tmux plugin manager..."
+run git clone --depth 1 https://github.com/tmux-plugins/tpm ./tmux/.tmux/plugins/tpm
+log "...Done"
+
+log "Installing tmux plugins..."
+run ./tmux/.tmux/plugins/tpm/bin/install_plugins
+log "...Done"
 #################################################
 
 
@@ -273,7 +264,7 @@ chsh -s $(which zsh)
 log "...Done"
 #################################################
 
-# final cleanup
+### final cleanup
 sudo apt-get autoremove
 sudo apt-get autoclean
 zsrc
