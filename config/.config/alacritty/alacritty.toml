@@ -50,7 +50,7 @@ print_events = false
 render_timer = false
 
 [font]
-size = 5.5
+size = 10
 
 [font.bold]
 family = "Liberation Mono"
