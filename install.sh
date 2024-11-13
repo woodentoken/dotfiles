@@ -197,9 +197,10 @@ pdm completion zsh > ~/.zfunc/_pdm
 #################################################
 ### {ZSH} install fzf
 log "Installing fzf..."
-run git clone --depth 1 https://github.com/junegunn/fzf.git ./fzf/.fzf
+run git clone --depth 1 https://github.com/junegunn/fzf.git ~/dotfiles//fzf/.fzf
 # auto answer prompts with autocompletion y, key-bindings y, update-config n
 echo 'y y n' | run ./fzf/.fzf/install --no-bash
+stow ~/dotfiles/fzf
 log "...Done"
 #################################################
 

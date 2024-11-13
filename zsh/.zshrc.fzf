@@ -1,21 +1,20 @@
 # fzf
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# export FZF_DEFAULT_OPTS='--height 40% --tmux bottom 40% --layout reverse --border top'
-# export FZF_DEFAULT_OPTS='--tmux'
 bindkey "$key[Up]" fzf-history-widget
-# bindkey "$key[Down]" fzf-history-widget
+bindkey "$key[Down]" fzf-file-widget
 bindkey '^R' fzf-history-widget
 bindkey '^P' fzf-dir-navigator
 bindkey '^F' fzf-file-widget
-# export FZF_COMPLETION_TRIGGER='~'
-# export FZF_CTRL_R_OPTS="--nth 2..
-#   --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
-#   --color header:italic
-#   --history-size=1024
-#   --header 'REVERSE HISTORY"
+export FZF_COMPLETION_TRIGGER='~'
 
-# # # Print tree structure in the preview window
-# export FZF_ALT_C_OPTS="
-#   --preview 'tree -C {}'
-#   --header 'DIR NAVIGATOR"
+export FZF_CTRL_R_OPTS="
+  --color header:italic
+  --header 'HISTORY'
+  --history-size=1024"
+
+# Print tree structure in the preview window
+export FZF_ALT_C_OPTS="
+  --preview 'tree -C {}'
+  --color header:italic
+  --header 'DIR NAVIGATOR'"
