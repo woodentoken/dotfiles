@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 # ZSH AUTOSUGGEST (https://github.com/zsh-users/zsh-autosuggestions)
 # -----------------------------------------------------------------------------
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=15'
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 ZSH_AUTOSUGGEST_STRATEGY=(completion)
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 
@@ -31,16 +31,62 @@ source ~/.zsh/fast-syntax-highlighting/F-Sy-H.plugin.zsh
 # -----------------------------------------------------------------------------
 # ZSH AUTOCOMPLETE (https://github.com/marlonrichert/zsh-autocomplete)
 # -----------------------------------------------------------------------------
-# Set the value for all.
-zstyle -e ':autocomplete:*' list-lines 'reply=( $(( LINES / 3 )) )'
-# Override autocompletion.
-zstyle -e ':autocomplete:list-choices:*' list-lines 'reply=( $(( LINES / 3 )) )'
-# Override history menu.
-zstyle -e ':autocomplete:history-search-backward:*' list-lines 'reply=( $(( LINES / 2 )) )'
-# Override history search.
-zstyle -e ':autocomplete:history-incremental-search-backward:*' list-lines 'reply=( $(( LINES / 2 )) )'
-source ~/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+# autoload -U compinit && compinit   # load + start completion
+setopt LIST_ROWS_FIRST
+setopt MENU_COMPLETE        # Automatically highlight first element of completion menu
+setopt AUTO_LIST            # Automatically list choices on ambiguous completion.
+setopt COMPLETE_IN_WORD     # Complete from both ends of a word.
 
+## COMPLETION SETTINGS
+zstyle '*:compinit' arguments -D -i -u -C -w
+autoload -U compinit; compinit
+_comp_options+=(globdots) # With hidden files
+bindkey -M menuselect '\r' .accept-line
+
+zstyle ':completion:*' auto-description 'specify: %d'
+# zstyle ':completion:*:*:*:*:descriptions' format '%F{green}-- %d --%f'
+# zstyle ':completion:*:*:*:*:corrections' format '%F{yellow}!- %d (errors: %e) -!%f'
+# zstyle ':completion:*:descriptions' format '%U%K{yellow} %F{green}-- %F{red} %BNICE!1! %b%f %d --%f%k%u'
+# zstyle ':completion:*' completer _expand _complete _correct _approximate
+# Autocomplete options for cd instead of directory stack
+zstyle ':completion:*' complete-options true
+zstyle ':completion:*' file-sort modification
+
+# Only display some tags for the command cd
+zstyle ':completion:*:*:cd:*' tag-order local-directories directory-stack path-directories
+zstyle ':completion:*:*:-command-:*:*' group-order alias builtins functions commands
+zstyle ':completion:*:*:*:*:default' list-colors ${(s.:.)LS_COLORS}
+
+# zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions commands
+zstyle ':completion:*' format '>$ %d'
+zstyle ':completion:*' file-list all
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' menu select=2
+
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
+zstyle ':completion:*' menu select=short
+zstyle ':completion:*' use-compctl false
+zstyle ':completion:*' verbose true
+
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+zmodload zsh/complist
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+
+eval "$(dircolors -b)"
+
+zstyle -e ':autocomplete:*' list-lines 'reply=( $(( LINES / 3 )) )'
+zstyle -e ':autocomplete:list-choices:*' list-lines 'reply=( $(( LINES / 3 )) )'
+zstyle -e ':autocomplete:history-search-backward:*' list-lines 'reply=( $(( LINES / 2 )) )'
+zstyle -e ':autocomplete:history-incremental-search-backward:*' list-lines 'reply=( $(( LINES / 2 )) )'
+
+source ~/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 
 # -----------------------------------------------------------------------------
 # COLORED MAN PAGES (https://github.com/ael-code/zsh-colored-man-pages)
@@ -64,7 +110,7 @@ export ZSH_PLUGINS_ALIAS_TIPS_TEXT="alias  "
 # -----------------------------------------------------------------------------
 source ~/.zsh/zsh-bd/bd.zsh
 
-# ctrl-z that is ambidextrous (foregrounds and backgrounds)
+# ctrl-z that is ambidirectional (foregrounds and backgrounds)
 # -----------------------------------------------------------------------------
 # not really a plugin, but comes from oh-my-zsh
 # -----------------------------------------------------------------------------
@@ -108,24 +154,24 @@ _virtualenv_auto_activate() {
 }
 precmd_functions+=(_virtualenv_auto_activate)
 
-# conda automatic activation
-export CONDACONFIGDIR=""
-_condaenv_auto_activate() {
-  if [[ -z "$CONDACONFIGDIR" ]] ; then
-    if [ -f $PWD/.conda_config ]; then
-      export CONDACONFIGDIR=$PWD
-      conda activate $(cat .conda_config)
-      export VENV_NAME="[conda_env:%F{#FF44C9}$(printf $(basename $CONDA_PREFIX))%f]"
-    fi
-  else
-    if [[ "$PWD"/ != "$CONDACONFIGDIR"/* ]]; then
-      export CONDACONFIGDIR=""
-      # conda deactivate
-      export VENV_NAME=''
-    fi
-  fi
-}
-precmd_functions+=(_condaenv_auto_activate)
+# # conda automatic activation
+# export CONDACONFIGDIR=""
+# _condaenv_auto_activate() {
+#   if [[ -z "$CONDACONFIGDIR" ]] ; then
+#     if [ -f $PWD/.conda_config ]; then
+#       export CONDACONFIGDIR=$PWD
+#       conda activate $(cat .conda_config)
+#       export VENV_NAME="[conda_env:%F{#FF44C9}$(printf $(basename $CONDA_PREFIX))%f]"
+#     fi
+#   else
+#     if [[ "$PWD"/ != "$CONDACONFIGDIR"/* ]]; then
+#       export CONDACONFIGDIR=""
+#       # conda deactivate
+#       export VENV_NAME=''
+#     fi
+#   fi
+# }
+# precmd_functions+=(_condaenv_auto_activate)
 
 # overrides for git-prompt
 ZSH_THEME_GIT_PROMPT_PREFIX="["
@@ -148,10 +194,11 @@ depth_pwd() {
 
   for (( i=1 ; i<=${#pwd_array[@]} ; i++ ))
   do
-    Kcolor=$(num_to_hex $((- 25 + 10 * $i)) $((- 25 + 16 * $i)) $((- 25 + 25 * $i)))
-    Fcolor=$(num_to_hex $((255 - 6 * $i)) $((100 - 6 * $i)) $((80 - 10 * $i)))
-    colored_pwd_array[i]="%F{$Fcolor}${pwd_array[i]}%f/%k"
-    # colored_pwd_array[i]="%F{$Fcolor}%K{$Kcolor}${pwd_array[i]}%f/%k"
+    Kcolor=$(num_to_hex $((- 25 + 5 * $i)) $((- 25 + 10 * $i)) $((- 25 + 20 * $i)))
+    Fcolor=$(num_to_hex $((255 - 5 * $i)) $((100 - 5 * $i)) $((80 - 10 * $i)))
+    # colored_pwd_array[i]="%F{$Fcolor}${pwd_array[i]}%f/%k"
+    # colored_pwd_array[i]="%F{$Fcolor}%K{$Kcolor}${pwd_array[i]}%f${i} %k"
+    colored_pwd_array[i]="%F{$Fcolor}%K{$Kcolor}${pwd_array[i]}%f/%k"
   done
 
   echo "${colored_pwd_array[@]}" | sed 's/ //g'

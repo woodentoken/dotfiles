@@ -37,7 +37,6 @@ build-essential
 cmake
 curl
 fd-find
-fzf
 git
 git-absorb
 libfontconfig1-dev

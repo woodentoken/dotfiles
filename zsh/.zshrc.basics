@@ -110,58 +110,5 @@ if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
    exec startx
 fi
 
-# -----------------------------------------------------------------------------
-# FZF
-# -----------------------------------------------------------------------------
+# CTRL-Y to copy the command into clipboard using pbcopy
 
-
-# # CTRL-Y to copy the command into clipboard using pbcopy
-# export FZF_CTRL_R_OPTS="--nth 2..
-#   --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
-#   --color header:italic
-#   --history-size=1024
-#   --header 'REVERSE HISTORY"
-
-# # Print tree structure in the preview window
-# export FZF_ALT_C_OPTS="
-#   --preview 'tree -C {}'
-#   --header 'DIR NAVIGATOR"
-
-export FZF_COMPLETION_TRIGGER='~'
-
-
-# bindkey "$key[Up]" fzf-history-widget
-# bindkey "$key[Down]" fzf-history-widget
-# bindkey '^P' fzf-dir-navigator
-# bindkey '^F' fzf-file-widget
-
-## COMPLETION SETTINGS
-# NOTE: some of the completion settings are in the .zshrc.plugins file due to the autocomplete plugin there
-bindkey "^I" complete-word
-bindkey "^[[Z" autosuggest-accept
-autoload -U compinit && compinit   # load + start completion
-
-zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' completer _expand _complete _correct _approximate
-zstyle ':completion:*' format '>$ %d'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' menu select=2
-eval "$(dircolors -b)"
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-zstyle ':completion:*' menu select=short
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' verbose true
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-
-# python management
-export PATH="/home/kaleb/.pixi/bin:$PATH"
-eval "$(pixi completion --shell zsh)"
-eval "$(uv generate-shell-completion zsh)"
-
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

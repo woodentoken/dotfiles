@@ -53,7 +53,7 @@ set updatetime=300
 " utf-8 byte sequence
 set encoding=utf-8
 "
-" Make <S-TAB> to accept selected completion item or notify coc.nvim to format
+" Make <TAB> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice.
 inoremap <silent><expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<TAB>"
 
@@ -62,14 +62,13 @@ function! CheckBackspace() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <c-space> to trigger completion.
+" Use <c-space> to refresh completions
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
 else
-" Use <c-@> to trigger completion.
+" Use <c-@> to refresh completions
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
-
 
 
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location
