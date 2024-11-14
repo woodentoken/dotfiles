@@ -41,7 +41,6 @@ setopt COMPLETE_IN_WORD     # Complete from both ends of a word.
 zstyle '*:compinit' arguments -D -i -u -C -w
 autoload -U compinit; compinit
 _comp_options+=(globdots) # With hidden files
-bindkey -M menuselect '\r' .accept-line
 
 zstyle ':completion:*' auto-description 'specify: %d'
 # zstyle ':completion:*:*:*:*:descriptions' format '%F{green}-- %d --%f'
