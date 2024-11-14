@@ -42,11 +42,14 @@ start_agent() {
 
 # Source SSH settings, if applicable
 if [ -f "${SSH_ENV}" ]; then
+  echo "SSH_AGENT_PID: ${SSH_AGENT_PID} found - reusing existing agent."
   . "${SSH_ENV}" > /dev/null
   ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
     start_agent;
   }
 else
+  echo "No SSH_AGENT_PID found - starting new agent."
   start_agent;
 fi
+
 . "$HOME/.cargo/env"
