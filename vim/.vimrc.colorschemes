@@ -36,6 +36,11 @@ let g:airline_theme='gruvbox-material'
 " Transparent Vim baby
 hi Normal guibg=NONE ctermbg=NONE
 hi StatusLine guibg=NONE ctermbg=NONE cterm=NONE
-hi LineNr guifg=#777777 ctermfg=grey
+hi LineNr guifg=#666666 ctermfg=grey
 hi CursorLineNr guifg=#aaaaaa ctermfg=lightgrey
+
+" hi Comment guibg=#000000 ctermbg=black
+" make comments white for better visibility
+hi Comment guifg=#ffffff ctermfg=white
+
 set laststatus=0
