@@ -66,6 +66,7 @@ zsh
 
 # prompt user whether to use desktop_package
 desktop_packages="
+appimagelauncher
 bspwm
 flameshot
 gnome-disk-utility
@@ -73,7 +74,6 @@ picom
 redshift
 rofi
 wezterm
-appimagelauncher
 "
 
 
