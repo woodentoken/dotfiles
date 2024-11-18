@@ -31,6 +31,7 @@ alias upgrade='sudo apt update; sudo apt upgrade; sudo apt full-upgrade; sudo ap
 alias upup='sudo apt update; sudo apt upgrade -y; sudo apt full-upgrade -y; sudo apt autoremove -y'
 alias fd='fdfind'
 alias tl='tldr'
+alias python='python3'
 
 alias ISAACSIM_PYTHON_EXE="$ISAACSIM_PYTHON_EXE"
 alias PYTHON_PATH="$ISAACSIM_PYTHON_EXE"
@@ -45,6 +46,7 @@ alias gym_dir='cd /home/${USER}/projects/OmniIsaacGymEnvs/omniisaacgymenvs'
   alias ln='ln -i'
   alias cat='bat'
   alias bat='batcat'
+  export BAT_THEME="gruvbox-dark"
   alias ..='cd ..'
 
   # LS

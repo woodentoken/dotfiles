@@ -213,6 +213,9 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>
 " No highlighting shortcut
 nnoremap <C-n> :noh<CR><esc>¬
 
+" add jk as escape
+inoremap jk <esc>
+
 " Command remaps
 command Wqa wqa
 command WQa wqa
