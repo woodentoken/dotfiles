@@ -53,16 +53,19 @@ Plug 'tpope/vim-eunuch'
 Plug 'yegappan/mru'
 
 "   {{ LOW LEVEL }}
-Plug 'justinmk/vim-sneak'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'terryma/vim-expand-region'
-Plug 'wellle/targets.vim'
+Plug 'Konfekt/FastFold'
+Plug 'tmhedberg/SimpylFold'
 Plug 'github/copilot.vim'
+Plug 'justinmk/vim-sneak'
+Plug 'terryma/vim-expand-region'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'wellle/targets.vim'
 
 " {{ LANGUAGE SPECIFIC }}
-Plug 'pangloss/vim-javascript'
 " Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+Plug 'pangloss/vim-javascript'
+Plug 'rust-lang/rust.vim'
 
 " {{ LINT/QUALITY }}
 Plug 'dense-analysis/ale'
@@ -188,6 +191,12 @@ let g:UltiSnipsJumpForwardTrigger = '<c-n>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-p>'
 let g:UltiSnipsSnippetDirectories=["UltiSnips", ".vimrc.snippets"]
 
+" -------------------------------------------------------------
+"     { Konfekt/FastFold }
+" -------------------------------------------------------------
+" -------------------------------------------------------------
+"     { tmhedberg/SimpylFold }
+" -------------------------------------------------------------
 " -------------------------------------------------------------
 "     { justinmk/vim-sneak }
 " -------------------------------------------------------------
