@@ -8,13 +8,19 @@ bindkey '^P' fzf-dir-navigator
 bindkey '^F' fzf-file-widget
 export FZF_COMPLETION_TRIGGER='~'
 
+export FZF_DEFAULT_OPTS="--ansi --height 100% --preview-window 'right:50%' --preview 'batcat --color=always --style=header,grid --line-range :500 {}'"
+
 export FZF_CTRL_R_OPTS="
   --color header:italic
   --header 'HISTORY'
-  --history-size=1024"
+  --history-size=1024
+  --preview 'echo {}'"
 
-# Print tree structure in the preview window
 export FZF_ALT_C_OPTS="
   --preview 'tree -C {}'
+  --exclude .git
   --color header:italic
   --header 'DIR NAVIGATOR'"
+
+export FZF_CTRL_T_COMMAND="fdfind --exclude venv --exclude virtualenv --exclude .git"
+export FZF_CTRL_T_OPTS="--preview '[ -d {} ] && tree -C {} || batcat --color=always --style=numbers {}'"
