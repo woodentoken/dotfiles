@@ -52,6 +52,7 @@ python3-dev
 python3-pip
 python3-setuptools
 r-base
+ripgrep
 stow
 sxhkd
 tldr
@@ -61,6 +62,7 @@ wslu
 xclip
 xdg-utils
 yodl
+zoxide
 zsh
 "
 

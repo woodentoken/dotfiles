@@ -12,7 +12,7 @@ export FZF_DEFAULT_OPTS="
   --ansi
   --height 100%
   --preview-window 'right:60%'
-  --preview 'batcat --color=always --style=header,grid --line-range :500 {}'"
+  --preview 'bat --color=always --style=header,grid --line-range :500 {}'"
 
 export FZF_CTRL_R_OPTS="
   --color header:italic
@@ -33,4 +33,4 @@ export FZF_CTRL_T_COMMAND="
   --exclude .git"
 
 export FZF_CTRL_T_OPTS="
-  --preview '[ -d {} ] && tree -C {} || batcat --color=always --style=numbers {}'"
+  --preview '[ -d {} ] && tree -C {} || bat --color=always --style=numbers {}'"

@@ -197,6 +197,8 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", ".vimrc.snippets"]
 " -------------------------------------------------------------
 "     { tmhedberg/SimpylFold }
 " -------------------------------------------------------------
+set nofoldenable
+hi Folded ctermbg=252 ctermfg=NONE guibg=NONE guifg=#7F7F7F
 " -------------------------------------------------------------
 "     { justinmk/vim-sneak }
 " -------------------------------------------------------------
