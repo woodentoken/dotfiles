@@ -37,20 +37,30 @@ build-essential
 cmake
 curl
 fd-find
+gcc
 git
 git-absorb
+lib-gtk2.0-dev
+libatk1.0-dev
+libcairo2-dev
 libfontconfig1-dev
 libncurses5-dev
+libx11-dev
+libxpm-dev
 libxt-dev
+libxt-dev
+make
+ncurses-dev
 neofetch
 net-tools
 nnn
 openssh-client
 openssh-server
 perl
-python3-dev
 python3-pip
 python3-setuptools
+python3.12
+python3.12-dev
 r-base
 stow
 sxhkd
@@ -143,13 +153,16 @@ done
 
 #################################################
 ### {VIM} Install the lastest version of vim
-log "Installing the latest version of vim and configuring python support etc"
+# remove old vim just in case
+sudo apt remove vim vim-runtime gvim
+log "Installing the latest version of vim and configuring python3.12 support etc"
 git clone https://github.com/vim/vim.git ~/vim
 pushd ~/vim/src
 ./configure --with-features=huge \
             --enable-multibyte \
             --enable-rubyinterp=yes \
             --enable-python3interp=yes \
+            --with-python3-command=python3.12 \
             --enable-pythoninterp=yes \
             --with-python3-config-dir=$(python3-config --configdir) \
             --enable-perlinterp=yes \
@@ -159,7 +172,6 @@ pushd ~/vim/src
             --prefix=/usr/local
 make test
 sudo make install
-sudo apt install libxt-dev -y
 popd
 log "...Done"
 #################################################
