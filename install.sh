@@ -50,6 +50,7 @@ libxpm-dev
 libxt-dev
 libxt-dev
 make
+nala
 ncurses-dev
 neofetch
 net-tools
@@ -62,6 +63,7 @@ python3-setuptools
 python3.12
 python3.12-dev
 r-base
+r-base-dev
 stow
 sxhkd
 tldr
@@ -143,6 +145,20 @@ for directory in ~/dotfiles/*; do
   stow --adopt -R $directory
   echo "  ${directory} stowed in ${HOME}"
 done
+#################################################
+
+
+#################################################
+### {R}
+log "Installing R packages..."
+R_packages="
+  httpgd
+  "
+for package in ${R_packages}; do
+  log "${package}"
+  Rscript -e "install.packages('${package}', repos='http://cran.rstudio.com/')"
+done
+pipx install radian
 #################################################
 
 
