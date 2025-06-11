@@ -15,6 +15,7 @@ syntax on
 filetype on
 filetype plugin on
 filetype indent on
+set hidden
 
 " Pick a leader key
 let mapleader = "\\"
@@ -30,6 +31,21 @@ set modelines=0
 
 " Show line numbers
 set number
+
+" Show tabline
+set showtabline=2
+map <Leader>t <Esc>:tabnew<CR>
+map <Leader>q <Esc>:tabclose<CR>
+
+" Buffer management
+nnoremap gb :ls<CR>:buffers<Space>
+set wildmode=list:full
+set wildignore=*.swp,*.bak
+set wildignore+=*.pyc,*.class,*.sln,*.Master,*.csproj,*.csproj.user,*.cache,*.dll,*.pdb,*.min.*
+set wildignore+=*/.git/**/*,*/.hg/**/*,*/.svn/**/*
+set wildignore+=tags
+set wildignore+=*.tar.*
+set wildignorecase
 
 " hide status line in vim
 set laststatus=0
