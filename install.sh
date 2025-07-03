@@ -88,7 +88,6 @@ wezterm
 appimagelauncher
 "
 
-
 for package in ${dotfile_packages}; do
 	log "${package}"
 	sudo apt-get -y install $package
@@ -224,11 +223,15 @@ pdm completion zsh > ~/.zfunc/_pdm
 
 #################################################
 ### {ZSH} install fzf
+
+# ensure fzf is not installed via apt (would be outdated anyway)
+log "Removing apt fzf if it is installed..."
+sudo apt remove fzf
+
 log "Installing fzf..."
-run git clone --depth 1 https://github.com/junegunn/fzf.git ~/dotfiles//fzf/.fzf
+run git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 # auto answer prompts with autocompletion y, key-bindings y, update-config n
-echo 'y y n' | run ./fzf/.fzf/install --no-bash
-stow ~/dotfiles/fzf
+echo 'y y n' | run ~/.fzf/install --no-bash
 log "...Done"
 #################################################
 
