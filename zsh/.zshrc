@@ -77,4 +77,9 @@ export LD_PRELOAD=$LD_PRELOAD:/usr/lib/x86_64-linux-gnu/libGLEW.so
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.mujoco/mjpro150/bin
 
 # load the fzf zsh keybindings and completion
+
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/go/bin
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
