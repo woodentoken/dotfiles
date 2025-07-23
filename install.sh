@@ -36,7 +36,6 @@ bat
 build-essential
 cmake
 curl
-fd-find
 gcc
 git
 git-absorb
@@ -194,7 +193,7 @@ log "...Done"
 
 #################################################
 ### {Rust} Install Rust
-log "Installing rust..."
+log "Installing rust(up)..."
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 log "...Done"
 #################################################
@@ -239,8 +238,21 @@ log "...Done"
 #################################################
 ### {FD} link fd-find
 log "Linking fd..."
+git clone https://github.com/sharkdp/fd ~/fd
+
+# Build
+pushd ~/fd
+
+cargo build
+
+# Run unit tests and integration tests
+cargo test
+
+# Install
+cargo install --path .
 ln -s $(which fdfind) ~/.local/bin/fd
 log "...Done"
+popd
 #################################################
 
 
