@@ -66,7 +66,7 @@ set ruler
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-set signcolumn="yes:1"
+set signcolumn=yes
 
 " Blink cursor on error instead of beeping (grr)
 set visualbell
@@ -122,7 +122,7 @@ set ttyfast
 
 " mouse
 set mouse=a
-set ttymouse=sgr
+" set ttymouse=sgr
 
 " Status bar
 set laststatus=2
@@ -235,7 +235,6 @@ inoremap jk <esc>
 " Command remaps
 command Wqa wqa
 command WQa wqa
-command W w
 command Q q
 command Wa wa
 command Qa qa

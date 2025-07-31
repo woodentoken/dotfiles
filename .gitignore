@@ -1,4 +1,4 @@
-git/.git-credentials
+
 install.log
 
 fzf/.fzf
@@ -21,3 +21,5 @@ config/.config/*
 !config/.config/rofi
 !config/.config/sxhkd
 !config/.config/alacritty
+!config/.config/nvim
+!config/.config/lazygit
