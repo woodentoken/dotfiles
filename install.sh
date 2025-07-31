@@ -107,9 +107,14 @@ while true; do
       log "${desktop_package}"
       sudo apt-get -y install $desktop_package
     done
+    break
     ;;
-  No)
+  [nN])
     echo "Skipping desktop packages..."
+    break
+    ;;
+  *)
+    echo "Please answer yes or no."
     ;;
   esac
 done
