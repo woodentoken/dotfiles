@@ -22,3 +22,4 @@ config/.config/*
 !config/.config/sxhkd
 !config/.config/alacritty
 !config/.config/nvim
+!config/.config/lazygit

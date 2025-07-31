@@ -113,12 +113,14 @@ alias dr='docker'
 alias zsrc='source ~/dotfiles/zsh/.zshrc'
 
 # VIM
+alias vvim=vim
+alias vim='nvim'
 alias gvim='mvim'
-alias vi=vim
-alias cim=vim
-alias bim=vim
-alias svi='sudo vim'
-alias svim='sudo vim'
+alias vi=nvim
+alias cim=nvim
+alias bim=nvim
+alias svi='sudo nvim'
+alias svim='sudo nvim'
 
 # MATLAB
 
