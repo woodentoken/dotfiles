@@ -3,3 +3,4 @@
 -- Add any additional keymaps here
 
 vim.keymap.set("n", "<C-p>", "<cmd>Telescope find_files<CR>", { desc = "Find Files (Telescope)" })
+vim.keymap.set("n", "<C-g>", "<cmd>lua Snacks.dashboard.pick('live_grep')<CR>", { desc = "Live grep" })

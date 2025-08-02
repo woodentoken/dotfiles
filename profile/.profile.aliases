@@ -43,7 +43,6 @@ alias mv='mv -i'
 alias cp='cp -i'
 alias ln='ln -i'
 alias cat='bat'
-alias bat='batcat'
 export BAT_THEME="gruvbox-dark"
 alias ..='cd ..'
 
