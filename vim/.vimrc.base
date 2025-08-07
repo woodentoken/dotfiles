@@ -35,7 +35,7 @@ set number
 " Show tabline
 set showtabline=2
 map <Leader>t <Esc>:tabnew<CR>
-map <Leader>q <Esc>:tabclose<CR>
+map <Leader>T <Esc>:tabclose<CR>
 
 " Buffer management
 nnoremap gb :ls<CR>:buffers<Space>

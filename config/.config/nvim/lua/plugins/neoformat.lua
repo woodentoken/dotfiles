@@ -1,0 +1,6 @@
+return {
+  {
+    "sbdchd/neoformat",
+    opts = {},
+  },
+}

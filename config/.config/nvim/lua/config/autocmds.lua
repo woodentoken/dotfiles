@@ -6,3 +6,15 @@
 --
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "AlphaReady",
+  callback = function()
+    -- Close the dashboard
+    vim.cmd("AlphaRedraw") -- Just in case
+    vim.schedule(function()
+      require("alpha").close()
+      require("telescope.builtin").find_files()
+    end)
+  end,
+})
