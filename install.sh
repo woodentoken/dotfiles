@@ -17,7 +17,7 @@ function log {
 
 # move possibly conflicting dotfiles into a backup directory
 pushd ~
-mkdir dotfiles_old
+mkdir -p dotfiles_old
 mv .bash_logout dotfiles_old
 mv .bashrc dotfiles_old
 mv .gitconfig dotfiles_old
@@ -56,6 +56,7 @@ net-tools
 nnn
 openssh-client
 openssh-server
+pipx
 perl
 python3-pip
 python3-setuptools
@@ -152,8 +153,8 @@ done
 ### {R}
 log "Installing R packages..."
 R_packages="
-  httpgd
-  "
+httpgd
+"
 for package in ${R_packages}; do
   log "${package}"
   Rscript -e "install.packages('${package}', repos='http://cran.rstudio.com/')"
@@ -211,16 +212,6 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 uv self update
 echo 'eval "$(uv generate-shell-completion zsh)"' >>~/.zshrc
 log "...Done"
-#################################################
-
-#################################################
-### {pdm} Install pdm for python package management
-curl -sSLO https://pdm-project.org/install-pdm.py
-curl -sSL https://pdm-project.org/install-pdm.py.sha256 | shasum -a 256 -c -
-# Run the installer
-python3 install-pdm.py [options]
-# Make sure ~/.zfunc is added to fpath, before compinit.
-pdm completion zsh >~/.zfunc/_pdm
 #################################################
 
 #################################################
@@ -305,7 +296,7 @@ log "...Done"
 ### final cleanup
 sudo apt-get autoremove
 sudo apt-get autoclean
-zsrc
+source ~/.zshrc
 
 log "All Done! Rebooting your computer is recommended!"
 log "Exiting..."

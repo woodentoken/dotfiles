@@ -16,7 +16,7 @@ Manually copy and paste them into the WSL settings.json file to update.
 
 ## Installation
 
-to install (*do not use sudo*):
+to install (_do not use sudo_):
 
 ```bash
 git clone https://github.com/woodentoken/dotfiles/ ~/dotfiles
