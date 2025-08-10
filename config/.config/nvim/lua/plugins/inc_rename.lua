@@ -14,7 +14,7 @@ return {
       -- Keymap for renaming
       vim.keymap.set("n", "<leader>rn", function()
         return ":IncRename " .. vim.fn.expand("<cword>")
-      end, { expr = true })
+      end, { desc = "Rename", expr = true })
     end,
   },
 }

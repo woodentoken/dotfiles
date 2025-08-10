@@ -13,13 +13,13 @@ return {
           -- stylua: ignore
           ---@type snacks.dashboard.Item[]
           keys = {
-            { icon = " ", key = "p", desc = "Find File", action = ":Telescope git_files" },
-            { icon = " ", key = "g", desc = "Find Text", action = ":Telescope live_grep" },
-            { icon = " ", key = "r", desc = "Recent Files", action = ":Telescope oldfiles" },
-            { icon = " ", key = "s", desc = "Restore Session", section = "session" },
-            { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
-            { icon = " ", key = "l", desc = "Lazy", action = ":Lazy" },
-            { icon = " ", key = "x", desc = "Lazy Extras", action = ":LazyExtras" },
+            { icon = " ", key = "p", desc = "files", action = ":Telescope git_files" },
+            { icon = " ", key = "g", desc = "text", action = ":Telescope live_grep" },
+            { icon = " ", key = "r", desc = "recent", action = ":Telescope oldfiles" },
+            { icon = " ", key = "s", desc = "session", section = "session" },
+            { icon = " ", key = "c", desc = "config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
+            { icon = " ", key = "l", desc = "lazy", action = ":Lazy" },
+            { icon = " ", key = "x", desc = "lazy extras", action = ":LazyExtras" },
           },
         },
       },
@@ -60,7 +60,7 @@ return {
         },
         sources = {
           explorer = {
-            auto_close = true,
+            auto_close = false,
             win = {
               list = {
                 keys = {
