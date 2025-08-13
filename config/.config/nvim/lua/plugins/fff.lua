@@ -20,11 +20,11 @@ return {
       -- Preview configuration
       preview = {
         enabled = true, -- Enable preview pane
-        width = 0.5, -- Preview width as fraction of window
+        width = 0.6, -- Preview width as fraction of window
         max_lines = 5000, -- Maximum lines to load
         max_size = 10 * 1024 * 1024, -- Maximum file size (10MB)
         imagemagick_info_format_str = "%m: %wx%h, %[colorspace], %q-bit", -- ImageMagick info format
-        line_numbers = false, -- Show line numbers in preview
+        line_numbers = true, -- Show line numbers in preview
         wrap_lines = false, -- Wrap long lines
         show_file_info = true, -- Show file info header
         binary_file_threshold = 1024, -- Bytes to check for binary detection
@@ -115,6 +115,20 @@ return {
   keys = {
     {
       "ff", -- try it if you didn't it is a banger keybinding for a picker
+      function()
+        require("fff").find_in_git_root() -- or find_in_git_root() if you only want git files
+      end,
+      desc = "Open file picker",
+    },
+    {
+      "<C-p>", -- try it if you didn't it is a banger keybinding for a picker
+      function()
+        require("fff").find_in_git_root() -- or find_in_git_root() if you only want git files
+      end,
+      desc = "Open file picker",
+    },
+    {
+      "FF", -- try it if you didn't it is a banger keybinding for a picker
       function()
         require("fff").find_files() -- or find_in_git_root() if you only want git files
       end,

@@ -42,8 +42,8 @@ return {
     require("telescope").load_extension("undo")
     require("telescope").load_extension("fzf")
     vim.keymap.set("n", "<C-g>", "<cmd>Telescope live_grep<CR>", { desc = "Find text " })
-    vim.keymap.set("n", "<C-P>", "<cmd>Telescope find_files<CR>", { desc = "Find files " })
-    vim.keymap.set("n", "<C-p>", "<cmd>Telescope git_files<CR>", { desc = "Find text " })
+    -- vim.keymap.set("n", "<C-P>", "<cmd>Telescope find_files<CR>", { desc = "Find files " })
+    -- vim.keymap.set("n", "<C-p>", "<cmd>Telescope git_files<CR>", { desc = "Find text " })
     vim.keymap.set("n", "<leader>U", "<cmd>Telescope undo<cr>", { desc = "Undotree" })
 
     vim.keymap.set("n", "<leader>rr", "<cmd>Telescope registers<CR>", { desc = "Display registers " })

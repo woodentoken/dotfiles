@@ -13,7 +13,7 @@ return {
           -- stylua: ignore
           ---@type snacks.dashboard.Item[]
           keys = {
-            { icon = " ", key = "p", desc = "files", action = ":Telescope git_files" },
+            { icon = " ", key = "ff", desc = "files", action = ":lua require('fff').find_in_git_root()" },
             { icon = " ", key = "g", desc = "text", action = ":Telescope live_grep" },
             { icon = " ", key = "r", desc = "recent", action = ":Telescope oldfiles" },
             { icon = " ", key = "s", desc = "session", section = "session" },
