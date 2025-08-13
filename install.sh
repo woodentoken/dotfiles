@@ -36,9 +36,12 @@ bat
 build-essential
 cmake
 curl
+feh
 gcc
 git
 git-absorb
+imagemagick
+imagemagickwand-dev
 lib-gtk2.0-dev
 libatk1.0-dev
 libcairo2-dev
@@ -226,6 +229,15 @@ run git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 # auto answer prompts with autocompletion y, key-bindings y, update-config n
 echo 'y y n' | run ~/.fzf/install --no-bash
 log "...Done"
+#################################################
+
+#################################################
+git clone https://github.com/stefanhaustein/TerminalImageViewer.git
+cd TerminalImageViewer/src
+make
+
+# To move the tiv binary into your PATH (hopefully), also do
+sudo make install
 #################################################
 
 #################################################
