@@ -3,5 +3,4 @@ require("config.lazy")
 
 vim.g.snacks_animate = false
 
-
 vim.cmd("source ~/.vimrc.base")

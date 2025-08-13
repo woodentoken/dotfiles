@@ -15,17 +15,17 @@ return {
     },
     {
       "<leader>xX",
-      "<cmd>Trouble references toggle focus=true win.size=0.4 win.position=right<cr>",
+      "<cmd>Trouble references toggle focus=true win.size=0.33 win.position=right<cr>",
       desc = "Buffer References (Trouble)",
     },
     {
       "<leader>cs",
-      "<cmd>Trouble symbols toggle focus=false win.size=0.4<cr>",
+      "<cmd>Trouble symbols toggle focus=false win.size=0.33<cr>",
       desc = "Symbols (Trouble)",
     },
     {
       "<leader>cl",
-      "<cmd>Trouble lsp toggle focus=false win.size=0.4 win.position=right<cr>",
+      "<cmd>Trouble lsp toggle focus=false win.size=0.33 win.position=right<cr>",
       desc = "LSP Definitions / references / ... (Trouble)",
     },
     {
