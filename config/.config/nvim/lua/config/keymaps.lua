@@ -6,4 +6,4 @@
 vim.keymap.set("n", "<C-\\>", ":Commentary<CR>", { noremap = false, desc = "Toggle comment" })
 vim.keymap.set("v", "<C-\\>", ":Commentary<CR>", { noremap = false, desc = "Toggle comment in visual mode" })
 
-vim.keymap.set("n", ";", ":", { noremap = true, desc = "Quick command mode" })
+-- vim.keymap.set("n", ";", ":", { noremap = true, desc = "Quick command mode" })
