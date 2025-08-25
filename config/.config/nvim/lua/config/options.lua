@@ -20,3 +20,5 @@ vim.api.nvim_create_user_command("W", "w", { nargs = 0 })
 -- Enable persistent undo
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath("state") .. "/undo"
+
+vim.opt.fileformats = "unix,dos,mac"

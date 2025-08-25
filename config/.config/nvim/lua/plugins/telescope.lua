@@ -47,6 +47,6 @@ return {
     vim.keymap.set("n", "<leader>U", "<cmd>Telescope undo<cr>", { desc = "Undotree" })
 
     vim.keymap.set("n", "<leader>rr", "<cmd>Telescope registers<CR>", { desc = "Display registers " })
-    vim.keymap.set("n", "<leader>B", "<cmd>Telescope buffers<CR>", { desc = "Display buffers " })
+    vim.keymap.set("n", "<leader>bb", "<cmd>Telescope buffers<CR>", { desc = "Display buffers " })
   end,
 }
