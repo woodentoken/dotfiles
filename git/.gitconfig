@@ -65,7 +65,7 @@
   refresh = !git rm -r --cached . && git add .
 
 [mergetool]
-  keepBackup = true
+  keepBackup = false
 [merge]
   tool = meld
 [mergetool "meld"]

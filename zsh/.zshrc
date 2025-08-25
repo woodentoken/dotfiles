@@ -82,4 +82,6 @@ export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:/go/bin
 
+export NNN_OPENER="$HOME/.config/nnn/open.sh"
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

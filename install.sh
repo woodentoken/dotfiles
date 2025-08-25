@@ -52,6 +52,7 @@ libxpm-dev
 libxt-dev
 libxt-dev
 make
+meld
 nala
 ncurses-dev
 neofetch

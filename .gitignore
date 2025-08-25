@@ -23,3 +23,4 @@ config/.config/*
 !config/.config/alacritty
 !config/.config/nvim
 !config/.config/lazygit
+!config/.config/nnn
