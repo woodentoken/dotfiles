@@ -1,5 +1,6 @@
 return {
   "dmtrKovalenko/fff.nvim",
+  lazy = false,
   build = "cargo build --release",
   -- or if you are using nixos
   -- build = "nix run .#release",
@@ -121,16 +122,16 @@ return {
       desc = "Open file picker",
     },
     {
-      "<C-p>", -- try it if you didn't it is a banger keybinding for a picker
+      "<C-p>", -- redundant
       function()
         require("fff").find_in_git_root() -- or find_in_git_root() if you only want git files
       end,
       desc = "Open file picker",
     },
     {
-      "FF", -- try it if you didn't it is a banger keybinding for a picker
+      "FF", -- find files in cwd not git root
       function()
-        require("fff").find_files() -- or find_in_git_root() if you only want git files
+        require("fff").find_files()
       end,
       desc = "Open file picker",
     },
