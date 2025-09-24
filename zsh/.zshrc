@@ -84,4 +84,7 @@ export PATH=$PATH:/go/bin
 
 export NNN_OPENER="$HOME/.config/nnn/open.sh"
 
+# export FLYCTL_INSTALL="/home/${USER}/.fly"
+export PATH="$PATH:${HOME}/.fly/bin:"
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
