@@ -11,7 +11,7 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.relativenumber = false
 vim.opt.fillchars = { horiz = "H", vert = "L" }
 
-vim.g.lazyvim_picker = "telescope"
+vim.g.lazyvim_picker = "fzf"
 vim.g.mapleader = "\\"
 
 -- remap the capitals...
