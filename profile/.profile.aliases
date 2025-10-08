@@ -31,6 +31,8 @@ alias upgrade='sudo apt update; sudo apt upgrade; sudo apt full-upgrade; sudo ap
 alias upup='sudo nala full-upgrade -y'
 alias tl='tldr'
 alias python='python3'
+alias py='python3'
+alias server='python3 -m http.server 5000'
 
 alias ISAACSIM_PYTHON_EXE="$ISAACSIM_PYTHON_EXE"
 alias PYTHON_PATH="$ISAACSIM_PYTHON_EXE"

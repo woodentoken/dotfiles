@@ -1,3 +1,6 @@
 [submodule "fzf/.fzf"]
 	path = fzf/.fzf
 	url = https://github.com/junegunn/fzf.git
+[submodule "config/.config/nvim/nvim-lspconfig"]
+	path = config/.config/nvim/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig

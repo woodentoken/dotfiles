@@ -21,3 +21,13 @@ vim.keymap.set("v", "<Select>", "$", { noremap = true, desc = "Go to end of line
 vim.keymap.set("v", "<leader>bb", "<cmd>Fzf buffers<CR>", { desc = "Display buffers " })
 vim.keymap.set("v", "<leader>mm", "<cmd>Fzf marks<CR>", { desc = "Display marks " })
 vim.keymap.set("v", "<A-r>", ":Fzf oldfiles<CR>", { noremap = true, desc = "Recent files" })
+
+-- vim.api.nvim_set_keymap("i", "<F2>", '<cmd>lua require("renamer").rename()<cr>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename<cr>", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("v", "<leader>rn", "<cmd>lua vim.lsp.buf.rename<cr>", { noremap = true, silent = true })
+
+-- Normal mode
+-- vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { silent = true })
+
+-- -- Visual mode (if you want to rename selection)
+-- vim.keymap.set("v", "<leader>rn", vim.lsp.buf.rename, { silent = true })
