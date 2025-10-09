@@ -1,0 +1,15 @@
+target-version = "py311"
+line-length = 88
+
+select = ["E", "F", "I", "B", "UP", "N", "SIM"]
+
+ignore = [
+  "E501",   # line length (handled by Black)
+  "B008",   # function calls in defaults
+  "SIM108", # avoid 'if-else' simplifications
+]
+
+fix = true
+
+[isort]
+combine-as-imports = true

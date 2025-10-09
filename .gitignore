@@ -19,6 +19,7 @@ config/.config/*
 !config/.config/picom
 !config/.config/redshift.conf
 !config/.config/rofi
+!config/.config/ruff
 !config/.config/sxhkd
 !config/.config/alacritty
 !config/.config/nvim
