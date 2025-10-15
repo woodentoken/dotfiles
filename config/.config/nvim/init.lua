@@ -4,3 +4,18 @@ require("config.lazy")
 vim.g.snacks_animate = false
 
 vim.cmd("source ~/.vimrc.base")
+
+require("aerial").setup({
+  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+  on_attach = function(bufnr)
+    -- Jump forwards/backwards with '{' and '}'
+    vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+    vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+  end,
+})
+
+vim.g.copilot_no_tab_map = true
+vim.keymap.set("i", "<S-Tab>", 'copilot#Accept("\\<S-Tab>")', { expr = true, replace_keycodes = false })
+-- You probably also want to set a keymap to toggle aerial
+-- vim.cmd("hi AerialClass guifg=orange")
+-- vim.cmd("hi AerialFunction guifg=rust")

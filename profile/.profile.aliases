@@ -42,13 +42,29 @@ alias isaac_dir='sim_dir'
 alias gym_dir='cd /home/${USER}/projects/OmniIsaacGymEnvs/omniisaacgymenvs'
 
 # BASE IMPROVEMENTS
+# Safer file operations
 alias mv='mv -i'
 alias cp='cp -i'
 alias ln='ln -i'
-alias cat='bat'
-alias bat='batcat'
-export BAT_THEME="gruvbox-dark"
+
+# Use bat for syntax highlighting if available
+if command -v batcat >/dev/null; then
+  alias bat='batcat'
+  alias cat='bat'
+  export BAT_THEME="gruvbox-dark"
+elif command -v bat >/dev/null; then
+  alias cat='bat'
+  export BAT_THEME="gruvbox-dark"
+fi
+
+# Quick directory navigation
 alias ..='cd ..'
+alias ...='cd ../..'
+
+# Useful listing and cleaning commands
+alias ll='ls -alF'
+alias cls='clear'
+alias duh='du -h --max-depth=1'
 
 # LS
 alias ls='ls -1 --group-directories-first --classify --color=always'
@@ -107,6 +123,9 @@ alias kk='ll'
 
 # DOCKER
 alias dr='docker'
+
+# FDFIND
+alias fd='fdfind'
 
 # FZF
 

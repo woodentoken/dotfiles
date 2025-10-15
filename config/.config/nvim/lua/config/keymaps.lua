@@ -13,6 +13,7 @@ vim.keymap.set("n", "<Select>", "$", { noremap = true, desc = "Go to end of line
 vim.keymap.set("n", "<leader>bb", "<cmd>Fzf buffers<CR>", { desc = "Display buffers " })
 vim.keymap.set("n", "<leader>mm", "<cmd>Fzf marks<CR>", { desc = "Display marks " })
 vim.keymap.set("n", "<A-r>", ":Fzf oldfiles<CR>", { noremap = true, desc = "Recent files" })
+vim.keymap.set("n", "<leader>cs", "<cmd>AerialToggle!<CR>")
 
 -- # VISUAL mode remaps
 vim.keymap.set("v", "<C-\\>", ":Commentary<CR>", { noremap = false, desc = "Toggle comment in visual mode" })
