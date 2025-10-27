@@ -2,6 +2,12 @@ return {
   {
     "folke/snacks.nvim",
     opts = {
+      ---
+      notifier = {
+        style = "minimal",
+        top_down = false,
+      },
+      ---
       dashboard = {
         preset = {
           pick = function(cmd, opts)
@@ -23,6 +29,7 @@ return {
           },
         },
       },
+      ---
       picker = {
         ui_select = true,
         win = {
@@ -60,7 +67,10 @@ return {
         },
         sources = {
           explorer = {
+            git_untracked = true,
+            git_status = true,
             auto_close = false,
+            -- sources = { "buffers", "files" },
             win = {
               list = {
                 keys = {

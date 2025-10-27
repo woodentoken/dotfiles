@@ -97,7 +97,7 @@ return {
 
     -- Icons
     icons = {
-      enabled = true, -- Enable file icons
+      enabled = false, -- Enable file icons
     },
 
     -- Debug options

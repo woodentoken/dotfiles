@@ -2,15 +2,12 @@
 
 These are dotfiles designed for Linux.
 
-They are based around using zsh for the terminal and vim for the editor.
+They are based around using zsh for the terminal and neovim for the editor.
 
 folders are used to delineate configuration options, and generally, the actual
 "."files (.vimrc, .zshrc) are merely sourcing their constituent parts. I have
 found this to be useful for tracking where changes are implemented, and I much
 prefer it to using large, single, "."files.
-
-I am version controlling my WSL settings as well (settings.json).
-Manually copy and paste them into the WSL settings.json file to update.
 
 ---
 
@@ -24,7 +21,8 @@ git clone https://github.com/woodentoken/dotfiles/ ~/dotfiles
 ```
 
 the install script uses `stow` to automatically symlink each folder into the
-home directory
+home directory. It will back up any existing dotfiles to a folder
+`~/dotfiles_backup/` before symlinking.
 
 ---
 
@@ -33,6 +31,9 @@ home directory
 ### linux
 
 - [sharkdp/fd](https://github.com/sharkdp/fd)
+- [sharkdp/bat](https://github.com/sharkdp/bat)
+- [ripgrep](https://github.com/BurntSushi/ripgrep)
+- [junegunn/fzf](https://github.com/junegunn/fzf)
 - [stow](https://www.gnu.org/software/stow/)
 - [zsh-users/zsh](https://github.com/zsh-users/zsh) (see below)
 
@@ -60,10 +61,17 @@ running `resolve_zsh_plugins.sh` will update each of the plugins below.
 
 ---
 
+### neovim
+
+I have transitioned to using neovim as my main editor. These dotfiles configure neovim via the lazy vim distribution, with some added custom plugins and settings. The plugins that I am using are listed below.
+
+- [LazyVim/LazyVim]()
+
 ### vim
 
+While I recommend neovim, I am also including my vim configuration.
 these dotfiles use [vim-plug](https://github.com/junegunn/vim-plug) to manage plugins.
-use `:PlugUpdate` to update them.
+use `:PlugUpdate` to update all installed plugins.
 
 #### git
 
