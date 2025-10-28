@@ -20,36 +20,35 @@ return {
       ["L"] = false,
     },
     -- layout = { width = 150 },
-    highlight_mode = "split_width",
+    -- highlight_mode = "split_width",
     autojump = true,
-    open_automatic = true,
+    open_automatic = false,
     show_guides = true,
     show_numbers = true,
     filter_kind = {
       "Class",
+      "Constant",
       "Constructor",
       "Enum",
       "Function",
       "Interface",
-      "Module",
       "Method",
+      "Module",
       "Struct",
     },
-
-    -- for some reason this doesnt seem to work...
     icons = {
-      Function = "f", -- Functions
-      Method = "m", -- Methods
-      Class = "", -- Class symbols
-      Variable = "𝓍", -- Variables
-      Constant = "π", -- Constants
-      Interface = "I", -- Interfaces
+      Class = "≡", -- Class symbols
+      Constant = "•", -- Constants
       Enum = "∑", -- Enums
-      Field = "•", -- Fields / properties
+      Event = "†", -- Events
+      Field = "›", -- Fields / properties
+      Function = "ƒ", -- Functions
+      Interface = "↕", -- Interfaces
+      Method = "-", -- Methods
       Property = "▪", -- Properties
-      Event = "⚡", -- Events
       Struct = "⧋", -- Structs
       TypeParameter = "T", -- Type parameters / generics
+      Variable = "𝓍", -- Variables
     },
   },
 }

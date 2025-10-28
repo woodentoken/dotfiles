@@ -292,6 +292,14 @@ return {
         -- instead of relying on nvim autocmd events.
         window = {
           mappings = {
+            ["<A-,>"] = "none",
+            ["<A-.>"] = "none",
+            ["<M-,>"] = "none",
+            ["<M-.>"] = "none",
+            ["<M-h>"] = "none",
+            ["<M-j>"] = "none",
+            ["<M-k>"] = "none",
+            ["<M-l>"] = "none",
             ["<bs>"] = "navigate_up",
             ["."] = "set_root",
             ["H"] = "toggle_hidden",

@@ -25,10 +25,13 @@ return {
     config = function(_, opts)
       require("CopilotChat").setup(opts)
       vim.keymap.set({ "n" }, "<leader>CC", ":CopilotChatToggle<CR>", { desc = "toggle CopilotChat" })
+      vim.keymap.set({ "n" }, "<leader>Ci", ":CopilotChatPrompt<CR>", { desc = "send inline prompt" })
       vim.keymap.set({ "n" }, "<leader>Cr", ":CopilotChat #buffer Review<CR>", { desc = "code review" })
       vim.keymap.set({ "n" }, "<leader>Cf", ":CopilotChat #buffer Fix<CR>", { desc = "code fix" })
       vim.keymap.set({ "v" }, "<leader>Ce", ":CopilotChatExplain<CR>", { desc = "explain selected code" })
       vim.keymap.set({ "v" }, "<leader>Cd", ":CopilotChatDocs<CR>", { desc = "document selected code" })
+      vim.keymap.set("n", "<leader>Ca", "<cmd>CopilotChatAccept<CR>", { desc = "Accept Copilot Chat code" })
+      vim.keymap.set("v", "<leader>Co", "<cmd>CopilotChatInsert<CR>", { desc = "Insert Copilot Chat code" })
     end,
   },
 }

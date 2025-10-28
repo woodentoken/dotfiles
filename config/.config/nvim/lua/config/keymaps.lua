@@ -4,8 +4,8 @@ vim.keymap.set("i", "<Select>", "<End>", { noremap = true, desc = "Go to end of 
 vim.keymap.set("i", "<A-r>", ":Fzf oldfiles<CR>", { noremap = true, desc = "Recent files" })
 
 -- # NORMAL mode remaps
-vim.keymap.set("n", "<A-,>", ":bprevious<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<A-.>", ":bnext<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<A-,>", ":bprevious<CR>", { noremap = true, silent = true, desc = "Go to previous buffer" })
+vim.keymap.set("n", "<A-.>", ":bnext<CR>", { noremap = true, silent = truem, desc = "Go to next buffer" })
 
 vim.keymap.set("n", "<C-\\>", ":Commentary<CR>", { noremap = false, desc = "Toggle comment" })
 vim.keymap.set("n", "<Find>", "^", { noremap = true, desc = "Go to beginning of line" })
@@ -14,11 +14,13 @@ vim.keymap.set("n", "<Select>", "$", { noremap = true, desc = "Go to end of line
 -- vim.keymap.set("n", "<leader>mm", "<cmd>Fzf marks<CR>", { desc = "Display marks " })
 vim.keymap.set("n", "<A-r>", ":Fzf oldfiles<CR>", { noremap = true, desc = "Recent files" })
 vim.keymap.set("n", "<leader>gg", "<cmd>FzfLua live_grep<CR>", { desc = "Display marks " })
-vim.keymap.set("n", "<leader>xs", "<cmd>AerialToggle!<CR>")
-vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle left<CR>")
-vim.keymap.set("n", "<leader>b", "<cmd>Neotree toggle buffers right<CR>")
-vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
-vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle left<CR>", { desc = "Toggle Neotree Explorer" })
+vim.keymap.set("n", "<leader>b", "<cmd>Neotree toggle buffers right<CR>", { desc = "Toggle Neotree Buffers" })
+vim.keymap.set("n", "<leader>aa", "<cmd>AerialToggle!<CR>", { desc = "Toggle Aerial window" })
+vim.keymap.set("n", "<leader>af", "<cmd>lua require('aerial').fzf_lua_picker()<CR>", { desc = "Aerial Fzf picker" })
+vim.keymap.set("n", "<leader>ao", "<cmd>AerialOpen!<CR>", { desc = "Open Aerial window" })
+vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr, desc = "Go to previous symbol in Aerial" })
+vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr, desc = "Go to next symbol in Aerial" })
 -- Remove any existing mappings first (optional but safe)
 vim.keymap.del("n", "H", { silent = true })
 vim.keymap.del("n", "L", { silent = true })
@@ -42,8 +44,8 @@ vim.keymap.set("v", "<Select>", "$", { noremap = true, desc = "Go to end of line
 -- vim.keymap.set("v", "<leader>mm", "<cmd>FzfLua marks<CR>", { desc = "Display marks " })
 vim.keymap.set("v", "<leader>gg", "<cmd>FzfLua live_grep<CR>", { desc = "Display marks " })
 vim.keymap.set("v", "<A-r>", ":Fzf oldfiles<CR>", { noremap = true, desc = "Recent files" })
-vim.keymap.set("v", "<leader>e", "<cmd>Neotree toggle left<CR>")
-vim.keymap.set("v", "<leader>b", "<cmd>Neotree toggle buffers right<CR>")
+vim.keymap.set("v", "<leader>e", "<cmd>Neotree toggle left<CR>", { desc = "Toggle Neotree Explorer" })
+vim.keymap.set("v", "<leader>b", "<cmd>Neotree toggle buffers right<CR>", { desc = "Toggle Neotree Buffers" })
 
 -- vim.keymap.set("n", "<leader>nn", "<cmd>lua Snacks.notifier.show_history()<CR>", { desc = "Show notification history" })
 
