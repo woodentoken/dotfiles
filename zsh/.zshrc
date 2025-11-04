@@ -13,9 +13,10 @@
 export COLORTERM=truecolor
 export TERM=xterm-256color
 
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  tmux new-session -A -s main
-fi
+
+# if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+#   tmux new-session -A -s main
+# fi
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
@@ -29,6 +30,32 @@ source ~/.zshrc.extensions
 source ~/.zshrc.basics
 source ~/.zshrc.fzf
 # Set up fzf key bindings and fuzzy completion
+
+# Auto-attach or create Zellij session "/"
+export ZELLIJ_AUTO_ATTACH=true
+
+if [[ -z "$ZELLIJ" ]]; then
+    if [[ "$ZELLIJ_AUTO_ATTACH" == "true" ]]; then
+        zellij attach -c base
+    else
+        zellij attach base
+    fi
+
+    if [[ "$ZELLIJ_AUTO_EXIT" == "true" ]]; then
+        exit
+    fi
+fi
+
+# ZJ_SESSIONS=$(zellij list-sessions)
+# NO_SESSIONS=$(echo "${ZJ_SESSIONS}" | wc -l)
+
+# if [ "${NO_SESSIONS}" -ge 2 ]; then
+#     zellij attach \
+#     "$(echo "${ZJ_SESSIONS}" | sk)"
+# else
+#    zellij attach -c
+# fi
+
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

@@ -219,14 +219,14 @@ precmd_functions+=(_virtualenv_auto_activate)
 ZSH_THEME_GIT_PROMPT_PREFIX="["
 ZSH_THEME_GIT_PROMPT_SUFFIX="]%f"
 ZSH_THEME_GIT_PROMPT_SEPARATOR="|"
-ZSH_THEME_GIT_PROMPT_BRANCH="%F{#44A6FF}"
+ZSH_THEME_GIT_PROMPT_BRANCH="%F{#3094FF}"
 ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[green]%}%{%G+%}"
 ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg[red]%}%{%G×%}"
 ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[yellow]%}%{%G~%}"
 ZSH_THEME_GIT_PROMPT_BEHIND="%{$fg[yellow]%}%{↓%G%}"
 ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg[green]%}%{↑%G%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[magenta]%}%{%G?%}"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{%F{#44A6FF}%}%{_%G%}"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{%F{#3094FF}%}%{_%G%}"
 
 export PS1='$VENV_NAME%f[/$(depth_pwd)]$(git_super_status) $ '
 

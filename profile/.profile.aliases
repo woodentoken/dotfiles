@@ -19,20 +19,22 @@ alias clc='clear'
 alias c='clc'
 
 # SHORTCUTS
-alias v='vim'
-alias vn='viewnior'
-alias t='touch'
+# alias upup='sudo apt update; sudo apt upgrade -y; sudo apt full-upgrade -y; sudo apt autoremove -y'
 alias e=$EDITOR
-alias se="sudo $EDITOR"
 alias please='sudo zsh -c "$(fc -ln -1)"'
+alias py='python3'
+alias python='python3'
+alias se="sudo $EDITOR"
+alias server='python3 -m http.server 5000'
+alias t='touch'
+alias tl='tldr'
 alias untar='tar -xvkf'
 alias upgrade='sudo apt update; sudo apt upgrade; sudo apt full-upgrade; sudo apt autoremove'
-# alias upup='sudo apt update; sudo apt upgrade -y; sudo apt full-upgrade -y; sudo apt autoremove -y'
 alias upup='sudo nala full-upgrade -y'
-alias tl='tldr'
-alias python='python3'
-alias py='python3'
-alias server='python3 -m http.server 5000'
+alias v='vim'
+alias vn='viewnior'
+alias zj='zellij'
+alias zjls='zellij list-sessions'
 
 alias ISAACSIM_PYTHON_EXE="$ISAACSIM_PYTHON_EXE"
 alias PYTHON_PATH="$ISAACSIM_PYTHON_EXE"
@@ -97,11 +99,9 @@ alias asb='cd /home/${USER}/anaconda3/envs/Stab_base/lib/python3.8/site-packages
 alias dc='cd ~/Documents'
 alias dl='cd ~/Downloads'
 alias pr='cd ~/projects && la'
-alias prp='cd ~/projects/personal && la'
 alias prl='cd ~/projects/learning && la'
+alias prp='cd ~/projects/personal && la'
 alias prr='cd ~/projects/research/ && la'
-alias dl='cd ~/Downloads'
-alias dc='cd ~/Documents'
 
 # CLIPPING
 alias clip='xclip -selection c'
@@ -136,13 +136,13 @@ alias zsrc='source ~/dotfiles/zsh/.zshrc'
 
 # VIM
 alias vvim=vim
-alias vim='nvim'
-alias gvim='mvim'
+alias vim=nvim
 alias vi=nvim
 alias cim=nvim
 alias bim=nvim
 alias svi='sudo nvim'
 alias svim='sudo nvim'
+alias gvim='mvim'
 
 # MATLAB
 

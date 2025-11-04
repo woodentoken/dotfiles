@@ -18,13 +18,24 @@ function log {
 # move possibly conflicting dotfiles into a backup directory
 pushd ~
 mkdir -p dotfiles_old
-mv .bash_logout dotfiles_old
-mv .bashrc dotfiles_old
-mv .gitconfig dotfiles_old
-mv .profile dotfiles_old
-mv .vimrc dotfiles_old
-mv .zlogout dotfiles_old
-mv .zshrc dotfiles_old
+
+possible_dotfiles=".bash_aliases
+.bash_profile
+.bashrc
+.gitconfig
+.gitignore_global
+.profile
+.tmux.conf
+.vimrc
+.config
+.zshrc
+"
+for file in $possible_dotfiles; do
+  if [ -e $file ] || [ -L $file ]; then
+    mv $file dotfiles_old/
+    log "Moved existing ${file} to ~/dotfiles_old/"
+  fi
+done
 popd
 
 #################################################
@@ -35,11 +46,14 @@ dotfile_packages="
 bat
 build-essential
 cmake
+cowsay
 curl
+eog
 feh
 gcc
 git
 git-absorb
+gzip
 imagemagick
 imagemagickwand-dev
 lib-gtk2.0-dev
@@ -60,23 +74,31 @@ net-tools
 nnn
 openssh-client
 openssh-server
+parted
+pandoc
 pipx
 perl
 python3-pip
 python3-setuptools
-python3.12
-python3.12-dev
+python3.13
+python3.13-dev
+rename
+ripgrep
 r-base
 r-base-dev
 stow
 sxhkd
+tar
+tiv
 tldr
 tmux
 tree
+viewnior
 wslu
 xclip
 xdg-utils
 yodl
+zip
 zsh
 "
 
@@ -142,15 +164,6 @@ log "Cloning Dotfiles from ${dotfiles}..."
 dotfile_path="${HOME}/dotfiles"
 run git clone $dotfiles "${dotfile_path}"
 log "...Done"
-#################################################
-
-#################################################
-### {STOW}
-echo "Stowing dotfile directories..."
-for directory in ~/dotfiles/*; do
-  stow --adopt -R $directory
-  echo "  ${directory} stowed in ${HOME}"
-done
 #################################################
 
 #################################################
@@ -231,15 +244,6 @@ log "...Done"
 #################################################
 
 #################################################
-git clone https://github.com/stefanhaustein/TerminalImageViewer.git
-cd TerminalImageViewer/src
-make
-
-# To move the tiv binary into your PATH (hopefully), also do
-sudo make install
-#################################################
-
-#################################################
 ### {FD} link fd-find
 log "Linking fd..."
 git clone https://github.com/sharkdp/fd ~/fd
@@ -257,6 +261,21 @@ cargo install --path .
 ln -s $(which fdfind) ~/.local/bin/fd
 log "...Done"
 popd
+#################################################
+
+#################################################
+### {skim} install sk (sk is a fzf-like fuzzy finder for files with preview)
+cargo install sk
+#################################################
+
+#################################################
+### {zellij}
+cargo install zellij
+#################################################
+
+#################################################
+### {viewnior}
+cargo install viewnior
 #################################################
 
 #################################################
@@ -302,6 +321,15 @@ sudo chsh -s $($(which zsh))
 chsh -s $($(which zsh)) $USER
 chsh -s $(which zsh)
 log "...Done"
+#################################################
+
+#################################################
+### {STOW}
+echo "Stowing dotfile directories..."
+for directory in ~/dotfiles/*; do
+  stow --adopt -R $directory
+  echo "  ${directory} stowed in ${HOME}"
+done
 #################################################
 
 ### final cleanup

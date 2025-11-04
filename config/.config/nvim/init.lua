@@ -7,3 +7,13 @@ vim.cmd("source ~/.vimrc.base")
 
 vim.g.copilot_no_tab_map = true
 vim.keymap.set("i", "<S-Tab>", 'copilot#Accept("\\<S-Tab>")', { expr = true, replace_keycodes = false })
+vim.opt.fileformats = { "unix", "dos" }
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+  pattern = "*",
+  callback = function()
+    if vim.o.paste then
+      vim.cmd([[%s/\r//g | silent!]])
+    end
+  end,
+})
