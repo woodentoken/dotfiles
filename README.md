@@ -1,6 +1,6 @@
 # woodentoken/dotfiles
 
-These are dotfiles designed for Linux.
+These are dotfiles designed for Linux (and specifically Ubuntu)
 
 They are based around using zsh for the terminal and neovim for the editor.
 
@@ -41,8 +41,7 @@ Implemented a color based directory depth scheme, visible here:
 
 ![image](https://user-images.githubusercontent.com/43391485/230224167-7e7c1e2d-8a09-45d0-a1ee-fe0aee09f086.png)
 
-certainly, it gets a little hard to parse at the mid depths, still,
-felt like a nice little thing to do.
+certainly, it gets a little hard to parse at the mid depths.
 
 working allowing directory depth jumping, like typing cd5 to go back 5 directories.
 That would be integrated with a labeling scheme in the current directory, WIP
@@ -69,7 +68,8 @@ I have transitioned to using neovim as my main editor. These dotfiles configure 
 
 ### vim
 
-While I recommend neovim, I am also including my vim configuration.
+While I recommend neovim, I am also including my legacy vim configuration.
+
 these dotfiles use [vim-plug](https://github.com/junegunn/vim-plug) to manage plugins.
 use `:PlugUpdate` to update all installed plugins.
 
@@ -121,12 +121,18 @@ use `:PlugUpdate` to update all installed plugins.
 
 ### tmux
 
+this is also deprecated in favor of zellij, but still included for completeness.
+
 - [kolach/tmux-temp](https://github.com/kolach/tmux-temp)
 - [tmux-plugins/tmux-copycat](https://github.com/tmux-plugins/tmux-copycat)
 - [tmux-plugins/tmux-cpu](https://github.com/tmux-plugins/tmux-cpu)
 - [tmux-plugins/tmux-open](https://github.com/tmux-plugins/tmux-open)
 - [tmux-plugins/tmux-yank](https://github.com/tmux-plugins/tmux-yank)
 - [tmux-plugins/tpm](https://github.com/tmux-plugins/tpm)
+
+### zellij
+
+- [zellij-org/zellij]()
 
 ---
 
