@@ -7,12 +7,13 @@ return {
     },
     backends = { "lsp", "treesitter", "markdown" },
     layout = {
-      max_width = 50,
-      min_width = 20,
+      -- max_width = 45,
+      -- min_width = 15,
+      width = 0.2,
       -- win_opts = { number = true },
-      placement = "edge",
+      -- placement = "edge",
       default_direction = "prefer_right",
-      resize_to_content = true,
+      -- resize_to_content = true,
     },
     attach_mode = "window",
     keymaps = {
@@ -24,7 +25,7 @@ return {
     -- layout = { width = 150 },
     -- highlight_mode = "split_width",
     autojump = true,
-    open_automatic = false,
+    open_automatic = true,
     show_guides = true,
     show_numbers = true,
     filter_kind = {
