@@ -9,6 +9,7 @@ vim.g.copilot_no_tab_map = true
 vim.keymap.set("i", "<S-Tab>", 'copilot#Accept("\\<S-Tab>")', { expr = true, replace_keycodes = false })
 vim.opt.fileformats = { "unix", "dos" }
 
+-- Remove carriage return characters when pasting
 vim.api.nvim_create_autocmd("TextYankPost", {
   pattern = "*",
   callback = function()
