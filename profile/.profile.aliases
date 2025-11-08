@@ -20,7 +20,7 @@ alias c='clc'
 
 # SHORTCUTS
 # alias upup='sudo apt update; sudo apt upgrade -y; sudo apt full-upgrade -y; sudo apt autoremove -y'
-alias csv='csvlens'
+alias csv='csvlens --colorful'
 alias e=$EDITOR
 alias please='sudo zsh -c "$(fc -ln -1)"'
 alias py='python3'
