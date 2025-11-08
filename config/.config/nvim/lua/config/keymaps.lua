@@ -56,6 +56,13 @@ vim.keymap.set("n", "<leader>gr", function()
   vim.lsp.buf.references()
 end, { desc = "Go to References" })
 
+vim.keymap.set("n", "<leader>lq", function()
+  local win = vim.api.nvim_get_current_win()
+  vim.diagnostic.setqflist()
+  vim.cmd("copen")
+  vim.api.nvim_set_current_win(win)
+end, { noremap = false, silent = true, desc = "Quick lsp fix" })
+
 -- vim.keymap.set("n", "<leader>nn", "<cmd>lua Snacks.notifier.show_history()<CR>", { desc = "Show notification history" })
 
 -- vim.api.nvim_set_keymap("i", "<F2>", '<cmd>lua require("renamer").rename()<cr>', { noremap = true, silent = true })
