@@ -10,9 +10,11 @@ return {
       max_width = 50,
       min_width = 20,
       -- win_opts = { number = true },
-      placement = "window",
+      placement = "edge",
+      default_direction = "prefer_right",
       resize_to_content = true,
     },
+    attach_mode = "window",
     keymaps = {
       ["H"] = false,
       ["J"] = false,

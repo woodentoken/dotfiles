@@ -20,6 +20,7 @@ alias c='clc'
 
 # SHORTCUTS
 # alias upup='sudo apt update; sudo apt upgrade -y; sudo apt full-upgrade -y; sudo apt autoremove -y'
+alias csv='csvlens'
 alias e=$EDITOR
 alias please='sudo zsh -c "$(fc -ln -1)"'
 alias py='python3'
@@ -170,7 +171,7 @@ alias gst="git status"
 alias gclean="git branch -r --merged origin/master | grep -v master | grep "origin/" | cut -d "/" -f 2- | xargs -n 20 git push --delete origin"
 
 alias gg='rg -n'
-alias ggw='gg -W'
+alias ggw='gg -w'
 alias ggf='gg -F'
 alias ggb='gg --break'
 

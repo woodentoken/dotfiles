@@ -47,6 +47,15 @@ vim.keymap.set("v", "<A-r>", ":Fzf oldfiles<CR>", { noremap = true, desc = "Rece
 vim.keymap.set("v", "<leader>e", "<cmd>Neotree toggle left<CR>", { desc = "Toggle Neotree Explorer" })
 vim.keymap.set("v", "<leader>b", "<cmd>Neotree toggle buffers right<CR>", { desc = "Toggle Neotree Buffers" })
 
+-- Override <leader>gd to Go to Definition
+vim.keymap.set("n", "<leader>gd", function()
+  vim.lsp.buf.definition()
+end, { desc = "Go to Definition" })
+
+vim.keymap.set("n", "<leader>gr", function()
+  vim.lsp.buf.references()
+end, { desc = "Go to References" })
+
 -- vim.keymap.set("n", "<leader>nn", "<cmd>lua Snacks.notifier.show_history()<CR>", { desc = "Show notification history" })
 
 -- vim.api.nvim_set_keymap("i", "<F2>", '<cmd>lua require("renamer").rename()<cr>', { noremap = true, silent = true })
