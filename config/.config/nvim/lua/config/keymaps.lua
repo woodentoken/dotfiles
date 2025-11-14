@@ -25,16 +25,16 @@ vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr, desc = "Go to 
 vim.keymap.del("n", "H", { silent = true })
 vim.keymap.del("n", "L", { silent = true })
 
--- Remap Shift-H and Shift-L to navigate windows
-vim.keymap.set("n", "H", "<C-w>h", { desc = "Move to left window", silent = true })
-vim.keymap.set("n", "L", "<C-w>l", { desc = "Move to right window", silent = true })
-vim.keymap.set("n", "K", "<C-w>k", { desc = "Move to upper window", silent = true })
-vim.keymap.set("n", "J", "<C-w>j", { desc = "Move to lower window", silent = true })
+-- -- Remap Shift-H and Shift-L to navigate windows
+-- vim.keymap.set("n", "H", "<C-w>h", { desc = "Move to left window", silent = true })
+-- vim.keymap.set("n", "L", "<C-w>l", { desc = "Move to right window", silent = true })
+-- vim.keymap.set("n", "K", "<C-w>k", { desc = "Move to upper window", silent = true })
+-- vim.keymap.set("n", "J", "<C-w>j", { desc = "Move to lower window", silent = true })
 
-vim.keymap.set("v", "H", "<C-w>h", { desc = "Move to left window", silent = true })
-vim.keymap.set("v", "L", "<C-w>l", { desc = "Move to right window", silent = true })
-vim.keymap.set("v", "K", "<C-w>k", { desc = "Move to upper window", silent = true })
-vim.keymap.set("v", "J", "<C-w>j", { desc = "Move to lower window", silent = true })
+-- vim.keymap.set("v", "H", "<C-w>h", { desc = "Move to left window", silent = true })
+-- vim.keymap.set("v", "L", "<C-w>l", { desc = "Move to right window", silent = true })
+-- vim.keymap.set("v", "K", "<C-w>k", { desc = "Move to upper window", silent = true })
+-- vim.keymap.set("v", "J", "<C-w>j", { desc = "Move to lower window", silent = true })
 
 -- # VISUAL mode remaps
 vim.keymap.set("v", "<C-\\>", ":Commentary<CR>", { noremap = false, desc = "Toggle comment in visual mode" })

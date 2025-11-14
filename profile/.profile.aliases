@@ -33,7 +33,6 @@ alias untar='tar -xvkf'
 alias upgrade='sudo apt update; sudo apt upgrade; sudo apt full-upgrade; sudo apt autoremove'
 alias upup='sudo nala full-upgrade -y'
 alias v='vim'
-alias vn='viewnior'
 alias zj='zellij'
 alias zjls='zellij list-sessions'
 

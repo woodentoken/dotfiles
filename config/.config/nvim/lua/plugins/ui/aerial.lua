@@ -11,11 +11,11 @@ return {
       -- min_width = 15,
       width = 0.2,
       -- win_opts = { number = true },
-      -- placement = "edge",
+      placement = "edge",
       default_direction = "prefer_right",
       -- resize_to_content = true,
     },
-    attach_mode = "window",
+    -- attach_mode = "window",
     keymaps = {
       ["H"] = false,
       ["J"] = false,
@@ -25,7 +25,7 @@ return {
     -- layout = { width = 150 },
     -- highlight_mode = "split_width",
     autojump = true,
-    open_automatic = true,
+    open_automatic = false,
     show_guides = true,
     show_numbers = true,
     filter_kind = {
