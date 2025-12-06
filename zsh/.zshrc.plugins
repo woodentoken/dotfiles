@@ -228,7 +228,7 @@ ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg[green]%}%{↑%G%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[magenta]%}%{%G?%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{%F{#3094FF}%}%{_%G%}"
 
-export PS1='$VENV_NAME%f[/$(depth_pwd)]$(git_super_status) $ '
+  export PS1='[$(whoami)@$(hostname)]$VENV_NAME%f[/$(depth_pwd)]$(git_super_status) $ '
 
 # helper functions used above
 depth_pwd() {
