@@ -114,5 +114,7 @@ export NNN_OPENER="$HOME/.config/nnn/open.sh"
 
 # export FLYCTL_INSTALL="/home/${USER}/.fly"
 export PATH="$PATH:${HOME}/.fly/bin:"
+# export PYTHONSTARTUP="/etc/ipython/startup/startup_rich.py"
+export PYTHONBREAKPOINT="ipdb.set_trace"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

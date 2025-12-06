@@ -21,7 +21,7 @@ return {
           keys = {
             { icon = " ", key = "ff", desc = "files", action = ":lua require('fff').find_in_git_root()" },
             { icon = " ", key = "gg", desc = "text", action = ":Fzf live_grep" },
-            { icon = " ", key = "r", desc = "recent", action = ":Fzf oldfiles" },
+            { icon = " ", key = "oo", desc = "oldfiles", action = ":Fzf oldfiles" },
             { icon = " ", key = "s", desc = "session", section = "session" },
             { icon = " ", key = "c", desc = "config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
             { icon = " ", key = "l", desc = "lazy", action = ":Lazy" },
