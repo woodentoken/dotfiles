@@ -176,6 +176,7 @@ source ~/.zsh/zsh-git-prompt/zshrc.sh
 
 # venv automatic activation
 export VIRTUAL_ENV_DISABLE_PROMPT=1
+
 _virtualenv_auto_activate() {
   if [[ -z "$VIRTUAL_ENV" ]] ; then
     ## If env folder is found then activate the virtualenv
@@ -228,7 +229,7 @@ ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg[green]%}%{↑%G%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[magenta]%}%{%G?%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{%F{#3094FF}%}%{_%G%}"
 
-  export PS1='[$(whoami)@$(hostname)]$VENV_NAME%f[/$(depth_pwd)]$(git_super_status) $ '
+export PS1='[$(whoami)@$(hostname)]$VENV_NAME%f[/$(depth_pwd)]$(git_super_status) $ '
 
 # helper functions used above
 depth_pwd() {
