@@ -32,7 +32,7 @@ source ~/.zshrc.fzf
 # Set up fzf key bindings and fuzzy completion
 
 # Auto-attach or create Zellij session "/"
-export ZELLIJ_AUTO_ATTACH=true
+export ZELLIJ_AUTO_ATTACH=false
 
 if [[ -z "$ZELLIJ" ]]; then
     if [[ "$ZELLIJ_AUTO_ATTACH" == "true" ]]; then
