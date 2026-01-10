@@ -14,6 +14,9 @@ vim.opt.fillchars = { horiz = "H", vert = "L" }
 vim.g.lazyvim_picker = "fzf"
 vim.g.mapleader = "\\"
 
+vim.g.lazyvim_python_lsp = "ty"
+vim.g.lazyvim_python_ruff = "ruff"
+
 -- remap the capitals...
 vim.api.nvim_create_user_command("W", "w", { nargs = 0 })
 

@@ -14,17 +14,17 @@ return {
       desc = "Buffer Diagnostics (Trouble)",
     },
     {
-      "<leader>xX",
-      "<cmd>Trouble references toggle focus=true win.size=0.33 win.position=right<cr>",
+      "<leader>xr",
+      "<cmd>Trouble lsp_references toggle focus=true win.size=0.33 win.position=right<cr>",
       desc = "Buffer References (Trouble)",
     },
     {
-      "<leader>cs",
+      "<leader>xs",
       "<cmd>Trouble symbols toggle focus=false win.size=0.33<cr>",
       desc = "Symbols (Trouble)",
     },
     {
-      "<leader>cl",
+      "<leader>xk",
       "<cmd>Trouble lsp toggle focus=false win.size=0.33 win.position=right<cr>",
       desc = "LSP Definitions / references / ... (Trouble)",
     },

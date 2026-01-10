@@ -247,7 +247,7 @@ return {
         filtered_items = {
           visible = false, -- when true, they will just be displayed differently than normal items
           hide_dotfiles = true,
-          hide_gitignored = true,
+          hide_gitignored = false,
           hide_ignored = true, -- hide files that are ignored by other gitignore-like files
           -- other gitignore-like files, in descending order of precedence.
           ignore_files = {

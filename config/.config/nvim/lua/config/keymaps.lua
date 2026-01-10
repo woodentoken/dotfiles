@@ -60,23 +60,33 @@ vim.keymap.set("v", "<leader>af", "<cmd>lua require('aerial').fzf_lua_picker()<C
 vim.keymap.set("v", "<leader>ao", "<cmd>AerialOpen<CR>", { desc = "Open Aerial window" })
 vim.keymap.set("v", "<leader>ax", "<cmd>AerialCloseAll<CR>", { desc = "Close all Aerial windows" })
 
+vim.keymap.set("n", "<leader>xo", function()
+  vim.lsp.buf.code_action({
+    context = { only = { "source.organizeimports" } },
+    apply = true,
+  })
+end, { desc = "ruff: organize imports" })
+
+vim.keymap.set("n", "<leader>xf", function()
+  vim.lsp.buf.code_action({
+    context = { only = { "source.fixAll.ruff" } },
+    apply = true,
+  })
+end, { desc = "ruff: Fix all auto-fixable issues" })
+
 -- Override <leader>gd to Go to Definition
-vim.keymap.set("n", "<leader>gd", function()
+vim.keymap.set("n", "<leader>xd", function()
   vim.lsp.buf.definition()
 end, { desc = "Go to Definition" })
 
-vim.keymap.set("n", "<leader>gr", function()
+vim.keymap.set("n", "<leader>xr", function()
   vim.lsp.buf.references()
 end, { desc = "Go to References" })
 
-vim.keymap.set("n", "<leader>lq", function()
-  local win = vim.api.nvim_get_current_win()
-  vim.diagnostic.setqflist()
-  vim.cmd("copen")
-  vim.api.nvim_set_current_win(win)
-end, { noremap = false, silent = true, desc = "Quick lsp fix" })
-
 vim.keymap.set("c", "w!!", "SudaWrite", { desc = "Write file with sudo" })
+
+vim.keymap.set("n", "<leader>xt", "<Nop>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>xT", "<Nop>", { noremap = true, silent = true })
 
 -- vim.keymap.set("n", "<leader>nn", "<cmd>lua Snacks.notifier.show_history()<CR>", { desc = "Show notification history" })
 
