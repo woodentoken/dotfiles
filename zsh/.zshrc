@@ -118,3 +118,5 @@ export PATH="$PATH:${HOME}/.fly/bin:"
 export PYTHONBREAKPOINT="ipdb.set_trace"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+. "$HOME/.local/bin/env"
