@@ -10,8 +10,8 @@ return {
           NeoTreeNormalNC = { bg = theme.ui.bg_m3 },
           NeoTreeEndOfBuffer = { bg = theme.ui.bg_m3 },
           -- AerialLine = { bg = colors.palette.sumiInk4 },
-          ["@comment.python"] = { fg = colors.palette.fujiGray, italic = true, bold = true },
-          ["@string.documentation.python"] = { fg = colors.palette.fujiGray, italic = true },
+          ["@comment"] = { fg = "#dddddd", italic = true, bold = true },
+          ["@string.documentation"] = { fg = "#dddddd", italic = true },
         }
       end,
     },

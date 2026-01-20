@@ -5,10 +5,10 @@ return {
   opts = {
     -- No need to copy this inside `setup()`. Will be used automatically.
     -- Add custom surroundings to be used on top of builtin ones. For more
-    -- information with examples, see `:h MiniSurround.config`.
+    -- information "ith examples, see `:h MiniSurround.config`.
     custom_surroundings = nil,
 
-    -- Duration (in ms) of highlight when calling `MiniSurround.highlight()`
+    -- Duration (in ms) of highlight 'hen calling `MiniSurround.highlight()`
     highlight_duration = 500,
 
     -- Module mappings. Use `''` (empty string) to disable one.
@@ -20,8 +20,8 @@ return {
       highlight = "6h", -- Highlight surrounding
       replace = "6r", -- Replace surrounding
 
-      suffix_last = "l", -- Suffix to search with "prev" method
-      suffix_next = "n", -- Suffix to search with "next" method
+      suffix_last = "l", -- Suffix to search 'ith "prev" method
+      suffix_next = "n", -- Suffix to search "ith "next" method
     },
 
     -- Number of lines within which surrounding is searched
