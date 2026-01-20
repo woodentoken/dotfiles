@@ -17,6 +17,7 @@ alias pe='ps -ef'
 alias j='jobs -l'
 alias clc='clear'
 alias c='clc'
+alias shh='ssh-add ~/.ssh/*_rsa'
 
 # SHORTCUTS
 # alias upup='sudo apt update; sudo apt upgrade -y; sudo apt full-upgrade -y; sudo apt autoremove -y'
