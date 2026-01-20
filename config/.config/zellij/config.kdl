@@ -153,7 +153,7 @@ keybinds clear-defaults=true {
         bind "Alt >" { MoveTab "right"; }
         bind "Alt p" { TogglePaneInGroup; }
         bind "Alt Shift p" { ToggleGroupMarking; }
-        bind "Alt Ctrl q" { Quit; }
+        bind "Alt Shift q" { Quit; }
     }
     shared_except "locked" "move" {
         bind "Ctrl b" { SwitchToMode "move"; }
