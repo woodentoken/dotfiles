@@ -3,7 +3,22 @@ require("config.lazy")
 
 vim.g.snacks_animate = false
 
-vim.cmd("source ~/.vimrc.base")
+vim.keymap.set("n", "57438u", "<Nop>", { silent = true })
+vim.keymap.set("i", "57438u", "<Nop>", { silent = true })
+vim.keymap.set("v", "57438u", "<Nop>", { silent = true })
+vim.keymap.set("c", "57438u", "<Nop>", { silent = true })
+
+vim.keymap.set("n", "57439u", "<Nop>", { silent = true })
+vim.keymap.set("i", "57439u", "<Nop>", { silent = true })
+vim.keymap.set("v", "57439u", "<Nop>", { silent = true })
+vim.keymap.set("c", "57439u", "<Nop>", { silent = true })
+
+vim.keymap.set("n", "57440u", "<Nop>", { silent = true })
+vim.keymap.set("i", "57440u", "<Nop>", { silent = true })
+vim.keymap.set("v", "57440u", "<Nop>", { silent = true })
+vim.keymap.set("c", "57440u", "<Nop>", { silent = true })
+
+-- vim.cmd("source ~/.vimrc.base")
 
 -- vim.g.copilot_no_tab_map = true
 -- vim.keymap.set("i", "<S-Tab>", 'copilot#Accept("\\<S-Tab>")', { expr = true, replace_keycodes = false })
