@@ -4,17 +4,17 @@ return {
   cmd = "Trouble",
   keys = {
     {
-      "<leader>xx",
+      "<leader>dx",
       "<cmd>Trouble diagnostics toggle<cr>",
       desc = "Diagnostics",
     },
     {
-      "<leader>xX",
+      "<leader>dX",
       "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
       desc = "Buffer Diagnostics",
     },
     {
-      "<leader>xr",
+      "<leader>dr",
       "<cmd>Trouble lsp_references toggle focus=true win.size=0.33 win.position=right<cr>",
       desc = "Buffer References",
     },

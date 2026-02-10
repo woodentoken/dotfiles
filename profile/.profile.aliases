@@ -22,6 +22,7 @@ alias shh='ssh-add ~/.ssh/*_rsa'
 # SHORTCUTS
 # alias upup='sudo apt update; sudo apt upgrade -y; sudo apt full-upgrade -y; sudo apt autoremove -y'
 alias csv='csvlens --colorful'
+alias fe='feh -r --scale-down'
 alias e=$EDITOR
 alias please='sudo zsh -c "$(fc -ln -1)"'
 alias py='python3'

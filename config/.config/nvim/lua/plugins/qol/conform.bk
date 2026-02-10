@@ -1,0 +1,14 @@
+return {
+  "stevearc/conform.nvim",
+  opts = {
+    formatters_by_ft = {
+      python = { "ruff_format" },
+      lua = { "stylua" },
+      -- add more, don’t remove defaults unless you mean to
+    },
+    format_on_save = {
+      lsp_fallback = false,
+      timeout_ms = 500,
+    },
+  },
+}

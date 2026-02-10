@@ -17,7 +17,35 @@ return {
       function()
         require("which-key").show({ global = false })
       end,
-      desc = "Buffer Local Keymaps (which-key)",
+      desc = "Buffer Local Keymaps",
+    },
+    {
+      "<leader>t",
+      function()
+        require("which-key").show({ mode = "t" })
+      end,
+      desc = "Diagnostics",
+    },
+    {
+      "<leader>C",
+      function()
+        require("which-key").show({ mode = "C" })
+      end,
+      desc = "Copilot",
+    },
+    {
+      "<leader>m",
+      function()
+        require("which-key").show({ mode = "m" })
+      end,
+      desc = "marks",
+    },
+    {
+      "<leader>o",
+      function()
+        require("which-key").show({ mode = "o" })
+      end,
+      desc = "recent",
     },
   },
 }

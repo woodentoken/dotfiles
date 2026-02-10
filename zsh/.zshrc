@@ -14,9 +14,9 @@ export COLORTERM=truecolor
 export TERM=xterm-256color
 
 
-# if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-#   tmux new-session -A -s main
-# fi
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+  tmux new-session -A -s main
+fi
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
@@ -31,20 +31,20 @@ source ~/.zshrc.basics
 source ~/.zshrc.fzf
 # Set up fzf key bindings and fuzzy completion
 
-# Auto-attach or create Zellij session "/"
-export ZELLIJ_AUTO_ATTACH=false
+# # Auto-attach or create Zellij session "/"
+# export ZELLIJ_AUTO_ATTACH=false
 
-if [[ -z "$ZELLIJ" ]]; then
-    if [[ "$ZELLIJ_AUTO_ATTACH" == "true" ]]; then
-        zellij attach -c base
-    else
-        zellij attach base
-    fi
+# if [[ -z "$ZELLIJ" ]]; then
+#     if [[ "$ZELLIJ_AUTO_ATTACH" == "true" ]]; then
+#         zellij attach -c base
+#     else
+#         zellij attach base
+#     fi
 
-    if [[ "$ZELLIJ_AUTO_EXIT" == "true" ]]; then
-        exit
-    fi
-fi
+#     if [[ "$ZELLIJ_AUTO_EXIT" == "true" ]]; then
+#         exit
+#     fi
+# fi
 
 # ZJ_SESSIONS=$(zellij list-sessions)
 # NO_SESSIONS=$(echo "${ZJ_SESSIONS}" | wc -l)

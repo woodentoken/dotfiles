@@ -1,10 +1,19 @@
+local diagnostics = require("custom.diagnostics")
+
+
 -- # INSERT mode remaps
 vim.keymap.set("i", "<Find>", "<Home>", { noremap = true, desc = "Go to beginning of line" })
 vim.keymap.set("i", "<Select>", "<End>", { noremap = true, desc = "Go to end of line" })
 
 -- # NORMAL mode remaps
+vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "Yank to clipboard" })
+vim.keymap.set("n", "<leader>Y", '"+Y', { desc = "Yank line to clipboard" })
+vim.keymap.set({ "n", "v" }, "<leader>p", '"+p', { desc = "Paste from clipboard" })
+vim.keymap.set("n", "<leader>ud", diagnostics.toggle, { desc = "Toggle diagnostics" })
+vim.keymap.set("n", "<leader>dv", diagnostics.toggle_virtual_text, { desc = "Toggle virtual text" })
+
 vim.keymap.set("n", "<A-,>", ":bprevious<CR>", { noremap = true, silent = true, desc = "Go to previous buffer" })
-vim.keymap.set("n", "<A-.>", ":bnext<CR>", { noremap = true, silent = truem, desc = "Go to next buffer" })
+vim.keymap.set("n", "<A-.>", ":bnext<CR>", { noremap = true, silent = true, desc = "Go to next buffer" })
 
 vim.keymap.set("n", "<C-\\>", ":Commentary<CR>", { noremap = false, desc = "Toggle comment" })
 vim.keymap.set("n", "<Find>", "^", { noremap = true, desc = "Go to beginning of line" })
@@ -23,9 +32,15 @@ vim.keymap.set("n", "<leader>af", "<cmd>lua require('aerial').fzf_lua_picker()<C
 vim.keymap.set("n", "<leader>ao", "<cmd>AerialOpen<CR>", { desc = "Open Aerial window" })
 vim.keymap.set("n", "<leader>ax", "<cmd>AerialCloseAll<CR>", { desc = "Close all Aerial windows" })
 vim.keymap.set("n", "<leader>a", function()
-  -- require("aerial").toggle()
   require("aerial").focus()
-end, { desc = "Focus Aerial window" })
+end, { desc = "focus aerial window" })
+
+vim.keymap.set("n", "<leader>ci", function()
+  vim.lsp.buf.code_action({
+    context = { only = { "source.organizeImports" } },
+    apply = true,
+  })
+end, { desc = "LSP sort imports" })
 
 vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr, desc = "Go to previous symbol in Aerial" })
 vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr, desc = "Go to next symbol in Aerial" })
@@ -60,14 +75,14 @@ vim.keymap.set("v", "<leader>af", "<cmd>lua require('aerial').fzf_lua_picker()<C
 vim.keymap.set("v", "<leader>ao", "<cmd>AerialOpen<CR>", { desc = "Open Aerial window" })
 vim.keymap.set("v", "<leader>ax", "<cmd>AerialCloseAll<CR>", { desc = "Close all Aerial windows" })
 
-vim.keymap.set("n", "<leader>xo", function()
+vim.keymap.set("n", "<leader>do", function()
   vim.lsp.buf.code_action({
     context = { only = { "source.organizeimports" } },
     apply = true,
   })
 end, { desc = "ruff: organize imports" })
 
-vim.keymap.set("n", "<leader>xf", function()
+vim.keymap.set("n", "<leader>df", function()
   vim.lsp.buf.code_action({
     context = { only = { "source.fixAll.ruff" } },
     apply = true,
@@ -75,18 +90,15 @@ vim.keymap.set("n", "<leader>xf", function()
 end, { desc = "ruff: Fix all auto-fixable issues" })
 
 -- Override <leader>gd to Go to Definition
-vim.keymap.set("n", "<leader>xd", function()
+vim.keymap.set("n", "<leader>cd", function()
   vim.lsp.buf.definition()
 end, { desc = "Go to Definition" })
 
-vim.keymap.set("n", "<leader>xr", function()
+vim.keymap.set("n", "<leader>cu", function()
   vim.lsp.buf.references()
 end, { desc = "Go to References" })
 
 vim.keymap.set("c", "w!!", "SudaWrite", { desc = "Write file with sudo" })
-
-vim.keymap.set("n", "<leader>xt", "<Nop>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>xT", "<Nop>", { noremap = true, silent = true })
 
 -- vim.keymap.set("n", "<leader>nn", "<cmd>lua Snacks.notifier.show_history()<CR>", { desc = "Show notification history" })
 
