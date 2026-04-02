@@ -4,111 +4,66 @@
 #   /  /:/\:\     /  /:/\:\     /  /:/ /\    /  /:/       /  /:/        /  /:/ /\
 #  /  /:/~/::\   /  /:/~/::\   /  /:/ /::\  /__/::\      /  /:/  ___   /  /:/ /::\
 # /__/:/ /:/\:| /__/:/ /:/\:\ /__/:/ /:/\:\ \__\/\:\__  /__/:/  /  /\ /__/:/ /:/\:\
-# \  \:\/:/~/:/ \  \:\/:/__\/ \  \:\/:/~/:/    \  \:\/\ \  \:\ /  /:/ \  \:\/:/~/:/
-#  \  \::/ /:/   \  \::/       \  \::/ /:/      \__\::/  \  \:\  /:/   \  \::/ /:/
-#   \  \:\/:/     \  \:\        \__\/ /:/       /__/:/    \  \:\/:/     \__\/ /:/
-#    \  \::/       \  \:\         /__/:/        \__\/      \  \::/        /__/:/
-#     \__\/         \__\/         \__\/                     \__\/         \__\/
+# \__\/  |:|/:/ \  \:\/:/~/:/ \  \:\/:/~/:/    \  \:\/\ \  \:\ /  /:/ \  \:\/:/~/:/
+#     |  |:/:/   \  \::/ /:/   \  \::/ /:/      \__\::/  \  \:\  /:/   \  \::/ /:/
+#     |  |::/     \__\/ /:/     \  \:\/:/       /__/:/    \  \:\/:/     \__\/ /:/
+#     |  |:/        /__/:/       \  \::/        \__\/      \  \::/        /__/:/
+#     |__|/         \__\/         \__\/                     \__\/         \__\/
 # _________________________________________________________________________________
 #
-# Set up the prompt
+
+# Shell behavior: options, history, and keybindings.
+
+# -----------------------------------------------------------------------------
+# PROMPT INIT
+# -----------------------------------------------------------------------------
 autoload -Uz promptinit
 promptinit
 
+# -----------------------------------------------------------------------------
+# HISTORY
+# -----------------------------------------------------------------------------
 setopt histignorealldups sharehistory
 
-# quicker grep alias that we don't need to type the flags for
-function gep { grep -rnIi "$1" . --color }
-alias gp=gep
-
-function get { find . -name "*$2" -exec grep --color "$1" {} + }
-alias gt=get
-
-# file a command in the grep history
-alias gh='history | grep'
-
-# Use emacs keybindings even if our EDITOR is set to vi
-bindkey -e
-
-# rebind U (to go *U*p) and L (to clear *L*ine), and I (to accept autosuggestions)
-bindkey "^U" clear-screen
-bindkey "^L" kill-whole-line
-
-
-# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=5000
 SAVEHIST=5000
 HISTFILE=~/.zsh_history
 
-# CONDA
-alias ci='conda info --envs'
-#create environment
-condae () {
-  cur_dir=$(basename "$PWD")
-  conda create -n $cur_dir
-  echo "$cur_dir" >> .conda_config
-}
-alias coa='conda activate'
-alias cod='conda deactivate'
-alias con='$(basename $PWD) > .conda_config'
-
-# PIP
-alias pip='pip3'
-alias pi='pip install'
-alias par='pip-autoremove'
-alias pu='pip uninstall'
-alias pl='pip list'
-
-# VIRTUALENV
-alias ven12='python3.12 -m venv .venv'
-alias ven11='python3.11 -m venv .venv'
-alias ven='python -m venv .venv'
-alias veh='ls -l $WORKON_HOME'
-alias vea='source ./.venv/bin/activate'
-alias ved='deactivate'
-alias vel='lsvirtualenv'
-alias vei='lssitepackages'
-
-
-## MANAGE DIRECTORIES
-# create a directory `$1` and cd into it
-take () {
-  mkdir $1 && cd $1
-}
-
-alias rd=rmdir # this only removes empty directories!
-alias md='mkdir -p'
-alias td='take'
-
-# manage cd history as a stack
-setopt CDABLE_VARS                 # expand the expression (allows 'cd -2/tmp')
+# -----------------------------------------------------------------------------
+# DIRECTORY STACK
+# -----------------------------------------------------------------------------
+setopt CDABLE_VARS
 setopt AUTO_CD
 setopt AUTO_PUSHD
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHDMINUS
 
-# quickly jump backwards
-alias -g ...='../..'
-alias -g ....='../../..'
-alias -g .....='../../../..'
-alias -g ......='../../../../..'
+# -----------------------------------------------------------------------------
+# KEYBINDINGS
+# -----------------------------------------------------------------------------
+# Use emacs keybindings even if EDITOR is set to vi
+bindkey -e
 
-# allow `-<NUMBER>` to move in the stack
-# this allows you to type - to see your stack of recent directories (labelled numerically)
-# execute -x to move to the xth entry of the directory stack. 1 < x < 99
-# `-` without a number will go back to the previous directory
-# `d` shows the entire directory stack
-alias d='dirs -v'
-for index ({1..99}) alias "-$index"="cd -${index}"; unset index
-zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;5;12'
+bindkey "^U" clear-screen
+bindkey "^L" kill-whole-line
 
-# kill all background jobs
-alias kbg='kill ${${(v)jobstates##*:*:}%=*}'
+# Ctrl-Z: bidirectional (foreground if no buffer, background otherwise)
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line -w
+  else
+    zle push-input -w
+    zle clear-screen -w
+  fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
 
-# theoretically launch bspwm on login
+# -----------------------------------------------------------------------------
+# STARTUP
+# -----------------------------------------------------------------------------
+# Launch bspwm on login (X11)
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
    exec startx
 fi
-
-# CTRL-Y to copy the command into clipboard using pbcopy
-

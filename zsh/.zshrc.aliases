@@ -1,0 +1,93 @@
+#      ___           ___                       ___           ___           ___
+#     /  /\         /  /\        ___          /  /\         /  /\         /  /\
+#    /  /::\       /  /:/       /  /\        /  /:/_       /  /:/_       /  /:/_
+#   /  /:/\:\     /  /:/       /  /:/       /  /:/ /\     /  /:/ /\     /  /:/ /\
+#  /  /:/~/::\   /  /:/  ___  /__/::\      /  /:/ /:/_   /  /:/ /::\   /  /:/ /::\
+# /__/:/ /:/\:\ /__/:/  /  /\ \__\/\:\__  /__/:/ /:/ /\ /__/:/ /:/\:\ /__/:/ /:/\:\
+# \  \:\/:/__\/ \  \:\ /  /:/    \  \:\/\ \  \:\/:/ /:/ \  \:\/:/__\/ \  \:\/:/~/:/
+#  \  \::/       \  \:\  /:/      \__\::/  \  \::/ /:/   \  \::/       \  \::/ /:/
+#   \  \:\        \  \:\/:/       /__/:/    \  \:\/:/     \  \:\        \__\/ /:/
+#    \  \:\        \  \::/        \__\/      \  \::/       \  \:\         /__/:/
+#     \__\/         \__\/                     \__\/         \__\/         \__\/
+# _______________________________________________________________________________
+#
+
+# All aliases and short utility functions.
+
+# -----------------------------------------------------------------------------
+# GREP HELPERS
+# -----------------------------------------------------------------------------
+function gep { grep -rnIi "$1" . --color }
+alias gp=gep
+
+function get { find . -name "*$2" -exec grep --color "$1" {} + }
+alias gt=get
+
+# file a command in the grep history
+alias gh='history | grep'
+
+# -----------------------------------------------------------------------------
+# CONDA
+# -----------------------------------------------------------------------------
+alias ci='conda info --envs'
+# create environment named after current directory
+condae () {
+  cur_dir=$(basename "$PWD")
+  conda create -n $cur_dir
+  echo "$cur_dir" >> .conda_config
+}
+alias coa='conda activate'
+alias cod='conda deactivate'
+alias con='$(basename $PWD) > .conda_config'
+
+# -----------------------------------------------------------------------------
+# PIP
+# -----------------------------------------------------------------------------
+alias pip='pip3'
+alias pi='pip install'
+alias par='pip-autoremove'
+alias pu='pip uninstall'
+alias pl='pip list'
+
+# -----------------------------------------------------------------------------
+# VIRTUALENV
+# -----------------------------------------------------------------------------
+alias ven12='python3.12 -m venv .venv'
+alias ven11='python3.11 -m venv .venv'
+alias ven='python -m venv .venv'
+alias veh='ls -l $WORKON_HOME'
+alias vea='source ./.venv/bin/activate'
+alias ved='deactivate'
+alias vel='lsvirtualenv'
+alias vei='lssitepackages'
+
+# -----------------------------------------------------------------------------
+# DIRECTORIES
+# -----------------------------------------------------------------------------
+# create a directory and cd into it
+take () {
+  mkdir $1 && cd $1
+}
+alias rd=rmdir    # only removes empty directories
+alias md='mkdir -p'
+alias td='take'
+
+# global aliases for quick traversal
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
+
+# `d` shows directory stack; `-N` jumps to entry N
+alias d='dirs -v'
+for index ({1..20}) alias "-$index"="cd -${index}"; unset index
+
+# -----------------------------------------------------------------------------
+# JOBS
+# -----------------------------------------------------------------------------
+alias kbg='kill ${${(v)jobstates##*:*:}%=*}'
+
+# -----------------------------------------------------------------------------
+# ISAAC SIM
+# -----------------------------------------------------------------------------
+alias omni_py=~/.local/share/ov/pkg/isaac_sim-2023.1.1/python.sh

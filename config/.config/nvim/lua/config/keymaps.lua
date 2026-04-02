@@ -1,6 +1,5 @@
 local diagnostics = require("custom.diagnostics")
 
-
 -- # INSERT mode remaps
 vim.keymap.set("i", "<Find>", "<Home>", { noremap = true, desc = "Go to beginning of line" })
 vim.keymap.set("i", "<Select>", "<End>", { noremap = true, desc = "Go to end of line" })
@@ -111,3 +110,18 @@ vim.keymap.set("c", "w!!", "SudaWrite", { desc = "Write file with sudo" })
 
 -- -- Visual mode (if you want to rename selection)
 -- vim.keymap.set("v", "<leader>rn", vim.lsp.buf.rename, { silent = true })
+--
+-- allow us to use :Format to format the current buffer using conform
+vim.api.nvim_create_user_command("Format", function()
+  require("conform").format({ bufnr = 0, lsp_fallback = true })
+end, {})
+
+vim.api.nvim_create_user_command("SortImports", function()
+  require("conform").format({
+    bufnr = 0,
+    formatters = { "ruff_organize_imports" },
+  })
+end, { desc = "Sort imports" })
+
+-- remap the capitals...
+vim.api.nvim_create_user_command("W", "w", { nargs = 0 })

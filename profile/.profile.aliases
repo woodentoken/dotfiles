@@ -25,8 +25,8 @@ alias csv='csvlens --colorful'
 alias fe='feh -r --scale-down'
 alias e=$EDITOR
 alias please='sudo zsh -c "$(fc -ln -1)"'
-alias py='python3'
-alias python='python3'
+# alias py='python3'
+# alias python='python3'
 alias se="sudo $EDITOR"
 alias server='python3 -m http.server 5000'
 alias t='touch'
@@ -104,6 +104,7 @@ alias pr='cd ~/projects && la'
 alias prl='cd ~/projects/learning && la'
 alias prp='cd ~/projects/personal && la'
 alias prr='cd ~/projects/research/ && la'
+alias c='cd ~/projects/research/general-interpolative-flight-tool/GIFT/ && la'
 
 # CLIPPING
 alias clip='xclip -selection c'
@@ -179,6 +180,9 @@ alias ggb='gg --break'
 # BRANCH SPECIFIC
 alias main='git co main'
 alias mast='git co master'
+
+# FEH
+alias fe="feh --scale-down -q --geometry 1200x900 -B #dddddd"
 
 # CLEANUP
 alias swpfind='find . -name "*.swp" -o -name "*.swo" -o -name "*.swq" -o -name "*.swl" -o -name "*.swm" -o -name "*.swn"'

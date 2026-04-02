@@ -1,0 +1,114 @@
+#      ___           ___           ___           ___           ___           ___
+#     /  /\         /  /\         /  /\         /  /\         /  /\         /  /\
+#    /  /::\       /  /::\       /  /:/        /  /::\       /  /::\       /  /::\
+#   /  /:/\:\     /  /:/\:\     /  /:/        /  /:/\:\     /  /:/\:\     /  /:/\:\
+#  /  /:/~/::\   /  /:/~/:/    /  /:/  ___   /  /:/  \:\   /  /:/~/::\   /  /:/~/:/
+# /__/:/ /:/\:\ /__/:/ /:/___ /__/:/  /  /\ /__/:/ \__\:\ /__/:/ /:/\:\ /__/:/ /:/___
+# \  \:\/:/__\/ \  \:\/:::::/ \  \:\ /  /:/ \  \:\ /  /:/ \  \:\/:/__\/ \  \:\/:::::/
+#  \  \::/       \  \::/~~~~   \  \:\  /:/   \  \:\  /:/   \  \::/       \  \::/~~~~
+#   \  \:\        \  \:\        \  \:\/:/     \  \:\/:/     \  \:\        \  \:\
+#    \  \:\        \  \:\        \  \::/       \  \::/       \  \:\        \  \:\
+#     \__\/         \__\/         \__\/         \__\/         \__\/         \__\/
+# _______________________________________________________________________________
+#
+
+# Prompt: PS1 definition, git status display, venv auto-activation, color helpers.
+
+setopt prompt_subst
+source ~/.zsh/zsh-git-prompt/zshrc.sh
+
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+# -----------------------------------------------------------------------------
+# VENV AUTO-ACTIVATION
+# -----------------------------------------------------------------------------
+_virtualenv_auto_activate() {
+  if [[ -z "$VIRTUAL_ENV" ]] ; then
+    if [[ -d ./.venv ]] ; then
+      source ./.venv/bin/activate
+      export VENV_NAME="[%F{#FF44C9}$(printf $(basename $(dirname $VIRTUAL_ENV)))%f]"
+    fi
+  else
+    parentdir="$(dirname "$VIRTUAL_ENV")"
+    if [[ "$PWD"/ != "$parentdir"/* ]] ; then
+      deactivate
+      export VENV_NAME=''
+    fi
+  fi
+}
+precmd_functions+=(_virtualenv_auto_activate)
+
+# -----------------------------------------------------------------------------
+# CONDA DISPLAY
+# -----------------------------------------------------------------------------
+show_conda_env() {
+    if [ -n "$CONDA_DEFAULT_ENV" ]; then
+        # export VENV_NAME="($CONDA_DEFAULT_ENV) "
+      export VENV_NAME="[%F{#FF44C9}$CONDA_DEFAULT_ENV%f]"
+    fi
+}
+
+precmd_functions+=(show_conda_env)
+
+# -----------------------------------------------------------------------------
+# GIT PROMPT THEME
+# -----------------------------------------------------------------------------
+ZSH_THEME_GIT_PROMPT_PREFIX="["
+ZSH_THEME_GIT_PROMPT_SUFFIX="]%f"
+ZSH_THEME_GIT_PROMPT_SEPARATOR="|"
+ZSH_THEME_GIT_PROMPT_BRANCH="%F{#3094FF}"
+ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[green]%}%{%G+%}"
+ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg[red]%}%{%G×%}"
+ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[yellow]%}%{%G~%}"
+ZSH_THEME_GIT_PROMPT_BEHIND="%{$fg[yellow]%}%{↓%G%}"
+ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg[green]%}%{↑%G%}"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[magenta]%}%{%G?%}"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{%F{#3094FF}%}%{_%G%}"
+
+# -----------------------------------------------------------------------------
+# HELPER FUNCTIONS
+# -----------------------------------------------------------------------------
+depth_pwd() {
+  pwd_array=(`echo $(echo $PWD) | sed 's/\//\n/g'`)
+
+  for (( i=1 ; i<=${#pwd_array[@]} ; i++ ))
+  do
+    Kcolor=$(num_to_hex $((- 25 + 5 * $i)) $((- 25 + 10 * $i)) $((- 25 + 20 * $i)))
+    Fcolor=$(num_to_hex $((255 - 5 * $i)) $((100 - 5 * $i)) $((80 - 10 * $i)))
+    colored_pwd_array[i]="%F{$Fcolor}%K{$Kcolor}${pwd_array[i]}%f/%k"
+  done
+
+  echo "${colored_pwd_array[@]}" | sed 's/ //g'
+}
+
+num_to_hex() {
+  red=$1
+  green=$2
+  blue=$3
+
+  hex_set=()
+  for color in $red $green $blue
+  do
+    if [ $color -ge 255 ]; then
+      color=255
+    elif [ $color -le 0 ]; then
+      color=0
+    fi
+
+    if [ $color -le 15 ]; then
+      hex_set+=0
+    fi
+    hex_set+=$(printf '%x' $color)
+  done
+
+  echo "#${hex_set[@]}" | sed 's/ //g'
+}
+
+my_ip() {
+  ip -o route get to 8.8.8.8 | sed -n 's/.*src \([0-9.]\+\).*/\1/p'
+}
+
+# -----------------------------------------------------------------------------
+# PS1
+# -----------------------------------------------------------------------------
+export PS1='$(show_conda_env)[$(whoami)@$(hostname)]$VENV_NAME%f[/$(depth_pwd)]$(git_super_status) $ '

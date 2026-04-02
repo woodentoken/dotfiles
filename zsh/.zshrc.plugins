@@ -12,7 +12,7 @@
 # _____________________________________________________________________________________________
 #
 
-# use ./update_or_install_zsh_plugins.sh to keep these up to date
+# Plugin sources only. Use ./resolve_zsh_plugins.sh to keep these up to date.
 
 # -----------------------------------------------------------------------------
 # ZSH AUTOSUGGEST (https://github.com/zsh-users/zsh-autosuggestions)
@@ -27,121 +27,17 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 # -----------------------------------------------------------------------------
 source ~/.zsh/fast-syntax-highlighting/F-Sy-H.plugin.zsh
 
-
-# -----------------------------------------------------------------------------
-# ZSH AUTOCOMPLETE (https://github.com/marlonrichert/zsh-autocomplete)
-# -----------------------------------------------------------------------------
-# autoload -U compinit && compinit   # load + start completion
-setopt LIST_ROWS_FIRST
-setopt AUTO_LIST            # Automatically list choices on ambiguous completion.
-setopt COMPLETE_IN_WORD     # Complete from both ends of a word.
-
-# Load more completions
-fpath=($DOTFILES/zsh/plugins/zsh-completions/src $fpath)
-
-# Should be called before compinit
-zmodload zsh/complist
-
-# Use hjlk in menu selection (during completion)
-# Doesn't work well with interactive mode
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-
-bindkey -M menuselect '^xg' clear-screen
-bindkey -M menuselect '^xi' vi-insert                      # Insert
-bindkey -M menuselect '^xh' accept-and-hold                # Hold
-bindkey -M menuselect '^xn' accept-and-infer-next-history  # Next
-bindkey -M menuselect '^xu' undo                           # Undo
-
-autoload -U compinit; compinit
-_comp_options+=(globdots) # With hidden files
-
-# Only work with the Zsh function vman
-# See $DOTFILES/zsh/scripts.zsh
-compdef vman="man"
-
-# +---------+
-# | Options |
-# +---------+
-
-# setopt GLOB_COMPLETE      # Show autocompletion menu with globs
-setopt MENU_COMPLETE        # Automatically highlight first element of completion menu
-setopt AUTO_LIST            # Automatically list choices on ambiguous completion.
-setopt COMPLETE_IN_WORD     # Complete from both ends of a word.
-
-# +---------+
-# | zstyles |
-# +---------+
-
-# Ztyle pattern
-# :completion:<function>:<completer>:<command>:<argument>:<tag>
-
-# Define completers
-zstyle ':completion:*' completer _extensions _complete _approximate
-
-# Use cache for commands using cache
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
-# Complete the alias when _expand_alias is used as a function
-zstyle ':completion:*' complete true
-
-zle -C alias-expension complete-word _generic
-bindkey '^Xa' alias-expension
-zstyle ':completion:alias-expension:*' completer _expand_alias
-
-# Use cache for commands which use it
-
-# Allow you to select in a menu
-zstyle ':completion:*' menu select
-
-# Autocomplete options for cd instead of directory stack
-zstyle ':completion:*' complete-options true
-
-zstyle ':completion:*' file-sort modification
-
-
-zstyle ':completion:*:*:*:*:corrections' format '%F{yellow}!- %d (errors: %e) -!%f'
-zstyle ':completion:*:*:*:*:descriptions' format '%F{blue}-- %D %d --%f'
-zstyle ':completion:*:*:*:*:messages' format ' %F{purple} -- %d --%f'
-zstyle ':completion:*:*:*:*:warnings' format ' %F{red}-- no matches found --%f'
-# zstyle ':completion:*:default' list-prompt '%S%M matches%s'
-# Colors for files and directory
-zstyle ':completion:*:*:*:*:default' list-colors ${(s.:.)LS_COLORS}
-
-# Only display some tags for the command cd
-zstyle ':completion:*:*:cd:*' tag-order local-directories directory-stack path-directories
-# zstyle ':completion:*:complete:git:argument-1:' tag-order !aliases
-
-# Required for completion to be in good groups (named after the tags)
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' file-sort modification
-
-zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions commands
-
-# See ZSHCOMPWID "completion matching control"
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-
-zstyle ':completion:*' keep-prefix true
-zstyle ':completion:*' file-list all
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-
-zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
-
-
 # -----------------------------------------------------------------------------
 # COLORED MAN PAGES (https://github.com/ael-code/zsh-colored-man-pages)
 # -----------------------------------------------------------------------------
 source ~/.zsh/zsh-colored-man-pages/colored-man-pages.plugin.zsh && man less 2>&1 > /dev/null
-
 
 # -----------------------------------------------------------------------------
 # FZF DIR NAVIGATOR (https://github.com/KulkarniKaustubh/fzf-dir-navigator)
 # -----------------------------------------------------------------------------
 source ~/.zsh/fzf-dir-navigator/fzf-dir-navigator.plugin.zsh
 
-
+# -----------------------------------------------------------------------------
 # ALIAS TIPS (https://github.com/djui/alias-tips)
 # -----------------------------------------------------------------------------
 source ~/.zsh/alias-tips/alias-tips.plugin.zsh
@@ -152,126 +48,7 @@ export ZSH_PLUGINS_ALIAS_TIPS_TEXT="alias  "
 # -----------------------------------------------------------------------------
 source ~/.zsh/zsh-bd/bd.zsh
 
-# ctrl-z that is ambidirectional (foregrounds and backgrounds)
 # -----------------------------------------------------------------------------
-# not really a plugin, but comes from oh-my-zsh
+# FZF shell integration
 # -----------------------------------------------------------------------------
-fancy-ctrl-z () {
-if [[ $#BUFFER -eq 0 ]]; then
-  BUFFER="fg"
-  zle accept-line -w
-else
-  zle push-input -w
-  zle clear-screen -w
-fi
-}
-zle -N fancy-ctrl-z
-bindkey '^Z' fancy-ctrl-z
-
-# -----------------------------------------------------------------------------
-# GIT PROMPT & PROMPT CUSTOMIZATION
-# -----------------------------------------------------------------------------
-setopt prompt_subst
-source ~/.zsh/zsh-git-prompt/zshrc.sh
-
-# venv automatic activation
-export VIRTUAL_ENV_DISABLE_PROMPT=1
-
-_virtualenv_auto_activate() {
-  if [[ -z "$VIRTUAL_ENV" ]] ; then
-    ## If env folder is found then activate the virtualenv
-    if [[ -d ./.venv ]] ; then
-      source ./.venv/bin/activate
-      export VENV_NAME="[venv:%F{#FF44C9}$(printf $(basename $(dirname $VIRTUAL_ENV)))%f]"
-    fi
-  else
-    ## check the current folder belong to earlier VIRTUAL_ENV folder
-    # if yes then do nothing
-    # else deactivate
-    parentdir="$(dirname "$VIRTUAL_ENV")"
-    if [[ "$PWD"/ != "$parentdir"/* ]] ; then
-      deactivate
-      export VENV_NAME=''
-    fi
-  fi
-}
-precmd_functions+=(_virtualenv_auto_activate)
-
-# # conda automatic activation
-# export CONDACONFIGDIR=""
-# _condaenv_auto_activate() {
-#   if [[ -z "$CONDACONFIGDIR" ]] ; then
-#     if [ -f $PWD/.conda_config ]; then
-#       export CONDACONFIGDIR=$PWD
-#       conda activate $(cat .conda_config)
-#       export VENV_NAME="[conda_env:%F{#FF44C9}$(printf $(basename $CONDA_PREFIX))%f]"
-#     fi
-#   else
-#     if [[ "$PWD"/ != "$CONDACONFIGDIR"/* ]]; then
-#       export CONDACONFIGDIR=""
-#       # conda deactivate
-#       export VENV_NAME=''
-#     fi
-#   fi
-# }
-# precmd_functions+=(_condaenv_auto_activate)
-
-# overrides for git-prompt
-ZSH_THEME_GIT_PROMPT_PREFIX="["
-ZSH_THEME_GIT_PROMPT_SUFFIX="]%f"
-ZSH_THEME_GIT_PROMPT_SEPARATOR="|"
-ZSH_THEME_GIT_PROMPT_BRANCH="%F{#3094FF}"
-ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[green]%}%{%G+%}"
-ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg[red]%}%{%G×%}"
-ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[yellow]%}%{%G~%}"
-ZSH_THEME_GIT_PROMPT_BEHIND="%{$fg[yellow]%}%{↓%G%}"
-ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg[green]%}%{↑%G%}"
-ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[magenta]%}%{%G?%}"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{%F{#3094FF}%}%{_%G%}"
-
-export PS1='[$(whoami)@$(hostname)]$VENV_NAME%f[/$(depth_pwd)]$(git_super_status) $ '
-
-# helper functions used above
-depth_pwd() {
-  pwd_array=(`echo $(echo $PWD) | sed 's/\//\n/g'`)
-
-  for (( i=1 ; i<=${#pwd_array[@]} ; i++ ))
-  do
-    Kcolor=$(num_to_hex $((- 25 + 5 * $i)) $((- 25 + 10 * $i)) $((- 25 + 20 * $i)))
-    Fcolor=$(num_to_hex $((255 - 5 * $i)) $((100 - 5 * $i)) $((80 - 10 * $i)))
-    # colored_pwd_array[i]="%F{$Fcolor}${pwd_array[i]}%f/%k"
-    # colored_pwd_array[i]="%F{$Fcolor}%K{$Kcolor}${pwd_array[i]}%f${i} %k"
-    colored_pwd_array[i]="%F{$Fcolor}%K{$Kcolor}${pwd_array[i]}%f/%k"
-  done
-
-  echo "${colored_pwd_array[@]}" | sed 's/ //g'
-}
-
-num_to_hex() {
-  red=$1
-  green=$2
-  blue=$3
-
-  hex_set=()
-  for color in $red $green $blue
-  do
-    # bound our colors
-    if [ $color -ge 255 ]; then
-      color=255
-    elif [ $color -le 0 ]; then
-      color=0
-    fi
-
-    # account for single digit hex values
-    if [ $color -le 15 ]; then
-      hex_set+=0
-    fi
-    hex_set+=$(printf '%x' $color)
-  done
-
-  echo "#${hex_set[@]}" | sed 's/ //g'
-}
-
-my_ip(){
-  ip -o route get to 8.8.8.8 | sed -n 's/.*src \([0-9.]\+\).*/\1/p'
-}
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
