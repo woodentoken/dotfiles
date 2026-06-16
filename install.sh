@@ -48,6 +48,7 @@ build-essential
 cmake
 cowsay
 curl
+direnv
 eog
 feh
 gcc

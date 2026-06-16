@@ -104,7 +104,11 @@ alias pr='cd ~/projects && la'
 alias prl='cd ~/projects/learning && la'
 alias prp='cd ~/projects/personal && la'
 alias prr='cd ~/projects/research/ && la'
-alias c='cd ~/projects/research/general-interpolative-flight-tool/GIFT/ && la'
+
+# project dependent aliases - these probably should not exist forever
+alias prrg='cd ~/projects/research/generalized-interpolative-flight-tool/ && la'
+# current projects
+alias c0='cd ~/projects/research/generalized-interpolative-flight-tool/src/GIFT/ && la'
 
 # CLIPPING
 alias clip='xclip -selection c'

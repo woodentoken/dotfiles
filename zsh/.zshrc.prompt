@@ -20,35 +20,36 @@ source ~/.zsh/zsh-git-prompt/zshrc.sh
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # -----------------------------------------------------------------------------
-# VENV AUTO-ACTIVATION
+# ENV AUTO-ACTIVATION (venv + conda)
 # -----------------------------------------------------------------------------
-_virtualenv_auto_activate() {
+# Runs on every prompt. Handles directory-based auto (de)activation of .venv
+# virtualenvs, then rebuilds VENV_NAME from the *current* environment state so
+# the prompt label always reflects what is actually active. Because the label is
+# recomputed each prompt, deactivating either a venv or a conda env (e.g. via
+# `conda deactivate`) clears the label immediately instead of leaving it stale.
+_env_auto_activate() {
+  # --- venv: directory-based auto activation / deactivation ---
   if [[ -z "$VIRTUAL_ENV" ]] ; then
     if [[ -d ./.venv ]] ; then
       source ./.venv/bin/activate
-      export VENV_NAME="[%F{#FF44C9}$(printf $(basename $(dirname $VIRTUAL_ENV)))%f]"
     fi
   else
-    parentdir="$(dirname "$VIRTUAL_ENV")"
+    local parentdir="$(dirname "$VIRTUAL_ENV")"
     if [[ "$PWD"/ != "$parentdir"/* ]] ; then
       deactivate
-      export VENV_NAME=''
     fi
   fi
-}
-precmd_functions+=(_virtualenv_auto_activate)
 
-# -----------------------------------------------------------------------------
-# CONDA DISPLAY
-# -----------------------------------------------------------------------------
-show_conda_env() {
-    if [ -n "$CONDA_DEFAULT_ENV" ]; then
-        # export VENV_NAME="($CONDA_DEFAULT_ENV) "
-      export VENV_NAME="[%F{#FF44C9}$CONDA_DEFAULT_ENV%f]"
-    fi
+  # --- rebuild the prompt label from whatever is currently active ---
+  if [[ -n "$VIRTUAL_ENV" ]] ; then
+    export VENV_NAME="[%F{#FF44C9}$(basename "$(dirname "$VIRTUAL_ENV")")%f]"
+  elif [[ -n "$CONDA_DEFAULT_ENV" ]] ; then
+    export VENV_NAME="[%F{#FF44C9}$CONDA_DEFAULT_ENV%f]"
+  else
+    export VENV_NAME=''
+  fi
 }
-
-precmd_functions+=(show_conda_env)
+precmd_functions+=(_env_auto_activate)
 
 # -----------------------------------------------------------------------------
 # GIT PROMPT THEME
@@ -111,4 +112,4 @@ my_ip() {
 # -----------------------------------------------------------------------------
 # PS1
 # -----------------------------------------------------------------------------
-export PS1='$(show_conda_env)[$(whoami)@$(hostname)]$VENV_NAME%f[/$(depth_pwd)]$(git_super_status) $ '
+export PS1='[$(whoami)@$(hostname)]$VENV_NAME%f[/$(depth_pwd)]$(git_super_status) $ '
