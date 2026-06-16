@@ -1,39 +1,117 @@
 local diagnostics = require("custom.diagnostics")
 
--- # INSERT mode remaps
+-- ============================================================
+-- Helper functions
+-- ============================================================
+local claude_winid = nil
+
+local function toggle_claude()
+  if claude_winid and vim.api.nvim_win_is_valid(claude_winid) then
+    vim.api.nvim_win_close(claude_winid, true)
+    claude_winid = nil
+    return
+  end
+
+  local current_file = vim.api.nvim_buf_get_name(0)
+  if current_file ~= "" then
+    local cc = require("claude-code")
+    local original_cmd = cc.config.command
+    cc.config.command = original_cmd
+      .. " --append-system-prompt "
+      .. vim.fn.shellescape("The user is currently editing: " .. current_file)
+    vim.cmd("ClaudeCode")
+    cc.config.command = original_cmd
+  else
+    vim.cmd("ClaudeCode")
+  end
+
+  claude_winid = vim.api.nvim_get_current_win()
+end
+
+-- ============================================================
+-- INSERT mode
+-- ============================================================
 vim.keymap.set("i", "<Find>", "<Home>", { noremap = true, desc = "Go to beginning of line" })
 vim.keymap.set("i", "<Select>", "<End>", { noremap = true, desc = "Go to end of line" })
 
--- # NORMAL mode remaps
+-- ============================================================
+-- NORMAL + VISUAL mode (shared)
+-- ============================================================
+
+-- Line navigation
+vim.keymap.set({ "n", "v" }, "<Find>", "^", { noremap = true, desc = "Go to beginning of line" })
+vim.keymap.set({ "n", "v" }, "<Select>", "$", { noremap = true, desc = "Go to end of line" })
+vim.keymap.set({ "n", "v" }, "alt+q", "^", { noremap = true, desc = "Go to beginning of line" })
+
+-- Clipboard
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "Yank to clipboard" })
-vim.keymap.set("n", "<leader>Y", '"+Y', { desc = "Yank line to clipboard" })
 vim.keymap.set({ "n", "v" }, "<leader>p", '"+p', { desc = "Paste from clipboard" })
+
+-- Comments
+vim.keymap.set({ "n", "v" }, "<C-\\>", ":Commentary<CR>", { noremap = false, desc = "Toggle comment" })
+
+-- FZF
+vim.keymap.set({ "n", "v" }, "<leader>bb", "<cmd>FzfLua buffers<CR>", { desc = "Display buffers" })
+vim.keymap.set({ "n", "v" }, "<leader>mm", "<cmd>FzfLua marks<CR>", { desc = "Display marks" })
+vim.keymap.set({ "n", "v" }, "<leader>gg", "<cmd>FzfLua live_grep<CR>", { desc = "Live grep" })
+vim.keymap.set({ "n", "v" }, "<leader>oo", "<cmd>FzfLua oldfiles<CR>", { noremap = true, desc = "Recent files" })
+
+-- Neotree
+vim.keymap.set({ "n", "v" }, "<leader>e", "<cmd>Neotree toggle left<CR>", { desc = "Toggle Neotree Explorer" })
+vim.keymap.set({ "n", "v" }, "<leader>b", "<cmd>Neotree toggle buffers right<CR>", { desc = "Toggle Neotree Buffers" })
+
+-- Aerial
+vim.keymap.set({ "n", "v" }, "<leader>aa", "<cmd>AerialToggle<CR>", { desc = "Toggle Aerial window" })
+vim.keymap.set(
+  { "n", "v" },
+  "<leader>af",
+  "<cmd>lua require('aerial').fzf_lua_picker()<CR>",
+  { desc = "Aerial Fzf picker" }
+)
+vim.keymap.set({ "n", "v" }, "<leader>ao", "<cmd>AerialOpen<CR>", { desc = "Open Aerial window" })
+vim.keymap.set({ "n", "v" }, "<leader>ax", "<cmd>AerialCloseAll<CR>", { desc = "Close all Aerial windows" })
+
+-- ============================================================
+-- NORMAL mode
+-- ============================================================
+
+-- allows using Alt + hjkl to navigate between windows without leaving the home row
+vim.keymap.set("n", "A-l", "<cmd>windcmd l<CR>", { noremap = true, silent = true, desc = "Move to right window" })
+vim.keymap.set("n", "A-h", "<cmd>windcmd h<CR>", { noremap = true, silent = true, desc = "Move to left window" })
+vim.keymap.set("n", "A-j", "<cmd>windcmd j<CR>", { noremap = true, silent = true, desc = "Move to down window" })
+vim.keymap.set("n", "A-k", "<cmd>windcmd k<CR>", { noremap = true, silent = true, desc = "Move to up window" })
+
+-- Clipboard
+vim.keymap.set("n", "<leader>Y", '"+Y', { desc = "Yank line to clipboard" })
+
+-- Buffer navigation
+vim.keymap.set("n", "<A-,>", ":bprevious<CR>", { noremap = true, silent = true, desc = "Go to previous buffer" })
+vim.keymap.set("n", "<A-.>", ":bnext<CR>", { noremap = true, silent = true, desc = "Go to next buffer" })
+vim.keymap.set("n", "<A-q>", ":bdelete<CR>", { noremap = true, silent = true, desc = "Delete current buffer" })
+
+-- Aerial
+vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr, desc = "Go to previous symbol in Aerial" })
+vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr, desc = "Go to next symbol in Aerial" })
+vim.keymap.set("n", "<leader>a", function()
+  require("aerial").focus()
+end, { desc = "Focus aerial window" })
+
+-- Claude
+vim.keymap.set("n", "<leader>cc", toggle_claude, { desc = "Toggle Claude" })
+vim.keymap.set("n", "<leader>co", "<cmd>ClaudeCodeContinue<CR>", { desc = "Continue last Claude session" })
+vim.keymap.set("n", "<leader>cr", "<cmd>ClaudeCodeResume<CR>", { desc = "Resume Claude session" })
+
+-- Diagnostics
 vim.keymap.set("n", "<leader>ud", diagnostics.toggle, { desc = "Toggle diagnostics" })
 vim.keymap.set("n", "<leader>dv", diagnostics.toggle_virtual_text, { desc = "Toggle virtual text" })
 
-vim.keymap.set("n", "<A-,>", ":bprevious<CR>", { noremap = true, silent = true, desc = "Go to previous buffer" })
-vim.keymap.set("n", "<A-.>", ":bnext<CR>", { noremap = true, silent = true, desc = "Go to next buffer" })
-
-vim.keymap.set("n", "<C-\\>", ":Commentary<CR>", { noremap = false, desc = "Toggle comment" })
-vim.keymap.set("n", "<Find>", "^", { noremap = true, desc = "Go to beginning of line" })
-vim.keymap.set("n", "<Select>", "$", { noremap = true, desc = "Go to end of line" })
-
-vim.keymap.set("n", "<leader>bb", "<cmd>Fzf buffers<CR>", { desc = "Display buffers " })
-vim.keymap.set("n", "<leader>mm", "<cmd>Fzf marks<CR>", { desc = "Display marks " })
-vim.keymap.set("n", "<leader>oo", "<cmd>Fzf oldfiles<CR>", { noremap = true, desc = "Recent files" })
-vim.keymap.set("n", "<leader>gg", "<cmd>FzfLua live_grep<CR>", { desc = "Display marks " })
-
-vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle left<CR>", { desc = "Toggle Neotree Explorer" })
-vim.keymap.set("n", "<leader>b", "<cmd>Neotree toggle buffers right<CR>", { desc = "Toggle Neotree Buffers" })
-
-vim.keymap.set("n", "<leader>aa", "<cmd>AerialToggle<CR>", { desc = "Toggle Aerial window" })
-vim.keymap.set("n", "<leader>af", "<cmd>lua require('aerial').fzf_lua_picker()<CR>", { desc = "Aerial Fzf picker" })
-vim.keymap.set("n", "<leader>ao", "<cmd>AerialOpen<CR>", { desc = "Open Aerial window" })
-vim.keymap.set("n", "<leader>ax", "<cmd>AerialCloseAll<CR>", { desc = "Close all Aerial windows" })
-vim.keymap.set("n", "<leader>a", function()
-  require("aerial").focus()
-end, { desc = "focus aerial window" })
-
+-- LSP
+vim.keymap.set("n", "<leader>cd", function()
+  vim.lsp.buf.definition()
+end, { desc = "Go to Definition" })
+vim.keymap.set("n", "<leader>cu", function()
+  vim.lsp.buf.references()
+end, { desc = "Go to References" })
 vim.keymap.set("n", "<leader>ci", function()
   vim.lsp.buf.code_action({
     context = { only = { "source.organizeImports" } },
@@ -41,77 +119,37 @@ vim.keymap.set("n", "<leader>ci", function()
   })
 end, { desc = "LSP sort imports" })
 
-vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr, desc = "Go to previous symbol in Aerial" })
-vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr, desc = "Go to next symbol in Aerial" })
--- Remove any existing mappings first (optional but safe)
-vim.keymap.del("n", "H", { silent = true })
-vim.keymap.del("n", "L", { silent = true })
-
--- -- Remap Shift-H and Shift-L to navigate windows
--- vim.keymap.set("n", "H", "<C-w>h", { desc = "Move to left window", silent = true })
--- vim.keymap.set("n", "L", "<C-w>l", { desc = "Move to right window", silent = true })
--- vim.keymap.set("n", "K", "<C-w>k", { desc = "Move to upper window", silent = true })
--- vim.keymap.set("n", "J", "<C-w>j", { desc = "Move to lower window", silent = true })
-
--- vim.keymap.set("v", "H", "<C-w>h", { desc = "Move to left window", silent = true })
--- vim.keymap.set("v", "L", "<C-w>l", { desc = "Move to right window", silent = true })
--- vim.keymap.set("v", "K", "<C-w>k", { desc = "Move to upper window", silent = true })
--- vim.keymap.set("v", "J", "<C-w>j", { desc = "Move to lower window", silent = true })
-
--- # VISUAL mode remaps
-vim.keymap.set("v", "<C-\\>", ":Commentary<CR>", { noremap = false, desc = "Toggle comment in visual mode" })
-vim.keymap.set("v", "<Find>", "^", { noremap = true, desc = "Go to beginning of line" })
-vim.keymap.set("v", "<Select>", "$", { noremap = true, desc = "Go to end of line" })
-vim.keymap.set("v", "<leader>bb", "<cmd>FzfLua buffers<CR>", { desc = "Display buffers " })
-vim.keymap.set("v", "<leader>mm", "<cmd>FzfLua marks<CR>", { desc = "Display marks " })
-vim.keymap.set("v", "<leader>gg", "<cmd>FzfLua live_grep<CR>", { desc = "Display marks " })
-vim.keymap.set("v", "<leader>oo", ":Fzf oldfiles<CR>", { noremap = true, desc = "Recent files" })
-vim.keymap.set("v", "<leader>e", "<cmd>Neotree toggle left<CR>", { desc = "Toggle Neotree Explorer" })
-vim.keymap.set("v", "<leader>b", "<cmd>Neotree toggle buffers right<CR>", { desc = "Toggle Neotree Buffers" })
-
-vim.keymap.set("v", "<leader>aa", "<cmd>AerialToggle<CR>", { desc = "Toggle Aerial window" })
-vim.keymap.set("v", "<leader>af", "<cmd>lua require('aerial').fzf_lua_picker()<CR>", { desc = "Aerial Fzf picker" })
-vim.keymap.set("v", "<leader>ao", "<cmd>AerialOpen<CR>", { desc = "Open Aerial window" })
-vim.keymap.set("v", "<leader>ax", "<cmd>AerialCloseAll<CR>", { desc = "Close all Aerial windows" })
-
+-- Ruff
 vim.keymap.set("n", "<leader>do", function()
   vim.lsp.buf.code_action({
     context = { only = { "source.organizeimports" } },
     apply = true,
   })
-end, { desc = "ruff: organize imports" })
-
+end, { desc = "Ruff: organize imports" })
 vim.keymap.set("n", "<leader>df", function()
   vim.lsp.buf.code_action({
     context = { only = { "source.fixAll.ruff" } },
     apply = true,
   })
-end, { desc = "ruff: Fix all auto-fixable issues" })
+end, { desc = "Ruff: fix all auto-fixable issues" })
 
--- Override <leader>gd to Go to Definition
-vim.keymap.set("n", "<leader>cd", function()
-  vim.lsp.buf.definition()
-end, { desc = "Go to Definition" })
-
-vim.keymap.set("n", "<leader>cu", function()
-  vim.lsp.buf.references()
-end, { desc = "Go to References" })
-
+-- Misc
 vim.keymap.set("c", "w!!", "SudaWrite", { desc = "Write file with sudo" })
 
--- vim.keymap.set("n", "<leader>nn", "<cmd>lua Snacks.notifier.show_history()<CR>", { desc = "Show notification history" })
+-- ============================================================
+-- TERMINAL mode
+-- ============================================================
+vim.keymap.set("t", "<leader>cc", toggle_claude, { desc = "Toggle Claude" })
 
--- vim.api.nvim_set_keymap("i", "<F2>", '<cmd>lua require("renamer").rename()<cr>', { noremap = true, silent = true })
--- vim.api.nvim_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename<cr>", { noremap = true, silent = true })
--- vim.api.nvim_set_keymap("v", "<leader>rn", "<cmd>lua vim.lsp.buf.rename<cr>", { noremap = true, silent = true })
+-- ============================================================
+-- Cleanup
+-- ============================================================
+vim.keymap.del("n", "H", { silent = true })
+vim.keymap.del("n", "L", { silent = true })
 
--- Normal mode
--- vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { silent = true })
-
--- -- Visual mode (if you want to rename selection)
--- vim.keymap.set("v", "<leader>rn", vim.lsp.buf.rename, { silent = true })
---
--- allow us to use :Format to format the current buffer using conform
+-- ============================================================
+-- User commands
+-- ============================================================
 vim.api.nvim_create_user_command("Format", function()
   require("conform").format({ bufnr = 0, lsp_fallback = true })
 end, {})
@@ -123,5 +161,4 @@ vim.api.nvim_create_user_command("SortImports", function()
   })
 end, { desc = "Sort imports" })
 
--- remap the capitals...
 vim.api.nvim_create_user_command("W", "w", { nargs = 0 })

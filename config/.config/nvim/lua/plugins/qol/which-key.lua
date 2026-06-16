@@ -27,13 +27,6 @@ return {
       desc = "Diagnostics",
     },
     {
-      "<leader>C",
-      function()
-        require("which-key").show({ mode = "C" })
-      end,
-      desc = "Copilot",
-    },
-    {
       "<leader>m",
       function()
         require("which-key").show({ mode = "m" })
