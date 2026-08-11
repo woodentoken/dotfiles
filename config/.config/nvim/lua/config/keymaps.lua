@@ -106,32 +106,24 @@ vim.keymap.set("n", "<leader>ud", diagnostics.toggle, { desc = "Toggle diagnosti
 vim.keymap.set("n", "<leader>dv", diagnostics.toggle_virtual_text, { desc = "Toggle virtual text" })
 
 -- LSP
+vim.keymap.set("n", "<leader>cf", function()
+  vim.lsp.buf.format()
+end, { desc = "Format the document" })
+
 vim.keymap.set("n", "<leader>cd", function()
   vim.lsp.buf.definition()
 end, { desc = "Go to Definition" })
+
 vim.keymap.set("n", "<leader>cu", function()
   vim.lsp.buf.references()
 end, { desc = "Go to References" })
+
 vim.keymap.set("n", "<leader>ci", function()
   vim.lsp.buf.code_action({
     context = { only = { "source.organizeImports" } },
     apply = true,
   })
 end, { desc = "LSP sort imports" })
-
--- Ruff
-vim.keymap.set("n", "<leader>do", function()
-  vim.lsp.buf.code_action({
-    context = { only = { "source.organizeimports" } },
-    apply = true,
-  })
-end, { desc = "Ruff: organize imports" })
-vim.keymap.set("n", "<leader>df", function()
-  vim.lsp.buf.code_action({
-    context = { only = { "source.fixAll.ruff" } },
-    apply = true,
-  })
-end, { desc = "Ruff: fix all auto-fixable issues" })
 
 -- Misc
 vim.keymap.set("c", "w!!", "SudaWrite", { desc = "Write file with sudo" })
