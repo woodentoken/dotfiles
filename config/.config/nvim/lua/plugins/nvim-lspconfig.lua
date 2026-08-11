@@ -194,7 +194,6 @@ return {
       end)
     end
 
-
     -- diagnostics
     if type(opts.diagnostics.virtual_text) == "table" and opts.diagnostics.virtual_text.prefix == "icons" then
       opts.diagnostics.virtual_text.prefix = function(diagnostic)
