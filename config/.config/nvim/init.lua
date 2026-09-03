@@ -1,6 +1,7 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require("config.lazy")
 
+vim.opt.swapfile = false
 vim.g.snacks_animate = false
 
 vim.keymap.set("n", "57438u", "<Nop>", { silent = true })

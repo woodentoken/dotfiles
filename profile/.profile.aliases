@@ -109,6 +109,8 @@ alias prr='cd ~/projects/research/ && la'
 alias prrg='cd ~/projects/research/generalized-interpolative-flight-tool/ && la'
 # current projects
 alias c0='cd ~/projects/research/generalized-interpolative-flight-tool/src/GIFT/ && la'
+alias c1='cd ~/projects/research/generalized-interpolative-flight-tool/src/GIFT/vehicles/raptor_glider/ && la'
+alias c2='cd ~/projects/research/dynamic_perching_exploration/src/ && la'
 
 # CLIPPING
 alias clip='xclip -selection c'
