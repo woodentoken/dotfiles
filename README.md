@@ -6,8 +6,8 @@ They are based around using zsh for the terminal and neovim for the editor.
 
 folders are used to delineate configuration options, and generally, the actual
 "."files (.vimrc, .zshrc) are merely sourcing their constituent parts. I have
-found this to be useful for tracking where changes are implemented, and I much
-prefer it to using large, single, "."files.
+found this to be useful for tracking where changes are implemented, and I
+prefer it to large, single, "."files.
 
 ---
 
@@ -41,9 +41,7 @@ Implemented a color based directory depth scheme, visible here:
 
 ![image](https://user-images.githubusercontent.com/43391485/230224167-7e7c1e2d-8a09-45d0-a1ee-fe0aee09f086.png)
 
-certainly, it gets a little hard to parse at the mid depths.
-
-working allowing directory depth jumping, like typing cd5 to go back 5 directories.
+working on allowing directory depth jumping, like typing cd5 to go back 5 directories.
 That would be integrated with a labeling scheme in the current directory, WIP
 
 ### zsh
@@ -62,16 +60,10 @@ running `resolve_zsh_plugins.sh` will update each of the plugins below.
 
 ### neovim
 
-I have transitioned to using neovim as my main editor. These dotfiles configure neovim via the lazy vim distribution, with some added custom plugins and settings. The plugins that I am using are listed below.
+I use neovim as my main editor. These dotfiles configure neovim via the lazy vim distribution, with some added custom plugins and settings.
+The (main) plugins that I am using are listed below (almost assuredly out of date).
 
-- [LazyVim/LazyVim]()
-
-### vim
-
-While I recommend neovim, I am also including my legacy vim configuration.
-
-these dotfiles use [vim-plug](https://github.com/junegunn/vim-plug) to manage plugins.
-use `:PlugUpdate` to update all installed plugins.
+- [LazyVim/LazyVim](https://www.lazyvim.org/)
 
 #### git
 
@@ -112,16 +104,17 @@ use `:PlugUpdate` to update all installed plugins.
 - [python-mode/python-mode](https://github.com/python-mode/python-mode)
 - [vim-javascript](https://github.com/pangloss/vim-javascript)
 
-#### linting
+#### linting and formmatting
 
-- [dense-analysis/ale](https://github.com/dense-analysis/ale)
+- [ty](https://docs.astral.sh/ty/)
+- [ruff](https://docs.astral.sh/ruff/)
 - [tpope/vim-dispatch](https://github.com/tpope/vim-dispatch)
 
 ---
 
 ### tmux
 
-this is also deprecated in favor of zellij, but still included for completeness.
+I have found tmux more stable than zellij, so for the time being I stick with it.
 
 - [kolach/tmux-temp](https://github.com/kolach/tmux-temp)
 - [tmux-plugins/tmux-copycat](https://github.com/tmux-plugins/tmux-copycat)
@@ -131,6 +124,8 @@ this is also deprecated in favor of zellij, but still included for completeness.
 - [tmux-plugins/tpm](https://github.com/tmux-plugins/tpm)
 
 ### zellij
+
+eventually, I'll transition to zellij
 
 - [zellij-org/zellij]()
 
