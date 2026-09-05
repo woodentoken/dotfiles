@@ -29,3 +29,4 @@ config/.config/nvim/lazy-lock.json
 !config/.config/sxhkd
 !config/.config/wezterm
 !config/.config/zellij
+!config/.config/python

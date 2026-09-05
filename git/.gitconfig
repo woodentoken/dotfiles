@@ -17,7 +17,7 @@
   rebase = true
 
 [fetch]
-  prune = true
+	prune = true
 
 [alias]
   a = add

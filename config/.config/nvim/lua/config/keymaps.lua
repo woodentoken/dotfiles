@@ -55,7 +55,7 @@ vim.keymap.set({ "n", "v" }, "<leader>bb", "<cmd>FzfLua buffers<CR>", { desc = "
 vim.keymap.set({ "n", "v" }, "<leader>mm", "<cmd>FzfLua marks<CR>", { desc = "Display marks" })
 vim.keymap.set({ "n", "v" }, "<leader>gg", "<cmd>FzfLua live_grep<CR>", { desc = "Live grep" })
 vim.keymap.set({ "n", "v" }, "<leader>oo", "<cmd>FzfLua oldfiles<CR>", { noremap = true, desc = "Recent files" })
-vim.keymap.set({ "n", "v" }, "ff", "<cmd>FzfLua files<CR>", { noremap = true, desc = "Files" })
+vim.keymap.set({ "n", "v" }, "ff", "<cmd>FFFFind<CR>", { noremap = true, desc = "Files" })
 
 -- Neotree
 vim.keymap.set({ "n", "v" }, "<leader>e", "<cmd>Neotree toggle left<CR>", { desc = "Toggle Neotree Explorer" })
