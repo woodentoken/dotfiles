@@ -19,7 +19,7 @@ return {
           -- stylua: ignore
           ---@type snacks.dashboard.Item[]
           keys = {
-            { icon = " ", key = "ff", desc = "files",       action = ":Fzf files" },
+            { icon = " ", key = "ff", desc = "files",       action = ":FFFFind" },
             { icon = " ", key = "gg", desc = "text",        action = ":Fzf live_grep" },
             { icon = " ", key = "oo", desc = "oldfiles",    action = ":Fzf oldfiles" },
             { icon = " ", key = "s",  desc = "session",     section = "session" },
