@@ -28,7 +28,7 @@
 
   rb = rebase -i
 
-  cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 -r git branch -d"
+  cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|develop\\|main' | xargs -n 1 -r git branch -d"
 
   co = checkout
   c- = checkout -
@@ -66,26 +66,28 @@
 
 [mergetool]
   keepBackup = false
+
 [merge]
   tool = meld
+
 [mergetool "meld"]
   path = /usr/bin/meld
-
-[pull]
-  rebase = true
 
 [color]
   ui = auto
 
-[advice]
-  pushNonFastForward = false
 [init]
 	defaultBranch = main
+
 [push]
 	autoSetupRemote = true
 	default = current
+
 [filter "lfs"]
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
 	clean = git-lfs clean -- %f
+
+[rerere]
+	enabled = true
