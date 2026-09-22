@@ -16,8 +16,14 @@
 # SESSION MANAGEMENT
 # -----------------------------------------------------------------------------
 # Auto-attach or create a tmux session named "main"
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  tmux new-session -A -s main
+# if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+#   tmux new-session -A -s main
+# fi
+
+if [[ -z "$ZELLIJ" ]] && [[ ! -f /run/.containerenv ]] && command -v zellij >/dev/null; then
+    export ZELLIJ_AUTO_ATTACH=true
+    export ZELLIJ_AUTO_EXIT=true
+    zellij attach -c
 fi
 
 # -----------------------------------------------------------------------------
@@ -30,7 +36,6 @@ source ~/.zshrc.completion   # compinit, zstyles, completion keybindings
 source ~/.zshrc.basics       # setopts, history, keybindings
 source ~/.zshrc.prompt       # PS1, git prompt, venv auto-activation
 source ~/.zshrc.aliases      # aliases and short utility functions
-source ~/.zshrc.fzf          # fzf config and keybindings
 
 # -----------------------------------------------------------------------------
 # GREETING

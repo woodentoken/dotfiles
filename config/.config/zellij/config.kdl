@@ -282,7 +282,6 @@ web_client {
 // Default: default
 // 
 
-
 // themes {
 //   kanagawa {
 //     frame_unselected {
@@ -298,7 +297,7 @@ web_client {
 themes {
     almanac {
         text_unselected {
-            base 255 245 245
+            base 0 200 200
             background 15 15 15
             emphasis_0 20 99 71
             emphasis_1 22 20 60
@@ -306,7 +305,7 @@ themes {
             emphasis_3 120 120 120
         }
         text_selected {
-            base 25 255 255
+            base 200 200 200
             background 80 80 80
             emphasis_0 25 182 193
             emphasis_1 255 105 97
@@ -314,7 +313,7 @@ themes {
             emphasis_3 255 215 0
         }
         ribbon_selected {
-            base 70 120 220
+            base 0 100 200
             background 20 45 90
             emphasis_0 255 215 0
             emphasis_1 55 255 255
@@ -322,7 +321,7 @@ themes {
             emphasis_3 255 99 71
         }
         ribbon_unselected {
-            base 150 180 255
+            base 100 150 200
             background 50 100 180
             emphasis_0 255 99 71
             emphasis_1 255 182 193
@@ -370,7 +369,7 @@ themes {
             emphasis_3 139 0 0
         }
         frame_selected {
-            base 100 150 255
+            base 100 150 200
             background 0
             emphasis_0 255 215 0
             emphasis_1 55 255 255
@@ -386,7 +385,7 @@ themes {
             emphasis_3 0
         }
         frame_highlight {
-            base 255 215 0
+            base 200 100 0
             background 0
             emphasis_0 255 99 71
             emphasis_1 255 182 193
