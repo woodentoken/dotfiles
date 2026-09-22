@@ -2,11 +2,6 @@
 
 # meld
 org.gnome.meld
-# eog (KDE's Gwenview is already installed if you prefer it)
-org.gnome.eog
-# flameshot
-org.flameshot.Flameshot
-# wezterm
-org.wezfurlong.wezterm
-# Gear Lever: AppImage manager, replaces AppImageLauncher
-it.mijorus.gearlever
+
+# spotify
+com.spotify.Client
