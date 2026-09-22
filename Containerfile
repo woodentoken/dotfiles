@@ -13,15 +13,15 @@ FROM quay.io/fedora-ostree-desktops/kinoite:44
 # The cache mount keeps dnf metadata between builds (faster rebuilds) without
 # putting it in the image.
 RUN --mount=type=cache,target=/var/cache/libdnf5 \
-    dnf install -y \
-        bat \
+  dnf install -y \
+  bat \
 	cowsay \
 	direnv \
 	distrobox \
 	fastfetch \
 	fd-find \
 	gcc \
-        git-lfs \
+  git-lfs \
 	neovim \
 	net-tools \
 	ripgrep \
@@ -30,11 +30,11 @@ RUN --mount=type=cache,target=/var/cache/libdnf5 \
 	tmux \
 	tree \
 	unzip \
-        wl-clipboard \
+  wl-clipboard \
 	xclip \
 	zip \
-        zsh && \
-    rm -rf /var/lib/dnf /var/log/dnf5.log /var/cache/ldconfig/aux-cache \
+  zsh && \
+  rm -rf /var/lib/dnf /var/log/dnf5.log /var/cache/ldconfig/aux-cache \
            /run/dnf /tmp/*
 
 RUN bootc container lint
