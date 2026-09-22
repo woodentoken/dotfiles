@@ -1,0 +1,12 @@
+# Flathub app IDs, one per line. Installed by bootstrap.sh.
+
+# meld
+org.gnome.meld
+# eog (KDE's Gwenview is already installed if you prefer it)
+org.gnome.eog
+# flameshot
+org.flameshot.Flameshot
+# wezterm
+org.wezfurlong.wezterm
+# Gear Lever: AppImage manager, replaces AppImageLauncher
+it.mijorus.gearlever

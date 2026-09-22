@@ -139,3 +139,20 @@ this is also deprecated in favor of zellij, but still included for completeness.
 ## Miscellaneous
 
 the font used for the ascii art is "Isometric3" from [this generator](https://patorjk.com/software/taag/#p=display&v=0&f=Isometric3&t=zshrc)
+
+## Kinoite integration
+
+Every layer has a declarative source of truth. Together these files describe the whole machine:
+image/Containerfile: the OS
+flatpaks.txt: GUI apps
+distrobox.ini: dev environments
+Stow packages: configuration
+Project lock files (uv.lock, renv.lock): project dependencies
+bootstrap.sh: ties it together
+
+So a new machine workflow is: 
+install Kinoite
+switch to image
+(optional) restore data
+clone dotfiles
+run bootstrap.sh.
