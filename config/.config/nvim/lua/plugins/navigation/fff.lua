@@ -6,29 +6,28 @@ return {
     -- (if you are using lazy you can use gb for rebuilding a plugin if needed)
     require("fff.download").download_or_build_binary()
   end,
-  -- or if you are using nixos
-  -- build = "nix run .#release",
+
   opts = {
     -- Core settings
     base_path = vim.fn.getcwd(), -- Base directory for file indexing
-    max_results = 100, -- Maximum search results to display
-    max_threads = 4, -- Maximum threads for fuzzy search
-    prompt = ">> ", -- Input prompt symbol
-    title = "FFF Files", -- Window title
-    ui_enabled = true, -- Enable UI (default: true)
+    max_results = 66,            -- Maximum search results to display
+    max_threads = 4,             -- Maximum threads for fuzzy search
+    prompt = ">> ",              -- Input prompt symbol
+    title = "FFF Files",         -- Window title
+    ui_enabled = true,           -- Enable UI (default: true)
 
     -- Preview configuration
     preview = {
-      enabled = true, -- Enable preview pane
+      enabled = true,                                                   -- Enable preview pane
       -- width = 0.6, -- Preview width as fraction of window
-      max_lines = 5000, -- Maximum lines to load
-      max_size = 10 * 1024 * 1024, -- Maximum file size (10MB)
+      max_lines = 5000,                                                 -- Maximum lines to load
+      max_size = 10 * 1024 * 1024,                                      -- Maximum file size (10MB)
       imagemagick_info_format_str = "%m: %wx%h, %[colorspace], %q-bit", -- ImageMagick info format
-      line_numbers = true, -- Show line numbers in preview
-      wrap_lines = false, -- Wrap long lines
-      show_file_info = true, -- Show file info header
-      binary_file_threshold = 1024, -- Bytes to check for binary detection
-      filetypes = { -- Per-filetype settings
+      line_numbers = true,                                              -- Show line numbers in preview
+      wrap_lines = false,                                               -- Wrap long lines
+      show_file_info = true,                                            -- Show file info header
+      binary_file_threshold = 1024,                                     -- Bytes to check for binary detection
+      filetypes = {                                                     -- Per-filetype settings
         svg = { wrap_lines = true },
         markdown = { wrap_lines = true },
         text = { wrap_lines = true },
@@ -38,11 +37,11 @@ return {
 
     -- Layout configuration (alternative to width/height)
     layout = {
-      prompt_position = "top", -- Position of prompt ('top' or 'bottom')
+      prompt_position = "top",    -- Position of prompt ('top' or 'bottom')
       preview_position = "right", -- Position of preview ('right' or 'left')
-      preview_size = 0.6, -- Width of preview pane
-      height = 0.8, -- Window height
-      width = 0.9, -- Window width
+      preview_size = 0.6,         -- Width of preview pane
+      height = 0.8,               -- Window height
+      width = 0.9,                -- Window width
     },
 
     -- Keymaps
@@ -72,64 +71,87 @@ return {
       debug = "Comment",
     },
 
+    -- Git integration
+    git = {
+      status_text_color = true, -- true to color filenames by git status
+      -- files that participated in the last N configured commits will get scoring bonus
+      recency = {
+        enabled = true,            -- boost files from recent commits of the current branch
+        max_commits = 10,          -- analyze the last N branch-specific commits
+        max_files_per_commit = 50, -- skip bulk commits touching more files than this
+      },
+    },
+
     -- Frecency tracking (track file access patterns)
     frecency = {
-      enabled = true, -- Enable frecency tracking
+      enabled = true,                                   -- Enable frecency tracking
       db_path = vim.fn.stdpath("cache") .. "/fff_nvim", -- Database location
     },
 
     -- Logging configuration
     logging = {
-      enabled = true, -- Enable logging
+      enabled = true,                                 -- Enable logging
       log_file = vim.fn.stdpath("log") .. "/fff.log", -- Log file location
-      log_level = "info", -- Log level (debug, info, warn, error)
+      log_level = "info",                             -- Log level (debug, info, warn, error)
     },
 
     -- UI appearance
     ui = {
-      wrap_paths = true, -- Wrap long file paths in list
-      wrap_indent = 2, -- Indentation for wrapped paths
+      wrap_paths = true,   -- Wrap long file paths in list
+      wrap_indent = 2,     -- Indentation for wrapped paths
       max_path_width = 80, -- Maximum path width before wrapping
     },
 
     -- Image preview (requires terminal with image support)
     image_preview = {
-      enabled = true, -- Enable image previews
-      max_width = 80, -- Maximum image width in columns
+      enabled = true,  -- Enable image previews
+      max_width = 80,  -- Maximum image width in columns
       max_height = 24, -- Maximum image height in lines
     },
 
     -- Icons
     icons = {
-      enabled = false, -- Enable file icons
+      enabled = true, -- Enable file icons
     },
 
     -- Debug options
     debug = {
-      enabled = false, -- Enable debug mode
+      enabled = false,     -- Enable debug mode
       show_scores = false, -- Show scoring information (toggle with F2)
     },
     -- pass here all the options
   },
+
   keys = {
     {
-      "ff", -- try it if you didn't it is a banger keybinding for a picker
+      'ff',
       function()
-        require("fff").find_in_git_root() -- or find_in_git_root() if you only want git files
+        local root = vim.fs.root(0, { '.git', 'pyproject.toml', '.venv' }) or vim.fn.getcwd()
+        require('fff').find_files_in_dir(root)
+      end,
+      desc = 'FFFind in project root',
+    },
+    {
+      "FF",
+      function()
+        local cwd = vim.fn.getcwd()
+        require("fff").find_files_in_dir(cwd)
       end,
       desc = "Open file picker",
     },
     {
-      "<C-p>", -- redundant
+      'gg',
       function()
-        require("fff").find_in_git_root() -- or find_in_git_root() if you only want git files
+        -- local root = vim.fs.root(0, { '.git', 'pyproject.toml', '.venv' }) or vim.fn.getcwd()
+        require('fff').live_grep()
       end,
-      desc = "Open file picker",
+      desc = 'FFFind in project root',
     },
     {
-      "FF", -- find files in cwd not git root
+      "GG",
       function()
-        require("fff").find_files()
+        -- local cwd = vim.fn.getcwd()
+        require("fff").live_grep_under_cursor()
       end,
       desc = "Open file picker",
     },
