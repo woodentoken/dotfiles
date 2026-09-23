@@ -67,6 +67,7 @@ eval "$(direnv hook zsh)"
 source ~/.zshrc.plugins      # plugin sources
 source ~/.zshrc.completion   # compinit, zstyles, completion keybindings
 source ~/.zshrc.basics       # setopts, history, keybindings
+source ~/.zshrc.fzf       # setopts, history, keybindings
 source ~/.zshrc.prompt       # PS1, git prompt, venv auto-activation
 
 # -----------------------------------------------------------------------------
