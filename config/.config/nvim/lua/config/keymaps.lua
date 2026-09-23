@@ -103,7 +103,7 @@ vim.keymap.set("n", "<leader>cr", "<cmd>ClaudeCodeResume<CR>", { desc = "Resume 
 
 -- Diagnostics
 vim.keymap.set("n", "<leader>ud", diagnostics.toggle, { desc = "Toggle diagnostics" })
-vim.keymap.set("n", "<leader>dv", diagnostics.toggle_virtual_text, { desc = "Toggle virtual text" })
+vim.keymap.set("n", "<leader>uv", diagnostics.toggle_virtual_text, { desc = "Toggle virtual text" })
 
 -- LSP
 vim.keymap.set("n", "<leader>cf", function()

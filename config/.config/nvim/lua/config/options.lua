@@ -3,7 +3,7 @@
 -- Add any additional options here
 vim.g.autoformat = false
 
-vim.diagnostic.enable(true)
+vim.diagnostic.enable(require("custom.diagnostics").diagnostics_visible)
 
 vim.opt.clipboard = "unnamedplus"
 vim.opt.relativenumber = false

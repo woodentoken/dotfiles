@@ -140,7 +140,7 @@ return {
       desc = "Open file picker",
     },
     {
-      'gg',
+      '<leader>gg',
       function()
         -- local root = vim.fs.root(0, { '.git', 'pyproject.toml', '.venv' }) or vim.fn.getcwd()
         require('fff').live_grep()
@@ -148,7 +148,7 @@ return {
       desc = 'FFFind in project root',
     },
     {
-      "GG",
+      "<leader>GG",
       function()
         -- local cwd = vim.fn.getcwd()
         require("fff").live_grep_under_cursor()

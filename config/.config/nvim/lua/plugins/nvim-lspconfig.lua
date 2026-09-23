@@ -14,13 +14,13 @@ return {
       diagnostics = {
         underline = true,
         update_in_insert = false,
-        virtual_text = {
+        virtual_text = require("custom.diagnostics").virtual_text_visible and {
           spacing = 4,
           source = "if_many",
           prefix = "●",
           -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
           -- prefix = "icons",
-        },
+        } or false,
         severity_sort = true,
         signs = {
           text = {
