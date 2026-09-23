@@ -33,7 +33,7 @@ _env_auto_activate() {
   else
     local parentdir="$(dirname "$VIRTUAL_ENV")"
     if [[ "$PWD"/ != "$parentdir"/* ]] ; then
-      deactivate
+      conda deactivate
     fi
   fi
 
