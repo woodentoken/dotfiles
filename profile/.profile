@@ -51,7 +51,3 @@ else
   echo "No SSH_AGENT_PID found - starting new agent."
   start_agent
 fi
-
-# . "$HOME/.cargo/env"
-
-# . "$HOME/.local/bin/env"
