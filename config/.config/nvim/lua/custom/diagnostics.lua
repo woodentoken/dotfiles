@@ -1,7 +1,7 @@
 local custom_config = {}
 
 custom_config.diagnostics_visible = true
-custom_config.virtual_text_visible = true
+custom_config.virtual_text_visible = false
 
 function custom_config.toggle_virtual_text()
   custom_config.virtual_text_visible = not custom_config.virtual_text_visible
