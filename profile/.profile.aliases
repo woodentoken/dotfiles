@@ -194,3 +194,85 @@ alias fe="feh --scale-down -q --geometry 1200x900 -B #dddddd"
 # CLEANUP
 alias swpfind='find . -name "*.swp" -o -name "*.swo" -o -name "*.swq" -o -name "*.swl" -o -name "*.swm" -o -name "*.swn"'
 alias swpclc='find . -name "*.swp" -delete -o -name "*.swo" -delete -o -name "*.swq" -delete -o -name "*.swl" -delete -o -name "*.swm" -delete -o -name "*.swn"'
+
+# -----------------------------------------------------------------------------
+# GREP HELPERS
+# -----------------------------------------------------------------------------
+gep() { command grep -rnIi "$1" . --color; }
+alias gp=gep
+
+get() { find . -name "*$2" -exec grep --color "$1" {} +; }
+alias gt=get
+
+# file a command in the grep history
+alias ggh='history | grep'
+
+# -----------------------------------------------------------------------------
+# CONDA
+# -----------------------------------------------------------------------------
+alias ci='conda info --envs'
+# create environment named after current directory
+condae () {
+  cur_dir=$(basename "$PWD")
+  conda create -n $cur_dir
+  echo "$cur_dir" >> .conda_config
+}
+alias coa='conda activate'
+alias cod='conda deactivate'
+alias con='$(basename $PWD) > .conda_config'
+
+# -----------------------------------------------------------------------------
+# PIP
+# -----------------------------------------------------------------------------
+alias pip='pip3'
+alias pi='pip install'
+alias par='pip-autoremove'
+alias pu='pip uninstall'
+alias pl='pip list'
+
+# -----------------------------------------------------------------------------
+# VIRTUALENV
+# -----------------------------------------------------------------------------
+alias ven12='python3.12 -m venv .venv'
+alias ven11='python3.11 -m venv .venv'
+alias ven='python -m venv .venv'
+alias veh='ls -l $WORKON_HOME'
+alias vea='source ./.venv/bin/activate'
+alias ved='deactivate'
+alias vel='lsvirtualenv'
+alias vei='lssitepackages'
+
+# -----------------------------------------------------------------------------
+# DIRECTORIES
+# -----------------------------------------------------------------------------
+# create a directory and cd into it
+take () {
+  mkdir $1 && cd $1
+}
+alias rd=rmdir    # only removes empty directories
+alias md='mkdir -p'
+alias td='take'
+
+# -----------------------------------------------------------------------------
+# ZSH ONLY
+# -----------------------------------------------------------------------------
+# kept POSIX-parseable so sh/bash can still source this file at login
+if [ -n "$ZSH_VERSION" ]; then
+  # global aliases for quick traversal
+  alias -g ...='../..'
+  alias -g ....='../../..'
+  alias -g .....='../../../..'
+  alias -g ......='../../../../..'
+
+  # `d` shows directory stack; `-N` jumps to entry N
+  alias d='dirs -v'
+  index=1
+  while [ $index -le 20 ]; do
+    alias -- "-$index"="cd -$index"
+    index=$((index + 1))
+  done
+  unset index
+
+  # kill all background jobs
+  alias kbg='kill ${${(v)jobstates##*:*:}%=*}'
+fi
