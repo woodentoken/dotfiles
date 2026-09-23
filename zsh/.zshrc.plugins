@@ -30,7 +30,7 @@ source ~/.zsh/fast-syntax-highlighting/F-Sy-H.plugin.zsh
 # -----------------------------------------------------------------------------
 # COLORED MAN PAGES (https://github.com/ael-code/zsh-colored-man-pages)
 # -----------------------------------------------------------------------------
-source ~/.zsh/zsh-colored-man-pages/colored-man-pages.plugin.zsh && man less 2>&1 > /dev/null
+source ~/.zsh/zsh-colored-man-pages/colored-man-pages.plugin.zsh
 
 # -----------------------------------------------------------------------------
 # FZF DIR NAVIGATOR (https://github.com/KulkarniKaustubh/fzf-dir-navigator)

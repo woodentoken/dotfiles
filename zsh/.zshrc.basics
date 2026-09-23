@@ -59,11 +59,3 @@ fancy-ctrl-z () {
 }
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
-
-# -----------------------------------------------------------------------------
-# STARTUP
-# -----------------------------------------------------------------------------
-# Launch bspwm on login (X11)
-if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-   exec startx
-fi
