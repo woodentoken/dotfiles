@@ -1,7 +1,0 @@
-# Flathub app IDs, one per line. Installed by bootstrap.sh.
-
-# meld
-org.gnome.meld
-
-# spotify
-com.spotify.Client

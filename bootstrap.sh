@@ -14,7 +14,7 @@ BACKUP="${HOME}/dotfiles_old/$(date +%Y%m%d-%H%M%S)"
 BOX="dev"
 
 # Top-level directories in the repo that are NOT stow packages.
-STOW_EXCLUDE=(image)
+STOW_EXCLUDE=(images)
 
 mkdir -p "$(dirname "$LOG")"
 
@@ -67,7 +67,7 @@ step "Desktop apps (Flatpak)"
 read -rp "Install desktop apps from flatpaks.txt? [y/N] " yn
 if [[ ${yn:-n} =~ ^[Yy]$ ]]; then
   flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-  { grep -Ev '^\s*(#|$)' "$DOTFILES/flatpaks.txt" || true; } |
+  { grep -Ev '^\s*(#|$)' "$DOTFILES/containers/flatpaks.txt" || true; } |
     xargs -r flatpak install -y --noninteractive flathub
 else
   log "Skipping"
@@ -78,7 +78,7 @@ step "Dev box '$BOX' (first creation takes a while)"
 if podman container exists "$BOX" 2>/dev/null; then
   log "Already exists"
 else
-  show distrobox assemble create --file "$DOTFILES/distrobox.ini"
+  show distrobox assemble create --file "$DOTFILES/containers/distrobox.ini"
 fi
 # First entry installs the box's packages; do it here so progress is visible.
 show distrobox enter "$BOX" -- true

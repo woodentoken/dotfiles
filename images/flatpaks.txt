@@ -1,0 +1,6 @@
+com.slack.Slack
+com.spotify.Client
+com.valvesoftware.Steam
+org.darktable.Darktable
+org.videolan.VLC
+org.zotero.Zotero

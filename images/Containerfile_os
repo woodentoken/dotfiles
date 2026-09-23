@@ -1,0 +1,69 @@
+# Host OS image: Fedora Kinoite + tools needed outside any container.
+#
+# Rule of thumb: if you don't need it before/outside a distrobox, it belongs
+# in distrobox.ini instead. Keep your current FROM tag (match `rpm-ostree status`).
+FROM quay.io/fedora-ostree-desktops/kinoite:44
+
+# Shell & editors:   zsh neovim vim-enhanced tmux stow gcc (gcc: nvim plugin builds)
+# Git & env:         git-lfs direnv distrobox
+# CLI utilities:     bat fd-find ripgrep tree nnn tealdeer (tldr) fastfetch (neofetch)
+#                    cowsay prename (Debian-style `rename`) chafa (tiv)
+# Desktop/system:    wl-clipboard xclip net-tools openssh-server zip unzip
+#
+# The cache mount keeps dnf metadata between builds (faster rebuilds) without
+# putting it in the image.
+RUN --mount=type=cache,target=/var/cache/libdnf5 \
+  dnf install -y \
+  bat \
+	cowsay \
+	direnv \
+	fastfetch \
+	fd-find \
+	gcc \
+  git-lfs \
+	neovim \
+	net-tools \
+	ripgrep \
+	stow \
+	tealdeer \
+	tmux \
+	tree \
+	unzip \
+  wl-clipboard \
+	xclip \
+	zip \
+  zsh && \
+  rm -rf /var/lib/dnf /var/log/dnf5.log /var/cache/ldconfig/aux-cache \
+           /run/dnf /tmp/*
+
+# RPM Fusion repos
+RUN dnf install -y \
+      https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+      https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+# NVIDIA 580xx (last branch supporting Pascal), built against the image's kernel
+# RUN KVER=$(rpm -q kernel --qf '%{VERSION}-%{RELEASE}.%{ARCH}\n' | tail -n1) && \
+#     dnf install -y "kernel-devel-${KVER}" \
+#       akmod-nvidia-580xx xorg-x11-drv-nvidia-580xx xorg-x11-drv-nvidia-580xx-cuda && \
+#     akmods --force --kernels "${KVER}" && \
+#     modinfo "/usr/lib/modules/${KVER}/extra/nvidia-580xx/nvidia.ko.xz" >/dev/null && \
+#     dnf clean all
+
+RUN KVER=$(rpm -q kernel --qf '%{VERSION}-%{RELEASE}.%{ARCH}\n' | tail -n1) && \
+    { dnf install -y "kernel-devel-${KVER}" \
+        akmod-nvidia-580xx xorg-x11-drv-nvidia-580xx xorg-x11-drv-nvidia-580xx-cuda || true; } && \
+    rpm -q "kernel-devel-${KVER}" akmod-nvidia-580xx xorg-x11-drv-nvidia-580xx xorg-x11-drv-nvidia-580xx-cuda && \
+    mkdir -p /tmp/akmods-out && chown akmods:akmods /tmp/akmods-out && \
+    runuser -u akmods -- akmodsbuild --kernels "${KVER}" --outputdir /tmp/akmods-out \
+        /usr/src/akmods/nvidia-580xx-kmod.latest && \
+    dnf install -y /tmp/akmods-out/kmod-nvidia-580xx-*.rpm && \
+    find "/usr/lib/modules/${KVER}" -name 'nvidia.ko*' | grep -q . && \
+    rm -rf /tmp/akmods-out && dnf clean all
+
+# Kernel args (bootc reads these at install/upgrade time)
+RUN mkdir -p /usr/lib/bootc/kargs.d && \
+    printf 'kargs = ["rd.driver.blacklist=nouveau", "modprobe.blacklist=nouveau", "nvidia-drm.modeset=1"]\n' \
+      > /usr/lib/bootc/kargs.d/00-nvidia.toml
+
+RUN bootc container lint
+
