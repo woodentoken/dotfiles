@@ -20,7 +20,7 @@
 #   tmux new-session -A -s main
 # fi
 
-if [[ -z "$ZELLIJ" ]] && [[ ! -f /run/.containerenv ]] && command -v zellij >/dev/null; then
+if [[ -z "$ZELLIJ" ]] && command -v zellij >/dev/null; then
     export ZELLIJ_AUTO_ATTACH=true
     export ZELLIJ_AUTO_EXIT=true
     zellij attach -c

@@ -12,10 +12,23 @@ RUN dnf install -y \
       # Build toolchain
       gcc gcc-c++ make cmake perl pkgconf-pkg-config openssl-devel ncurses-devel \
       # Python
-      conda uv python3-devel python3-pip pipx \
+      uv python3-devel python3-pip pipx \
       # R, plus system libraries commonly needed to build R packages (httpgd, etc.)
       R R-devel libcurl-devel libxml2-devel cairo-devel fontconfig-devel freetype-devel \
       libpng-devel libtiff-devel harfbuzz-devel fribidi-devel \
       # Documents & images
       pandoc ImageMagick ImageMagick-devel feh \
     && dnf clean all
+
+# install zellij
+RUN curl -fsSL https://github.com/zellij-org/zellij/releases/latest/download/zellij-x86_64-unknown-linux-musl.tar.gz \
+    | tar -xz -C /usr/bin zellij && \
+    zellij --version
+
+# install miniconda via miniforge
+RUN curl -fsSL -o /tmp/miniforge.sh \
+      https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh && \
+    bash /tmp/miniforge.sh -b -p /opt/conda && \
+    rm /tmp/miniforge.sh && \
+    /opt/conda/bin/conda --version
+
