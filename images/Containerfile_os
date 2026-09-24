@@ -43,4 +43,7 @@ RUN --mount=type=cache,target=/var/cache/libdnf5 \
     dnf install -y ghostty && \
     rm -rf /var/lib/dnf /var/log/dnf5.log
 
+# set up ghostty for success in toolboxes
+RUN infocmp -x xterm-ghostty | tic -x -
+
 RUN bootc container lint

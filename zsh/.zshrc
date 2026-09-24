@@ -15,6 +15,13 @@
 
 source $HOME/.profile        # POSIX aliases and system-level config
 
+# link ghostty correctly when inside a toolbox
+if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
+  for d in "$GHOSTTY_RESOURCES_DIR" "/run/host$GHOSTTY_RESOURCES_DIR"; do
+    [[ -r $d/shell-integration/zsh/ghostty-integration ]] && source $d/shell-integration/zsh/ghostty-integration && break
+  done
+fi
+
 # -----------------------------------------------------------------------------
 # TERMINAL
 # -----------------------------------------------------------------------------
@@ -71,27 +78,10 @@ source ~/.zshrc.fzf       # setopts, history, keybindings
 source ~/.zshrc.prompt       # PS1, git prompt, venv auto-activation
 
 # -----------------------------------------------------------------------------
-# SESSION MANAGEMENT
-# -----------------------------------------------------------------------------
-# Auto-attach or create a zellij session; exit this shell when zellij exits.
-# Runs after module sources so panes and the outer shell see the full config.
-# Skipped over SSH and in VS Code's integrated terminal.
-if [[ -z "$SSH_TTY" && "$TERM_PROGRAM" != "vscode" ]] && command -v zellij >/dev/null; then
-    export ZELLIJ_AUTO_ATTACH=true
-    export ZELLIJ_AUTO_EXIT=true
-    eval "$(zellij setup --generate-auto-start zsh)"
-fi
-
-# Auto-attach or create a tmux session named "main"
-# if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-#   tmux new-session -A -s main
-# fi
-
-# -----------------------------------------------------------------------------
 # GREETING
 # -----------------------------------------------------------------------------
 # Only run neofetch if this is the only terminal open
 LIVE_COUNTER=$(ps a | awk '{print $2}' | grep -vi "tty*" | uniq | wc -l);
 if [ $LIVE_COUNTER -eq 1 ]; then
-     neofetch
+     fastfetch
 fi
