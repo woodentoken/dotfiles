@@ -1,0 +1,6 @@
+[Libinput][1008][4938][PixArt HP USB Optical Mouse]
+PointerAcceleration=0.600
+ScrollFactor=0.75
+
+[Mouse]
+cursorTheme=breeze_cursors
