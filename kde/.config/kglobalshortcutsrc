@@ -108,11 +108,11 @@ Switch to Screen to the Left=none,none,Switch to Screen to the Left
 Switch to Screen to the Right=none,none,Switch to Screen to the Right
 Toggle Night Color=none,none,Suspend/Resume Night Light
 Toggle Window Raise/Lower=none,none,Toggle Window Raise/Lower
-ToggleCurrentThumbnail=Meta+Ctrl+T,Meta+Ctrl+T,Toggle Thumbnail for Current Window
-Walk Through Windows=Alt+Tab\tMeta+Tab,Alt+Tab\tMeta+Tab,Walk Through Windows
-Walk Through Windows (Reverse)=Alt+Shift+Tab\tMeta+Shift+Tab,Alt+Shift+Tab\tMeta+Shift+Tab,Walk Through Windows (Reverse)
-Walk Through Windows Alternative=none,none,Walk Through Windows Alternative
-Walk Through Windows Alternative (Reverse)=none,none,Walk Through Windows Alternative (Reverse)
+ToggleCurrentThumbnail=Meta+/,Meta+Ctrl+T,Toggle Thumbnail for Current Window
+Walk Through Windows=\tAlt+Tab,Alt+Tab\tMeta+Tab,Walk Through Windows
+Walk Through Windows (Reverse)=\tAlt+Shift+Tab,Alt+Shift+Tab\tMeta+Shift+Tab,Walk Through Windows (Reverse)
+Walk Through Windows Alternative=\tMeta+Tab,none,Walk Through Windows Alternative
+Walk Through Windows Alternative (Reverse)=\tMeta+Shift+Tab,none,Walk Through Windows Alternative (Reverse)
 Walk Through Windows of Current Application=Alt+`\tMeta+`,Alt+`\tMeta+`,Walk Through Windows of Current Application
 Walk Through Windows of Current Application (Reverse)=Alt+~\tMeta+~,Alt+~\tMeta+~,Walk Through Windows of Current Application (Reverse)
 Walk Through Windows of Current Application Alternative=none,none,Walk Through Windows of Current Application Alternative
@@ -250,6 +250,7 @@ activate task manager entry 6=Meta+6,Meta+6,Activate Task Manager Entry 6
 activate task manager entry 7=Meta+7,Meta+7,Activate Task Manager Entry 7
 activate task manager entry 8=Meta+8,Meta+8,Activate Task Manager Entry 8
 activate task manager entry 9=Meta+9,Meta+9,Activate Task Manager Entry 9
+activate widget 87=none,none,Activate Icons-and-Text Task Manager Widget
 clear history=none,none,Clear Notification History
 clear-history=none,none,Clear Clipboard History
 clipboard_action=Meta+Ctrl+X,Meta+Ctrl+X,Automatic Action Popup Menu
@@ -276,3 +277,7 @@ _launch=Ctrl+Alt+T
 
 [services][org.kde.konsole.desktop]
 _launch=none
+
+[services][org.kde.spectacle.desktop]
+CurrentMonitorScreenShot=none
+OpenWithoutScreenshot=none

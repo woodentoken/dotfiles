@@ -23,7 +23,12 @@ SlideBackground=false
 VerticalGap=5
 
 [Effect-translucency]
-MoveResize=89
+MoveResize=73
+
+[MouseBindings]
+CommandActiveTitlebar2=Close
+CommandInactiveTitlebar2=Close
+CommandTitlebarWheel=Previous/Next Desktop
 
 [NightColor]
 Active=true
@@ -32,6 +37,7 @@ NightTemperature=3500
 
 [Plugins]
 blurEnabled=true
+diminactiveEnabled=true
 fullscreenEnabled=false
 loginEnabled=false
 logoutEnabled=false
@@ -49,6 +55,9 @@ DelayTime=50
 LayoutName=modern_informative
 OrderMinimizedMode=1
 
+[TabBoxAlternative]
+LayoutName=sidebar
+
 [Tiling][923811a7-c147-4b60-97f0-a5eb1d54934d][9ad6bfb1-1017-4157-a951-246192e302cf]
 padding=4
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
@@ -61,9 +70,14 @@ tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"wi
 padding=4
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
+[Wayland]
+VirtualKeyboardMode=0
+
 [Windows]
 ElectricBorderCooldown=125
 ElectricBorderDelay=25
+MaximizeButtonMiddleClickCommand=Maximize (horizontal only)
+MaximizeButtonRightClickCommand=Maximize (vertical only)
 PerOutputVirtualDesktops=true
 RollOverDesktops=true
 
@@ -71,9 +85,5 @@ RollOverDesktops=true
 Scale=1
 
 [org.kde.kdecoration2]
-BorderSize=Tiny
-BorderSizeAuto=false
 ButtonsOnLeft=MS
 ButtonsOnRight=IAX
-library=org.kde.breeze
-theme=Breeze
