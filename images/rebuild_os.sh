@@ -41,8 +41,8 @@ sudo podman build \
 echo "==> Staging new deployment"
 sudo bootc upgrade
 
-echo "==> Removing unused images"
-sudo podman image prune -f
+# echo "==> Removing unused images"
+# sudo podman image prune -f
 
 echo
 sudo bootc status
