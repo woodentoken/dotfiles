@@ -1,3 +1,5 @@
+MenuBar=Disabled
+
 [CompactMode]
 PreviewSize=22
 
@@ -8,10 +10,11 @@ ShowViewMode=false
 PreviewSize=22
 
 [General]
+AlwaysShowTabBar=true
 BrowseThroughArchives=true
+DynamicView=true
 EditableUrl=true
 ShowFullPath=true
-ShowStatusBar=FullWidth
 SplitView=true
 Version=202
 ViewPropsTimestamp=2026,9,22,0,32,59.603
@@ -40,6 +43,10 @@ IconSize=16
 
 [PreviewSettings]
 Plugins=imagethumbnail,jpegthumbnail,kraorathumbnail,rawthumbnail,svgthumbnail,ffmpegthumbs
+
+[Toolbar mainToolBar]
+IconSize=16
+ToolButtonStyle=IconOnly
 
 [UiSettings]
 ColorScheme=BreezeDarkV2
