@@ -18,7 +18,12 @@ RUN dnf install -y \
       libpng-devel libtiff-devel harfbuzz-devel fribidi-devel \
       # Documents & images
       pandoc ImageMagick ImageMagick-devel feh \
+      # miscellaneous
+      numlockx
     && dnf clean all
+
+# disable the numlock functionality - its silent on some keyboards and annoying
+RUN numlockx off
 
 # install zellij
 RUN curl -fsSL https://github.com/zellij-org/zellij/releases/latest/download/zellij-x86_64-unknown-linux-musl.tar.gz \
