@@ -5,3 +5,4 @@ org.darktable.Darktable
 org.videolan.VLC
 org.zotero.Zotero
 org.freedesktop.Platform.GL.nvidia-580-178-04
+net.waterfox.waterfox
