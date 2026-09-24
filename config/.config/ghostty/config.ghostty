@@ -19,9 +19,11 @@ keybind = ctrl+y=reload_config
 
 ### FONT
 font-family = Liberation Mono
-font-size = 9
+font-size = 8
 
 ### SHELL
 shell-integration = zsh
 progress-style = true
 cursor-style-blink = false
+
+command = /usr/bin/toolbox run -c dev zellij
