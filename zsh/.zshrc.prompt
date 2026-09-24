@@ -73,7 +73,7 @@ depth_pwd() {
   do
     Kcolor=$(num_to_hex $((- 25 + 5 * $i)) $((- 25 + 10 * $i)) $((- 25 + 20 * $i)))
     Fcolor=$(num_to_hex $((255 - 5 * $i)) $((100 - 5 * $i)) $((80 - 10 * $i)))
-    colored_pwd_array[i]="%F{$Fcolor}%K{$Kcolor}${pwd_array[i]}%f/%k"
+    colored_pwd_array[i]="%F{$Fcolor}${pwd_array[i]}%f/%k"
   done
 
   echo "${colored_pwd_array[@]}" | sed 's/ //g'
