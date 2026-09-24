@@ -1,0 +1,27 @@
+# The syntax is "key = value". The whitespace around the
+# equals doesn't matter.
+
+### COLOR
+bold-color = bright
+background-opacity = 0.9
+background-blur = true
+# theme = Arthur
+# theme = Fideloper
+# theme = Japanesque
+# theme = Lab Fox
+theme = Sundried
+
+### KEYBINDS
+keybind = ctrl+alt+q=close_surface
+keybind = ctrl+shift+|=new_split:right
+keybind = ctrl+shift+-=new_split:down
+keybind = ctrl+y=reload_config
+
+### FONT
+font-family = Liberation Mono
+font-size = 9
+
+### SHELL
+shell-integration = zsh
+progress-style = true
+cursor-style-blink = false
