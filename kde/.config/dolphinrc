@@ -1,0 +1,45 @@
+[CompactMode]
+PreviewSize=22
+
+[ContextMenu]
+ShowViewMode=false
+
+[DetailsMode]
+PreviewSize=22
+
+[General]
+BrowseThroughArchives=true
+EditableUrl=true
+ShowFullPath=true
+ShowStatusBar=FullWidth
+SplitView=true
+Version=202
+ViewPropsTimestamp=2026,9,22,0,32,59.603
+
+[IconsMode]
+IconSize=22
+PreviewSize=22
+TextWidthIndex=0
+
+[InformationPanel]
+previewsShown=false
+
+[KFileDialog Settings]
+Places Icons Auto-resize=false
+Places Icons Static Size=16
+
+[MainWindow]
+MenuBar=Disabled
+
+[MainWindow][Toolbar mainToolBar]
+IconSize=16
+ToolButtonStyle=IconOnly
+
+[PlacesPanel]
+IconSize=16
+
+[PreviewSettings]
+Plugins=imagethumbnail,jpegthumbnail,kraorathumbnail,rawthumbnail,svgthumbnail,ffmpegthumbs
+
+[UiSettings]
+ColorScheme=BreezeDarkV2
