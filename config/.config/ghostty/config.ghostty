@@ -14,6 +14,8 @@ window-decoration = none
 bold-color = bright
 background-opacity = 0.9
 background-blur = true
+
+## ghostty themes i like
 # theme = Arthur
 # theme = Fideloper
 # theme = Japanesque
@@ -21,20 +23,15 @@ background-blur = true
 # theme = Sundried
 # theme = Kurokula
 # theme = Liquid Carbon Transparent
-# theme = Lovelace
 # theme = Moonfly
-# theme = Niji
 # theme = No Clown Fiesta
-# theme = Operator Mono Dark
-# theme = Peppermint
-# theme = Pnevma
-# theme = Primary
 # theme = Raycast Dark
 # theme = Red Planet
 # theme = Srcery
 # theme = Tomorrow Night Bright
-# theme = Tomorrow Night Burns
-theme = almanac
+
+## my own theme, not from ghostty
+theme = Iceblink
 
 ### KEYBINDS
 keybind = ctrl+alt+q=close_surface

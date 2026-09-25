@@ -1,24 +1,24 @@
 # Normal colors (0–7)
 palette = 0=#1c1c1c
 palette = 1=#c0564b
-palette = 2=#5b7fa8
-palette = 3=#d4a54a
-palette = 4=#1b7fa8
+palette = 2=#9abcff
+palette = 3=#d4b54a
+palette = 4=#2b5fb8
 palette = 5=#b78d00
-palette = 6=#5a9e98
+palette = 6=#b020c0
 palette = 7=#c8c0b4
 
 # Bright colors (8–15)
 palette = 8=#4a4540
 palette = 9=#e0705f
-palette = 10=#5b8fec
+palette = 10=#6bafff
 palette = 11=#eec25e
-palette = 12=#2056d5
-palette = 13=#b78d00
-palette = 14=#3875a5
+palette = 12=#3366f5
+palette = 13=#b4754a
+palette = 14=#9a2eb8
 palette = 15=#ebe4d8
 
-background = #000
+background = #060202
 foreground = #d0d1c9
 cursor-color = #d0d1c9
 cursor-text = #1a1816
