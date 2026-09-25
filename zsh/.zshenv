@@ -16,13 +16,16 @@ skip_global_compinit=1
 # -----------------------------------------------------------------------------
 # PATH
 # -----------------------------------------------------------------------------
-typeset -U path  # dedupe; nested shells re-run this file
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:/go/bin
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
-export PATH="$PATH:${HOME}/.cargo/bin"
-export PATH="$PATH:${HOME}/.fly/bin"
-[ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
+typeset -U path fpath
+path=(
+  $HOME/.local/bin
+  $path
+  /usr/local/go/bin
+  $HOME/go/bin
+  /opt/nvim-linux-x86_64/bin
+  $HOME/.cargo/bin
+  $HOME/.fly/bin
+)
 
 # -----------------------------------------------------------------------------
 # TOOL CONFIG
