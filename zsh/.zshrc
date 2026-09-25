@@ -104,3 +104,9 @@ LIVE_COUNTER=$(ps a | awk '{print $2}' | grep -vi "tty*" | uniq | wc -l);
 if [ $LIVE_COUNTER -eq 1 ]; then
      fastfetch
 fi
+
+{
+  for f in ~/.zshrc ~/.zshenv; do
+    [[ -s $f && ( ! -s $f.zwc || $f -nt $f.zwc ) ]] && zcompile $f
+  done
+} &!
