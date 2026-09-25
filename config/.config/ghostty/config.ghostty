@@ -1,7 +1,16 @@
 # The syntax is "key = value". The whitespace around the
 # equals doesn't matter.
+command = shell:[ -x /usr/bin/toolbox ] && exec /usr/bin/toolbox run -c dev zellij || exec zsh -l
+# command = /usr/bin/toolbox run -c dev zellij
 
-### COLOR
+### SHELL
+shell-integration = zsh
+progress-style = true
+cursor-style-blink = false
+resize-overlay = never
+window-decoration = none
+
+### STYLE
 bold-color = bright
 background-opacity = 0.9
 background-blur = true
@@ -15,7 +24,7 @@ background-blur = true
 # theme = Lovelace
 # theme = Moonfly
 # theme = Niji
-theme = No Clown Fiesta
+# theme = No Clown Fiesta
 # theme = Operator Mono Dark
 # theme = Peppermint
 # theme = Pnevma
@@ -36,11 +45,3 @@ keybind = ctrl+y=reload_config
 ### FONT
 font-family = Liberation Mono
 font-size = 10.5
-
-### SHELL
-shell-integration = zsh
-progress-style = true
-cursor-style-blink = false
-
-# command = /usr/bin/toolbox run -c dev zellij
-command = shell:[ -x /usr/bin/toolbox ] && exec /usr/bin/toolbox run -c dev zellij || exec zsh -l
