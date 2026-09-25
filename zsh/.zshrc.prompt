@@ -10,11 +10,9 @@
      # \__\/       \__\/         \__\/         \__\/         \__\/
 
 # Prompt: PS1 definition, git status display, venv auto-activation, color helpers.
-
-setopt prompt_subst
 source ~/.zsh/zsh-git-prompt/zshrc.sh
-
 export VIRTUAL_ENV_DISABLE_PROMPT=1
+setopt PROMPT_SUBST
 
 # -----------------------------------------------------------------------------
 # ENV AUTO-ACTIVATION (venv + conda)
@@ -24,29 +22,47 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 # the prompt label always reflects what is actually active. Because the label is
 # recomputed each prompt, deactivating either a venv or a conda env (e.g. via
 # `conda deactivate`) clears the label immediately instead of leaving it stale.
+# this DOES NOT activate conda environments, so be aware that they need to be 
+# elsewhere.
 _env_auto_activate() {
-  # --- venv: directory-based auto activation / deactivation ---
-  if [[ -z "$VIRTUAL_ENV" ]] ; then
-    if [[ -d ./.venv ]] ; then
-      source ./.venv/bin/activate
-    fi
-  else
-    local parentdir="$(dirname "$VIRTUAL_ENV")"
-    if [[ "$PWD"/ != "$parentdir"/* ]] ; then
-      conda deactivate
+  # --- deactivate: only venvs we auto-activated, once we leave their project ---
+  if [[ -n "$VIRTUAL_ENV" && "$VIRTUAL_ENV" == "$_AUTO_VENV" ]]; then
+    if [[ "$PWD/" != "${VIRTUAL_ENV:h}"/* ]]; then
+      if (( $+functions[deactivate] )); then
+        deactivate
+      else
+        # inherited from a parent shell: activate's deactivate() isn't defined here
+        path=(${path:#$VIRTUAL_ENV/bin})
+        unset VIRTUAL_ENV
+      fi
+      unset _AUTO_VENV
     fi
   fi
 
-  # --- rebuild the prompt label from whatever is currently active ---
-  if [[ -n "$CONDA_DEFAULT_ENV" ]] ; then
-  export VENV_NAME="[%B%F{9}$CONDA_DEFAULT_ENV%f%b]"
-  elif [[ -n "$VIRTUAL_ENV" ]] ; then
-    export VENV_NAME="[%B%F{9}$(basename "$(dirname "$VIRTUAL_ENV")")%f%b]"
+  # --- activate: separate `if` so A -> B switching happens in one prompt ---
+  if [[ -z "$VIRTUAL_ENV" && -f ./.venv/bin/activate ]]; then
+    source ./.venv/bin/activate
+    export _AUTO_VENV="$VIRTUAL_ENV"
+  fi
+
+  # default to inactivity
+  local name=''
+  # if we are in a venv folder
+  if [[ -n "$VIRTUAL_ENV" ]]; then
+    name=${VIRTUAL_ENV:h:t}
+  # if we are in a conda environment folder
+  elif [[ -n "$CONDA_DEFAULT_ENV" ]]; then
+    name=$CONDA_DEFAULT_ENV
+  fi
+
+  # if we are in either conda or venv, rebuild the prompt with the virtual environment
+  if [[ -n "$name" ]]; then
+    export VENV_NAME=$'[%{\e[3m%}%B%F{7}'"$name"$'%f%b%{\e[23m%}]'
   else
     export VENV_NAME=''
   fi
 }
-precmd_functions+=(_env_auto_activate)
+add-zsh-hook precmd _env_auto_activate
 
 # -----------------------------------------------------------------------------
 # GIT PROMPT THEME
@@ -54,14 +70,14 @@ precmd_functions+=(_env_auto_activate)
 ZSH_THEME_GIT_PROMPT_PREFIX="["
 ZSH_THEME_GIT_PROMPT_SUFFIX="]%f"
 ZSH_THEME_GIT_PROMPT_SEPARATOR="|"
-ZSH_THEME_GIT_PROMPT_BRANCH="%F{11}"
-ZSH_THEME_GIT_PROMPT_STAGED="%F{14}%{%G+%}"
+ZSH_THEME_GIT_PROMPT_BRANCH="%F{15}"
+ZSH_THEME_GIT_PROMPT_STAGED="%F{10}%{%G+%}"
 ZSH_THEME_GIT_PROMPT_CONFLICTS="%F{1}%{%G×%}"
-ZSH_THEME_GIT_PROMPT_CHANGED="%F{5}%{%G~%}"
-ZSH_THEME_GIT_PROMPT_BEHIND="%F{3}%{↓%G%}"
-ZSH_THEME_GIT_PROMPT_AHEAD="%F{13}%{↑%G%}"
-ZSH_THEME_GIT_PROMPT_UNTRACKED="%F{1}%{%G?%}"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{%F{11}%{_%G%}"
+ZSH_THEME_GIT_PROMPT_CHANGED="%F{11}%{%G~%}"
+ZSH_THEME_GIT_PROMPT_BEHIND="%F{1}%{↓%G%}"
+ZSH_THEME_GIT_PROMPT_AHEAD="%F{12}%{↑%G%}"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="%F{13}%{%G?%}"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{%F{15}%{_%G%}"
 
 # -----------------------------------------------------------------------------
 # HELPER FUNCTIONS
