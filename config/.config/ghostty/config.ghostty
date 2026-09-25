@@ -9,7 +9,23 @@ background-blur = true
 # theme = Fideloper
 # theme = Japanesque
 # theme = Lab Fox
-theme = Sundried
+# theme = Sundried
+# theme = Kurokula
+# theme = Liquid Carbon Transparent
+# theme = Lovelace
+# theme = Moonfly
+# theme = Niji
+theme = No Clown Fiesta
+# theme = Operator Mono Dark
+# theme = Peppermint
+# theme = Pnevma
+# theme = Primary
+# theme = Raycast Dark
+# theme = Red Planet
+# theme = Srcery
+# theme = Tomorrow Night Bright
+# theme = Tomorrow Night Burns
+theme = almanac
 
 ### KEYBINDS
 keybind = ctrl+alt+q=close_surface
@@ -19,11 +35,12 @@ keybind = ctrl+y=reload_config
 
 ### FONT
 font-family = Liberation Mono
-font-size = 8
+font-size = 10.5
 
 ### SHELL
 shell-integration = zsh
 progress-style = true
 cursor-style-blink = false
 
-command = /usr/bin/toolbox run -c dev zellij
+# command = /usr/bin/toolbox run -c dev zellij
+command = shell:[ -x /usr/bin/toolbox ] && exec /usr/bin/toolbox run -c dev zellij || exec zsh -l
