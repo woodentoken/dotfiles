@@ -28,10 +28,23 @@ fi
 export COLORTERM=truecolor
 
 # -----------------------------------------------------------------------------
-# NVM
+# NVM (Lazy Loaded)
 # -----------------------------------------------------------------------------
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+export NVM_DIR="$HOME/.nvm"
+
+# This function intercepts the call, loads the real NVM, and deletes itself
+lazy_nvm() {
+  unset -f nvm node npm npx
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+}
+
+# Create light placeholders that instantly wake up NVM on first use
+nvm()  { lazy_nvm; nvm "$@"; }
+node() { lazy_nvm; node "$@"; }
+npm()  { lazy_nvm; npm "$@"; }
+npx()  { lazy_nvm; npx "$@"; }
+
 
 # -----------------------------------------------------------------------------
 # CONDA (anaconda + miniconda)
@@ -66,6 +79,24 @@ source ~/.zshrc.fzf       # setopts, history, keybindings
 source ~/.zshrc.prompt       # PS1, git prompt, venv auto-activation
 
 # -----------------------------------------------------------------------------
+# SESSION MANAGEMENT
+# -----------------------------------------------------------------------------
+# Auto-attach or create a zellij session; exit this shell when zellij exits.
+# Runs after module sources so panes and the outer shell see the full config.
+# Skipped over SSH and in VS Code's integrated terminal.
+if [[ -z "$SSH_TTY" && "$TERM_PROGRAM" != "vscode" ]] && command -v zellij >/dev/null; then
+    export ZELLIJ_AUTO_ATTACH=true
+    export ZELLIJ_AUTO_EXIT=false
+    eval "$(zellij setup --generate-auto-start zsh)"
+fi
+
+# Auto-attach or create a tmux session named "main"
+# if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+#   tmux new-session -A -s main
+# fi
+
+# -----------------------------------------------------------------------------
+
 # GREETING
 # -----------------------------------------------------------------------------
 # Only run neofetch if this is the only terminal open
