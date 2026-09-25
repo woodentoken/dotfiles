@@ -75,26 +75,37 @@ ZSH_THEME_GIT_PROMPT_STAGED="%F{10}%{%G+%}"
 ZSH_THEME_GIT_PROMPT_CONFLICTS="%F{1}%{%G×%}"
 ZSH_THEME_GIT_PROMPT_CHANGED="%F{11}%{%G~%}"
 ZSH_THEME_GIT_PROMPT_BEHIND="%F{1}%{↓%G%}"
-ZSH_THEME_GIT_PROMPT_AHEAD="%F{12}%{↑%G%}"
+ZSH_THEME_GIT_PROMPT_AHEAD="%F{2}%{↑%G%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%F{13}%{%G?%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{%F{15}%{_%G%}"
 
 # -----------------------------------------------------------------------------
 # HELPER FUNCTIONS
-# -----------------------------------------------------------------------------
+# # -----------------------------------------------------------------------------
 depth_pwd() {
-  pwd_array=(`echo $(echo $PWD) | sed 's/\//\n/g'`)
+  local -a parts colored
+  local i n c name
 
-  for (( i=1 ; i<=${#pwd_array[@]} ; i++ ))
-  do
-    ## LEGACY implementation of depth sensitive foreground and background color changes
-    # Kcolor=$(num_to_hex $((- 25 + 5 * $i)) $((- 25 + 10 * $i)) $((- 25 + 20 * $i)))
-    # Fcolor=$(num_to_hex $((255 - 5 * $i)) $((100 - 5 * $i)) $((80 - 10 * $i)))
-    # colored_pwd_array[i]="%F{$Fcolor}${pwd_array[i]}%f/%k"
-    colored_pwd_array[i]="%B%F{8}${i}%f %F{12}${pwd_array[i]}%f/%b%k"
+  parts=(${(s:/:)PWD})   # split on "/" only; empty leading element is dropped
+  n=${#parts}
+
+  # base folder (/)
+  if (( n == 0 )); then
+    print -rn -- '%B%F{10}/%f%b'
+    return
+  fi
+
+  # color each part, with the last one different
+  for (( i = 1; i <= n; i++ )); do
+  name=${parts[i]//\%/%%}
+  if (( i == n )); then
+    colored+=("%B%F{8}${i}%f%F{12}${name}%f/%b")
+  else
+    colored+=("%F{8}${i}%f%F{12}${name}%f/")
+  fi
   done
 
-  echo "${colored_pwd_array[@]}" | sed 's/ //g'
+  print -rn -- ${(j::)colored}       # join with no separator
 }
 
 num_to_hex() {
@@ -127,4 +138,5 @@ my_ip() {
 # -----------------------------------------------------------------------------
 # PS1
 # -----------------------------------------------------------------------------
-export PS1='[$(whoami)@$(hostname)]$VENV_NAME%f[$(depth_pwd)]$(git_super_status) $ '
+PREAMBLE="$(whoami)@$(hostname)"
+export PS1='[$PREAMBLE]$VENV_NAME%f[$(depth_pwd)]$(git_super_status) $ '
