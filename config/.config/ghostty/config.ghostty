@@ -41,4 +41,4 @@ keybind = ctrl+y=reload_config
 
 ### FONT
 font-family = Liberation Mono
-font-size = 10
+font-size = 9
