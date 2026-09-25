@@ -22,7 +22,6 @@ function update_or_install {
 }
 
 update_or_install "KulkarniKaustubh/fzf-dir-navigator"
-update_or_install "Tarrasch/zsh-bd"
 update_or_install "ael-code/zsh-colored-man-pages"
 update_or_install "agkozak/zsh-z"
 update_or_install "djui/alias-tips"

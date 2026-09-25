@@ -45,17 +45,6 @@ autoload -Uz bashcompinit && bashcompinit
 
 # -----------------------------------------------------------------------------
 # KEYBINDINGS (menuselect)
-# -----------------------------------------------------------------------------
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect '^xg' clear-screen
-bindkey -M menuselect '^xi' vi-insert
-bindkey -M menuselect '^xh' accept-and-hold
-bindkey -M menuselect '^xn' accept-and-infer-next-history
-bindkey -M menuselect '^xu' undo
-
 zle -C alias-expension complete-word _generic
 bindkey '^Xa' alias-expension
 zstyle ':completion:alias-expension:*' completer _expand_alias
