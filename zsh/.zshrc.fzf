@@ -1,62 +1,28 @@
+
 # fzf
+source <(fzf --zsh)
 
-# fzf-history-widget() {
-#   fc -l 1 | fzf | sed 's/^[[:space:]]*[0-9]*[[:space:]]*//'
-#   stty sane
-# }
-# zle -N fzf-history-widget
-# bindkey '^R' fzf-history-widget
+# Bind both normal (^[[X) and application (^[OX) arrow sequences
+bindkey -M emacs '^[[A' fzf-history-widget  '^[OA' fzf-history-widget
+bindkey -M emacs '^[[B' fzf-cd-widget       '^[OB' fzf-cd-widget
+bindkey -M emacs '^F'   fzf-file-widget
 
-
-# fzf_dir_nav_wrapper() {
-#   fzf-dir-navigator "$@"
-#   stty sane
-#   bindkey -e
-# }
-# zle -N fzf_dir_nav_wrapper
-# bindkey '^G' fzf_dir_nav_wrapper   # or whatever key you're using
-
-# fzf_dir_nav_fixed() {
-#   zle -I    # clear zle buffer/redraw state
-#   fzf-dir-navigator
-#   stty sane
-#   bindkey -e
-#   zle reset-prompt
-# }
-# zle -N fzf_dir_nav_fixed
-# bindkey '^G' fzf_dir_nav_fixed
-
-
-
-bindkey "$key[Up]" fzf-history-widget
-bindkey "$key[Down]" fzf-dir-navigator
-bindkey '^W' fzf-file-widget
+# Lone Esc does nothing (stops Esc+arrow turning into literal "OA")
+_noop() {}; zle -N _noop
+bindkey -M emacs '^[' _noop
 
 export FZF_COMPLETION_TRIGGER='~'
 
-# export FZF_DEFAULT_OPTS="--ansi --height 100%"
-
 export FZF_CTRL_R_OPTS="
-  --color
   --header 'HISTORY'
-  --history-size=1024"
+  --layout=reverse
+  "
 
 export FZF_ALT_C_OPTS="
-  --color
   --header 'DIR NAVIGATOR'
-  --preview 'tree -C {}'"
+  --preview 'tree -C -L 2 {} | head -200'"
 
-# export FZF_CTRL_T_COMMAND="fdfind --color --exclude venv --exclude virtualenv --exclude .git"
 export FZF_CTRL_T_OPTS="
-  --walker-skip .git,node_modules,target 
-  --preview '[ -d {} ] && tree -C {} || bat -n --color=always {}''"
-
-# Fix arrow keys after fzf
-autoload -Uz add-zsh-hook
-
-fix_keys_after_fzf() {
-  stty sane
-  bindkey -e
-}
-
-add-zsh-hook precmd fix_keys_after_fzf
+  --header 'FILE PICKER'
+  --walker-skip .git,node_modules,target
+  --preview '[ -d {} ] && tree -C -L 2 {} | head -200 || batcat -n --color=always --line-range=:500 {}'"
