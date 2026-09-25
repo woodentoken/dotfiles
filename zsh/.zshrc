@@ -52,17 +52,32 @@ npx()  { lazy_nvm; npx "$@"; }
 # don't auto-activate the base env on shell startup (same as `auto_activate_base:
 # false` in ~/.condarc, but kept here so it lives in the dotfiles)
 export CONDA_AUTO_ACTIVATE_BASE=false
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-CONDA_BIN="$(which conda)"
-__conda_setup="$("$CONDA_BIN" 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
+# locate the conda install root: $CONDA_EXE (set if already initialized), an
+# existing conda binary on PATH, then the common install locations
+__conda_root=""
+if [[ -n $CONDA_EXE && -x $CONDA_EXE ]]; then
+  __conda_root="${CONDA_EXE:h:h}"
+elif (( $+commands[conda] )); then
+  __conda_root="${commands[conda]:A:h:h}"
 else
-    export PATH="$CONDA_BIN:$PATH"
+  for d in "$HOME/miniforge3" "$HOME/miniconda3" "$HOME/anaconda3" \
+           "/opt/conda" "/opt/miniforge3" "/opt/miniconda3" "/opt/anaconda3"; do
+    [[ -x $d/bin/conda ]] && __conda_root="$d" && break
+  done
 fi
-unset __conda_setup
-# <<< conda initialize <<<
+
+if [[ -n $__conda_root ]]; then
+  __conda_setup="$("$__conda_root/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
+  if [[ $? -eq 0 ]]; then
+    eval "$__conda_setup"
+  elif [[ -f $__conda_root/etc/profile.d/conda.sh ]]; then
+    . "$__conda_root/etc/profile.d/conda.sh"
+  else
+    export PATH="$__conda_root/bin:$PATH"
+  fi
+  unset __conda_setup
+fi
+unset __conda_root
 
 # -----------------------------------------------------------------------------
 # DIRENV
