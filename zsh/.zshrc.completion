@@ -25,11 +25,23 @@ setopt MENU_COMPLETE
 # -----------------------------------------------------------------------------
 fpath=($DOTFILES/zsh/plugins/zsh-completions/src $fpath)
 
-zmodload zsh/complist
-autoload -U compinit; compinit
-_comp_options+=(globdots)    # include hidden files
+# zmodload zsh/complist
+# autoload -U compinit; compinit
+# _comp_options+=(globdots)    # include hidden files
 
-compdef vman="man"
+# compdef vman="man"
+
+# Faster compinit caching
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.m-1) ]]; then
+  compinit -C
+else
+  compinit
+fi
+
+# Prevent compinit from checking for updates on every execution
+autoload -Uz bashcompinit && bashcompinit
+
 
 # -----------------------------------------------------------------------------
 # KEYBINDINGS (menuselect)
