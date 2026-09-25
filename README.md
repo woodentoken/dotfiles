@@ -1,13 +1,14 @@
 # woodentoken/dotfiles
 
-These are dotfiles designed for Linux (and specifically Ubuntu)
+These are dotfiles designed for Linux.
 
 They are based around using zsh for the terminal and neovim for the editor.
 
 folders are used to delineate configuration options, and generally, the actual
 "."files (.vimrc, .zshrc) are merely sourcing their constituent parts. I have
-found this to be useful for tracking where changes are implemented, and I
-prefer it to large, single, "."files.
+found this to be useful for tracking where changes are implemented.
+
+This README parses each subfolder one by one to describe their functionality and feature set.
 
 ---
 
@@ -17,7 +18,7 @@ to install (_do not use sudo_):
 
 ```bash
 git clone https://github.com/woodentoken/dotfiles/ ~/dotfiles
-~/dotfiles/install.sh
+~/dotfiles/bootstrap.sh
 ```
 
 the install script uses `stow` to automatically symlink each folder into the
@@ -26,9 +27,47 @@ home directory. It will back up any existing dotfiles to a folder
 
 ---
 
-## Features (AKA plugins)
+## Features
 
-### linux
+
+### config/
+
+I use neovim as my main editor. 
+
+These dotfiles configure neovim via the lazy vim distribution, with some added custom plugins and settings.
+The (main) plugins that I am using are listed below (almost assuredly out of date).
+
+- [LazyVim/LazyVim](https://www.lazyvim.org/)
+
+
+### images/
+
+This file holds Containerfiles for a Fedora Kinoite OS image, and a Containerfile for a development toolbox.
+
+scripts use the Containerfiles to deploy images through podman.
+
+It also includes a flatpaks.txt file to keep sandboxed GUI apps tracked and reproducible.
+
+#### Kinoite integration
+
+Every layer has a declarative source of truth. Together these files describe the whole machine:
+image/Containerfile: the OS
+`flatpaks.txt``: GUI apps
+`distrobox.ini`: dev environments
+Stow packages: configuration
+Project lock files (uv.lock, renv.lock): project dependencies
+`bootstrap.sh`: ties it together
+
+So a new machine workflow is:
+1. install Kinoite.
+2. switch installation to os_image.
+2a. (optional) restore data.
+3. create dev-toolbox using the toolbox_image file and `build_toolbox.sh`
+4. switch to dev-toolbox.
+3. clone this dotfiles project.
+4. run `bootstrap.sh` to install dotfiles etc.
+
+### CLI tools
 
 - [sharkdp/fd](https://github.com/sharkdp/fd)
 - [sharkdp/bat](https://github.com/sharkdp/bat)
@@ -44,26 +83,19 @@ Implemented a color based directory depth scheme, visible here:
 working on allowing directory depth jumping, like typing cd5 to go back 5 directories.
 That would be integrated with a labeling scheme in the current directory, WIP
 
-### zsh
+### git/
 
-running `resolve_zsh_plugins.sh` will update each of the plugins below.
+general git configuration, including shortcuts and preferences that I keep standard between machines.
 
-- [KulkarniKaustubh/fzf-dir-navigator](https://github.com/KulkarniKaustubh/fzf-dir-navigator)
-- [Tarrasch/zsh-bd](https://github.com/Tarrasch/zsh-bd)
-- [ael-code/zsh-colored-man-pages](https://github.com/ael-code/zsh-colored-man-pages)
-- [junegunn/fzf](https://github.com/junegunn/fzf) (set up for zsh)
-- [marlonrichert/zsh-autocomplete](https://github.com/marlonrichert/zsh-autocomplete)
-- [zdharma/fast-syntax-highlighting](https://github.com/zdharma/fast-syntax-highlighting)
-- [zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+### profile/
 
----
+general aliases and commonalities for the command line.
 
-### neovim
 
-I use neovim as my main editor. These dotfiles configure neovim via the lazy vim distribution, with some added custom plugins and settings.
-The (main) plugins that I am using are listed below (almost assuredly out of date).
+### vim/
 
-- [LazyVim/LazyVim](https://www.lazyvim.org/)
+legacy vim configuration - I've now switched fully to neovim (configured in config/.config/nvim/). Some settings
+from these vim files make their way into the neovim configuration, and they are a nice reminder of vimming.
 
 #### git
 
@@ -112,9 +144,9 @@ The (main) plugins that I am using are listed below (almost assuredly out of dat
 
 ---
 
-### tmux
+### tmux/
 
-I have found tmux more stable than zellij, so for the time being I stick with it.
+currently, I'm using zellij over tmux.
 
 - [kolach/tmux-temp](https://github.com/kolach/tmux-temp)
 - [tmux-plugins/tmux-copycat](https://github.com/tmux-plugins/tmux-copycat)
@@ -125,9 +157,20 @@ I have found tmux more stable than zellij, so for the time being I stick with it
 
 ### zellij
 
-eventually, I'll transition to zellij
-
 - [zellij-org/zellij]()
+
+---
+
+### zsh/
+
+running `resolve_zsh_plugins.sh` will update each of the plugins below.
+
+- [KulkarniKaustubh/fzf-dir-navigator](https://github.com/KulkarniKaustubh/fzf-dir-navigator)
+- [ael-code/zsh-colored-man-pages](https://github.com/ael-code/zsh-colored-man-pages)
+- [junegunn/fzf](https://github.com/junegunn/fzf) (set up for zsh)
+- [marlonrichert/zsh-autocomplete](https://github.com/marlonrichert/zsh-autocomplete)
+- [zdharma/fast-syntax-highlighting](https://github.com/zdharma/fast-syntax-highlighting)
+- [zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 
 ---
 
@@ -135,19 +178,3 @@ eventually, I'll transition to zellij
 
 the font used for the ascii art is "Isometric3" from [this generator](https://patorjk.com/software/taag/#p=display&v=0&f=Isometric3&t=zshrc)
 
-## Kinoite integration
-
-Every layer has a declarative source of truth. Together these files describe the whole machine:
-image/Containerfile: the OS
-flatpaks.txt: GUI apps
-distrobox.ini: dev environments
-Stow packages: configuration
-Project lock files (uv.lock, renv.lock): project dependencies
-bootstrap.sh: ties it together
-
-So a new machine workflow is: 
-install Kinoite
-switch to image
-(optional) restore data
-clone dotfiles
-run bootstrap.sh.
