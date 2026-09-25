@@ -49,16 +49,19 @@ npx()  { lazy_nvm; npx "$@"; }
 # -----------------------------------------------------------------------------
 # CONDA (anaconda + miniconda)
 # -----------------------------------------------------------------------------
+# don't auto-activate the base env on shell startup (same as `auto_activate_base:
+# false` in ~/.condarc, but kept here so it lives in the dotfiles)
+export CONDA_AUTO_ACTIVATE_BASE=false
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/conda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$("$HOME/anaconda3/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/opt/conda/etc/profile.d/conda.sh" ]; then
-        . "/opt/conda/etc/profile.d/conda.sh"
+    if [ -f "$HOME/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "$HOME/anaconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/opt/conda/bin:$PATH"
+        export PATH="$HOME/anaconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
@@ -110,3 +113,4 @@ fi
     [[ -s $f && ( ! -s $f.zwc || $f -nt $f.zwc ) ]] && zcompile $f
   done
 } &!
+
