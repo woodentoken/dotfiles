@@ -1,8 +1,0 @@
-[84117da7-ac76-43b3-9731-42c070c42ac9]
-Description=New window settings
-Enabled=false
-wmclassmatch=1
-
-[General]
-count=1
-rules=84117da7-ac76-43b3-9731-42c070c42ac9

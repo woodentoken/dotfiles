@@ -9,7 +9,7 @@ Rows=3
 EdgeBarrier=50
 
 [Effect-blur]
-BlurStrength=4
+BlurStrength=8
 Saturation=190
 
 [Effect-kwin4_effect_geometry_change]
@@ -32,8 +32,8 @@ CommandTitlebarWheel=Previous/Next Desktop
 
 [NightColor]
 Active=true
-DayTemperature=5500
-NightTemperature=3500
+DayTemperature=5000
+NightTemperature=3000
 
 [Plugins]
 blurEnabled=true
