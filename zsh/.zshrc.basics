@@ -38,6 +38,9 @@ bindkey -e
 bindkey "^U" clear-screen
 bindkey "^L" kill-whole-line
 
+_noop() {}; zle -N _noop
+bindkey -M emacs '^[' _noop
+
 # Ctrl-Z: bidirectional (foreground if no buffer, background otherwise)
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
@@ -50,3 +53,12 @@ fancy-ctrl-z () {
 }
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
+
+# kill all background jobs
+kbg() {
+  (( ${#jobstates} )) || { print "no jobs"; return 1 }
+  kill ${${(k)jobstates}/#/%}
+  sleep 0.2
+  (( ${#jobstates} )) && kill -KILL ${${(k)jobstates}/#/%}
+  return 0
+}

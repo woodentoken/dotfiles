@@ -273,6 +273,4 @@ if [ -n "$ZSH_VERSION" ]; then
   done
   unset index
 
-  # kill all background jobs
-  alias kbg='kill ${${(v)jobstates##*:*:}%=*}'
 fi
