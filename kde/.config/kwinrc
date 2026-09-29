@@ -87,3 +87,5 @@ Scale=1
 [org.kde.kdecoration2]
 ButtonsOnLeft=MS
 ButtonsOnRight=IAX
+library=org.kde.kwin.aurorae.v2
+theme=__aurorae__svg__Carl
