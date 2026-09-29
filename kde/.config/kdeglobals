@@ -183,6 +183,7 @@ EnableRemoteFolderThumbnail=false
 MaximumRemoteSize=0
 
 [Shortcuts]
+MoveToTrash=Del; Eject
 SubstringCompletion=
 
 [Sounds]
