@@ -76,10 +76,10 @@ vim.keymap.set({ "n", "v" }, "<leader>ax", "<cmd>AerialCloseAll<CR>", { desc = "
 -- ============================================================
 
 -- allows using Alt + hjkl to navigate between windows without leaving the home row
-vim.keymap.set("n", "A-l", "<cmd>windcmd l<CR>", { noremap = true, silent = true, desc = "Move to right window" })
-vim.keymap.set("n", "A-h", "<cmd>windcmd h<CR>", { noremap = true, silent = true, desc = "Move to left window" })
-vim.keymap.set("n", "A-j", "<cmd>windcmd j<CR>", { noremap = true, silent = true, desc = "Move to down window" })
-vim.keymap.set("n", "A-k", "<cmd>windcmd k<CR>", { noremap = true, silent = true, desc = "Move to up window" })
+vim.keymap.set("n", "<A-l>", "<cmd>wincmd l<CR>", { noremap = true, silent = true, desc = "Move to right window" })
+vim.keymap.set("n", "<A-h>", "<cmd>wincmd h<CR>", { noremap = true, silent = true, desc = "Move to left window" })
+vim.keymap.set("n", "<A-j>", "<cmd>wincmd j<CR>", { noremap = true, silent = true, desc = "Move to down window" })
+vim.keymap.set("n", "<A-k>", "<cmd>wincmd k<CR>", { noremap = true, silent = true, desc = "Move to up window" })
 
 -- Clipboard
 vim.keymap.set("n", "<leader>Y", '"+Y', { desc = "Yank line to clipboard" })
