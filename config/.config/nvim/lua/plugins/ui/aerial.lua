@@ -32,11 +32,18 @@ return {
     open_automatic = false,
     show_guides = true,
     guides = {
-      mid_item = "├── ",
-      last_item = "└── ",
-      nested_top = "│   ",
-      whitespace = "    ",
+      mid_item = "├─ ",
+      last_item = "└─ ",
+      nested_top = "│  ",
+      whitespace = "   ",
     },
+    get_highlight = function(symbol, is_icon, is_collapsed)
+      local name = symbol.name
+      -- leading underscore, but not Python dunders like __init__
+      if name:match("^_") and not name:match("^__.*__$") then
+        return "AerialPrivate"
+      end
+    end,
     show_numbers = true,
     filter_kind = {
       "Class",
@@ -57,7 +64,7 @@ return {
       Field = "›", -- Fields / properties
       Function = "ƒ", -- Functions
       Interface = "↕", -- Interfaces
-      Method = "-", -- Methods
+      Method = "𝑚", -- Methods
       Property = "▪", -- Properties
       Struct = "⧋", -- Structs
       TypeParameter = "T", -- Type parameters / generics
