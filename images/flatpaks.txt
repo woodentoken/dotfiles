@@ -1,8 +1,9 @@
 com.slack.Slack
 com.spotify.Client
 com.valvesoftware.Steam
+net.waterfox.waterfox
 org.darktable.Darktable
+org.freedesktop.Platform.GL.nvidia-580-178-04
+org.kde.labplot
 org.videolan.VLC
 org.zotero.Zotero
-org.freedesktop.Platform.GL.nvidia-580-178-04
-net.waterfox.waterfox
