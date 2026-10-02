@@ -34,6 +34,12 @@ end
 vim.keymap.set("i", "<Find>", "<Home>", { noremap = true, desc = "Go to beginning of line" })
 vim.keymap.set("i", "<Select>", "<End>", { noremap = true, desc = "Go to end of line" })
 
+-- Alt + Shift + hjkl to move/indent the current line
+vim.keymap.set("i", "<A-H>", "<C-d>", { noremap = true, silent = true, desc = "Indent line left" })
+vim.keymap.set("i", "<A-J>", "<Esc><cmd>silent! move .+1<CR>gi", { noremap = true, silent = true, desc = "Line down" })
+vim.keymap.set("i", "<A-K>", "<Esc><cmd>silent! move .-2<CR>gi", { noremap = true, silent = true, desc = "Line up" })
+vim.keymap.set("i", "<A-L>", "<C-t>", { noremap = true, silent = true, desc = "Indent line right" })
+
 -- ============================================================
 -- NORMAL + VISUAL mode (shared)
 -- ============================================================
@@ -80,6 +86,42 @@ vim.keymap.set("n", "<A-l>", "<cmd>wincmd l<CR>", { noremap = true, silent = tru
 vim.keymap.set("n", "<A-h>", "<cmd>wincmd h<CR>", { noremap = true, silent = true, desc = "Move to left window" })
 vim.keymap.set("n", "<A-j>", "<cmd>wincmd j<CR>", { noremap = true, silent = true, desc = "Move to down window" })
 vim.keymap.set("n", "<A-k>", "<cmd>wincmd k<CR>", { noremap = true, silent = true, desc = "Move to up window" })
+
+-- Alt + Shift + hjkl to move/indent the current line
+vim.keymap.set(
+  "n",
+  "<A-J>",
+  "<cmd>execute 'silent! move .+' . v:count1<CR>",
+  { noremap = true, silent = true, desc = "Move line down" }
+)
+vim.keymap.set(
+  "n",
+  "<A-K>",
+  "<cmd>execute 'silent! move .-' . (v:count1 + 1)<CR>",
+  { noremap = true, silent = true, desc = "Move line up" }
+)
+vim.keymap.set("n", "<A-H>", "<<", { noremap = true, silent = true, desc = "Indent line left" })
+vim.keymap.set("n", "<A-L>", ">>", { noremap = true, silent = true, desc = "Indent line right" })
+
+-- ============================================================
+-- VISUAL mode
+-- ============================================================
+
+-- Alt + Shift + hjkl to move/indent the selection (selection is kept)
+vim.keymap.set(
+  "v",
+  "<A-J>",
+  ":<C-u>execute \"silent! '<,'>move '>+\" . v:count1<CR>gv",
+  { noremap = true, silent = true, desc = "Move selection down" }
+)
+vim.keymap.set(
+  "v",
+  "<A-K>",
+  ":<C-u>execute \"silent! '<,'>move '<-\" . (v:count1 + 1)<CR>gv",
+  { noremap = true, silent = true, desc = "Move selection up" }
+)
+vim.keymap.set("v", "<A-H>", "<gv", { noremap = true, silent = true, desc = "Indent selection left" })
+vim.keymap.set("v", "<A-L>", ">gv", { noremap = true, silent = true, desc = "Indent selection right" })
 
 -- Clipboard
 vim.keymap.set("n", "<leader>Y", '"+Y', { desc = "Yank line to clipboard" })
