@@ -1,10 +1,10 @@
 return {
   "stevearc/aerial.nvim",
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter",
+    "nvim-tree/nvim-web-devicons",
+  },
   opts = {
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
-    },
     backends = { "lsp", "treesitter", "markdown" },
     layout = {
       -- max_width = 45,
@@ -16,7 +16,7 @@ return {
       resize_to_content = true,
     },
     attach_mode = "global",
-    close_automatic_events = { "switch_biffer" },
+    close_automatic_events = { "switch_buffer" },
     highlight_on_jump = 300,
     -- attach_mode = "window",
     keymaps = {
@@ -31,6 +31,12 @@ return {
     post_jump_cmd = "normal! zz",
     open_automatic = false,
     show_guides = true,
+    guides = {
+      mid_item = "├── ",
+      last_item = "└── ",
+      nested_top = "│   ",
+      whitespace = "    ",
+    },
     show_numbers = true,
     filter_kind = {
       "Class",
