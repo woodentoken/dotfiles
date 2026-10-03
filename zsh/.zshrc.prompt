@@ -198,5 +198,5 @@ my_ip() {
 # -----------------------------------------------------------------------------
 # PS1
 # -----------------------------------------------------------------------------
-PREAMBLE="%n@%F{6}%m%f"   # prompt escapes: no whoami/hostname forks
+PREAMBLE="%n@%B%F{2}%m%f%b"   # prompt escapes: no whoami/hostname forks
 export PS1='[$PREAMBLE]$VENV_NAME%f[$_prompt_pwd]$_prompt_git $ '
