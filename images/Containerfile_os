@@ -32,6 +32,8 @@ RUN mkdir -p /usr/lib/bootc/kargs.d && \
 # --- 2. CLI tools (edited occasionally) ---
 RUN --mount=type=cache,target=/var/cache/libdnf5 \
     dnf install -y \
+      procps cabextract xdg-mime \
+      fuse fuse-devel fuse-libs \
       bat fastfetch fd-find gcc git-lfs neovim net-tools ripgrep \
       stow tealdeer tmux tree unzip wl-clipboard xclip zip zsh && \
     rm -rf /var/lib/dnf /var/log/dnf5.log /var/cache/ldconfig/aux-cache /tmp/*
