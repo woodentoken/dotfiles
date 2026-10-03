@@ -138,13 +138,14 @@ depth_pwd() {
     return
   fi
 
-  # color each part, with the last one different
+  # color each part, with the last one different. Labels count levels up from
+  # the current dir (parent = 1), so the current dir itself gets no label.
   for (( i = 1; i <= n; i++ )); do
     name=${parts[i]//\%/%%}
     if (( i == n )); then
-      colored+=("%B%F{8}${i}%f%F{12}${name}%f/%b")
+      colored+=("%B%F{12}${name}%f/%b")
     else
-      colored+=("%F{8}${i}%f%F{12}${name}%f/")
+      colored+=("%F{8}$(( n - i ))%f%F{12}${name}%f/")
     fi
   done
 
@@ -153,15 +154,16 @@ depth_pwd() {
 add-zsh-hook chpwd depth_pwd
 depth_pwd
 
-# jump to the directory labeled N in depth_pwd: `3` -> /parts[1]/parts[2]/parts[3]
+# jump to the directory labeled N in depth_pwd, i.e. N levels up: `1` -> ..
+# N equal to the current depth goes to /.
 _depth_cd() {
   local -a parts
   parts=(${(s:/:)PWD})
   if (( $1 > ${#parts} )); then
-    print -u2 "depth $1 doesn't exist (current depth: ${#parts})"
+    print -u2 "can't go up $1 (current depth: ${#parts})"
     return 1
   fi
-  cd "/${(j:/:)parts[1,$1]}"
+  cd "/${(j:/:)parts[1,${#parts}-$1]}"
 }
 for _i in {1..32}; do alias $_i="_depth_cd $_i"; done
 unset _i
