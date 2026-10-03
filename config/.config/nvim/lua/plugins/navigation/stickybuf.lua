@@ -1,5 +1,6 @@
 return {
   "stevearc/stickybuf.nvim",
+  event = "VeryLazy",
   opts = {
     get_auto_pin = function(bufnr)
       -- You can return "bufnr", "buftype", "filetype", or a custom function to set how the window will be pinned.

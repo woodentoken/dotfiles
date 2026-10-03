@@ -1,5 +1,6 @@
 return {
   "sahilsehwag/macrobank.nvim",
+  event = "VeryLazy",
   config = function()
     require("macrobank").setup({
       -- Use larger editor window
