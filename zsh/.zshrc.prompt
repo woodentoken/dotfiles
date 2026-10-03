@@ -12,6 +12,37 @@
 # Prompt: PS1 definition, git status display, venv auto-activation, color helpers.
 source ~/.zsh/zsh-git-prompt/zshrc.sh
 export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+# git_super_status already refreshes on every prompt render, so the plugin's
+# precmd/chpwd hooks only made it run twice.
+add-zsh-hook -d precmd precmd_update_git_vars
+add-zsh-hook -d chpwd chpwd_update_git_vars
+
+# Native replacement for the plugin's gitstatus.py (~60ms of python + 6 git
+# calls) using a single `git status`. Same field order:
+# branch ahead behind staged conflicts changed untracked.
+update_current_git_vars() {
+  unset __CURRENT_GIT_STATUS
+  local line oid head
+  local -i ahead=0 behind=0 staged=0 conflicts=0 changed=0 untracked=0
+  local -a lines
+  lines=(${(f)"$(git status --porcelain=v2 --branch 2>/dev/null)"}) || return
+  (( $#lines )) || return
+  for line in $lines; do
+    case $line in
+      '# branch.oid '*)  oid=${line#\# branch.oid } ;;
+      '# branch.head '*) head=${line#\# branch.head } ;;
+      '# branch.ab '*)   line=${line#\# branch.ab +}; ahead=${line%% *}; behind=${line##* -} ;;
+      [12]' '*)          [[ ${line[3]} != . ]] && (( staged++ )); [[ ${line[4]} != . ]] && (( changed++ )) ;;
+      'u '*)             (( conflicts++ )) ;;
+      '? '*)             (( untracked++ )) ;;
+    esac
+  done
+  [[ $head == '(detached)' ]] && head=":${oid[1,7]}"
+  __CURRENT_GIT_STATUS=($head $ahead $behind $staged $conflicts $changed $untracked)
+  GIT_BRANCH=$head GIT_AHEAD=$ahead GIT_BEHIND=$behind GIT_STAGED=$staged
+  GIT_CONFLICTS=$conflicts GIT_CHANGED=$changed GIT_UNTRACKED=$untracked
+}
 setopt PROMPT_SUBST
 
 # -----------------------------------------------------------------------------
@@ -77,7 +108,7 @@ ZSH_THEME_GIT_PROMPT_CHANGED="%F{11}%{%G~%}"
 ZSH_THEME_GIT_PROMPT_BEHIND="%F{1}%{↓%G%}"
 ZSH_THEME_GIT_PROMPT_AHEAD="%F{2}%{↑%G%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%F{13}%{%G?%}"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{%F{15}%{_%G%}"
+ZSH_THEME_GIT_PROMPT_CLEAN="%F{15}%{_%G%}"
 
 # -----------------------------------------------------------------------------
 # HELPER FUNCTIONS

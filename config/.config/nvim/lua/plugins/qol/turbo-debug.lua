@@ -22,6 +22,40 @@ return {
         return pack_add(specs, opts)
       end
     end
+
+    -- The stock R adapter shells out to Rscript at setup to check for the
+    -- vscDebugger package, blocking startup ~200ms. Register it unconditionally
+    -- and run that check when an R session actually launches instead.
+    package.preload["turbo-debug.adapters.r"] = function()
+      local loader = require("turbo-debug.adapters.init")
+      return {
+        register = function(dap)
+          local R = loader.find_executable({ "R" })
+          if not R then return end
+          loader.register(dap, "r", function(callback)
+            vim.system(
+              { "Rscript", "-e", "if (!requireNamespace('vscDebugger', quietly=TRUE)) quit(status=1)" },
+              {},
+              vim.schedule_wrap(function(res)
+                if res.code ~= 0 then
+                  vim.notify("R debugging needs the vscDebugger package", vim.log.levels.ERROR)
+                  return
+                end
+                callback({ type = "executable", command = R, args = { "-e", "vscDebugger::.vsc.listenForDAP()" } })
+              end)
+            )
+          end, {
+            {
+              type = "r",
+              request = "launch",
+              name = "Launch R file",
+              program = "${file}",
+              cwd = "${workspaceFolder}",
+            },
+          }, { "r", "rmd" })
+        end,
+      }
+    end
   end,
 
   config = function()

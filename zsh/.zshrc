@@ -13,6 +13,19 @@
 # Entry point. Initializes interactive tools, sources modules in dependency
 # order, and handles session startup. Plain exports and PATH live in .zshenv.
 
+# -----------------------------------------------------------------------------
+# SESSION MANAGEMENT
+# -----------------------------------------------------------------------------
+# Auto-attach or create a zellij session. Runs first so the outer terminal shell
+# doesn't load the full config only to host zellij (each pane loads its own).
+# Once zellij exits or detaches, this shell carries on loading below.
+# Skipped over SSH and in VS Code's integrated terminal.
+if [[ -z "$ZELLIJ" && -z "$SSH_TTY" && "$TERM_PROGRAM" != "vscode" ]] && (( $+commands[zellij] )); then
+  zellij attach -c
+  # restart the startup timer so the report covers only the rest of the load
+  _zsh_startup_t0=$EPOCHREALTIME
+fi
+
 source $HOME/.profile        # POSIX aliases and system-level config
 
 # link ghostty correctly when inside a toolbox
@@ -66,16 +79,29 @@ else
   done
 fi
 
-if [[ -n $__conda_root ]]; then
-  __conda_setup="$("$__conda_root/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
+# `conda shell.zsh hook` costs ~300ms, so it is lazy loaded like NVM: the stub
+# below runs the real hook on first use. Shells that inherit an active env
+# (CONDA_SHLVL > 0) load it eagerly so `conda deactivate` etc. keep working.
+lazy_conda() {
+  unset -f conda lazy_conda
+  local setup
+  setup="$("$_CONDA_ROOT/bin/conda" 'shell.zsh' 'hook' 2> /dev/null)"
   if [[ $? -eq 0 ]]; then
-    eval "$__conda_setup"
-  elif [[ -f $__conda_root/etc/profile.d/conda.sh ]]; then
-    . "$__conda_root/etc/profile.d/conda.sh"
+    eval "$setup"
+  elif [[ -f $_CONDA_ROOT/etc/profile.d/conda.sh ]]; then
+    . "$_CONDA_ROOT/etc/profile.d/conda.sh"
   else
-    export PATH="$__conda_root/bin:$PATH"
+    export PATH="$_CONDA_ROOT/bin:$PATH"
   fi
-  unset __conda_setup
+}
+
+if [[ -n $__conda_root ]]; then
+  typeset -g _CONDA_ROOT=$__conda_root
+  if (( ${CONDA_SHLVL:-0} > 0 )); then
+    lazy_conda
+  else
+    conda() { lazy_conda; conda "$@"; }
+  fi
 fi
 unset __conda_root
 
@@ -93,18 +119,6 @@ source ~/.zshrc.basics       # setopts, history, keybindings
 source ~/.zshrc.fzf          # setopts, history, keybindings
 source ~/.zshrc.prompt       # PS1, git prompt, venv auto-activation
 
-# -----------------------------------------------------------------------------
-# SESSION MANAGEMENT
-# -----------------------------------------------------------------------------
-# Auto-attach or create a zellij session; exit this shell when zellij exits.
-# Runs after module sources so panes and the outer shell see the full config.
-# Skipped over SSH and in VS Code's integrated terminal.
-if [[ -z "$SSH_TTY" && "$TERM_PROGRAM" != "vscode" ]] && command -v zellij >/dev/null; then
-    export ZELLIJ_AUTO_ATTACH=true
-    export ZELLIJ_AUTO_EXIT=false
-    eval "$(zellij setup --generate-auto-start zsh)"
-fi
-
 # Auto-attach or create a tmux session named "main"
 # if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
 #   tmux new-session -A -s main
@@ -114,11 +128,8 @@ fi
 
 # GREETING
 # -----------------------------------------------------------------------------
-# Only run neofetch if this is the only terminal open
-LIVE_COUNTER=$(ps a | awk '{print $2}' | grep -vi "tty*" | uniq | wc -l);
-if [ $LIVE_COUNTER -eq 1 ]; then
-     fastfetch
-fi
+# Only run fastfetch if this is the only terminal open (one pty in use)
+() { (( $# == 1 )) && fastfetch } /dev/pts/<->(N)
 
 {
   for f in ~/.zshrc ~/.zshenv; do
@@ -126,3 +137,19 @@ fi
   done
 } &!
 
+# -----------------------------------------------------------------------------
+# STARTUP TIME
+# -----------------------------------------------------------------------------
+# Report time from .zshenv to the first drawn prompt (includes precmd hooks and
+# PS1 expansion). zle-line-init fires once the prompt is up; the hook removes
+# itself after the first run. Set ZSH_STARTUP_REPORT=0 to silence.
+if [[ -n $_zsh_startup_t0 && $ZSH_STARTUP_REPORT != 0 ]]; then
+  _zsh_startup_report() {
+    add-zle-hook-widget -d line-init _zsh_startup_report
+    local ms=$(( (EPOCHREALTIME - _zsh_startup_t0) * 1000 ))
+    unset _zsh_startup_t0
+    zle -M "zsh ready in ${ms%.*}ms"
+  }
+  autoload -Uz add-zle-hook-widget
+  add-zle-hook-widget line-init _zsh_startup_report
+fi
