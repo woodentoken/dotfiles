@@ -44,9 +44,11 @@ start_agent() {
 if [ -f "${SSH_ENV}" ]; then
   # echo "SSH_AGENT_PID: ${SSH_AGENT_PID} found - reusing existing agent."
   . "${SSH_ENV}" >/dev/null
-  ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ >/dev/null || {
-    start_agent
-  }
+  # agent still alive? (/proc read via builtin: no ps/grep subprocesses)
+  agent_comm=
+  [ -n "$SSH_AGENT_PID" ] && { read -r agent_comm < "/proc/$SSH_AGENT_PID/comm"; } 2>/dev/null
+  [ "$agent_comm" = ssh-agent ] || start_agent
+  unset agent_comm
 else
   echo "No SSH_AGENT_PID found - starting new agent."
   start_agent

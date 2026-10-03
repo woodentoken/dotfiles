@@ -4,4 +4,5 @@ return {
   { "m4xshen/hardtime.nvim",               enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
   { "nvim-mini/mini.pairs",                enabled = false }, -- no auto-closing quotes/brackets
+  { "folke/trouble.nvim",                  enabled = false }, -- unused
 }

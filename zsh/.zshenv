@@ -11,6 +11,12 @@
      # |__|/         \__\/         \__\/         \__\/         \__\/           ~~~~
 skip_global_compinit=1
 
+# Startup timer start; reported once the first prompt is ready (see .zshrc).
+if [[ -o interactive ]]; then
+  zmodload zsh/datetime
+  typeset -g _zsh_startup_t0=$EPOCHREALTIME
+fi
+
 # Sourced by every zsh (scripts included): keep to cheap exports, no output or tool init.
 
 # -----------------------------------------------------------------------------
