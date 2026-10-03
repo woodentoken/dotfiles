@@ -9,7 +9,7 @@ return {
     animation = false,
     icons = {
       buffer_index = true,
-      buffer_number = true
+      buffer_number = false
     }
     -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
     -- animation = true,
