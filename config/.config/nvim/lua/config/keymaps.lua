@@ -198,7 +198,7 @@ map('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
 map('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
 
 -- Pin/unpin buffer
-map('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
+map('n', '<A-i>', '<Cmd>BufferPin<CR>', opts)
 
 -- Goto pinned/unpinned buffer
 --                 :BufferGotoPinned
@@ -208,8 +208,8 @@ map('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
 map('n', '<A-q>', '<Cmd>BufferClose<CR>', opts)
 
 -- Magic buffer-picking mode
-map('n', '<leader>bb', '<Cmd>BufferPick<CR>', opts)
-map('n', '<leader>bd', '<Cmd>BufferPickDelete<CR>', opts)
+map('n', 'bb', '<Cmd>BufferPick<CR>', opts)
+map('n', 'bd', '<Cmd>BufferPickDelete<CR>', opts)
 
 -- Sort automatically by...
 map('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', opts)
