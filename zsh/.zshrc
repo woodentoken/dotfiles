@@ -134,6 +134,10 @@ lazy_conda() {
 
 if [[ -n $__conda_root ]]; then
   typeset -g _CONDA_ROOT=$__conda_root
+  # condabin holds only the `conda` entry point; exporting it keeps conda
+  # reachable from child processes (direnv's bash, scripts) that can't see the
+  # zsh stub function, without paying for the hook
+  [[ -d $_CONDA_ROOT/condabin ]] && path=("$_CONDA_ROOT/condabin" $path)
   if (( ${CONDA_SHLVL:-0} > 0 )); then
     lazy_conda
   else
