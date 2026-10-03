@@ -32,7 +32,8 @@ fi
 # Same as /etc/zshrc minus scripts that fork for something set natively here:
 # which2.sh (zsh's builtin `which` is better anyway), gnupg2.sh ($(tty)),
 # color*grep.sh (grep aliases live in .profile.aliases), lang.sh (when LANG is
-# already inherited).
+# already inherited), toolbox.sh (two subshells to set a PS1 that .zshrc.prompt
+# overwrites; its one-time welcome banners have already been shown).
 if (( ${+_zsh_replay_etc_zshrc} )); then
   unset _zsh_replay_etc_zshrc
   bindkey ' ' magic-space
@@ -42,7 +43,7 @@ if (( ${+_zsh_replay_etc_zshrc} )); then
     local f
     for f in /etc/profile.d/*.sh; do
       case ${f##*/} in
-        which2.sh|gnupg2.sh|color*grep.sh) ;;
+        which2.sh|gnupg2.sh|color*grep.sh|toolbox.sh) ;;
         lang.sh) [[ -n $LANG ]] || . $f ;;
         *) [[ -r $f ]] && . $f ;;
       esac
@@ -80,8 +81,7 @@ export COLORTERM=truecolor
 # -----------------------------------------------------------------------------
 # NVM (Lazy Loaded)
 # -----------------------------------------------------------------------------
-export NVM_DIR="$HOME/.nvm"
-
+# NVM_DIR is exported in .zshenv
 # This function intercepts the call, loads the real NVM, and deletes itself
 lazy_nvm() {
   unset -f nvm node npm npx
@@ -146,6 +146,22 @@ unset __conda_root
 # DIRENV
 # -----------------------------------------------------------------------------
 _cached_source direnv-hook direnv hook zsh
+
+# The hook forks `direnv export zsh` on every prompt and cd (~5ms here). It can
+# only do anything when an env is loaded (to unload/reload it) or an .envrc/.env
+# exists in this directory or a parent, so check for that natively first.
+_direnv_hook_maybe() {
+  if [[ -z $DIRENV_DIR ]]; then
+    local d=$PWD
+    while [[ ! -e $d/.envrc && ! -e $d/.env ]]; do
+      [[ $d == / ]] && return
+      d=${d:h}
+    done
+  fi
+  _direnv_hook
+}
+precmd_functions=(${precmd_functions/#%_direnv_hook/_direnv_hook_maybe})
+chpwd_functions=(${chpwd_functions/#%_direnv_hook/_direnv_hook_maybe})
 
 # -----------------------------------------------------------------------------
 # MODULE SOURCES

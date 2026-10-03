@@ -18,6 +18,16 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 add-zsh-hook -d precmd precmd_update_git_vars
 add-zsh-hook -d chpwd chpwd_update_git_vars
 
+# Render the git segment once per prompt into _prompt_git. Calling it from PS1
+# as $(git_super_status) forked a subshell every prompt. git_super_status
+# assigns STATUS without `local`, so the local here captures it.
+_prompt_git_update() {
+  local STATUS=
+  git_super_status >/dev/null
+  _prompt_git=$STATUS
+}
+add-zsh-hook precmd _prompt_git_update
+
 # Native replacement for the plugin's gitstatus.py (~60ms of python + 6 git
 # calls) using a single `git status`. Same field order:
 # branch ahead behind staged conflicts changed untracked.
@@ -113,31 +123,35 @@ ZSH_THEME_GIT_PROMPT_CLEAN="%F{15}%{_%G%}"
 # -----------------------------------------------------------------------------
 # HELPER FUNCTIONS
 # # -----------------------------------------------------------------------------
+# Sets _prompt_pwd (no output, so the prompt needn't fork a $(...) subshell);
+# runs on chpwd and once at startup.
 depth_pwd() {
   local -a parts colored
-  local i n c name
+  local i n name
 
   parts=(${(s:/:)PWD})   # split on "/" only; empty leading element is dropped
   n=${#parts}
 
   # base folder (/)
   if (( n == 0 )); then
-    print -rn -- '%B%F{10}/%f%b'
+    _prompt_pwd='%B%F{10}/%f%b'
     return
   fi
 
   # color each part, with the last one different
   for (( i = 1; i <= n; i++ )); do
-  name=${parts[i]//\%/%%}
-  if (( i == n )); then
-    colored+=("%B%F{8}${i}%f%F{12}${name}%f/%b")
-  else
-    colored+=("%F{8}${i}%f%F{12}${name}%f/")
-  fi
+    name=${parts[i]//\%/%%}
+    if (( i == n )); then
+      colored+=("%B%F{8}${i}%f%F{12}${name}%f/%b")
+    else
+      colored+=("%F{8}${i}%f%F{12}${name}%f/")
+    fi
   done
 
-  print -rn -- ${(j::)colored}       # join with no separator
+  _prompt_pwd=${(j::)colored}       # join with no separator
 }
+add-zsh-hook chpwd depth_pwd
+depth_pwd
 
 # jump to the directory labeled N in depth_pwd: `3` -> /parts[1]/parts[2]/parts[3]
 _depth_cd() {
@@ -183,4 +197,4 @@ my_ip() {
 # PS1
 # -----------------------------------------------------------------------------
 PREAMBLE="%n@%F{6}%m%f"   # prompt escapes: no whoami/hostname forks
-export PS1='[$PREAMBLE]$VENV_NAME%f[$(depth_pwd)]$(git_super_status) $ '
+export PS1='[$PREAMBLE]$VENV_NAME%f[$_prompt_pwd]$_prompt_git $ '
