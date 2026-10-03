@@ -1,5 +1,6 @@
 return {
   "swaits/turbo-debug.nvim",
+  event = "VeryLazy", -- setup re-sweeps buffers for saved breakpoints
   dependencies = {
     "mfussenegger/nvim-dap",
     "rcarriga/nvim-dap-ui",

@@ -1,7 +1,7 @@
 return {
   {
     "smjonas/inc-rename.nvim",
-    lazy = false,
+    event = "VeryLazy",
     opts = {
       preview_empty_name = true,
       input_buffer_type = nil,
