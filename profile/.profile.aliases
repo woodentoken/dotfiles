@@ -108,8 +108,9 @@ alias dtz='cd ~/dotfiles/zsh && tr -a'
 alias asb='cd /home/${USER}/anaconda3/envs/Stab_base/lib/python3.8/site-packages/aerosandbox/geometry/airfoil/airfoil_database/'
 
 # PROJECT SPECIFIC ALIASES
-alias dc='cd ~/Documents'
-alias dl='cd ~/Downloads'
+alias dc='if [[ -d ~/documents ]]; then cd ~/documents; else cd ~/Documents; fi'
+alias dk='if [[ -d ~/desktop ]]; then cd ~/desktop; else cd ~/Desktop; fi'
+alias dl='if [[ -d ~/downloads ]]; then cd ~/downloads; else cd ~/Downloads; fi'
 alias pr='cd ~/projects && la'
 alias prl='cd ~/projects/learning && la'
 alias prp='cd ~/projects/personal && la'
