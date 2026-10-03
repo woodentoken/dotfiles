@@ -32,8 +32,8 @@ CommandTitlebarWheel=Previous/Next Desktop
 
 [NightColor]
 Active=true
-DayTemperature=5000
-NightTemperature=3000
+DayTemperature=4500
+NightTemperature=2700
 
 [Plugins]
 blurEnabled=true
