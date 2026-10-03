@@ -1,5 +1,14 @@
 if [ -x /usr/bin/dircolors ]; then
-  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  # cache dircolors' output (a fork + ~5ms per shell); regenerated when dircolors
+  # or ~/.dircolors is newer. Keyed by TERM, since dircolors only emits colors
+  # for terminals its database matches.
+  _dc_cache="${XDG_CACHE_HOME:-$HOME/.cache}/dircolors-${TERM:-dumb}.sh"
+  if [ ! -s "$_dc_cache" ] || [ /usr/bin/dircolors -nt "$_dc_cache" ] || [ ~/.dircolors -nt "$_dc_cache" ]; then
+    mkdir -p "${_dc_cache%/*}"
+    { test -r ~/.dircolors && dircolors -b ~/.dircolors || dircolors -b; } >| "$_dc_cache"
+  fi
+  . "$_dc_cache"
+  unset _dc_cache
   alias dir='dir --color=auto'
   alias vdir='vdir --color=auto'
   alias grep='rg'
