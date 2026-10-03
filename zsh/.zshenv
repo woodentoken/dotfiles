@@ -31,7 +31,16 @@ path=(
   /opt/nvim-linux-x86_64/bin
   $HOME/.cargo/bin
   $HOME/.fly/bin
+  $HOME/.fzf/bin
 )
+
+# Fedora's /etc/zshrc sources every /etc/profile.d/*.sh for non-login shells
+# (~25ms, mostly forks just to set an alias or variable). Skip it here and let
+# .zshrc replay it without the slow scripts. $(<file) reads without forking.
+if [[ -o interactive && ! -o login && -r /etc/zshrc && $(</etc/zshrc) == *_src_etc_profile_d* ]]; then
+  unsetopt GLOBAL_RCS
+  typeset -g _zsh_replay_etc_zshrc=1
+fi
 
 # -----------------------------------------------------------------------------
 # TOOL CONFIG
@@ -40,3 +49,7 @@ export NNN_OPENER="$HOME/.config/nnn/open.sh"
 export PYTHONBREAKPOINT="ipdb.set_trace"
 export PYTHONSTARTUP="$HOME/.config/python/.pythonrc.py"
 export NVM_DIR="$HOME/.nvm"
+# Stop nvim blocking startup on an OSC 11 query (up to 100ms when the terminal or
+# multiplexer doesn't answer) just to guess light/dark 'background'. The colorscheme
+# is dark (the default), and truecolor comes from COLORTERM. See :h 'ttyfast'.
+export NVIM_NOTTYFAST=1

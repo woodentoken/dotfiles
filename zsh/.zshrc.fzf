@@ -1,6 +1,6 @@
 
 # fzf
-source <(fzf --zsh)
+_cached_source fzf fzf --zsh
 
 # Bind both normal (^[[X) and application (^[OX) arrow sequences
 bindkey -M emacs '^[[A' fzf-history-widget  '^[OA' fzf-history-widget
