@@ -20,6 +20,10 @@
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8,underline'
 ZSH_AUTOSUGGEST_STRATEGY=(completion)
 ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(forward-char)
+# Bind widgets once (first prompt) instead of re-wrapping all ~430 on every
+# prompt (~17ms each). Run `_zsh_autosuggest_bind_widgets` after creating widgets
+# that need suggestion handling.
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 
 # -----------------------------------------------------------------------------
@@ -37,8 +41,3 @@ source ~/.zsh/zsh-colored-man-pages/colored-man-pages.plugin.zsh
 # -----------------------------------------------------------------------------
 source ~/.zsh/alias-tips/alias-tips.plugin.zsh
 export ZSH_PLUGINS_ALIAS_TIPS_TEXT="alias  "
-
-# -----------------------------------------------------------------------------
-# FZF shell integration
-# -----------------------------------------------------------------------------
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

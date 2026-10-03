@@ -182,5 +182,5 @@ my_ip() {
 # -----------------------------------------------------------------------------
 # PS1
 # -----------------------------------------------------------------------------
-PREAMBLE="$(whoami)@%F{6}$(hostname)%f"
+PREAMBLE="%n@%F{6}%m%f"   # prompt escapes: no whoami/hostname forks
 export PS1='[$PREAMBLE]$VENV_NAME%f[$(depth_pwd)]$(git_super_status) $ '

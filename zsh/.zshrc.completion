@@ -31,13 +31,18 @@ fpath=($DOTFILES/zsh/plugins/zsh-completions/src $fpath)
 
 # compdef vman="man"
 
-# Faster compinit caching
+# Always load from the cached dump (-C skips the ~340ms scan of $fpath). Once
+# the dump is a day old, rebuild it in a background subshell so new completions
+# show up in the next shell; .zshrc zcompiles it afterwards.
 autoload -Uz compinit
-if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.m-1) ]]; then
-  compinit -C
-else
-  compinit
-fi
+() {
+  setopt local_options extended_glob
+  local dump=${ZDOTDIR:-$HOME}/.zcompdump
+  compinit -C -d $dump
+  if [[ ! -s $dump || -z $dump(#qN.mh-24) ]]; then
+    ( compinit -i -d $dump.$$ && mv -f $dump.$$ $dump ) &!
+  fi
+}
 
 # Prevent compinit from checking for updates on every execution
 autoload -Uz bashcompinit && bashcompinit
@@ -58,7 +63,7 @@ zstyle ':completion:*' completer _extensions _complete _approximate
 
 # Cache
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompcache"
 zstyle ':completion:*' complete true
 
 # Display
