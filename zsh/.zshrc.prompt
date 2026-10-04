@@ -36,7 +36,7 @@ update_current_git_vars() {
   local line oid head
   local -i ahead=0 behind=0 staged=0 conflicts=0 changed=0 untracked=0
   local -a lines
-  lines=(${(f)"$(git status --porcelain=v2 --branch 2>/dev/null)"}) || return
+  lines=(${(f)"$(git status --porcelain=v2 --branch --ignore-submodules=dirty 2>/dev/null)"}) || return
   (( $#lines )) || return
   for line in $lines; do
     case $line in

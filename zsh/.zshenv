@@ -34,6 +34,11 @@ path=(
   $HOME/.fzf/bin
 )
 
+# WSL appends the Windows PATH (~45 /mnt/c dirs). Every rebuild of the command
+# hash reads them all over 9p (~250ms), on startup and on any later PATH change
+# (venv/conda activation). Drop them; explorer.exe is aliased in .zshrc.
+path=(${path:#/mnt/[a-z]/*})
+
 # Fedora's /etc/zshrc sources every /etc/profile.d/*.sh for non-login shells
 # (~25ms, mostly forks just to set an alias or variable). Skip it here and let
 # .zshrc replay it without the slow scripts. $(<file) reads without forking.
