@@ -40,11 +40,11 @@ Cycle Overview=none,none,Cycle through Overview and Grid View
 Cycle Overview Opposite=none,none,Cycle through Grid View and Overview
 Decrease Opacity=none,none,Decrease Opacity of Active Window by 5%
 Edit Tiles=none,Meta+T,Toggle Tiles Editor
-Expose=Ctrl+F9\tMeta+F9,Ctrl+F9\tMeta+F9,Toggle Present Windows (Current desktop)
-ExposeAll=Launch (C)\tCtrl+F10\tMeta+F10,Launch (C)\tCtrl+F10\tMeta+F10,Toggle Present Windows (All desktops)
-ExposeClass=Ctrl+F7\tMeta+F7,Ctrl+F7\tMeta+F7,Toggle Present Windows (Window class)
-ExposeClassCurrentDesktop=none,none,Toggle Present Windows (Window class on current desktop)
-Grid View=Meta+G,Meta+G,Toggle Grid View
+Expose=Meta+W,Ctrl+F9\tMeta+F9,Toggle Present Windows (Current desktop)
+ExposeAll=Meta+A\tMeta+Control,Launch (C)\tCtrl+F10\tMeta+F10,Toggle Present Windows (All desktops)
+ExposeClass=Meta+Alt+Shift,Ctrl+F7\tMeta+F7,Toggle Present Windows (Window class)
+ExposeClassCurrentDesktop=Meta+Alt,none,Toggle Present Windows (Window class on current desktop)
+Grid View=Launch (A)\tMeta+Shift,Meta+G,Toggle Grid View
 Increase Opacity=none,none,Increase Opacity of Active Window by 5%
 Kill Window=Meta+Ctrl+Esc,Meta+Ctrl+Esc,Kill Window
 Move Tablet to Next LogicalOutput=none,none,Move the tablet to the next output
@@ -54,7 +54,7 @@ MoveZoomDown=none,none,Move Zoomed Area Downwards
 MoveZoomLeft=none,none,Move Zoomed Area to Left
 MoveZoomRight=none,none,Move Zoomed Area to Right
 MoveZoomUp=none,none,Move Zoomed Area Upwards
-Overview=Meta+W,Meta+W,Toggle Overview
+Overview=Meta\tLaunch (B),Meta+W,Toggle Overview
 Setup Window Shortcut=none,none,Setup Window Shortcut
 Show Desktop=Meta+D,Meta+D,Peek at Desktop
 Switch One Desktop Down=Meta+Ctrl+Down,Meta+Ctrl+Down,Switch One Desktop Down
@@ -108,15 +108,15 @@ Switch to Screen to the Left=none,none,Switch to Screen to the Left
 Switch to Screen to the Right=none,none,Switch to Screen to the Right
 Toggle Night Color=none,none,Suspend/Resume Night Light
 Toggle Window Raise/Lower=none,none,Toggle Window Raise/Lower
-ToggleCurrentThumbnail=Meta+/,Meta+Ctrl+T,Toggle Thumbnail for Current Window
+ToggleCurrentThumbnail=none,Meta+Ctrl+T,Toggle Thumbnail for Current Window
 Walk Through Windows=\tAlt+Tab,Alt+Tab\tMeta+Tab,Walk Through Windows
 Walk Through Windows (Reverse)=\tAlt+Shift+Tab,Alt+Shift+Tab\tMeta+Shift+Tab,Walk Through Windows (Reverse)
 Walk Through Windows Alternative=\tMeta+Tab,none,Walk Through Windows Alternative
-Walk Through Windows Alternative (Reverse)=\tMeta+Shift+Tab,none,Walk Through Windows Alternative (Reverse)
-Walk Through Windows of Current Application=Alt+`\tMeta+`,Alt+`\tMeta+`,Walk Through Windows of Current Application
-Walk Through Windows of Current Application (Reverse)=Alt+~\tMeta+~,Alt+~\tMeta+~,Walk Through Windows of Current Application (Reverse)
-Walk Through Windows of Current Application Alternative=none,none,Walk Through Windows of Current Application Alternative
-Walk Through Windows of Current Application Alternative (Reverse)=none,none,Walk Through Windows of Current Application Alternative (Reverse)
+Walk Through Windows Alternative (Reverse)=Meta+Shift+Tab,none,Walk Through Windows Alternative (Reverse)
+Walk Through Windows of Current Application=none,Alt+`\tMeta+`,Walk Through Windows of Current Application
+Walk Through Windows of Current Application (Reverse)=none,Alt+~\tMeta+~,Walk Through Windows of Current Application (Reverse)
+Walk Through Windows of Current Application Alternative=Meta+.,none,Walk Through Windows of Current Application Alternative
+Walk Through Windows of Current Application Alternative (Reverse)=Meta+\\,,none,Walk Through Windows of Current Application Alternative (Reverse)
 Window Above Other Windows=none,none,Keep Window Above Others
 Window Below Other Windows=none,none,Keep Window Below Others
 Window Close=Alt+F4\tMeta+Shift+Q,Alt+F4,Close Window
@@ -239,7 +239,7 @@ powerProfile=Battery\tMeta+B,Battery\tMeta+B,Switch Power Profile
 [plasmashell]
 Slideshow Wallpaper Next Image=none,none,Next Wallpaper Image
 _k_friendly_name=plasmashell
-activate application launcher=Meta\tAlt+F1,Meta\tAlt+F1,Activate Application Launcher
+activate application launcher=Meta+Space,Meta\tAlt+F1,Activate Application Launcher
 activate task manager entry 1=Meta+1,Meta+1,Activate Task Manager Entry 1
 activate task manager entry 10=none,none,Activate Task Manager Entry 10
 activate task manager entry 2=Meta+2,Meta+2,Activate Task Manager Entry 2
@@ -261,7 +261,7 @@ cycleNextAction=none,none,Next History Item
 cyclePrevAction=none,none,Previous History Item
 edit_clipboard=none,none,Edit Contents…
 manage activities=none,Meta+Q,Show Activity Switcher
-next activity=Meta+A,none,Walk through activities
+next activity=none,none,Walk through activities
 previous activity=Meta+Shift+A,none,Walk through activities (Reverse)
 repeat_action=none,none,Manually Invoke Action on Current Clipboard
 show dashboard=Ctrl+F12,Ctrl+F12,Show Desktop
@@ -279,6 +279,9 @@ _launch=Meta+Alt+T
 
 [services][org.kde.konsole.desktop]
 _launch=none
+
+[services][org.kde.plasma.emojier.desktop]
+_launch=Meta+Ctrl+Alt+Shift+Space
 
 [services][org.kde.spectacle.desktop]
 CurrentMonitorScreenShot=none
