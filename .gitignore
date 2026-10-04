@@ -32,3 +32,6 @@ config/.config/nvim/lazy-lock.json
 !config/.config/wezterm
 !config/.config/zellij
 !config/.config/python
+
+# compiled zsh files (zcompile)
+*.zwc

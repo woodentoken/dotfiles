@@ -73,6 +73,7 @@ So a new machine workflow is:
 - [sharkdp/bat](https://github.com/sharkdp/bat)
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 - [junegunn/fzf](https://github.com/junegunn/fzf)
+- [olivierverdier/zsh-git-prompt](https://github.com/olivierverdier/zsh-git-prompt)
 - [stow](https://www.gnu.org/software/stow/)
 - [zsh-users/zsh](https://github.com/zsh-users/zsh) (see below)
 
@@ -165,10 +166,10 @@ currently, I'm using zellij over tmux.
 
 running `resolve_zsh_plugins.sh` will update each of the plugins below.
 
-- [KulkarniKaustubh/fzf-dir-navigator](https://github.com/KulkarniKaustubh/fzf-dir-navigator)
 - [ael-code/zsh-colored-man-pages](https://github.com/ael-code/zsh-colored-man-pages)
+- [djui/alias-tips](https://github.com/djui/alias-tips)
 - [junegunn/fzf](https://github.com/junegunn/fzf) (set up for zsh)
-- [marlonrichert/zsh-autocomplete](https://github.com/marlonrichert/zsh-autocomplete)
+- [olivierverdier/zsh-git-prompt](https://github.com/olivierverdier/zsh-git-prompt)
 - [zdharma/fast-syntax-highlighting](https://github.com/zdharma/fast-syntax-highlighting)
 - [zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 

@@ -23,12 +23,6 @@ setopt MENU_COMPLETE
 # -----------------------------------------------------------------------------
 # INIT
 # -----------------------------------------------------------------------------
-# zmodload zsh/complist
-# autoload -U compinit; compinit
-# _comp_options+=(globdots)    # include hidden files
-
-# compdef vman="man"
-
 # Always load from the cached dump (-C skips the ~340ms scan of $fpath). Once
 # the dump is a day old, rebuild it in a background subshell so new completions
 # show up in the next shell; .zshrc zcompiles it afterwards.
@@ -42,12 +36,13 @@ autoload -Uz compinit
   fi
 }
 
-# Prevent compinit from checking for updates on every execution
+# Support bash-style `complete` definitions (e.g. `complete -C aws_completer aws`)
 autoload -Uz bashcompinit && bashcompinit
 
-
 # -----------------------------------------------------------------------------
-# KEYBINDINGS (menuselect)
+# KEYBINDINGS
+# -----------------------------------------------------------------------------
+# ^Xa expands the alias under the cursor
 zle -C alias-expension complete-word _generic
 bindkey '^Xa' alias-expension
 zstyle ':completion:alias-expension:*' completer _expand_alias
