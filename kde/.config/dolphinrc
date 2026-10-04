@@ -1,9 +1,11 @@
 MenuBar=Disabled
 
 [CompactMode]
+MaximumTextWidthIndex=1
 PreviewSize=22
 
 [ContextMenu]
+ShowOpenTerminal=false
 ShowViewMode=false
 
 [DetailsMode]
@@ -20,8 +22,8 @@ Version=202
 ViewPropsTimestamp=2026,9,22,0,32,59.603
 
 [IconsMode]
-IconSize=22
-PreviewSize=22
+MaximumTextLines=4
+PreviewSize=32
 TextWidthIndex=0
 
 [InformationPanel]
