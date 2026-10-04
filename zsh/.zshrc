@@ -178,23 +178,17 @@ chpwd_functions=(${chpwd_functions/#%_direnv_hook/_direnv_hook_maybe})
 source ~/.zshrc.plugins      # plugin sources
 source ~/.zshrc.completion   # compinit, zstyles, completion keybindings
 source ~/.zshrc.basics       # setopts, history, keybindings
-source ~/.zshrc.fzf          # setopts, history, keybindings
+source ~/.zshrc.fzf          # fzf widgets, keybindings, options
 source ~/.zshrc.prompt       # PS1, git prompt, venv auto-activation
 
-# Auto-attach or create a tmux session named "main"
-# if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-#   tmux new-session -A -s main
-# fi
-
 # -----------------------------------------------------------------------------
-
 # GREETING
 # -----------------------------------------------------------------------------
 # Only run fastfetch if this is the only terminal open (one pty in use)
-() { (( $# == 1 )) && fastfetch } /dev/pts/<->(N)
+(( $+commands[fastfetch] )) && () { (( $# == 1 )) && fastfetch } /dev/pts/<->(N)
 
-# Recompile changed startup files in the background; zsh loads foo.zwc in place
-# of foo whenever it is newer.
+# Recompile changed startup files and plugins in the background; zsh loads
+# foo.zwc in place of foo whenever it is newer.
 {
   for f in ~/.zshrc ~/.zshenv ~/.zshrc.{plugins,completion,basics,fzf,prompt} \
            ${XDG_CACHE_HOME:-$HOME/.cache}/zsh/*.zsh(N) ${ZDOTDIR:-$HOME}/.zcompdump \

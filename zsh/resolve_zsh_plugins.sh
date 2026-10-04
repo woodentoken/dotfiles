@@ -22,9 +22,7 @@ function update_or_install {
 }
 
 update_or_install "ael-code/zsh-colored-man-pages"
-update_or_install "agkozak/zsh-z"
 update_or_install "djui/alias-tips"
-update_or_install "marlonrichert/zsh-autocomplete"
 update_or_install "olivierverdier/zsh-git-prompt"
 update_or_install "zdharma/fast-syntax-highlighting"
 update_or_install "zsh-users/zsh-autosuggestions"

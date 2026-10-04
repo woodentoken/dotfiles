@@ -38,6 +38,7 @@ bindkey -e
 bindkey "^U" clear-screen
 bindkey "^L" kill-whole-line
 
+# Lone Esc does nothing (stops Esc+arrow turning into literal "OA")
 _noop() {}; zle -N _noop
 bindkey -M emacs '^[' _noop
 

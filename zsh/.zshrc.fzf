@@ -7,10 +7,6 @@ bindkey -M emacs '^[[A' fzf-history-widget  '^[OA' fzf-history-widget
 bindkey -M emacs '^[[B' fzf-cd-widget       '^[OB' fzf-cd-widget
 bindkey -M emacs '^F'   fzf-file-widget
 
-# Lone Esc does nothing (stops Esc+arrow turning into literal "OA")
-_noop() {}; zle -N _noop
-bindkey -M emacs '^[' _noop
-
 export FZF_COMPLETION_TRIGGER='~'
 
 export FZF_CTRL_R_OPTS="
