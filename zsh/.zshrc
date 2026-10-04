@@ -79,7 +79,7 @@ fi
 export COLORTERM=truecolor
 
 # Windows PATH is stripped in .zshenv; keep the one Windows tool that's used
-[[ -x /mnt/c/WINDOWS/explorer.exe ]] && alias explorer.exe=/mnt/c/WINDOWS/explorer.exe
+[[ -n $WSL_DISTRO_NAME ]] && alias explorer.exe=/mnt/c/WINDOWS/explorer.exe
 
 # -----------------------------------------------------------------------------
 # NVM (Lazy Loaded)
@@ -197,8 +197,10 @@ source ~/.zshrc.prompt       # PS1, git prompt, venv auto-activation
 # of foo whenever it is newer.
 {
   for f in ~/.zshrc ~/.zshenv ~/.zshrc.{plugins,completion,basics,fzf,prompt} \
-           ${XDG_CACHE_HOME:-$HOME/.cache}/zsh/*.zsh(N) ${ZDOTDIR:-$HOME}/.zcompdump; do
-    [[ -s $f && ( ! -s $f.zwc || $f -nt $f.zwc ) ]] && zcompile $f
+           ${XDG_CACHE_HOME:-$HOME/.cache}/zsh/*.zsh(N) ${ZDOTDIR:-$HOME}/.zcompdump \
+           ~/.zsh/{zsh-autosuggestions,fast-syntax-highlighting}/*.zsh(N) \
+           ~/.zsh/fast-syntax-highlighting/functions/*(.N); do
+    [[ $f != *.zwc && -s $f && ( ! -s $f.zwc || $f -nt $f.zwc ) ]] && zcompile $f
   done
 } &!
 
