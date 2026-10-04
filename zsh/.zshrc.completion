@@ -23,8 +23,6 @@ setopt MENU_COMPLETE
 # -----------------------------------------------------------------------------
 # INIT
 # -----------------------------------------------------------------------------
-fpath=($DOTFILES/zsh/plugins/zsh-completions/src $fpath)
-
 # zmodload zsh/complist
 # autoload -U compinit; compinit
 # _comp_options+=(globdots)    # include hidden files
