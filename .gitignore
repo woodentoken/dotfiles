@@ -19,6 +19,7 @@ config/.config/nvim/lazy-lock.json
 !config/.config/bspwm
 !config/.config/dunst
 !config/.config/ghostty
+!config/.config/kitty
 !config/.config/lazygit
 !config/.config/neofetch
 !config/.config/nnn
