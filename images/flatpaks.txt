@@ -4,6 +4,7 @@ com.valvesoftware.Steam
 net.waterfox.waterfox
 org.darktable.Darktable
 org.freedesktop.Platform.GL.nvidia-580-178-04
+org.gnome.BreakTimer
 org.kde.labplot
 org.libreoffice.LibreOffice
 org.videolan.VLC
