@@ -2,8 +2,12 @@
 NumLock=1
 
 [Libinput][1008][4938][PixArt HP USB Optical Mouse]
-PointerAcceleration=0.600
-ScrollFactor=0.75
+PointerAcceleration=0.400
+ScrollFactor=0.5
+
+[Libinput][1133][45108][Logitech MX Master 3S]
+PointerAcceleration=0.400
+ScrollFactor=0.5
 
 [Mouse]
 cursorTheme=Hackneyed-Dark
