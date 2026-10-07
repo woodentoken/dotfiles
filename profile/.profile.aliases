@@ -56,9 +56,9 @@ alias gym_dir='cd /home/${USER}/projects/OmniIsaacGymEnvs/omniisaacgymenvs'
 
 # BASE IMPROVEMENTS
 # Safer file operations
-alias mv='mv -i'
-alias cp='cp -i'
-alias ln='ln -i'
+# alias mv='mv -i'
+# alias cp='cp -i'
+# alias ln='ln -i'
 
 # Use bat for syntax highlighting if available
 if command -v batcat >/dev/null; then
