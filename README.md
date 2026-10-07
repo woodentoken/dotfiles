@@ -167,11 +167,10 @@ currently, I'm using zellij over tmux.
 running `resolve_zsh_plugins.sh` will update each of the plugins below.
 
 - [ael-code/zsh-colored-man-pages](https://github.com/ael-code/zsh-colored-man-pages)
-- [djui/alias-tips](https://github.com/djui/alias-tips)
 - [junegunn/fzf](https://github.com/junegunn/fzf) (set up for zsh)
 - [olivierverdier/zsh-git-prompt](https://github.com/olivierverdier/zsh-git-prompt)
-- [zdharma/fast-syntax-highlighting](https://github.com/zdharma/fast-syntax-highlighting)
-- [zsh-users/zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+- [michel-kraemer/zsh-patina](https://github.com/michel-kraemer/zsh-patina)
+- [Giammarco-Ferranti/deja](https://github.com/Giammarco-Ferranti/deja)
 
 ---
 

@@ -175,7 +175,6 @@ chpwd_functions=(${chpwd_functions/#%_direnv_hook/_direnv_hook_maybe})
 # -----------------------------------------------------------------------------
 # MODULE SOURCES
 # -----------------------------------------------------------------------------
-source ~/.zshrc.plugins      # plugin sources
 source ~/.zshrc.completion   # compinit, zstyles, completion keybindings
 source ~/.zshrc.basics       # setopts, history, keybindings
 source ~/.zshrc.fzf          # fzf widgets, keybindings, options
@@ -192,8 +191,7 @@ source ~/.zshrc.prompt       # PS1, git prompt, venv auto-activation
 {
   for f in ~/.zshrc ~/.zshenv ~/.zshrc.{plugins,completion,basics,fzf,prompt} \
            ${XDG_CACHE_HOME:-$HOME/.cache}/zsh/*.zsh(N) ${ZDOTDIR:-$HOME}/.zcompdump \
-           ~/.zsh/{zsh-autosuggestions,fast-syntax-highlighting}/*.zsh(N) \
-           ~/.zsh/fast-syntax-highlighting/functions/*(.N); do
+           ~/.zsh/zsh-colored-man-pages/*.zsh(N); do
     [[ $f != *.zwc && -s $f && ( ! -s $f.zwc || $f -nt $f.zwc ) ]] && zcompile $f
   done
 } &!
@@ -204,6 +202,11 @@ source ~/.zshrc.prompt       # PS1, git prompt, venv auto-activation
 # Report time from .zshenv to the first drawn prompt (includes precmd hooks and
 # PS1 expansion). zle-line-init fires once the prompt is up; the hook removes
 # itself after the first run. Set ZSH_STARTUP_REPORT=0 to silence.
+#
+# Registered before deja (.zshrc.plugins): add-zle-hook-widget takes over
+# zle-line-init, and if deja's widget ends up inside that chain, re-sourcing
+# ~/.zshrc makes deja chain the chain back to itself (infinite recursion: "job table full or recursion
+# limit exceeded" on every prompt).
 if [[ -n $_zsh_startup_t0 && $ZSH_STARTUP_REPORT != 0 ]]; then
   _zsh_startup_report() {
     add-zle-hook-widget -d line-init _zsh_startup_report
@@ -214,3 +217,10 @@ if [[ -n $_zsh_startup_t0 && $ZSH_STARTUP_REPORT != 0 ]]; then
   autoload -Uz add-zle-hook-widget
   add-zle-hook-widget line-init _zsh_startup_report
 fi
+
+# -----------------------------------------------------------------------------
+# PLUGINS
+# -----------------------------------------------------------------------------
+# Sourced last: deja wraps every ZLE widget and must load after anything that
+# defines one.
+source ~/.zshrc.plugins
