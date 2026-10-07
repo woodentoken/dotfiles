@@ -12,28 +12,9 @@
 # _____________________________________________________________________________________________
 #
 
-# Plugin sources only. Use ./resolve_zsh_plugins.sh to keep these up to date.
-
-# -----------------------------------------------------------------------------
-# ZSH AUTOSUGGEST (https://github.com/zsh-users/zsh-autosuggestions)
-# -----------------------------------------------------------------------------
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8,underline'
-# Completion takes 20-50ms (100-200ms for git) per keystroke, but async runs it
-# in a background process; the shell itself spends ~1ms, so typing never waits.
-# (The plugin enables async on zsh >= 5.0.8 anyway; set here to make it explicit.)
-ZSH_AUTOSUGGEST_STRATEGY=(completion)
-ZSH_AUTOSUGGEST_USE_ASYNC=1
-ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(forward-char)
-# Bind widgets once (first prompt) instead of re-wrapping all ~430 on every
-# prompt (~17ms each). Run `_zsh_autosuggest_bind_widgets` after creating widgets
-# that need suggestion handling.
-ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
-
-# -----------------------------------------------------------------------------
-# FAST SYNTAX HIGHLIGHTING (https://github.com/zdharma-continuum/fast-syntax-highlighting)
-# -----------------------------------------------------------------------------
-source ~/.zsh/fast-syntax-highlighting/F-Sy-H.plugin.zsh
+# Plugin config and sources, loaded last by .zshrc (which defines
+# _cached_source). Use ./resolve_zsh_plugins.sh to keep these up to date.
+# zsh-git-prompt is sourced by .zshrc.prompt, which builds PS1 on it.
 
 # -----------------------------------------------------------------------------
 # COLORED MAN PAGES (https://github.com/ael-code/zsh-colored-man-pages)
@@ -41,7 +22,37 @@ source ~/.zsh/fast-syntax-highlighting/F-Sy-H.plugin.zsh
 source ~/.zsh/zsh-colored-man-pages/colored-man-pages.plugin.zsh
 
 # -----------------------------------------------------------------------------
-# ALIAS TIPS (https://github.com/djui/alias-tips)
+# ZSH-PATINA (https://github.com/michel-kraemer/zsh-patina)
 # -----------------------------------------------------------------------------
-source ~/.zsh/alias-tips/alias-tips.plugin.zsh
-export ZSH_PLUGINS_ALIAS_TIPS_TEXT="alias  "
+# Syntax highlighting via a shared Rust daemon. Hooks zle-line-pre-redraw rather
+# than wrapping widgets, so it doesn't trigger deja's re-wrap below. Its output
+# embeds the binary path, so it's cached like the other init scripts.
+_cached_source zsh-patina zsh-patina activate &&
+  _cached_source zsh-patina-completion zsh-patina completion
+
+# -----------------------------------------------------------------------------
+# DEJA (https://github.com/Giammarco-Ferranti/deja)
+# -----------------------------------------------------------------------------
+# Replaces zsh-autosuggestions (deja stands down if both are loaded). Sourced
+# last: deja wraps every ZLE widget (~30ms) and redoes all of it on the next
+# prompt if anything defines a widget after it, so nothing may load below this.
+#
+# Most widgets have no key in the emacs keymap, so wrapping them is wasted work
+# (~11ms). deja's init script hardcodes DEJA_IGNORE_WIDGETS, so a cached copy
+# seeds that list from DEJA_IGNORE_WIDGETS_EXTRA (the unbound widgets); the copy
+# is redone whenever deja rewrites the original. Falls back to the plugin, which
+# bootstraps init.zsh on first run.
+_deja_prepare() {
+  local src=$HOME/.local/share/deja/init.zsh
+  typeset -g _deja_init=${XDG_CACHE_HOME:-$HOME/.cache}/zsh/deja.zsh
+  [[ -r $src ]] || return 1
+  if [[ ! -s $_deja_init || $src -nt $_deja_init ]]; then
+    sed 's/^DEJA_IGNORE_WIDGETS=($/DEJA_IGNORE_WIDGETS=($DEJA_IGNORE_WIDGETS_EXTRA/' $src >| $_deja_init || return 1
+  fi
+  zmodload -i zsh/zleparameter
+  local -a bound=(${${(f)"$(bindkey -M emacs)"}##* })
+  # deja already skips .* and _* widgets
+  typeset -ga DEJA_IGNORE_WIDGETS_EXTRA=(${(b)${${${(k)widgets}:#[._]*}:|bound}})
+}
+if _deja_prepare; then source $_deja_init; else source ~/.zsh/deja/deja.plugin.zsh; fi
+unset DEJA_IGNORE_WIDGETS_EXTRA _deja_init; unfunction _deja_prepare
