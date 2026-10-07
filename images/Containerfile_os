@@ -34,11 +34,13 @@ RUN --mount=type=cache,target=/var/cache/libdnf5 \
     dnf install -y \
       procps cabextract xdg-mime \
       fuse fuse-devel fuse-libs \
+      kitty \
       bat fastfetch fd-find gcc git-lfs neovim net-tools ripgrep \
       stow tealdeer tmux tree unzip wl-clipboard xclip zip zsh && \
     rm -rf /var/lib/dnf /var/log/dnf5.log /var/cache/ldconfig/aux-cache /tmp/*
 
 # --- 3. Extras from COPRs (most likely to change -> last) ---
+# ghostty terminal
 RUN --mount=type=cache,target=/var/cache/libdnf5 \
     curl -fsSL "https://copr.fedorainfracloud.org/coprs/scottames/ghostty/repo/fedora-$(rpm -E %fedora)/scottames-ghostty-fedora-$(rpm -E %fedora).repo" \
       -o "/etc/yum.repos.d/_copr:copr.fedorainfracloud.org:scottames:ghostty.repo" && \
