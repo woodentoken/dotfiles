@@ -15,7 +15,6 @@
 # -----------------------------------------------------------------------------
 # OPTIONS
 # -----------------------------------------------------------------------------
-# setopt LIST_ROWS_FIRST
 setopt AUTO_LIST
 setopt COMPLETE_IN_WORD
 
@@ -89,6 +88,14 @@ bindkey -M emacs ' ' _space-or-continue-menu
 bindkey -M menuselect '^M' .accept-line
 bindkey -M menuselect ' ' _space-or-continue-menu
 
+# In interactive mode complist makes Tab (any completion widget) only insert the
+# longest unambiguous prefix, so once that's in place Tab does nothing. A
+# movement key ends interactive mode, and from then on menu-complete cycles, so
+# Tab steps back one and forward two: one match forward, in list order, wrapping.
+bindkey -M menuselect '^X^N' menu-complete '^X^P' reverse-menu-complete
+bindkey -M menuselect -s '^I' '^X^P^X^N^X^N'
+bindkey -M menuselect '^[[Z' reverse-menu-complete   # Shift-Tab
+
 # -----------------------------------------------------------------------------
 # ZSTYLES
 # -----------------------------------------------------------------------------
@@ -102,9 +109,9 @@ zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompcac
 zstyle ':completion:*' complete true
 
 # Display
-# Tab opens the menu without inserting a match; typing filters it. Tab moves to
-# the next match and keeps filtering; any other movement key (arrows,
-# Shift-Tab) ends it, which is hardcoded in complist
+# Tab opens the menu without inserting a match; typing filters it. Tab or any
+# movement key (arrows, Shift-Tab) moves to a match and ends filtering, which
+# is hardcoded in complist
 zstyle ':completion:*' menu yes select interactive
 zstyle ':completion:*' complete-options true
 zstyle ':completion:*' file-sort modification
