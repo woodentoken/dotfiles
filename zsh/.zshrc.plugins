@@ -58,9 +58,29 @@ _deja_prepare() {
 # showing; moved to Shift+Down (next to its other Shift+arrow keys) to leave Tab
 # on completion (menu select, see .zshrc.completion). Without ghost text, or
 # away from the end of the line, the key falls back to expand-or-complete.
+# Shift+Up cycles back (below), so deja's default use of it, toggling empty-
+# prompt suggestions, is unbound; `deja empty toggle` still does that.
 DEJA_CYCLE_KEY='^[[1;2B'
+DEJA_TOGGLE_EMPTY_KEY=
 if _deja_prepare; then source $_deja_init; else source ~/.zsh/deja/deja.plugin.zsh; fi
 unset DEJA_IGNORE_WIDGETS_EXTRA _deja_init; unfunction _deja_prepare
+
+# deja has no reverse cycle, so this steps its alternatives the other way,
+# drawn the same way as _deja_widget_cycle. Only acts with ghost text showing at
+# the end of the line. The leading _ keeps deja from wrapping it.
+if (( $+functions[_deja_cycle] )); then
+  _deja-cycle-back() {
+    local -i n=${#_DEJA_ALTERNATIVES}
+    (( CURSOR == $#BUFFER && $#POSTDISPLAY && n > 1 )) || return 0
+    _deja_highlight_reset
+    _DEJA_ALT_INDEX=$(( (_DEJA_ALT_INDEX + n - 2) % n + 1 ))
+    _deja_render_suggestion "${_DEJA_ALTERNATIVES[$_DEJA_ALT_INDEX]}"
+    _deja_highlight_apply
+    zle -R
+  }
+  zle -N _deja-cycle-back
+  bindkey '^[[1;2A' _deja-cycle-back
+fi
 
 # deja only knows history, so a directory comes back the way it was last run,
 # often without its slash, and accepting it records that form again. Every
