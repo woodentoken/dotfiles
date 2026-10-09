@@ -1,0 +1,11 @@
+[General]
+count=1
+rules=a5113f73-5f30-4c59-b320-2161da2371e4
+
+[a5113f73-5f30-4c59-b320-2161da2371e4]
+Description=Application settings for waterfox
+desktopfile=net.waterfox.waterfox.desktop
+desktopfilerule=3
+wmclass=\swaterfox
+wmclasscomplete=true
+wmclassmatch=1
