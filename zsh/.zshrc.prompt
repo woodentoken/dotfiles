@@ -36,6 +36,15 @@ update_current_git_vars() {
   local line oid head
   local -i ahead=0 behind=0 staged=0 conflicts=0 changed=0 untracked=0
   local -a lines
+  # Outside a repo `git status` can only fail, so look for .git natively and
+  # skip the fork (~2ms per prompt). .git may be a file (worktrees, submodules).
+  if [[ -z $GIT_DIR ]]; then
+    local d=$PWD
+    while [[ ! -e $d/.git ]]; do
+      [[ $d == / ]] && return
+      d=${d:h}
+    done
+  fi
   lines=(${(f)"$(git status --porcelain=v2 --branch --ignore-submodules=dirty 2>/dev/null)"}) || return
   (( $#lines )) || return
   for line in $lines; do
