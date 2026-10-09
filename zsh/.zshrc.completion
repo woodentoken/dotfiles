@@ -15,10 +15,9 @@
 # -----------------------------------------------------------------------------
 # OPTIONS
 # -----------------------------------------------------------------------------
-setopt LIST_ROWS_FIRST
+# setopt LIST_ROWS_FIRST
 setopt AUTO_LIST
 setopt COMPLETE_IN_WORD
-setopt MENU_COMPLETE
 
 # -----------------------------------------------------------------------------
 # INIT
@@ -47,6 +46,49 @@ zle -C alias-expension complete-word _generic
 bindkey '^Xa' alias-expension
 zstyle ':completion:alias-expension:*' completer _expand_alias
 
+# Enter in the completion menu accepts the match and runs the line in one press;
+# Space accepts it and reopens the menu on the next word (or inside the
+# directory just picked), so a whole line can be built without leaving it.
+# The menu can't run user widgets: a key bound to one closes it and is replayed
+# in the main keymap, so Space is handled there, right after a completion that
+# showed a menu. Anywhere else it's a plain space.
+zmodload zsh/complist
+
+# Completion that never picks for you: a lone match is listed, not inserted
+_continue-menu() {
+  _main_complete
+  (( compstate[nmatches] == 1 )) && compstate[insert]= compstate[list]=list
+  typeset -g _continue_menu_insert=$compstate[insert]
+}
+zle -C _continue-menu complete-word _continue-menu
+
+_space-or-continue-menu() {
+  # how the last completion inserted: "menu..." if the menu was open, empty
+  # if _continue-menu only listed a lone match
+  local insert=-
+  case $LASTWIDGET in
+    _space-or-continue-menu) insert=$_continue_menu_insert ;;
+    fzf-completion|expand-or-complete|complete-word|menu-complete) insert=$_lastcomp[insert] ;;
+  esac
+  if [[ -z $insert ]]; then
+    zle complete-word   # Space on a listed lone match takes it
+  elif [[ $insert != menu* ]]; then
+    zle self-insert
+    return
+  fi
+  # zsh drops a directory's auto-added slash when Space is pressed; put it back
+  # so completion continues inside it instead of on the next word
+  if [[ $LBUFFER != *[/\ ] ]]; then
+    local word=${(Q)${(z)LBUFFER}[-1]}
+    [[ -d ${~word} ]] && LBUFFER+=/ || LBUFFER+=' '
+  fi
+  zle _continue-menu
+}
+zle -N _space-or-continue-menu
+bindkey -M emacs ' ' _space-or-continue-menu
+bindkey -M menuselect '^M' .accept-line
+bindkey -M menuselect ' ' _space-or-continue-menu
+
 # -----------------------------------------------------------------------------
 # ZSTYLES
 # -----------------------------------------------------------------------------
@@ -60,12 +102,14 @@ zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompcac
 zstyle ':completion:*' complete true
 
 # Display
-zstyle ':completion:*' menu select
+# Tab opens the menu without inserting a match; typing filters it. Tab moves to
+# the next match and keeps filtering; any other movement key (arrows,
+# Shift-Tab) ends it, which is hardcoded in complist
+zstyle ':completion:*' menu yes select interactive
 zstyle ':completion:*' complete-options true
 zstyle ':completion:*' file-sort modification
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' keep-prefix true
-zstyle ':completion:*' file-list all
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
 # Formatting

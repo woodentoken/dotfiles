@@ -54,5 +54,23 @@ _deja_prepare() {
   # deja already skips .* and _* widgets
   typeset -ga DEJA_IGNORE_WIDGETS_EXTRA=(${(b)${${${(k)widgets}:#[._]*}:|bound}})
 }
+# deja binds Tab to cycle its alternative suggestions whenever ghost text is
+# showing; moved to Shift+Down (next to its other Shift+arrow keys) to leave Tab
+# on completion (menu select, see .zshrc.completion). Without ghost text, or
+# away from the end of the line, the key falls back to expand-or-complete.
+DEJA_CYCLE_KEY='^[[1;2B'
 if _deja_prepare; then source $_deja_init; else source ~/.zsh/deja/deja.plugin.zsh; fi
 unset DEJA_IGNORE_WIDGETS_EXTRA _deja_init; unfunction _deja_prepare
+
+# deja only knows history, so a directory comes back the way it was last run,
+# often without its slash, and accepting it records that form again. Every
+# suggestion (and cycled alternative) is drawn by _deja_render_suggestion, so
+# a wrapper adds the slash when the last word is an existing directory.
+if (( $+functions[_deja_render_suggestion] )); then
+  functions[_deja_render_suggestion_orig]=$functions[_deja_render_suggestion]
+  _deja_render_suggestion() {
+    local s=$1 w=${1##* }
+    [[ $w == ?*[^/] && $w != .. && -d ${w/#\~/$HOME} ]] && s+=/
+    _deja_render_suggestion_orig $s
+  }
+fi

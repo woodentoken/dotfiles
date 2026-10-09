@@ -5,9 +5,30 @@ _cached_source fzf fzf --zsh
 # Bind both normal (^[[X) and application (^[OX) arrow sequences
 bindkey -M emacs '^[[A' fzf-history-widget  '^[OA' fzf-history-widget
 bindkey -M emacs '^[[B' fzf-cd-widget       '^[OB' fzf-cd-widget
-bindkey -M emacs '^F'   fzf-file-widget
+bindkey -M emacs '^F'   fzf-edit-or-file-widget
 
-export FZF_COMPLETION_TRIGGER='~'
+# ^F on an empty line opens the picked files in $EDITOR, the way fzf-cd-widget
+# runs cd: absolute paths, so the history entry works from any directory. With
+# text on the line it inserts the paths at the cursor like fzf-file-widget.
+fzf-edit-or-file-widget() {
+  if [[ -n $BUFFER ]]; then
+    zle fzf-file-widget
+    return
+  fi
+  local -a files=(${(Q)${(z)"$(__fzf_select)"}})
+  if (( ! $#files )); then
+    zle redisplay
+    return 0
+  fi
+  BUFFER="${EDITOR:-vi} -- ${(j: :)${(q)files[@]:a}}"
+  zle accept-line
+  local ret=$?
+  zle reset-prompt
+  return $ret
+}
+zle -N fzf-edit-or-file-widget
+
+export FZF_COMPLETION_TRIGGER='**'
 
 export FZF_CTRL_R_OPTS="
   --header 'HISTORY'
