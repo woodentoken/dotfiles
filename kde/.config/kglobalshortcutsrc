@@ -234,7 +234,7 @@ Sleep=Sleep,Sleep,Suspend
 Toggle Keyboard Backlight=Keyboard Light On/Off,Keyboard Light On/Off,Toggle Keyboard Backlight
 Turn Off Screen=none,none,Turn Off Screen
 _k_friendly_name=Power Management
-powerProfile=Battery\tMeta+B,Battery\tMeta+B,Switch Power Profile
+powerProfile=Battery,Battery\tMeta+B,Switch Power Profile
 
 [plasmashell]
 Slideshow Wallpaper Next Image=none,none,Next Wallpaper Image
@@ -276,6 +276,9 @@ _launch=Meta+T
 
 [services][net.local.ghostty.desktop]
 _launch=Meta+Alt+T
+
+[services][net.waterfox.waterfox.desktop]
+_launch=Meta+B
 
 [services][org.kde.konsole.desktop]
 _launch=none
