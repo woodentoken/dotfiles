@@ -42,6 +42,11 @@ bindkey "^L" kill-whole-line
 _noop() {}; zle -N _noop
 bindkey -M emacs '^[' _noop
 
+# Fn+Left/Right (Home/End on laptop keyboards) move by word. Terminals send
+# different sequences for these, so bind the common ones.
+bindkey -M emacs '^[[H' backward-word '^[OH' backward-word '^[[1~' backward-word
+bindkey -M emacs '^[[F' forward-word  '^[OF' forward-word  '^[[4~' forward-word
+
 # Ctrl-Z: bidirectional (foreground if no buffer, background otherwise)
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
