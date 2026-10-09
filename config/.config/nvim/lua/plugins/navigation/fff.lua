@@ -140,6 +140,14 @@ return {
       desc = "Open file picker",
     },
     {
+      -- same as the shell's ^F (fzf file picker from the current directory)
+      "<C-f>",
+      function()
+        require("fff").find_files_in_dir(vim.fn.getcwd())
+      end,
+      desc = "Open file picker",
+    },
+    {
       '<leader>gg',
       function()
         -- local root = vim.fs.root(0, { '.git', 'pyproject.toml', '.venv' }) or vim.fn.getcwd()
