@@ -19,6 +19,10 @@
 # -----------------------------------------------------------------------------
 # COLORED MAN PAGES (https://github.com/ael-code/zsh-colored-man-pages)
 # -----------------------------------------------------------------------------
+# groff >= 1.23 emits ANSI SGR escapes, which less passes through untouched, so
+# the plugin's LESS_TERMCAP_* colors never apply. This restores the old
+# overstrike output that less colors.
+export GROFF_NO_SGR=1
 source ~/.zsh/zsh-colored-man-pages/colored-man-pages.plugin.zsh
 
 # -----------------------------------------------------------------------------
