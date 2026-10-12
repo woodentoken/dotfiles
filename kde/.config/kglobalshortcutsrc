@@ -272,10 +272,16 @@ switch to previous activity=none,none,Switch to Previous Activity
 toggle do not disturb=none,none,Toggle do not disturb
 
 [services][com.mitchellh.ghostty.desktop]
-_launch=Meta+T
+_launch=none
+
+[services][kitty.desktop]
+_launch=Meta+Alt+T
 
 [services][net.local.ghostty.desktop]
-_launch=Meta+Alt+T
+_launch=Meta+Shift+T
+
+[services][net.local.kitty.desktop]
+_launch=Meta+T
 
 [services][net.waterfox.waterfox.desktop]
 _launch=Meta+B
@@ -287,5 +293,4 @@ _launch=none
 _launch=Meta+Ctrl+Alt+Shift+Space
 
 [services][org.kde.spectacle.desktop]
-CurrentMonitorScreenShot=none
-OpenWithoutScreenshot=none
+RecordScreen=none
