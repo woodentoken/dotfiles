@@ -80,7 +80,8 @@ alias cls='clear'
 alias duh='du -h --max-depth=1'
 
 # LS
-alias ls='ls -1 --group-directories-first --classify --color=always'
+# LC_COLLATE=C: sort by byte value so leading _ isn't ignored (en_US skips punctuation)
+alias ls='LC_COLLATE=C ls -1 --group-directories-first --classify --color=always'
 # long (capital includes symlinks)
 alias ll="ls -l | awk '/^d/'; ls -l | awk '/^-/'"
 alias lL="ls -l | awk '/^d/'; ls -l | awk '/^l/'; ls -l | awk '/^-/'"
