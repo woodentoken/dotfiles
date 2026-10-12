@@ -12,7 +12,8 @@ on:
       - ".github/workflows/build-os.yml"
   schedule:
     # Daily, so the image picks up upstream Kinoite and package updates.
-    - cron: "0 0 * * *"
+    - cron: "0 2 * * *"
+      timezone: "America/New_York"
   workflow_dispatch:
 
 concurrency:
@@ -50,7 +51,7 @@ jobs:
           echo "date=$(date -u +%Y%m%d)" >> "$GITHUB_OUTPUT"
           echo "sha=${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
 
-      # Rootful podman, same as rebuild_os.sh.
+      # Rootful podman.
       - name: Build
         env:
           IMAGE: ${{ steps.meta.outputs.image }}
