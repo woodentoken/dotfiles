@@ -2,8 +2,8 @@
 # bootstrap.sh: set up a Fedora Kinoite machine from this dotfiles repo.
 #
 # Prerequisite: the machine is booted into the custom image built from
-# image/Containerfile. That image provides zsh, stow, neovim, distrobox and the
-# other host tools; this script only does per-user setup.
+# images/Containerfile_os (see images/rebuild_os.sh). That image provides zsh,
+# stow, neovim and the other host tools; this script only does per-user setup.
 #
 # Safe to re-run: each step skips or updates work that's already done.
 set -euo pipefail
@@ -52,12 +52,12 @@ backup_conflicts() {
 #################################################
 step "Checking host tools"
 missing=()
-for cmd in zsh stow nvim tmux distrobox flatpak git curl; do
+for cmd in zsh stow nvim tmux toolbox podman flatpak git curl; do
   command -v "$cmd" >/dev/null || missing+=("$cmd")
 done
 if (( ${#missing[@]} )); then
   echo "Missing on host: ${missing[*]}" >&2
-  echo "Build and boot the custom image first (see $DOTFILES/image/)." >&2
+  echo "Build and boot the custom image first (see $DOTFILES/images/)." >&2
   exit 1
 fi
 log "OK"
@@ -67,21 +67,11 @@ step "Desktop apps (Flatpak)"
 read -rp "Install desktop apps from flatpaks.txt? [y/N] " yn
 if [[ ${yn:-n} =~ ^[Yy]$ ]]; then
   flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-  { grep -Ev '^\s*(#|$)' "$DOTFILES/containers/flatpaks.txt" || true; } |
+  { grep -Ev '^\s*(#|$)' "$DOTFILES/images/flatpaks.txt" || true; } |
     xargs -r flatpak install -y --noninteractive flathub
 else
   log "Skipping"
 fi
-
-#################################################
-step "Dev box '$BOX' (first creation takes a while)"
-if podman container exists "$BOX" 2>/dev/null; then
-  log "Already exists"
-else
-  show distrobox assemble create --file "$DOTFILES/containers/distrobox.ini"
-fi
-# First entry installs the box's packages; do it here so progress is visible.
-show distrobox enter "$BOX" -- true
 
 #################################################
 step "User-level tools on the host (uv, node, fzf, plugin managers)"
@@ -94,6 +84,13 @@ else
     env UV_NO_MODIFY_PATH=1 INSTALLER_NO_MODIFY_PATH=1 sh >>"$LOG" 2>&1
 fi
 log "  uv"
+
+# Claude Code: installs to ~/.local/bin and updates itself. The home dir is
+# shared with toolboxes, so this one install covers the host and every box.
+if [ ! -x "$HOME/.local/bin/claude" ]; then
+  curl -fsSL https://claude.ai/install.sh | bash >>"$LOG" 2>&1
+fi
+log "  claude"
 
 # nvm + latest node (PROFILE=/dev/null: don't touch rc files)
 if [ ! -s "$HOME/.nvm/nvm.sh" ]; then
@@ -120,6 +117,14 @@ if [ -d "$DOTFILES/tmux" ]; then
 fi
 
 #################################################
+step "Dev box '$BOX' (first build takes a while)"
+if podman container exists "$BOX" 2>/dev/null; then
+  log "Already exists (recreate with images/rebuild_toolbox.sh)"
+else
+  show "$DOTFILES/images/rebuild_toolbox.sh"
+fi
+
+#################################################
 step "Rust and cargo tools (built in '$BOX', usable everywhere via ~/.cargo/bin)"
 RUST_SETUP=$(cat <<'EOF'
 set -e
@@ -128,10 +133,10 @@ if [ -x "$HOME/.cargo/bin/rustup" ]; then
 else
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
 fi
-"$HOME/.cargo/bin/cargo" install --locked zellij csvlens git-absorb
+"$HOME/.cargo/bin/cargo" install --locked csvlens git-absorb
 EOF
 )
-show distrobox enter "$BOX" -- bash -c "$RUST_SETUP"
+show toolbox run -c "$BOX" bash -c "$RUST_SETUP"
 
 #################################################
 step "R packages and radian (in '$BOX')"
@@ -146,12 +151,12 @@ missing <- setdiff(pkgs, rownames(installed.packages()))
 if (length(missing)) install.packages(missing, lib = lib, repos = repos)
 EOF
 )
-show distrobox enter "$BOX" -- Rscript -e "$R_SETUP"
-show distrobox enter "$BOX" -- bash -c 'pipx install radian || pipx upgrade radian'
+show toolbox run -c "$BOX" Rscript -e "$R_SETUP"
+show toolbox run -c "$BOX" bash -c 'pipx install radian || pipx upgrade radian'
 
 ################################################## 
 step "downloading updated zsh plugins"
-for f in "$HOME/resolve_zsh_plugins.sh" "$DOTFILES/resolve_zsh_plugins.sh"; do
+for f in "$HOME/resolve_zsh_plugins.sh" "$DOTFILES/zsh/resolve_zsh_plugins.sh"; do
   if [ -x "$f" ]; then
     (cd "$HOME" && run "$f")
     log "  zsh plugins"
