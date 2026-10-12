@@ -21,7 +21,7 @@ concurrency:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: kinoite-nvidia
+  IMAGE_NAME: os_image
   CONTAINERFILE: images/Containerfile_os
 
 jobs:
