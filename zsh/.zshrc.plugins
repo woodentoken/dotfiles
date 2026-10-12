@@ -31,8 +31,16 @@ source ~/.zsh/zsh-colored-man-pages/colored-man-pages.plugin.zsh
 # Syntax highlighting via a shared Rust daemon. Hooks zle-line-pre-redraw rather
 # than wrapping widgets, so it doesn't trigger deja's re-wrap below. Its output
 # embeds the binary path, so it's cached like the other init scripts.
-_cached_source zsh-patina zsh-patina activate &&
+#
+# `activate` is also what starts the daemon, which the cache skips, so after a
+# reboot nothing would and the highlighter silently no-ops. Start it whenever
+# its socket (the path the cached script checks) is missing; backgrounded since
+# the highlighter simply waits for the socket.
+if _cached_source zsh-patina zsh-patina activate; then
+  [[ $functions[_zsh_patina] =~ 'socket_path="([^"]+)"' && ! -S $match[1] ]] &&
+    { zsh-patina start &>/dev/null &! }
   _cached_source zsh-patina-completion zsh-patina completion
+fi
 
 # -----------------------------------------------------------------------------
 # DEJA (https://github.com/Giammarco-Ferranti/deja)
