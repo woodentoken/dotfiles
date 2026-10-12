@@ -1,5 +1,4 @@
-# Dev toolbox. Build: podman build --pull=newer -t localhost/dev-toolbox ~/dotfiles/containerization/
-# Create with:        toolbox create --image localhost/dev-toolbox dev
+# Dev toolbox. Build and (re)create the container with ./rebuild_toolbox.sh
 #
 # Fedora toolbox image matching the host release, so Neovim and anything compiled
 # here (cargo tools, treesitter parsers) also runs on the host via the shared home.
@@ -10,7 +9,7 @@ RUN dnf install -y \
       # Same shell & everyday tools as the host
       zsh stow fastfetch direnv neovim tmux bat fd-find ripgrep tree \
       # tools
-      claude gh git git-lfs
+      gh git git-lfs \
       # Build toolchain
       gcc gcc-c++ make cmake perl pkgconf-pkg-config openssl-devel ncurses-devel \
       # Python
@@ -20,15 +19,7 @@ RUN dnf install -y \
       libpng-devel libtiff-devel harfbuzz-devel fribidi-devel \
       # Documents & images
       pandoc ImageMagick ImageMagick-devel feh \
-      # miscellaneous
-      numlockx
     && dnf clean all
-
-# disable the numlock functionality - its silent on some keyboards and annoying
-RUN numlockx off
-
-# claude
-RUN curl -fsSL https://claude.ai/install.sh | bash
 
 # install zellij
 RUN curl -fsSL https://github.com/zellij-org/zellij/releases/latest/download/zellij-x86_64-unknown-linux-musl.tar.gz \

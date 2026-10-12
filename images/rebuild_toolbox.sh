@@ -28,6 +28,13 @@ fi
 echo "==> Creating toolbox '$NAME'"
 toolbox create --image "$IMAGE" "$NAME"
 
+# Claude lives in the shared home (installed by bootstrap.sh), not the image.
+# Login shell so ~/.local/bin is on PATH via .profile.
+if ! toolbox run -c "$NAME" bash -lc 'command -v claude' >/dev/null 2>&1; then
+    echo "Warning: claude not found in '$NAME'; install it with:" >&2
+    echo "  curl -fsSL https://claude.ai/install.sh | bash" >&2
+fi
+
 echo "==> Removing dangling images"
 podman image prune -f
 
