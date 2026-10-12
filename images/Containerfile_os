@@ -5,6 +5,10 @@ RUN mkdir -p /usr/lib/bootc/kargs.d && \
       > /usr/lib/bootc/kargs.d/00-nvidia.toml
 
 # --- 1. NVIDIA 580xx (slowest step, changes rarely -> goes first) ---
+# akmod-nvidia's %post tries to build the kmod immediately via `akmods`, which
+# can't drop privileges in a container build and fails as root; dnf5 then fails
+# the whole transaction. We build the kmod ourselves below, so akmods is stubbed
+# out with /usr/bin/true for the driver install and restored right after.
 RUN --mount=type=cache,target=/var/cache/libdnf5 \
     test "$(rpm -q kernel-core | wc -l)" -eq 1 && \
     set -- $(rpm -q kernel-core --qf '%{VERSION} %{RELEASE} %{ARCH}\n') && \
@@ -15,9 +19,13 @@ RUN --mount=type=cache,target=/var/cache/libdnf5 \
       https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm && \
     { dnf install -y --setopt=keepcache=1 --refresh "kernel-devel-${KVER}" "kernel-devel-matched-${KVER}" || \
       dnf install -y "${KOJI}/kernel-devel-${KVER}.rpm" "${KOJI}/kernel-devel-matched-${KVER}.rpm"; } && \
+    dnf install -y --setopt=keepcache=1 akmods && \
+    mv /usr/sbin/akmods /usr/sbin/akmods.real && \
+    ln -s /usr/bin/true /usr/sbin/akmods && \
     dnf install -y --setopt=keepcache=1 \
       --exclude='kernel,kernel-core,kernel-modules*,kernel-devel,kernel-devel-matched' \
       akmod-nvidia-580xx xorg-x11-drv-nvidia-580xx xorg-x11-drv-nvidia-580xx-cuda && \
+    rm /usr/sbin/akmods && mv /usr/sbin/akmods.real /usr/sbin/akmods && \
     printf '%%_without_kmod_nvidia_detect 1\n' > /etc/rpm/macros.nvidia-kmod-closed && \
     mkdir -p /tmp/akmods-out && chown akmods:akmods /tmp/akmods-out && \
     runuser -u akmods -- akmodsbuild --kernels "${KVER}" --outputdir /tmp/akmods-out \
