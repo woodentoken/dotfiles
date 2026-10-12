@@ -1,51 +1,66 @@
 FROM quay.io/fedora-ostree-desktops/kinoite:44
 
-# --- 1. NVIDIA 580xx (slowest step, changes rarely -> goes first) ---
-RUN --mount=type=cache,target=/var/cache/libdnf5 \
-    dnf install -y \
-      https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-      https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm && \
-    V=$(rpm -q kernel --qf '%{VERSION}\n' | tail -n1) && \
-    R=$(rpm -q kernel --qf '%{RELEASE}\n' | tail -n1) && \
-    A=$(rpm -q kernel --qf '%{ARCH}\n' | tail -n1) && \
-    KVER="${V}-${R}.${A}" && \
-    KOJI="https://kojipkgs.fedoraproject.org/packages/kernel/${V}/${R}/${A}" && \
-    { dnf install -y --refresh "kernel-devel-${KVER}" "kernel-devel-matched-${KVER}" || \
-      dnf install -y "${KOJI}/kernel-devel-${KVER}.rpm" "${KOJI}/kernel-devel-matched-${KVER}.rpm"; } && \
-    { dnf install -y \
-        --exclude='kernel,kernel-core,kernel-modules*,kernel-devel,kernel-devel-matched' \
-        akmod-nvidia-580xx xorg-x11-drv-nvidia-580xx xorg-x11-drv-nvidia-580xx-cuda || true; } && \
-    rpm -q "kernel-devel-${KVER}" "kernel-devel-matched-${KVER}" \
-        akmod-nvidia-580xx xorg-x11-drv-nvidia-580xx xorg-x11-drv-nvidia-580xx-cuda && \
-    test "$(rpm -q kernel-core | wc -l)" -eq 1 && \
-    mkdir -p /tmp/akmods-out && chown akmods:akmods /tmp/akmods-out && \
-    runuser -u akmods -- akmodsbuild --kernels "${KVER}" --outputdir /tmp/akmods-out \
-        /usr/src/akmods/nvidia-580xx-kmod.latest && \
-    dnf install -y /tmp/akmods-out/kmod-nvidia-580xx-*.rpm && \
-    find "/usr/lib/modules/${KVER}" -name 'nvidia.ko*' | grep -q . && \
-    rm -rf /tmp/akmods-out /var/lib/dnf /var/log/dnf5.log
-
 RUN mkdir -p /usr/lib/bootc/kargs.d && \
     printf 'kargs = ["rd.driver.blacklist=nouveau", "modprobe.blacklist=nouveau", "nvidia-drm.modeset=1"]\n' \
       > /usr/lib/bootc/kargs.d/00-nvidia.toml
 
+# --- 1. NVIDIA 580xx (slowest step, changes rarely -> goes first) ---
+RUN --mount=type=cache,target=/var/cache/libdnf5 \
+    test "$(rpm -q kernel-core | wc -l)" -eq 1 && \
+    set -- $(rpm -q kernel-core --qf '%{VERSION} %{RELEASE} %{ARCH}\n') && \
+    V=$1 R=$2 A=$3 KVER="$1-$2.$3" && \
+    KOJI="https://kojipkgs.fedoraproject.org/packages/kernel/${V}/${R}/${A}" && \
+    dnf install -y --setopt=keepcache=1 \
+      https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+      https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm && \
+    { dnf install -y --setopt=keepcache=1 --refresh "kernel-devel-${KVER}" "kernel-devel-matched-${KVER}" || \
+      dnf install -y "${KOJI}/kernel-devel-${KVER}.rpm" "${KOJI}/kernel-devel-matched-${KVER}.rpm"; } && \
+    dnf install -y --setopt=keepcache=1 \
+      --exclude='kernel,kernel-core,kernel-modules*,kernel-devel,kernel-devel-matched' \
+      akmod-nvidia-580xx xorg-x11-drv-nvidia-580xx xorg-x11-drv-nvidia-580xx-cuda && \
+    printf '%%_without_kmod_nvidia_detect 1\n' > /etc/rpm/macros.nvidia-kmod-closed && \
+    mkdir -p /tmp/akmods-out && chown akmods:akmods /tmp/akmods-out && \
+    runuser -u akmods -- akmodsbuild --kernels "${KVER}" --outputdir /tmp/akmods-out \
+        /usr/src/akmods/nvidia-580xx-kmod.latest && \
+    dnf install -y /tmp/akmods-out/kmod-nvidia-580xx-*.rpm && \
+    test "$(modinfo -F license "$(find "/usr/lib/modules/${KVER}" -name 'nvidia.ko*')")" = NVIDIA && \
+    rm -f /etc/rpm/macros.nvidia-kmod-closed && \
+    dnf remove -y akmod-nvidia-580xx "kernel-devel-${KVER}" "kernel-devel-matched-${KVER}" && \
+    rpm -q xorg-x11-drv-nvidia-580xx xorg-x11-drv-nvidia-580xx-cuda "kmod-nvidia-580xx-${KVER}" && \
+    rm -rf /tmp/akmods-out /var/lib/dnf /var/log/dnf5.log /var/cache/akmods /var/log/akmods
+
 # --- 2. CLI tools (edited occasionally) ---
 RUN --mount=type=cache,target=/var/cache/libdnf5 \
-    dnf install -y \
-      procps cabextract xdg-mime \
-      fuse fuse-devel fuse-libs \
+    dnf install -y --setopt=keepcache=1 \
+      bat \
+      cabextract \
+      fastfetch \
+      fd-find \
+      gcc \
+      git-lfs \
       kitty \
-      bat fastfetch fd-find gcc git-lfs neovim net-tools ripgrep \
-      stow tealdeer tmux tree unzip wl-clipboard xclip zip zsh && \
-    rm -rf /var/lib/dnf /var/log/dnf5.log /var/cache/ldconfig/aux-cache /tmp/*
+      neovim \
+      net-tools \
+      onedrive \
+      ripgrep \
+      stow \
+      tealdeer \
+      tmux \
+      tree \
+      unzip \
+      wl-clipboard \
+      xclip \
+      zip \
+      zsh \
+    && rm -rf /var/lib/dnf /var/log/dnf5.log /var/cache/ldconfig/aux-cache /tmp/*
 
 # --- 3. Extras from COPRs (most likely to change -> last) ---
 # ghostty terminal
 RUN --mount=type=cache,target=/var/cache/libdnf5 \
     curl -fsSL "https://copr.fedorainfracloud.org/coprs/scottames/ghostty/repo/fedora-$(rpm -E %fedora)/scottames-ghostty-fedora-$(rpm -E %fedora).repo" \
       -o "/etc/yum.repos.d/_copr:copr.fedorainfracloud.org:scottames:ghostty.repo" && \
-    dnf install -y ghostty && \
-    rm -rf /var/lib/dnf /var/log/dnf5.log
+    dnf install -y ghostty \
+    && rm -rf /var/lib/dnf /var/log/dnf5.log
 
 # set up ghostty for success in toolboxes
 RUN infocmp -x xterm-ghostty | tic -x -
