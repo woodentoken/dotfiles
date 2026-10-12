@@ -22,8 +22,8 @@ git clone https://github.com/woodentoken/dotfiles/ ~/dotfiles
 ```
 
 the install script uses `stow` to automatically symlink each folder into the
-home directory. It will back up any existing dotfiles to a folder
-`~/dotfiles_backup/` before symlinking.
+home directory. It will back up any conflicting dotfiles to a timestamped folder
+under `~/dotfiles_old/` before symlinking.
 
 ---
 
@@ -42,30 +42,34 @@ The (main) plugins that I am using are listed below (almost assuredly out of dat
 
 ### images/
 
-This file holds Containerfiles for a Fedora Kinoite OS image, and a Containerfile for a development toolbox.
+This folder holds a Containerfile for a Fedora Kinoite OS image, and a Containerfile for a development toolbox.
 
-scripts use the Containerfiles to deploy images through podman.
+- `rebuild_os.sh` triggers the GitHub Actions build of the OS image, which is published to
+  `ghcr.io/woodentoken/os_image`, then stages it with bootc (`--no-build` just stages the latest
+  published image, `--reboot` reboots afterwards). The image is also rebuilt daily.
+- `rebuild_toolbox.sh` builds the toolbox image locally with podman and recreates the `dev` toolbox.
 
 It also includes a flatpaks.txt file to keep sandboxed GUI apps tracked and reproducible.
 
 #### Kinoite integration
 
 Every layer has a declarative source of truth. Together these files describe the whole machine:
-image/Containerfile: the OS
-`flatpaks.txt``: GUI apps
-`distrobox.ini`: dev environments
-Stow packages: configuration
-Project lock files (uv.lock, renv.lock): project dependencies
-`bootstrap.sh`: ties it together
+- `Containerfile_os`: the OS
+- `flatpaks.txt`: GUI apps
+- `Containerfile_toolbox`: dev environment
+- Stow packages: configuration
+- Project lock files (uv.lock, renv.lock): project dependencies
+- `bootstrap.sh`: ties it together
 
 So a new machine workflow is:
 1. install Kinoite.
-2. switch installation to os_image.
-2a. (optional) restore data.
-3. create dev-toolbox using the toolbox_image file and `build_toolbox.sh`
-4. switch to dev-toolbox.
-3. clone this dotfiles project.
-4. run `bootstrap.sh` to install dotfiles etc.
+2. switch the installation to os_image and reboot:
+   `sudo bootc switch ghcr.io/woodentoken/os_image:latest && systemctl reboot`
+3. (optional) restore data.
+4. clone this dotfiles project.
+5. run `bootstrap.sh` on the host. It installs flatpaks and user-level tools (including claude),
+   builds the `dev` toolbox, and stows the dotfiles.
+6. enter the dev toolbox: `toolbox enter dev`.
 
 ### CLI tools
 
@@ -158,7 +162,7 @@ currently, I'm using zellij over tmux.
 
 ### zellij
 
-- [zellij-org/zellij]()
+- [zellij-org/zellij](https://github.com/zellij-org/zellij)
 
 ---
 
