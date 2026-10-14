@@ -25,6 +25,10 @@ setopt COMPLETE_IN_WORD
 # the dump is a day old, rebuild it in a background subshell so new completions
 # show up in the next shell; .zshrc zcompiles it afterwards.
 autoload -Uz compinit
+# Shells launched from a snap app inherit the snap's completion dirs; a dump
+# rebuilt there bakes in rules (e.g. plotjuggler's catch-all _python-argcomplete)
+# whose functions every other shell can't find. Never scan them.
+fpath=(${fpath:#/snap/*})
 () {
   setopt local_options extended_glob
   local dump=${ZDOTDIR:-$HOME}/.zcompdump
