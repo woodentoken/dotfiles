@@ -18,10 +18,11 @@
 # -----------------------------------------------------------------------------
 # Auto-attach or create a zellij session. Runs first so the outer terminal shell
 # doesn't load the full config only to host zellij (each pane loads its own).
-# Once zellij exits or detaches, this shell carries on loading below.
+# Once zellij exits or detaches cleanly, the shell exits and closes the terminal;
+# if zellij fails, this shell carries on loading below as a fallback.
 # Skipped over SSH, in VS Code's integrated terminal, or when NO_ZELLIJ is set.
 if [[ -z "$ZELLIJ" && -z "$NO_ZELLIJ" && -z "$SSH_TTY" && "$TERM_PROGRAM" != "vscode" ]] && (( $+commands[zellij] )); then
-  zellij attach -c
+  zellij attach -c dev && exit
   # restart the startup timer so the report covers only the rest of the load
   _zsh_startup_t0=$EPOCHREALTIME
 fi

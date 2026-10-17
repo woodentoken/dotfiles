@@ -274,7 +274,7 @@ toggle do not disturb=none,none,Toggle do not disturb
 [services][com.mitchellh.ghostty.desktop]
 _launch=none
 
-[services][kitty.desktop]
+[services][net.local.env.desktop]
 _launch=Meta+Alt+T
 
 [services][net.local.ghostty.desktop]
