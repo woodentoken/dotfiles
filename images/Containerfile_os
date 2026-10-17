@@ -65,4 +65,24 @@ RUN --mount=type=cache,target=/var/cache/libdnf5 \
 # set up ghostty for success in toolboxes
 RUN infocmp -x xterm-ghostty | tic -x -
 
+# Apply image updates (which reboot) only at 3-3:30 AM. Persistent=false so a
+# run missed while powered off is skipped instead of rebooting soon after boot.
+RUN mkdir -p /usr/lib/systemd/system/bootc-fetch-apply-updates.timer.d && \
+    printf '%s\n' '[Timer]' 'OnBootSec=' 'OnUnitInactiveSec=' \
+      'OnCalendar=*-*-* 03:00:00 America/New_York' 'RandomizedDelaySec=30m' 'Persistent=false' \
+      > /usr/lib/systemd/system/bootc-fetch-apply-updates.timer.d/50-nightly.conf
+
+# Also stage updates around midday without rebooting, for nights the machine is
+# off. A staged update is applied by the next manual reboot or the 3 AM run.
+RUN printf '%s\n' '[Unit]' 'Description=Stage bootc updates without rebooting' \
+      'Documentation=man:bootc(8)' 'ConditionPathExists=/run/ostree-booted' \
+      'Wants=network-online.target' 'After=network-online.target' \
+      '' '[Service]' 'Type=oneshot' 'ExecStart=/usr/bin/bootc upgrade --quiet' \
+      > /usr/lib/systemd/system/bootc-fetch-stage-updates.service && \
+    printf '%s\n' '[Unit]' 'Description=Stage bootc updates without rebooting' \
+      '' '[Timer]' 'OnCalendar=*-*-* 12:00:00 America/New_York' 'RandomizedDelaySec=1h' 'Persistent=true' \
+      '' '[Install]' 'WantedBy=timers.target' \
+      > /usr/lib/systemd/system/bootc-fetch-stage-updates.timer && \
+    systemctl enable bootc-fetch-stage-updates.timer
+
 RUN bootc container lint
