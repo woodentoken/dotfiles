@@ -16,21 +16,13 @@ config/.config/*
 config/.config/nvim/lazy-lock.json
 
 # unignore these folders under the config directory
-!config/.config/bspwm
-!config/.config/dunst
 !config/.config/ghostty
 !config/.config/kitty
 !config/.config/lazygit
 !config/.config/neofetch
-!config/.config/nnn
 !config/.config/nvim
-!config/.config/picom
 !config/.config/python
-!config/.config/redshift.conf
-!config/.config/rofi
 !config/.config/ruff
-!config/.config/sxhkd
-!config/.config/wezterm
 !config/.config/zellij
 !config/.config/python
 
