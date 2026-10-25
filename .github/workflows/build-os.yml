@@ -11,8 +11,9 @@ on:
       - "images/Containerfile_os"
       - ".github/workflows/build-os.yml"
   schedule:
-    # Daily, so the image picks up upstream Kinoite and package updates.
-    - cron: "0 2 * * *"
+    # Weekly (Saturday), so the image picks up upstream Kinoite and package
+    # updates without producing a new image (and nightly reboot) every day.
+    - cron: "0 2 * * 6"
       timezone: "America/New_York"
   workflow_dispatch:
 
