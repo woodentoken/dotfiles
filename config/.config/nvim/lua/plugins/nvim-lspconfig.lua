@@ -110,6 +110,15 @@ return {
           },
         },
         stylua = { enabled = false },
+        -- configured here rather than in init.lua, where touching vim.lsp loaded
+        -- the whole LSP client (~5ms) on every startup, even with no file open
+        ruff = {
+          init_options = {
+            settings = {
+              args = { "--fix", "--unsafe-fixes" },
+            },
+          },
+        },
         lua_ls = {
           -- mason = false, -- set to false if you don't want this server to be installed with mason
           -- Use this to add any additional keymaps

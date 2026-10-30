@@ -94,4 +94,18 @@ RUN printf '%s\n' '[Unit]' 'Description=Stage bootc updates without rebooting' \
       > /usr/lib/systemd/system/bootc-fetch-stage-updates.timer && \
     systemctl enable bootc-fetch-stage-updates.timer
 
+# Update system flatpaks daily and drop runtimes nothing uses anymore.
+# Persistent=true so a run missed while powered off happens soon after boot.
+RUN printf '%s\n' '[Unit]' 'Description=Update system Flatpaks' \
+      'Wants=network-online.target' 'After=network-online.target' \
+      '' '[Service]' 'Type=oneshot' \
+      'ExecStart=/usr/bin/flatpak update -y --noninteractive' \
+      'ExecStart=/usr/bin/flatpak uninstall --unused -y --noninteractive' \
+      > /usr/lib/systemd/system/flatpak-system-update.service && \
+    printf '%s\n' '[Unit]' 'Description=Update system Flatpaks' \
+      '' '[Timer]' 'OnCalendar=*-*-* 12:30:00 America/New_York' 'RandomizedDelaySec=1h' 'Persistent=true' \
+      '' '[Install]' 'WantedBy=timers.target' \
+      > /usr/lib/systemd/system/flatpak-system-update.timer && \
+    systemctl enable flatpak-system-update.timer
+
 RUN bootc container lint
