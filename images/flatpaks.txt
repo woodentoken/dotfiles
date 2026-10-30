@@ -5,6 +5,7 @@ io.github.AllanChain.sane-break
 net.waterfox.waterfox
 org.darktable.Darktable
 org.gnome.BreakTimer
+org.inkscape.Inkscape
 org.kde.labplot
 org.libreoffice.LibreOffice
 org.videolan.VLC
