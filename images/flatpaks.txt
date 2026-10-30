@@ -1,6 +1,7 @@
 com.slack.Slack
 com.spotify.Client
 com.valvesoftware.Steam
+io.github.AllanChain.sane-break
 net.waterfox.waterfox
 org.darktable.Darktable
 org.gnome.BreakTimer
