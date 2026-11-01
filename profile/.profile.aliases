@@ -130,7 +130,7 @@ alias sclip='xclip -selection c -o'
 
 # TREE
 alias tree='tree -F --dirsfirst'
-alias tr='tree -L 2'
+alias te='tree -L 2'
 alias tr1='tree -L 1'
 alias tr1='tree -L 1'
 alias tr2='tree -L 2'
