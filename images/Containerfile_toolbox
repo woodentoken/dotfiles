@@ -11,7 +11,7 @@ RUN dnf install -y \
       # tools
       gh git git-lfs \
       # Build toolchain
-      gcc gcc-c++ make cmake perl pkgconf-pkg-config openssl-devel ncurses-devel \
+      gcc gcc-c++ make cmake ninja-build clang-tools-extra perl pkgconf-pkg-config openssl-devel ncurses-devel \
       # Python
       uv python3-devel python3-pip pipx \
       # R, plus system libraries commonly needed to build R packages (httpgd, etc.)
@@ -19,6 +19,8 @@ RUN dnf install -y \
       libpng-devel libtiff-devel harfbuzz-devel fribidi-devel \
       # Documents & images
       pandoc ImageMagick ImageMagick-devel feh \
+      # kitty terminal support in the toolbox
+      kitty-terminfo \
     && dnf clean all
 
 # install zellij

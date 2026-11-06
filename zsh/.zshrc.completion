@@ -45,52 +45,18 @@ autoload -Uz bashcompinit && bashcompinit
 # KEYBINDINGS
 # -----------------------------------------------------------------------------
 # ^Xa expands the alias under the cursor
-zle -C alias-expension complete-word _generic
-bindkey '^Xa' alias-expension
-zstyle ':completion:alias-expension:*' completer _expand_alias
+zle -C alias-expansion complete-word _generic
+bindkey '^Xa' alias-expansion
+zstyle ':completion:alias-expansion:*' completer _expand_alias
 
-# Enter in the completion menu accepts the match and runs the line in one press;
-# Space accepts it and reopens the menu on the next word (or inside the
-# directory just picked), so a whole line can be built without leaving it.
-# The menu can't run user widgets: a key bound to one closes it and is replayed
-# in the main keymap, so Space is handled there, right after a completion that
-# showed a menu. Anywhere else it's a plain space.
+# In the completion menu Enter accepts the match and runs the line in one press,
+# / accepts a directory and reopens the menu inside it, and Space accepts the
+# match and moves on (a key bound to a non-menu widget closes the menu and is
+# replayed in the main keymap, so it's just magic-space there)
 zmodload zsh/complist
-
-# Completion that never picks for you: a lone match is listed, not inserted
-_continue-menu() {
-  _main_complete
-  (( compstate[nmatches] == 1 )) && compstate[insert]= compstate[list]=list
-  typeset -g _continue_menu_insert=$compstate[insert]
-}
-zle -C _continue-menu complete-word _continue-menu
-
-_space-or-continue-menu() {
-  # how the last completion inserted: "menu..." if the menu was open, empty
-  # if _continue-menu only listed a lone match
-  local insert=-
-  case $LASTWIDGET in
-    _space-or-continue-menu) insert=$_continue_menu_insert ;;
-    fzf-completion|expand-or-complete|complete-word|menu-complete) insert=$_lastcomp[insert] ;;
-  esac
-  if [[ -z $insert ]]; then
-    zle complete-word   # Space on a listed lone match takes it
-  elif [[ $insert != menu* ]]; then
-    zle self-insert
-    return
-  fi
-  # zsh drops a directory's auto-added slash when Space is pressed; put it back
-  # so completion continues inside it instead of on the next word
-  if [[ $LBUFFER != *[/\ ] ]]; then
-    local word=${(Q)${(z)LBUFFER}[-1]}
-    [[ -d ${~word} ]] && LBUFFER+=/ || LBUFFER+=' '
-  fi
-  zle _continue-menu
-}
-zle -N _space-or-continue-menu
-bindkey -M emacs ' ' _space-or-continue-menu
 bindkey -M menuselect '^M' .accept-line
-bindkey -M menuselect ' ' _space-or-continue-menu
+bindkey -M menuselect '/' accept-and-infer-next-history
+bindkey -M menuselect ' ' magic-space
 
 # In interactive mode complist makes Tab (any completion widget) only insert the
 # longest unambiguous prefix, so once that's in place Tab does nothing. A

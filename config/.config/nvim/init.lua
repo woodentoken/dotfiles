@@ -21,16 +21,6 @@ vim.keymap.set("c", "57440u", "<Nop>", { silent = true })
 
 vim.opt.fileformats = { "unix", "dos" }
 
-vim.lsp.config("ruff", {
-  init_options = {
-    settings = {
-      args = { "--fix", "--unsafe-fixes" },
-    },
-  },
-})
-
-vim.lsp.enable("ruff")
-
 -- Remove carriage return characters when pasting
 vim.api.nvim_create_autocmd("TextYankPost", {
   pattern = "*",

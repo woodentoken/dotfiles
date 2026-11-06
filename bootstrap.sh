@@ -192,6 +192,20 @@ fi
 run tldr --update || true
 log "  tldr cache"
 
+# conda's ncurses only reads its own terminfo db plus ~/.terminfo in hashed
+# (hex dir) layout, so its `clear`/`tput` fail with "terminals database is
+# inaccessible" under kitty/ghostty. Recompile those entries with conda's tic.
+TERMINFO_SETUP=$(cat <<'EOF'
+[ -x /opt/conda/bin/tic ] || exit 0
+for t in xterm-kitty xterm-ghostty; do
+  src=$(infocmp -x "$t" 2>/dev/null) || continue
+  printf '%s\n' "$src" | /opt/conda/bin/tic -x -o "$HOME/.terminfo" - 2>/dev/null
+done
+EOF
+)
+run toolbox run -c "$BOX" bash -c "$TERMINFO_SETUP"
+log "  terminfo for conda"
+
 #################################################
 step "Login shell"
 ZSH_PATH=$(command -v zsh)
