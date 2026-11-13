@@ -148,10 +148,6 @@ alias dr='docker'
 # FDFIND
 alias fd='fdfind'
 
-# FZF
-
-# TMUX
-
 # ZSH
 alias zsrc='source ~/dotfiles/zsh/.zshrc'
 
@@ -186,14 +182,16 @@ alias gan='git add -N'
 alias gpl="git pull "
 alias gps="git push "
 alias gpsf="git push --force-with-lease"
-
 alias gst="git status"
-alias gclean="git branch -r --merged origin/master | grep -v master | grep "origin/" | cut -d "/" -f 2- | xargs -n 20 git push --delete origin"
 
 alias gg='rg -n'
 alias ggw='gg -w'
 alias ggf='gg -F'
 alias ggb='gg --break'
+
+# delete all branches that have already been merged
+alias gclean="git branch -r --merged origin/master | grep -v master | grep "origin/" | cut -d "/" -f 2- | xargs -n 20 git push --delete origin"
+alias galias='git config --get-regexp alias' # show all git aliases
 
 # BRANCH SPECIFIC
 alias main='git co main'
