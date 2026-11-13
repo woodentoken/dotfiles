@@ -63,6 +63,7 @@
   wipe = !git add -A && git commit -m 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
 
   refresh = !git rm -r --cached . && git add .
+  conflicts = "!f() { git status -s | grep '^UU' | awk '{print $2}' | xargs -o vim; }; f"
 
 [mergetool]
   keepBackup = false
@@ -90,4 +91,4 @@
 	clean = git-lfs clean -- %f
 
 [rerere]
-	enabled = true
+  enabled = True
