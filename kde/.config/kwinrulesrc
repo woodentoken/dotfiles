@@ -9,8 +9,7 @@ wmclasscomplete=true
 wmclassmatch=1
 
 [General]
-count=2
-rules=89067fab-c4e5-42a0-aa55-3066f2342430,a5113f73-5f30-4c59-b320-2161da2371e4
+Order=89067fab-c4e5-42a0-aa55-3066f2342430,a5113f73-5f30-4c59-b320-2161da2371e4
 
 [a5113f73-5f30-4c59-b320-2161da2371e4]
 Description=Application settings for waterfox
