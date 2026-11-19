@@ -183,6 +183,7 @@ EnableRemoteFolderThumbnail=false
 MaximumRemoteSize=0
 
 [Shortcuts]
+Close=Ctrl+Esc
 MoveToTrash=Del; Eject
 Quit=Meta+Shift+Q
 SubstringCompletion=
