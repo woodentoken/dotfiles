@@ -43,7 +43,7 @@ local function add_hash_markers(bufnr, items, ctx)
     return items
   end
   local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
-  local function add(lnum, col, name)
+  local function add(lnum, col, name, banner)
     insert_marker(items, {
       kind = "Namespace",
       name = name,
@@ -51,6 +51,7 @@ local function add_hash_markers(bufnr, items, ctx)
       col = col,
       end_lnum = lnum,
       end_col = #lines[lnum],
+      banner = banner,
     })
   end
 
@@ -82,7 +83,7 @@ local function add_hash_markers(bufnr, items, ctx)
       end
       if banner_end then
         local first = lines[lnum + 1]
-        add(lnum + 1, (first:find("%S") or 1) - 1, table.concat(parts, " "))
+        add(lnum + 1, (first:find("%S") or 1) - 1, table.concat(parts, " "), true)
       end
     end
 
@@ -104,8 +105,45 @@ local function add_hash_markers(bufnr, items, ctx)
   return items
 end
 
+-- Draw a blank virtual line above each banner marker in the aerial pane.
+-- Virtual lines don't shift buffer rows, so aerial's row -> symbol mapping is intact.
+local banner_ns = vim.api.nvim_create_namespace("aerial_banner_spacing")
+
+local function add_banner_spacing(buf)
+  local util = require("aerial.util")
+  local data = require("aerial.data")
+  local bufnr, aer_bufnr = util.get_buffers(buf)
+  if not bufnr or not aer_bufnr or not vim.api.nvim_buf_is_valid(aer_bufnr) then
+    return
+  end
+  vim.api.nvim_buf_clear_namespace(aer_bufnr, banner_ns, 0, -1)
+  if not data.has_symbols(bufnr) then
+    return
+  end
+  local row = 0
+  for _, item in data.get_or_create(bufnr):iter({ skip_hidden = true }) do
+    -- skip row 0: a virt_line above the first line is hidden unless scrolled up
+    if item.banner and row > 0 then
+      vim.api.nvim_buf_set_extmark(aer_bufnr, banner_ns, row, 0, {
+        virt_lines = { { { "", "" } } },
+        virt_lines_above = true,
+      })
+    end
+    row = row + 1
+  end
+end
+
 return {
   "stevearc/aerial.nvim",
+  config = function(_, opts)
+    require("aerial").setup(opts)
+    local render = require("aerial.render")
+    local orig = render.update_aerial_buffer
+    render.update_aerial_buffer = function(buf, ...)
+      orig(buf, ...)
+      pcall(add_banner_spacing, buf)
+    end
+  end,
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
     "nvim-tree/nvim-web-devicons",
@@ -172,7 +210,7 @@ return {
       Function = "ƒ", -- Functions
       Interface = "↕", -- Interfaces
       Method = "𝑚", -- Methods
-      Namespace = "#", -- "###" section markers
+      Namespace = "", -- "###" section markers
       Property = "▪", -- Properties
       Struct = "⧋", -- Structs
       TypeParameter = "T", -- Type parameters / generics
